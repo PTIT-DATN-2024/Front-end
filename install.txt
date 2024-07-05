@@ -1,0 +1,47 @@
+1. Cài đặt Visual Studio Code (Công Cụ Để Code Ngôn Ngữ Javascript)
+Download tại đây: https://code.visualstudio.com/download
+
+2. Cài đặt và sử dụng GIT. Đi Làm Không Thể Không biết tới GIT
+
+3.Cài Đặt Môi Trường Node.JS
+Cần Node.JS để chạy dự án React. Các bạn hình dung Node.JS là môi trường để chạy 
+code javascript. Node.JS không phải là thư viện (library) hay là framework.
+
+4.Cài Đặt Google Chrome
+- Chuyển ngôn ngữ Chrome sang tiếng anh: 
+
+Cài đặt dự án React
+Download source code dự án: 
+https://drive.google.com/file/d/17u_Q40NVP95YIPIhtW6JqnXjkHQZ18Bz/view?usp=sh
+aring
+
+
+GIT
+git config --list
+git init
+git add .
+git commit -m "qweqwe"
+git remote add origin https://github.com/naoisiic25/Food_Store.git
+git push origin master
+
+#18 React dev tool/ Redux dev tool
+React devtool: https://chrome.google.com/webstore/detail/react-developertools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
+Redux devtool:
+https://chrome.google.com/webstore/detail/reduxdevtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+
+be
+npm install express mongoose bcryptjs jsonwebtoken body-parser
+
+
+
+
+npm install --save-exact sass@1.53.0
+npm install --save-exact react-router-dom@6.3.0 bootstrap@5.2.0 react-bootstrap@2.4.0
+npm install --save-exact react-pro-sidebar@0.7.1
+npm install --save-exact react-icons@4.4.0
+npm install --save-exact axios@0.27.2
+npm install --save-exact react-toastify@9.0.7
+npm install --save-exact react-paginate@8.1.3
+npm install --save-exact lodash@4.17.21
+npm install --save-exact nprogress@0.2.0
+
