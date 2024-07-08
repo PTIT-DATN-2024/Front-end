@@ -77,10 +77,12 @@ const userController = {
             res.json({
                 EC: 0,
                 MS: "Login Success",
-                token,
                 user: {
+                    token,
                     id: user._id,
                     email: user.email,
+                    role: user.role,
+                    avatar: user.avatar,
                 },
             });
         } catch (err) {

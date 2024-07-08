@@ -4,16 +4,22 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./login.scss";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 const LogIn = (props) => {
-    let navigate = useNavigate()
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleSignUp = () => {
         navigate("/signUp");
     };
     const handleLogin = async () => {
         let res_data = await postLogin(userEmail, userPassword);
         if (res_data && res_data.EC === 0) {
+            dispatch({ 
+                type: "fetch_user_login_success", 
+                payload: res_data 
+            });
             toast.success(res_data.MS);
-            navigate("/")
+            navigate("/");
         }
         if (res_data && res_data.EC !== 0) {
             toast.error(res_data.MS);

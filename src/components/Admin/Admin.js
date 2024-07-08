@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 // import CategogyManagement from "./Managements/CategoryManagement";
 // import InfoShopManagement from "./Managements/InfoShopManagement";
 // import UserManagement from "./Managements/UserManagement";
@@ -16,8 +17,12 @@ const Admin = (props) => {
                 <Sidebar />
             </div>
             <div className="admin-content">
-                <div>day la trang admin</div>
-                <Outlet />
+                <div className="admin_header">admin-header</div>
+                <PerfectScrollbar>
+                    <div className="admin_main">
+                        <Outlet />
+                    </div>
+                </PerfectScrollbar>
             </div>
             <ToastContainer
                 position="top-right"
