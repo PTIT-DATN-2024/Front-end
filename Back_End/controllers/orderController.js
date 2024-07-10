@@ -12,11 +12,12 @@ const orderController = {
         }
     },
     //GET ALL Order
+    // GET ALL Order
     getAllOrders: async (req, res) => {
         try {
             const ordersOld = await Order.find()
-                .populate("listItem.idProduct", "name presentimage") // Populate user field with email only
-                .populate("user", "email avatar"); // Populate user field with email only
+                .populate("listItem.idProduct", "name presentimage sellingprice") // Populate product fields
+                .populate("user", "email avatar"); // Populate user field
 
             if (!ordersOld) {
                 return res.status(404).json({ message: "Không tìm thấy đơn hàng nào." });
@@ -27,12 +28,13 @@ const orderController = {
                 user: {
                     idUser: order.user._id,
                     emailUser: order.user.email,
-                    avatarUser: order.user.avatar
+                    avatarUser: order.user.avatar,
                 },
                 listItem: order.listItem.map((item) => ({
                     idProduct: item.idProduct._id,
                     nameProduct: item.idProduct.name,
                     presentimageProduct: item.idProduct.presentimage,
+                    sellingPriceProduct: item.idProduct.sellingprice,
                     quantity: item.quantity,
                     sum: item.sum,
                 })),
@@ -45,16 +47,41 @@ const orderController = {
             res.status(500).json({ EC: 0, MS: "Get all Order success!", err });
         }
     },
+
     //GET AN Order
+    // GET AN Order
     getAnOrder: async (req, res) => {
         try {
-            const order = await Order.findById(req.params.id);
+            const order = await Order.findById(req.params.id)
+                .populate("listItem.idProduct", "name presentimage sellingprice") // Populate product fields
+                .populate("user", "email avatar"); // Populate user field
+
             if (!order) {
                 return res.status(404).json({ EC: 1, MS: "Order not found" });
             }
-            res.status(200).json({ EC: 0, MS: "Get a Order success!", order });
+
+            const formattedOrder = {
+                _id: order._id,
+                user: {
+                    idUser: order.user._id,
+                    emailUser: order.user.email,
+                    avatarUser: order.user.avatar,
+                },
+                listItem: order.listItem.map((item) => ({
+                    idProduct: item.idProduct._id,
+                    nameProduct: item.idProduct.name,
+                    presentimageProduct: item.idProduct.presentimage,
+                    sellingPriceProduct: item.idProduct.sellingprice,
+                    quantity: item.quantity,
+                    sum: item.sum,
+                })),
+                total: order.total,
+                createdAt: order.createdAt,
+            };
+
+            res.status(200).json({ EC: 0, MS: "Get an Order success!", order: formattedOrder });
         } catch (err) {
-            res.status(500).json({ EC: 2, MS: "Get a procust error!", err });
+            res.status(500).json({ EC: 2, MS: "Get an Order error!", err });
         }
     },
 

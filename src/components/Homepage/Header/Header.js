@@ -18,10 +18,10 @@ const Header = () => {
         navigate("/SignUp");
     };
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="bg-body-tertiary headerContainer">
             <Container>
                 <NavLink to="/" className="nav-link navbar-brand">
-                    Food Store
+                    Na's Food
                 </NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -29,13 +29,14 @@ const Header = () => {
                         <NavLink to="/" className="nav-link">
                             Home
                         </NavLink>
-                        <NavLink to="/page2" className="nav-link">
-                            User
+                        <NavLink to="/profilePage" className="nav-link">
+                            Profile
                         </NavLink>
-                        <NavLink to="/admins" className="nav-link">
-                            Admin
+                        <NavLink to="/productsPage" className="nav-link">
+                            product
                         </NavLink>
 
+                        {/* 
                         <Dropdown data-bs-theme="dark">
                             <Dropdown.Toggle id="dropdown-button-dark-example1" className="nav-link" variant="secondary">
                                 Categories
@@ -43,22 +44,25 @@ const Header = () => {
 
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#/action-1" active>
-                                    Action
+                                    cate1
                                 </Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">cate2</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">cate3</Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item>
+                                <Dropdown.Item href="#/action-4">onather</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown>
-                        <NavLink to="/admins" className="nav-link">
+                        </Dropdown> */}
+                        <NavLink to="/blogsPage" className="nav-link">
                             Blogs
                         </NavLink>
-                        <NavLink to="/admins" className="nav-link">
-                            About us
+                        <NavLink to="/aboutPage" className="nav-link">
+                            About Us
+                        </NavLink>
+                        <NavLink to="/contactPage" className="nav-link">
+                            Contact
                         </NavLink>
                         <NavLink to="/admins" className="nav-link">
-                            Contact
+                            Admin
                         </NavLink>
                     </Nav>
                     <Nav>

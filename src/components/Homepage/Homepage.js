@@ -1,12 +1,13 @@
 import Header from "./Header/Header";
+import "./HomePage.scss"
 import { Outlet } from "react-router-dom";
 const HomePage = (props) => {
     return (
-        <div className="User">
-            <div className="header-container">
+        <div className="HomePageContainer">
+            <div className="headerContainer">
                 <Header />
             </div>
-            <div className="main-container">
+            <div className="mainContainer">
                 <Outlet />
             </div>
         </div>

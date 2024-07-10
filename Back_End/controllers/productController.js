@@ -11,25 +11,62 @@ const productController = {
             res.status(500).json({ EC: 1, MS: "Add Product error!", err }); //HTTP REQUEST CODE
         }
     },
-    //GET ALL Product
+
+    // GET ALL Products
     getAllProducts: async (req, res) => {
         try {
-            const products = await Product.find();
-            res.status(200).json({ EC: 0, MS: "Get all product success!", products });
+            const productsOld = await Product.find().populate("category", "name"); // Populate category field with name
+
+            if (!productsOld) {
+                return res.status(404).json({ EC: 2, MS: "Product not found!" });
+            }
+
+            const products = productsOld.map((product) => ({
+                _id: product._id,
+                name: product.name,
+                importprice: product.importprice,
+                sellingprice: product.sellingprice,
+                category: {
+                    idCategory: product.category._id,
+                    nameCatecory: product.category.name,
+                },
+                weight: product.weight,
+                presentimage: product.presentimage,
+                description: product.description,
+                count: product.count,
+            }));
+
+            res.json({ EC: 0, MS: "Get all Products success!", products });
         } catch (err) {
-            res.status(500).json({ EC: 1, MS: "Get all product error!", err });
+            res.status(500).json({ EC: 1, MS: "Get all Products failed!", err });
         }
     },
-    //GET AN Product
+    //GET A Product
     getAnProduct: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id);
+            const product = await Product.findById(req.params.id).populate("category", "name");
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
-            res.status(200).json({ EC: 0, MS: "Get a product success!", product });
+
+            const productData = {
+                _id: product._id,
+                name: product.name,
+                importprice: product.importprice,
+                sellingprice: product.sellingprice,
+                category: {
+                    idCategory: product.category._id,
+                    nameCategory: product.category.name,
+                },
+                weight: product.weight,
+                presentimage: product.presentimage,
+                description: product.description,
+                count: product.count,
+            };
+
+            res.status(200).json({ EC: 0, MS: "Get a product success!", product: productData });
         } catch (err) {
-            res.status(500).json({ EC: 2, MS: "Get a procust error!", err });
+            res.status(500).json({ EC: 2, MS: "Get a product error!", err });
         }
     },
 

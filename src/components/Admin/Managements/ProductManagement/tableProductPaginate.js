@@ -1,17 +1,19 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 const TableProductsPaginate = (props) => {
-    const { listProducts, listCategories } = props;
+    const listProducts =useSelector(state => state.product.listProducts);
+    const listCategories =useSelector(state => state.category.listCategories);
+    
     // console.log("table list",listProducts);
-    const listProductsUpdate = listProducts.map((product) => {
-        const category = listCategories.find((cat) => cat._id === product.category);
-        return {
-            ...product,
-            category: category ? category.name: null,
-        };
-    });
-    const items = listProductsUpdate;
+    // const listProductsUpdate = listProducts.map((product) => {
+    //     const category = listCategories.find((cat) => cat._id === product.category);
+    //     return {
+    //         ...product,
+    //         category: category ? category.name: null,
+    //     };
+    // });
+    const items = listProducts;
     function Items({ currentItems, itemOffset }) {
         return (
             <tbody>

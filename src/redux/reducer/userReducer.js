@@ -1,5 +1,5 @@
-import { INCREMENT, DECREMENT } from "../action/counterAction";
-const INITIAL_STATE = {
+
+const USER_STATE = {
     account: {
         access_token: "",
         refresh_token: "",
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     },
     isAuthenticated: false,
 };
-const userReducer = (state = INITIAL_STATE, action) => {
+const userReducer = (state = USER_STATE, action) => {
     switch (action.type) {
         case "fetch_user_login_success":
             return {
@@ -21,14 +21,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
                     role: action?.payload?.user?.role,
                     avatar: action?.payload?.user?.avatar,
                 },
-                isAuthenticated: true,
+                isAuthenticated: false,
             };
 
-        case DECREMENT:
-            return {
-                ...state,
-                count: state.count - 1,
-            };
         default:
             return state;
     }

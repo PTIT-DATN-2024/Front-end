@@ -9,7 +9,7 @@ const ModalUpdateProduct = (props) => {
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate, listCategories } = props;
 
-    console.log("123", dataUpdate);
+    // console.log("123", dataUpdate);
 
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {

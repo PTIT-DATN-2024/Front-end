@@ -4,9 +4,11 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./login.scss";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const LogIn = (props) => {
     let navigate = useNavigate();
+    
+
     const dispatch = useDispatch();
     const handleSignUp = () => {
         navigate("/signUp");

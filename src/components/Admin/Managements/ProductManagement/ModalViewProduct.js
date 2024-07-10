@@ -10,7 +10,7 @@ function ModalViewProduct(props) {
     // const FormData = require("form-data");
     const { show, setShow, dataView, listCategories } = props;
 
-    console.log("123", dataView);
+    // console.log("123", dataView);
 
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {

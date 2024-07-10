@@ -10,8 +10,11 @@ import ModalCreateProduct from "./ModalCreateProduct";
 import ModalUpdateProduct from "./modalUpdateProduct";
 import ModalDeleteProduct from "./ModalDeleteProduct";
 import ModalViewProduct from "./ModalViewProduct";
-
+import { useDispatch, useSelector } from "react-redux";
 const ProductManagement = (props) => {
+    const dispatch = useDispatch();
+    const listProducts =useSelector(state => state.product.listProducts);
+    const listCategories =useSelector(state => state.category.listCategories);
     const [showModalCreateProduct, setShowModalCreateProduct] = useState(false);
     const [showModalUpdateProduct, setShowModalUpdateProduct] = useState(false);
     const [showModalDeleteProduct, setShowModalDeleteProduct] = useState(false);
@@ -19,7 +22,6 @@ const ProductManagement = (props) => {
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
-    const [listProducts, setListProducts] = useState([]);
 
     const handleClickBtnUpdate = (product) => {
         setShowModalUpdateProduct(true);
@@ -37,16 +39,22 @@ const ProductManagement = (props) => {
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
-            setListProducts(res.products);
+            dispatch({ 
+                type: "fetch_all_product", 
+                payload: res.products
+            });
             toast.success(res.MS);
         }
     };
-    const [listCategories, setListCategories] = useState([]);
+
     const fetchListCategories = async () => {
         let res = await getAllCategories();
         // console.log(res);
         if (res.EC === 0) {
-            setListCategories(res.categories);
+            dispatch({ 
+                type: "fetch_all_category", 
+                payload: res.categories
+            });
             // toast.success(res.MS);
             // console.log(res.categories);
         }
@@ -54,6 +62,8 @@ const ProductManagement = (props) => {
     useEffect(() => {
         fetchListProducts();
         fetchListCategories();
+        console.log("fetchListProducts",listProducts);
+        console.log("fetchListcate",listCategories);
     }, []);
     return (
         <div className="ProductManagement_container">
@@ -69,7 +79,7 @@ const ProductManagement = (props) => {
                 </div>
             </div>
             <div className="table_Category_management_content">
-                <TableProductsPaginate listProducts={listProducts} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} listCategories={listCategories}/>
+                <TableProductsPaginate  handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>
             <ModalCreateProduct show={showModalCreateProduct} setShow={setShowModalCreateProduct} fetchListProducts={fetchListProducts} listCategories={listCategories}/>
             <ModalUpdateProduct show={showModalUpdateProduct} setShow={setShowModalUpdateProduct} fetchListProducts={fetchListProducts} dataUpdate={dataUpdate} listCategories={listCategories}/>

@@ -1,0 +1,163 @@
+:root {
+    --whiteColor: #fff;
+    --textColor: #5c5c5b;
+    --primaryColor: #00a149;
+    --mainColor: #ffc222;
+    --border: #d9d9d9;
+    --border2: #ffffff2b;
+    --button: #1c2539;
+    --fontFamily: "Oswald", sans-serif;
+    --secondaryColor: #d12121;
+    --blackColor: #212121;
+    --backgroundColor: #f4f1ea;
+}
+
+.topWrapper {
+    // background-image: url(../../../assets/image/hero-bg.jpg);
+
+    height: 1030px;
+    width: 100vw;
+    background-position: bottom center;
+    background-size: cover;
+    margin-bottom: 40px;
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background-image: url(../../../assets/image/hero-bg.jpg);
+        /* Center slide text vertically */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-position: bottom center;
+        background-size: cover;
+        padding: 0 150px;
+        .SwiperSlideDes {
+            line-height: normal;
+            text-align: start;
+            flex: 1;
+            color: #fff;
+            font-size: 100px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .SwiperSlideImg {
+            height: 400px;
+            width: 500px;
+            background-image: url(../../../assets/image/chiken.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.categoryBanner {
+    height: 400px;
+    width: 100%;
+    background-position: bottom center;
+    background-size: cover;
+    transition:cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background-color: #fff;
+        /* Center slide text vertically */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+        
+        padding: 20px 150px;
+        position: relative;
+        .SwiperSlideImg {
+            height: 200px;
+            width: 200px;
+            background-image: url(../../../assets/image/burger-2.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .SwiperSlideName {
+            font-size: 40px;
+            line-height: normal;
+            text-align: start;
+            flex: 1;
+            color: #000000;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 700;
+            
+            &::before{
+                content: "";
+                height: 2px;
+                width: 50px;
+                border-right: auto;
+                background-color: #D12121;
+                position: absolute;
+                bottom: 100px;
+                right: 0px;
+                transform: translate(-250%, -50%);
+                
+
+            }
+        }
+        .SwiperSlideCount{
+            height: 80px;
+            margin-top: 30px;
+            padding: 30px 0;
+        }
+
+        &:hover {
+            background-color: var(--secondaryColor);
+        }
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.foodBanner {
+    background-image: url(../../../assets/image/duiganuong.jpg);
+    background-color: #d2a1a1;
+    height: 350px;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: contain;
+}
+.brandWrapper {
+    background-color: #ece284;
+}
+.gridBanner {
+    background-color: #dc8787;
+}
+.tableProduct {
+    background-color: #ece284;
+}
+.comboBanner {
+    background-color: #dc8787;
+}
+.chooseUs {
+    background-color: #ece284;
+}
+.thankWrapper {
+    background-color: #dc8787;
+}
+.productPre {
+    background-color: #ece284;
+}

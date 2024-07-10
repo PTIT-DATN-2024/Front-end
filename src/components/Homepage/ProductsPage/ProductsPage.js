@@ -1,7 +1,7 @@
 const ProductsPage = (props)=>{
     return (
         <div>
-            page categories
+            page product
         </div>
     )
 }
