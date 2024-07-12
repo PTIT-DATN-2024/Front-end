@@ -3,11 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import {postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } from "../../../../services/apiServices";
+import {deleteProduct } from "../../../../services/apiServices";
 import _ from "lodash";
 
 const ModalDeleteProduct = (props) => {
-    const { show, setShow, fetchListProducts, dataDelete } = props;
+    const { show, setShow, dataDelete } = props;
     // console.log(dataDelete);
     const handleClose = () => setShow(false);
     const handleSubmitDeleteProduct = async () => {

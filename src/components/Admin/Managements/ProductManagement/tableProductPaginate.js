@@ -1,18 +1,10 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "./tableProduct.scss"
 const TableProductsPaginate = (props) => {
     const listProducts =useSelector(state => state.product.listProducts);
-    const listCategories =useSelector(state => state.category.listCategories);
     
-    // console.log("table list",listProducts);
-    // const listProductsUpdate = listProducts.map((product) => {
-    //     const category = listCategories.find((cat) => cat._id === product.category);
-    //     return {
-    //         ...product,
-    //         category: category ? category.name: null,
-    //     };
-    // });
     const items = listProducts;
     function Items({ currentItems, itemOffset }) {
         return (
@@ -21,18 +13,17 @@ const TableProductsPaginate = (props) => {
                     currentItems.length > 0 &&
                     currentItems.map((product, index) => {
                         return (
-                            <tr key={`table_product_${index}`}>
-                                <td>{itemOffset + index + 1}</td>
-                                <td>{product.presentimage ? <img src={product.presentimage} alt="" className="product-avatar"/> : ""}</td>
-                                <td>{product.presentimage}</td>
-                                <td>{product.name}</td>
-                                <td>{product.category}</td>
-                                <td>{product.importprice}</td>
-                                <td>{product.sellingprice}</td>
-                                <td>{product.weight}</td>
-                                <td>{product.description}</td>
-                                <td>{product.count}</td>
-                                <td>
+                            <tr key={`table_product_${index}`} className="tableProduct_row">
+                                <td className="tableProduct_rowItem">{itemOffset + index + 1}</td>
+                                <td className="tableProduct_rowItem">{ <img src={product.presentimage} alt="" className="productPresent"/> }</td>
+                                <td className="tableProduct_rowItem">{product.name}</td>
+                                <td className="tableProduct_rowItem">{product.category.nameCategory}</td>
+                                <td className="tableProduct_rowItem">{product.importprice}</td>
+                                <td className="tableProduct_rowItem">{product.sellingprice}</td>
+                                <td className="tableProduct_rowItem">{product.weight}</td>
+                                <td className="tableProduct_rowItem">{product.description}</td>
+                                <td className="tableProduct_rowItem">{product.count}</td>
+                                <td className="tableProduct_rowItem">
                                     <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(product)}>
                                         View
                                     </button>
@@ -110,17 +101,17 @@ const TableProductsPaginate = (props) => {
             <table className="table caption-top">
                 <caption>Danh sách product</caption>
                 <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">presentimage</th>
-                        <th scope="col">name</th>
-                        <th scope="col">category</th>
-                        <th scope="col">importprice</th>
-                        <th scope="col">sellingprice</th>
-                        <th scope="col">weight</th>
-                        <th scope="col">description</th>
-                        <th scope="col">count</th>
-                        <th scope="col">Setting</th>
+                    <tr className="tableProduct_row">
+                        <th scope="col" className="tableProduct_rowItem">STT</th>
+                        <th scope="col"className="tableProduct_rowItem">presentimage</th>
+                        <th scope="col"className="tableProduct_rowItem">name</th>
+                        <th scope="col"className="tableProduct_rowItem">category</th>
+                        <th scope="col"className="tableProduct_rowItem">importprice</th>
+                        <th scope="col"className="tableProduct_rowItem">sellingprice</th>
+                        <th scope="col"className="tableProduct_rowItem">weight</th>
+                        <th scope="col"className="tableProduct_rowItem">description</th>
+                        <th scope="col"className="tableProduct_rowItem">count</th>
+                        <th scope="col"className="tableProduct_rowItem">Setting</th>
                     </tr>
                 </thead>
                 <PaginatedItems itemsPerPage={10} />

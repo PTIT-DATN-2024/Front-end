@@ -5,10 +5,11 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } from "../../../../services/apiServices";
 import { useEffect } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 const ModalCreateProduct = (props) => {
+    const listCategories = useSelector((state) => state.category.listCategories);
     // const FormData = require("form-data");
-    const { show, setShow, listCategories } = props;
+    const { show, setShow } = props;
     // console.log("liscate",props.listCategories,"list");
     // useEffect(() => {
     //     // if (!_.isEmpty(listCategories)) {
@@ -67,7 +68,7 @@ const ModalCreateProduct = (props) => {
         // validate?
         // callapi
         let res_data = await postCreateProduct(name, category, importprice, sellingprice, weight, presentimage, description, count);
-  
+
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
@@ -92,7 +93,7 @@ const ModalCreateProduct = (props) => {
                         <div className="col-md-6">
                             <label className="form-label">Category</label>
                             {
-                                <select  className="form-control form-select" onChange={(event) => setCategory(event.target.value)}>
+                                <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)}>
                                     {listCategories.map((category) => (
                                         <option key={category._id} value={category._id}>
                                             {category.name}

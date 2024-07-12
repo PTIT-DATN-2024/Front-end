@@ -78,17 +78,40 @@ const categorySchema = new mongoose.Schema({
         type: String,
     },
 });
+
 const commentSchema = new mongoose.Schema({
+    idProduct: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Products",
+        required: true,
+    }, // Reference to the product
+    idUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+        required: true,
+    }, // Reference to the user
     content: {
         type: String,
         required: true,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
-        required: true,
+    listReply: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comments",
+        },
+    ], // Array of IDs of comments that are replies to this comment
+    createdAt: {
+        type: Date,
+        default: Date.now,
     },
+    replyFor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comments",
+        default: null,
+    }, // ID of the comment this comment is replying to
 });
+
+module.exports = mongoose.model("Comment", commentSchema);
 
 //  name,
 //  barcode,
@@ -181,6 +204,6 @@ let User = mongoose.model("Users", userSchema);
 let Product = mongoose.model("Products", productSchema);
 let Category = mongoose.model("Categories", categorySchema);
 let Order = mongoose.model("Orders", orderSchema);
-let Comment = mongoose.model("Comments", orderSchema);
+let Comment = mongoose.model("Comments", commentSchema);
 let Voucher = mongoose.model("Vouchers", voucherSchema);
 module.exports = { User, Product, Category, Order, Voucher, Comment };

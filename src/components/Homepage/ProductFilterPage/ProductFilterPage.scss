@@ -178,25 +178,11 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    .tableProductHeader {
+    .tableProductHeader{
         font-size: 60px;
         margin-bottom: 60px;
         color: #00a149;
         font-weight: 600;
-    }
-    .tableProductMore {
-        cursor: pointer;
-        width: auto;
-        text-align: center;
-        padding: 10px 20px;
-        margin-top: 20px;
-        font-size: 22px;
-        font-weight: 600;
-        background-color: #8ae044;
-        border-radius: 8px;
-        &:hover {
-            color: #ffffff;
-        }
     }
     .swiper {
         width: 100%;
@@ -211,84 +197,68 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
+        
 
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: relative;
-
-        .SwiperSliceBGI {
+        .addmeBtn{
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #69eb2d;
+            cursor: pointer;
+            &:hover{
+                background-color: #cc4f30;
+            }
+        }
+        .SwiperSliceBGI{
             position: absolute;
             background-color: #ffffff;
             width: 100%;
             height: 260px;
             border-radius: 10px;
             top: 0;
-            z-index: 0;
+            z-index: 1;
             transition: ease-out 0.25s;
         }
-        .topItem {
-            z-index: 4;
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            flex-direction: column;
-            .SwiperSlideImg {
-                height: 250px;
-                width: 250px;
-                background-image: url(../../../assets/image/burger-2.png);
-                background-size: contain;
-                background-repeat: no-repeat;
-                
-            }
-            .SwiperSlideDes {
-                margin-top: 20px;
-                line-height: normal;
-                text-align: start;
-                flex: 1;
-                color: #000000;
-                font-size: 18px;
-                font-weight: 700;
-                z-index: 2;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                gap: 5px;
-                .SwiperSlideDes_Price {
-                    margin-top: 15px;
-                }
-                .SwiperSlideDes_Name {
-                    cursor: pointer;
-                    &:hover {
-                        color: #fff;
-                    }
-                }
-            }
+        .SwiperSlideImg {
+            height: 250px;
+            width: 250px;
+            background-image: url(../../../assets/image/burger-2.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 2;
         }
-        .bottomItem{
-            z-index: 4;
-            min-height: 70px;
+        .SwiperSlideDes {
+            margin-top: 20px;
+            line-height: normal;
+            text-align: start;
+            flex: 1;
+            color: #000000;
+            font-size: 18px;
+            font-weight: 700;
+            z-index: 2;
             display: flex;
             justify-content: center;
             align-items: center;
-            .addmeBtn {
-                padding: 10px 20px;
-                border-radius: 5px;
-                background-color: #69eb2d;
+            flex-direction: column;
+            gap: 5px;
+            .SwiperSlideDes_Price{
+                margin-top: 15px;
+            }
+            .SwiperSlideDes_Name{
                 cursor: pointer;
-                &:hover {
-                    background-color: #cc4f30;
+                &:hover{
+                    color: #fff;
                 }
             }
-            .SwiperSlideDes_Btn {
+            .SwiperSlideDes_Btn{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                .countItem {
+                .countItem{
                     width: 100px;
                     text-align: center;
                     border: 1px solid #000;
@@ -298,7 +268,7 @@
                     font-size: 18px;
                     padding: 5px;
                 }
-                .btn_icon {
+                .btn_icon{
                     cursor: pointer;
                     border-radius: 50%;
                     &:hover {
@@ -306,12 +276,12 @@
                         // padding: -1px;
                         // color: #d82828;
                     }
+                    
                 }
             }
         }
-
-        &:hover .SwiperSliceBGI {
-            background-color: #ffc222;
+        &:hover .SwiperSliceBGI{
+            background-color: #FFC222;
             height: 100%;
         }
     }

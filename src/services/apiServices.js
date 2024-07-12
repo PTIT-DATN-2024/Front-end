@@ -118,6 +118,40 @@ const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
 };
+// commentapi
+// "idProduct": "6683994c1fb0f44c34b608a2",
+// "idUser": "668390ef6954eb2c817d4d84",
+// "content": "cmt2"
+// // "replyFor": "6690af22950012ba9728b913"
+const postCreateComment = (idProduct, idUser, content, replyFor = null) => {
+    let data = {
+        idProduct: idProduct,
+        idUser: idUser,
+        content: content,
+    };
+
+    if (replyFor !== null) {
+        data.replyFor = replyFor;
+    }
+
+    return axios.post("/comment", data);
+};
+
+const getCommentsProduct = (_idProduct) => {
+    return axios.get(`/comment/product/${_idProduct}`);
+};
+const putUpdateComment = (_id, user, listItem, Total, createdAt) => {
+    let data = {
+        user: user,
+        listItem: listItem,
+        Total: Total,
+        createdAt: createdAt,
+    };
+    return axios.put(`/comment/${_id}`, data);
+};
+const deleteComment = (_id) => {
+    return axios.delete(`/comment/${_id}`);
+};
 
 export {
     postLogin,
@@ -137,4 +171,8 @@ export {
     getAllOrders,
     putUpdateOrder,
     deleteOrder,
+    postCreateComment,
+    getCommentsProduct,
+    putUpdateComment,
+    deleteComment,
 };

@@ -28,7 +28,7 @@ const productController = {
                 sellingprice: product.sellingprice,
                 category: {
                     idCategory: product.category._id,
-                    nameCatecory: product.category.name,
+                    nameCategory: product.category.name,
                 },
                 weight: product.weight,
                 presentimage: product.presentimage,

@@ -7,7 +7,7 @@ import SignUp from "./components/author/SignUp";
 import HomePage from "./components/Homepage/Homepage";
 import MainPage from "./components/Homepage/MainPage/MainPage";
 import ProductsPage from "./components/Homepage/ProductsPage/ProductsPage";
-import CategoriesPage from "./components/Homepage/CategoriesPage/CategoriesPage";
+import ProductFilterPage from "./components/Homepage/ProductFilterPage/ProductFilterPage";
 import BlogsPage from "./components/Homepage/BlogsPage/BlogsPage";
 import AboutPage from "./components/Homepage/AboutPage/AboutPage";
 import ContactPage from "./components/Homepage/ContactPage/ContactPage";
@@ -20,7 +20,6 @@ import UserManagement from "./components/Admin/Managements/UserManagement/UserMa
 import ProductManagement from "./components/Admin/Managements/ProductManagement/ProductManagement";
 import OrderManagement from "./components/Admin/Managements/OrderManagement/OrderManagement";
 import ProfilePage from "./components/Profile/ProfilePage";
-import ItemPage from "./components/Homepage/ItemPage/ItemPage";
 import { ToastContainer, toast } from "react-toastify";
 const App = () => {
     return (
@@ -30,13 +29,12 @@ const App = () => {
                     <Route path="/" element={<HomePage />}>
                         <Route index element={<MainPage />} />
                         <Route path="productsPage" element={<ProductsPage />} />
-                        <Route path="categoriesPage" element={<CategoriesPage />} />
+                        <Route path="productFilterPage" element={<ProductFilterPage />} />
                         <Route path="blogsPage" element={<BlogsPage />} />
                         <Route path="aboutPage" element={<AboutPage />} />
                         <Route path="contactPage" element={<ContactPage />} />
-                        <Route path="productsPage" element={<ProductsPage />}></Route>
+                        <Route path="productsPage/:id" element={<ProductsPage />}></Route>
                         <Route path="profilePage" element={<ProfilePage />}></Route>
-                        <Route path="itemPage" element={<ItemPage />}></Route>
                     </Route>
                     <Route path="admins" element={<Admin />}>
                         <Route index element={<DashBoard />} />

@@ -4,11 +4,13 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } from "../../../../services/apiServices";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 const ModalUpdateProduct = (props) => {
+    const listCategories = useSelector((state) => state.category.listCategories);
     // const FormData = require("form-data");
-    const { show, setShow, dataUpdate, listCategories } = props;
-
+    const { show, setShow, dataUpdate } = props;
+    // console.log("1",dataUpdate);
     // console.log("123", dataUpdate);
 
     // console.log("dâtupdate",dataUpdate);
@@ -25,7 +27,7 @@ const ModalUpdateProduct = (props) => {
         // setPreviewImage("");
     };
     const [name, setName] = useState("");
-    const [category, setCategory] = useState(dataUpdate.category);
+    const [category, setCategory] = useState("");
     const [importprice, setImportprice] = useState("");
     const [sellingprice, setSellingprice] = useState("");
     const [weight, setWeight] = useState("");
@@ -37,7 +39,7 @@ const ModalUpdateProduct = (props) => {
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setName(dataUpdate.name);
-            setCategory(dataUpdate.category);
+            setCategory(dataUpdate.category.idCategory);
             setImportprice(dataUpdate.importprice);
             setSellingprice(dataUpdate.sellingprice);
             setWeight(dataUpdate.weight);
@@ -85,10 +87,10 @@ const ModalUpdateProduct = (props) => {
                         <div className="col-md-6">
                             <label className="form-label">Category</label>
                             {
-                                <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)} placeholder={dataUpdate.category}>
+                                <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)} placeholder={!_.isEmpty(dataUpdate)?dataUpdate.category.nameCategory:""}>
                                     {listCategories.map((category) => {
                                         return (
-                                            <option key={category._id} value={category._id} selected={category.name === dataUpdate.category}>
+                                            <option key={category._id} value={category._id} selected={!_.isEmpty(dataUpdate)?category.name === dataUpdate.category.nameCategory:false}>
                                                 {category.name}
                                             </option>
                                         );

@@ -6,9 +6,10 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } from "../../../../services/apiServices";
 import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
 function ModalViewProduct(props) {
     // const FormData = require("form-data");
-    const { show, setShow, dataView, listCategories } = props;
+    const { show, setShow, dataView } = props;
 
     // console.log("123", dataView);
 
@@ -26,7 +27,7 @@ function ModalViewProduct(props) {
         // setPreviewImage("");
     };
     const [name, setName] = useState("");
-    const [category, setCategory] = useState(dataView.category);
+    const [category, setCategory] = useState("");
     const [importprice, setImportprice] = useState("");
     const [sellingprice, setSellingprice] = useState("");
     const [weight, setWeight] = useState("");
@@ -37,7 +38,7 @@ function ModalViewProduct(props) {
     useEffect(() => {
         if (!_.isEmpty(dataView)) {
             setName(dataView.name);
-            setCategory(dataView.category);
+            setCategory(dataView.category.nameCategory);
             setImportprice(dataView.importprice);
             setSellingprice(dataView.sellingprice);
             setWeight(dataView.weight);
@@ -62,9 +63,9 @@ function ModalViewProduct(props) {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Category</label>
-                            <select className="form-control form-select" placeholder={dataView.category} disabled>
+                            <select className="form-control form-select" placeholder={!_.isEmpty(dataView)?dataView.category.nameCategory:""} disabled>
                                 <option  selected>
-                                    {dataView.category}
+                                    {!_.isEmpty(dataView)?dataView.category.nameCategory:""}
                                 </option>
                             </select>
                         </div>

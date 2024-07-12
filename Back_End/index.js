@@ -10,6 +10,7 @@ const userRouter = require("./routes/userRouter");
 const categoryRouter = require("./routes/categoryRouter");
 const productRouter = require("./routes/productRouter");
 const orderRouter = require("./routes/orderRouter");
+const commentRouter = require("./routes/commentRouter");
 
 dotenv.config();
 //CONNECT DATABASE
@@ -26,6 +27,7 @@ app.use("/v1/user", userRouter);
 app.use("/v1/category", categoryRouter);
 app.use("/v1/product", productRouter);
 app.use("/v1/order", orderRouter);
+app.use("/v1/comment", commentRouter);
 
 app.listen(process.env.PORT || 8000, () => {
     console.log("Server is running...");

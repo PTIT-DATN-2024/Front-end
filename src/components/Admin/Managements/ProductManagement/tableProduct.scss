@@ -1,0 +1,18 @@
+.tableProduct_row{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .tableProduct_rowItem{
+        // width: 120px;
+    }
+    .productPresent {
+        display: block;
+        // width: 100%; /* Đặt chiều rộng hình ảnh */
+        width: 100px; /* Chiều rộng tối đa */
+        height: auto; /* Chiều cao tự động theo tỷ lệ */
+        border-radius: 10px; /* Bo tròn các góc */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi khi hover */
+    }
+
+}

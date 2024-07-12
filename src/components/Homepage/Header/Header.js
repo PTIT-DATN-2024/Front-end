@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const account = useSelector((state) => state.user.account);
-    console.log(isAuthenticated, account);
+    // console.log(isAuthenticated, account);
     let navigate = useNavigate();
     const handleLogIn = () => {
         navigate("/login");
@@ -29,11 +29,14 @@ const Header = () => {
                         <NavLink to="/" className="nav-link">
                             Home
                         </NavLink>
+                        <NavLink to="/admins" className="nav-link">
+                            Admin
+                        </NavLink>
+                        <NavLink to="/productFilterPage" className="nav-link">
+                            product
+                        </NavLink>
                         <NavLink to="/profilePage" className="nav-link">
                             Profile
-                        </NavLink>
-                        <NavLink to="/productsPage" className="nav-link">
-                            product
                         </NavLink>
 
                         {/* 
@@ -60,9 +63,6 @@ const Header = () => {
                         </NavLink>
                         <NavLink to="/contactPage" className="nav-link">
                             Contact
-                        </NavLink>
-                        <NavLink to="/admins" className="nav-link">
-                            Admin
                         </NavLink>
                     </Nav>
                     <Nav>
