@@ -16,6 +16,7 @@ import "swiper/css/navigation";
 import "./MainPage.scss";
 import _ from "lodash";
 const MainPage = (props) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const stateProduct = useSelector((state) => state.product);
     const listProducts = useSelector((state) => state.product.listProducts);
@@ -72,7 +73,7 @@ const MainPage = (props) => {
             fetchListCategories();
         }
     }, []);
-    const navigate = useNavigate();
+
     const handleSignUp = () => {
         navigate("/signUp");
     };
@@ -160,6 +161,7 @@ const MainPage = (props) => {
 
                 <div className="foodBannerItem_img"></div>
             </div>
+            <img src="./03.jpg" alt="1231231231" className="test_img" />
             <div className="tableProduct">
                 <div className="tableProductHeader">Popular Fast Foods</div>
 

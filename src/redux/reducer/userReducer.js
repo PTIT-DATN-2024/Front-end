@@ -1,4 +1,3 @@
-
 const USER_STATE = {
     account: {
         access_token: "",
@@ -6,7 +5,7 @@ const USER_STATE = {
         userName: "",
         role: "",
         avatar: "",
-        _id:""
+        _id: "",
     },
     isAuthenticated: false,
 };
@@ -23,7 +22,7 @@ const userReducer = (state = USER_STATE, action) => {
                     avatar: action?.payload?.user?.avatar,
                     _id: action?.payload?.user?.id,
                 },
-                isAuthenticated: false,
+                isAuthenticated: true,
             };
 
         default:

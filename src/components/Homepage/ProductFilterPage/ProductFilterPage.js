@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Autoplay, Pagination, Navigation } from "swiper/modules";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import "swiper/css";
 import "swiper/css/grid";
@@ -18,6 +19,7 @@ import axios from "axios";
 // import { TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem } from "@mui/material";
 
 const ProductFilterPage = (props) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const stateProduct = useSelector((state) => state.product);
     const listProducts = useSelector((state) => state.product.listProducts);
@@ -162,7 +164,7 @@ const ProductFilterPage = (props) => {
                             return (
                                 <SwiperSlide>
                                     <div className="SwiperSliceBGI"></div>
-                                    <div className="SwiperSlideImg"></div>
+                                    <div onClick={() => navigate(`/productsPage/${product._id}`)} className="SwiperSlideImg"></div>
                                     <div className="SwiperSlideDes">
                                         <div className="SwiperSlideDes_Price">{product.sellingprice.toLocaleString("vi-VN") + " đ"} </div>
                                         <div className={`${product._id} SwiperSlideDes_Name`}>{product.name} </div>

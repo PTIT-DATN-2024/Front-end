@@ -21,6 +21,7 @@ import ProductManagement from "./components/Admin/Managements/ProductManagement/
 import OrderManagement from "./components/Admin/Managements/OrderManagement/OrderManagement";
 import ProfilePage from "./components/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
+import PrivateRouter from "./router/PrivateRouter";
 const App = () => {
     return (
         <>
@@ -36,7 +37,14 @@ const App = () => {
                         <Route path="productsPage/:id" element={<ProductsPage />}></Route>
                         <Route path="profilePage" element={<ProfilePage />}></Route>
                     </Route>
-                    <Route path="admins" element={<Admin />}>
+                    <Route
+                        path="admins"
+                        element={
+                            <PrivateRouter>
+                                <Admin />
+                            </PrivateRouter>
+                        }
+                    >
                         <Route index element={<DashBoard />} />
                         <Route path="UserManagement" element={<UserManagement />} />
                         <Route path="CategogyManagement" element={<CategogyManagement />} />
