@@ -39,6 +39,11 @@ const Sidebar = (props) => {
                                 InfoShopManagement
                             </NavLink>
                         </MenuItem>
+                        <MenuItem>
+                            <NavLink to="BgImageManagement" className="nav-link">
+                                Background Image Management
+                            </NavLink>
+                        </MenuItem>
                     </SubMenu>
                     <MenuItem icon={<FaHome />}>
                         <NavLink to="/" className="nav-link">

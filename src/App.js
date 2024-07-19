@@ -16,6 +16,7 @@ import Admin from "./components/Admin/Admin";
 import DashBoard from "./components/Admin/DashBoard/DashBroad";
 import CategogyManagement from "./components/Admin/Managements/CategoryManagament/CategoryManagement";
 import InfoShopManagement from "./components/Admin/Managements/InfoShopManagement/InfoShopManagement";
+import BgImageManagement from "./components/Admin/Managements/BgImageManagement/BgImageManagement";
 import UserManagement from "./components/Admin/Managements/UserManagement/UserManagement";
 import ProductManagement from "./components/Admin/Managements/ProductManagement/ProductManagement";
 import OrderManagement from "./components/Admin/Managements/OrderManagement/OrderManagement";
@@ -53,6 +54,7 @@ const App = () => {
                         <Route path="ProductManagement" element={<ProductManagement />} />
                         <Route path="OrderManagement" element={<OrderManagement />} />
                         <Route path="InfoShopManagement" element={<InfoShopManagement />} />
+                        <Route path="BgImageManagement" element={<BgImageManagement />} />
                     </Route>
                     <Route path="/logIn" element={<LogIn />}></Route>
                     <Route path="/signUp" element={<SignUp />}></Route>

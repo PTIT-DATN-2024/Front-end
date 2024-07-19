@@ -11,14 +11,19 @@ const storage = multer.diskStorage({
             uploadPath = "uploads/products/";
         } else if (req.entityType === "category") {
             uploadPath = "uploads/categories/";
+        } else if (req.entityType === "bgImage") {
+            uploadPath = "uploads/bgImages/"; // Thêm đường dẫn cho bgImage
         } else {
             uploadPath = "uploads/";
         }
-        cb(null, uploadPath); 
+        cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
+        let fileName = Date.now() + path.extname(file.originalname);
+
+        cb(null, fileName);
     },
 });
+
 const upload = multer({ storage: storage });
 module.exports = upload;

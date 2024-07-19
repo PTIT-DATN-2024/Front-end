@@ -7,10 +7,12 @@ import "./PayPage.scss";
 import Table from "react-bootstrap/Table";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { postCreateUserOrder } from "../../../services/apiServices";
 
 const PayPage = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const account = useSelector((state) => state.user.account);
     const stateProduct = useSelector((state) => state.product);
     const listCategories = useSelector((state) => state.category.listCategories);
     const listProducts = useSelector((state) => state.product.listProducts);
@@ -53,6 +55,41 @@ const PayPage = (props) => {
         } catch (error) {
             console.error("Failed to clear order:", error);
             toast.error("Failed to clear order.");
+        }
+    };
+    const handleSubmitOrder = async (event) => {
+        // validate
+        // callapi
+        let simplifiedList = stateOrder.listItemsOder.map((item) => {
+            return {
+                idProduct: item._id,
+                quantity: item.CountOrder,
+                sum: item.sellingprice * item.CountOrder,
+            };
+        });
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${account.access_token}`,
+            },
+        };
+        const formData = {
+            user: account._id,
+            listItem: simplifiedList,
+            total: stateOrder.total,
+        };
+        // formData.append("user", account._id);
+        // formData.append("listItem", stateOrder.listItemsOder);
+        // formData.append("Total", stateOrder.total);
+        // console.log(formData);
+
+        let res_data = await postCreateUserOrder(formData,config);
+        if (res_data && res_data.EC === 0) {
+            toast.success(res_data.MS);
+            remove();
+        }
+        if (res_data && res_data.EC !== 0) {
+            toast.error(res_data.MS);
         }
     };
 
@@ -119,7 +156,9 @@ const PayPage = (props) => {
                     >
                         Home
                     </Button>
-                    <Button variant="primary">Pay</Button>
+                    <Button variant="primary" onClick={() => handleSubmitOrder()}>
+                        Pay
+                    </Button>
                 </div>
             </div>
         </>

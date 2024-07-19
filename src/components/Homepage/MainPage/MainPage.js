@@ -93,11 +93,11 @@ const MainPage = (props) => {
                         disableOnInteraction: false,
                     }}
                     loop={true}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    navigation={true}
-                    modules={[Autoplay, Pagination, Navigation]}
+                    // pagination={{
+                    //     clickable: true,
+                    // }}
+                    // navigation={true}
+                    modules={[Autoplay]}
                     className="mySwiper"
                 >
                     {listProducts &&
@@ -179,7 +179,7 @@ const MainPage = (props) => {
                     // onSwiper={(swiper) => console.log(swiper)}
                     // centeredSlides={true}
                     pagination={{
-                        clickable: true,
+                        // clickable: true,
                     }}
                     // navigation={true}
                     modules={[Grid, Pagination, Navigation]}

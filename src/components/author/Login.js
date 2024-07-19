@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 const LogIn = (props) => {
     let navigate = useNavigate();
     
-
     const dispatch = useDispatch();
     const handleSignUp = () => {
         navigate("/signUp");

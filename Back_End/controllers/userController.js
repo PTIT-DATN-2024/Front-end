@@ -146,6 +146,7 @@ const userController = {
             res.status(500).json({ EC: 2, MS: "Login error", err });
         }
     },
+    
     postSignUp: async (req, res) => {
         try {
             const { email, password, address, phoneNumber, role } = req.body;

@@ -23,8 +23,11 @@ const HomePage = (props) => {
         });
     };
     const autoLoginforCode = async () => {
-        
-        let res_data = await postLogin("a", "1");
+        let datalogin ={
+            email: "a",
+            password: "1",
+        }
+        let res_data = await postLogin(datalogin);
         if (res_data && res_data.EC === 0) {
             dispatch({
                 type: "fetch_user_login_success",
@@ -35,7 +38,7 @@ const HomePage = (props) => {
         }
         if (res_data && res_data.EC !== 0) {
             toast.error(res_data.MS);
-            alert("sai1111");
+            alert("incorrect");
         }
     };
     useEffect(() => {

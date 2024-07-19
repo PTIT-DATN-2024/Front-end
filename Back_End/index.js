@@ -11,6 +11,7 @@ const categoryRouter = require("./routes/categoryRouter");
 const productRouter = require("./routes/productRouter");
 const orderRouter = require("./routes/orderRouter");
 const commentRouter = require("./routes/commentRouter");
+const bgImageRouter = require("./routes/bgImageRouter");
 const path = require("path");
 
 
@@ -30,6 +31,7 @@ app.use("/v1/category", categoryRouter);
 app.use("/v1/product", productRouter);
 app.use("/v1/order", orderRouter);
 app.use("/v1/comment", commentRouter);
+app.use("/v1/bgImage", bgImageRouter);
 app.use("/v1/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.listen(process.env.PORT || 8000, () => {

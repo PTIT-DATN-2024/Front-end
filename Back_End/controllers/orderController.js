@@ -16,7 +16,7 @@ const orderController = {
     getAllOrders: async (req, res) => {
         try {
             const ordersOld = await Order.find()
-                .populate("listItem.idProduct", "name presentimage sellingprice") // Populate product fields
+                .populate("listItem.idProduct", "name presentImage sellingprice") // Populate product fields
                 .populate("user", "email avatar"); 
             if (!ordersOld) {
                 return res.status(404).json({ message: "Không tìm thấy đơn hàng nào." });
@@ -26,13 +26,13 @@ const orderController = {
                 user: {
                     idUser: order.user._id,
                     emailUser: order.user.email,
-                    avatarUser: order.user.avatar,
+                    avatarUser: order.user.avatar ? `/v1/uploads/users/${order.user.avatar.replace("uploads\\users\\", "")}` : null,
                 },
                 listItem: order.listItem.map((item) => ({
                     idProduct: item.idProduct._id,
                     nameProduct: item.idProduct.name,
-                    presentimageProduct: item.idProduct.presentimage,
-                    sellingPriceProduct: item.idProduct.sellingprice,
+                    presentImageProduct: item.idProduct.presentImage? `/v1/uploads/products/${item.idProduct.presentImage.replace("uploads\\products\\", "")}` : null,
+                    sellingpriceProduct: item.idProduct.sellingprice,
                     quantity: item.quantity,
                     sum: item.sum,
                 })),

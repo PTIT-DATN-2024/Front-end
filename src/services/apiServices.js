@@ -14,7 +14,6 @@ const deleteUser = (_id,config) => {
     return axios.delete(`/user/${_id}`,config);
 };
 const postLogin = (dataLogin) => {
-
     return axios.post("/user/login", dataLogin);
 };
 const postSignUp = (formData,config) => {
@@ -32,6 +31,18 @@ const putUpdateCategory = (_id, formData, config) => {
 };
 const deleteCategory = (_id,config) => {
     return axios.delete(`/category/${_id}`,config);
+};
+const postCreateBgImage = (formData, config) => {
+    return axios.post("/bgImage", formData, config);
+};
+const getAllBgImages = () => {
+    return axios.get("/bgImage");
+};
+const putUpdateBgImage = (_id, formData, config) => {
+    return axios.put(`/bgImage/${_id}`, formData, config);
+};
+const deleteBgImage = (_id,config) => {
+    return axios.delete(`/bgImage/${_id}`,config);
 };
 
 
@@ -62,6 +73,10 @@ const postCreateOrder = (user, listItem, Total, createdAt) => {
         createdAt: createdAt,
     };
     return axios.post("/order", data);
+};
+const postCreateUserOrder = (formData,config) => {
+
+    return axios.post("/order", formData);
 };
 const getAllOrders = () => {
     return axios.get("/order");
@@ -124,11 +139,16 @@ export {
     getAllCategories,
     putUpdateCategory,
     deleteCategory,
+    postCreateBgImage,
+    getAllBgImages,
+    putUpdateBgImage,
+    deleteBgImage,
     postCreateProduct,
     getAllProducts,
     putUpdateProduct,
     deleteProduct,
     postCreateOrder,
+    postCreateUserOrder,
     getAllOrders,
     putUpdateOrder,
     deleteOrder,

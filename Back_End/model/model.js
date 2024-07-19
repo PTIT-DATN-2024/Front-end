@@ -69,6 +69,20 @@ const orderSchema = new mongoose.Schema({
 });
 
 // name
+// avâtr
+const bgImageSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    img: {
+        type: String,
+    },
+});
+
+// name
+// avâtr
 const categorySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -79,7 +93,6 @@ const categorySchema = new mongoose.Schema({
         type: String,
     },
 });
-
 const commentSchema = new mongoose.Schema({
     idProduct: {
         type: mongoose.Schema.Types.ObjectId,
@@ -203,7 +216,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 // Phương thức tạo JWT
 userSchema.methods.getSignedJwtToken = function () {
     return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
+        expiresIn: "1h",
     });
 };
 
@@ -213,4 +226,5 @@ let Category = mongoose.model("Categories", categorySchema);
 let Order = mongoose.model("Orders", orderSchema);
 let Comment = mongoose.model("Comments", commentSchema);
 let Voucher = mongoose.model("Vouchers", voucherSchema);
-module.exports = { User, Product, Category, Order, Voucher, Comment };
+let BgImage = mongoose.model("BgImages", bgImageSchema);
+module.exports = { User, Product, Category, Order, Voucher, Comment, BgImage };
