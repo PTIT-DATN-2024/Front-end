@@ -55,8 +55,6 @@ const ProductManagement = (props) => {
                 type: "fetch_all_category",
                 payload: res.categories,
             });
-            // toast.success(res.MS);
-            // console.log(res.categories);
         }
     };
     useEffect(() => {

@@ -28,21 +28,17 @@ const ModalCreateUser = (props) => {
     const [previewImage, setPreviewImage] = useState("");
 
     const handleUploadImage = (event) => {
-        // `data:image/jpeg;base64,${data}`
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
             const file = event.target.files[0];
             setAvatar(file);
-            // const reader = new FileReader();
-            // reader.onloadend = () => {
-            //     setAvatar(reader.result);
-            // };
-            // reader.readAsDataURL(file);
         } else {
             // setPreviewImage("");
         }
     };
     const handleSubmitCreateUser = async (event) => {
+        // validate
+        // callapi
         const config = {
             headers: {
                 "Content-Type": "application/json",
@@ -56,8 +52,7 @@ const ModalCreateUser = (props) => {
         formData.append("phoneNumber", phoneNumber);
         formData.append("role", role);
         formData.append("avatar", avatar);
-        // validate?
-        // callapi
+
         let res_data = await postCreateUser(formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);

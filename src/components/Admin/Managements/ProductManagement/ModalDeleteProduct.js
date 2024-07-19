@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { deleteProduct } from "../../../../services/apiServices";
 import _ from "lodash";
@@ -30,10 +28,6 @@ const ModalDeleteProduct = (props) => {
     };
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
-
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm delete Product ?</Modal.Title>

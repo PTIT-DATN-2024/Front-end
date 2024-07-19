@@ -1,6 +1,6 @@
 import "../../../../node_modules/react-pro-sidebar/dist/css/styles.css";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { FaGem, FaChometerAlt, FaList, FaGithub, FaHeart, FaHome } from "react-icons/fa";
+import { FaGem,FaHeart, FaHome } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 const Sidebar = (props) => {
     let navigate = useNavigate()

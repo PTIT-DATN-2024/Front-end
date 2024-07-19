@@ -2,11 +2,11 @@ const productController = require("../controllers/productController");
 const upload = require("../middleware/uploadMiddleware");
 const router = require("express").Router();
 
-//ADD Product
+
 router.post(
     "/",
     (req, res, next) => {
-        req.entityType = "product"; // Thêm trường entityType cho user
+        req.entityType = "product"; 
         next();
     },
     upload.single("presentImage"),
@@ -23,7 +23,7 @@ router.get("/:id", productController.getAnProduct);
 router.put(
     "/:id",
     (req, res, next) => {
-        req.entityType = "product"; // Thêm trường entityType cho user
+        req.entityType = "product"; 
         next();
     },
     upload.single("presentImage"),

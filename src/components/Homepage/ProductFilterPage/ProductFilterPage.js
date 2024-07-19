@@ -11,12 +11,9 @@ import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-// import "./styles.css";
-// import required modules
 import "./ProductFilterPage.scss";
 import _ from "lodash";
 import axios from "axios";
-// import { TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem } from "@mui/material";
 
 const ProductFilterPage = (props) => {
     const navigate = useNavigate();
@@ -24,9 +21,7 @@ const ProductFilterPage = (props) => {
     const stateProduct = useSelector((state) => state.product);
     const listProducts = useSelector((state) => state.product.listProducts);
     const listCategories = useSelector((state) => state.category.listCategories);
-    const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [nameFilter, setNameFilter] = useState("");
     const [countFilter, setCountFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");

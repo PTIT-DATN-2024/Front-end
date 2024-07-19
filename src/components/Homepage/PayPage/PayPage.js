@@ -43,28 +43,6 @@ const PayPage = (props) => {
     useEffect(() => {
         updateStateOrder();
     }, [listProducts]);
-    // const addproduct = async () => {
-    //     let abc = {
-    //         _id: "6683994c1fb0f44c34b608a2",
-    //         name: "food 1",
-    //         importprice: 35000,
-    //         sellingprice: 55000,
-    //         category: {
-    //             idCategory: "668398ff1fb0f44c34b6089d",
-    //             nameCategory: "Salad",
-    //         },
-    //         weight: "300g",
-    //         presentimage: "",
-    //         description: "example description",
-    //         count: 30,
-    //     };
-    //     dispatch({
-    //         type: "Add_order_user",
-    //         payload: abc,
-    //     });
-    //     console.log("listItemsOder", stateOrder.listItemsOder);
-    //     toast.success("add done!");
-    // };
     const remove = async () => {
         try {
             await dispatch({

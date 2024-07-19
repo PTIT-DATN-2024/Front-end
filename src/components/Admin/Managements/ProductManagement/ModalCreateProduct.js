@@ -57,17 +57,12 @@ const ModalCreateProduct = (props) => {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
             const file = event.target.files[0];
             setPresentImage(file);
-            // const reader = new FileReader();
-            // reader.onloadend = () => {
-            //     setPresentImage(reader.result);
-            // };
-            // reader.readAsDataURL(file);
         } else {
             // setPreviewImage("");
         }
     };
     const handleSubmitCreateProduct = async (event) => {
-        // validate?
+        // validate
         // callapi
 
         const config = {

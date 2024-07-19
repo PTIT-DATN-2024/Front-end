@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateOrder, getAllOrders, putUpdateOrder, deleteOrder } from "../../../../services/apiServices";
+import { deleteOrder } from "../../../../services/apiServices";
 import _ from "lodash";
 
 const ModalDeleteOrder= (props) => {
     const { show, setShow, fetchListOrders, dataDelete } = props;
-    // console.log(dataDelete);
     const handleClose = () => setShow(false);
     const handleSubmitDeleteOrder = async () => {
         let res_data = await deleteOrder(dataDelete._id);
@@ -23,10 +20,6 @@ const ModalDeleteOrder= (props) => {
     };
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
-
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm delete Order ?</Modal.Title>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { FaArrowUp } from "react-icons/fa";
-import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postLogin } from "../../services/apiServices";
+import {  postLogin } from "../../services/apiServices";
 const HomePage = (props) => {
     const dispatch = useDispatch();
     const [isDivVisible, setIsDivVisible] = useState(false);
@@ -22,7 +22,7 @@ const HomePage = (props) => {
             behavior: "smooth",
         });
     };
-    const fetchListComment = async () => {
+    const autoLoginforCode = async () => {
         
         let res_data = await postLogin("a", "1");
         if (res_data && res_data.EC === 0) {
@@ -39,8 +39,7 @@ const HomePage = (props) => {
         }
     };
     useEffect(() => {
-        // fetchListComment();
-        
+        autoLoginforCode();
     }, []);
     return (
         <div className="HomePageContainer">

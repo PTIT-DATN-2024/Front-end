@@ -3,10 +3,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateOrder, getAllOrders, putUpdateOrder, deleteOrder } from "../../../../services/apiServices";
+import {  putUpdateOrder } from "../../../../services/apiServices";
 import _ from "lodash";
 const ModalUpdateOrder = (props) => {
-    // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
@@ -25,7 +24,7 @@ const ModalUpdateOrder = (props) => {
             // setPassword("");
             if (dataUpdate.avatar) {
                 // setPreviewImage(`data:image/jpeg;base64,${dataUpdate.avatar}`);
-                // setPreviewImage(`data:image/jpeg;base64,${dataUpdate.avatar}`);
+
             }
         }
     }, [dataUpdate]);
@@ -39,7 +38,7 @@ const ModalUpdateOrder = (props) => {
         }
     };
     const handleSubmitUpdateCategory = async (event) => {
-        // validate?
+        // validate
         // callapi
         let res_data = await putUpdateOrder(dataUpdate._id, name, avatar);
         if (res_data && res_data.EC === 0) {
@@ -51,29 +50,9 @@ const ModalUpdateOrder = (props) => {
             toast.error(res_data.MS);
         }
     };
-    // console.log(props.dataUpdate);
     return (
         <>
-            <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">
-                {/* <Modal.Header closeButton>
-                    <Modal.Title>Update Order: {dataUpdate && dataUpdate._id ? dataUpdate._id : ""}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form className="row g-3">
-                        <div className="col-md-6">
-                            <label className="form-label">Name</label>
-                            <input type="email" className="form-control" placeholder="Order example" value={name} onChange={(event) => setName(event.target.value)} />
-                        </div>
-                        <div className="col-3">
-                            <label className="form-label label_input-file" htmlFor="inputFileCategory">
-                                <FcPlus />
-                                Upload file image
-                            </label>
-                            <input type="file" className="form-control" hidden id="inputFileCategory" onChange={(event) => handleUploadImage(event)} />
-                        </div>
-                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
-                    </form>
-                </Modal.Body> */}
+            <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateOrder">
                 <div>123123</div>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

@@ -2,7 +2,6 @@ import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./tableProduct.scss";
-// import sample from "../../../../assets/image/04.jpg";
 const TableProductsPaginate = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
 

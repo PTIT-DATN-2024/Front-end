@@ -3,16 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateCategory,getAllCategories,putUpdateCategory,deleteCategory } from "../../../../services/apiServices";
+import { putUpdateCategory } from "../../../../services/apiServices";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 
 const ModalUpdateCategory = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
 
-    // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
-    // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
         setName("");
@@ -26,12 +24,9 @@ const ModalUpdateCategory = (props) => {
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setName(dataUpdate.name);
-            setAvatar(dataUpdate.avatar);
-            setPreviewImage(dataUpdate.avatar);
-            // setPassword("");
             if (dataUpdate.avatar) {
-                // setPreviewImage(`data:image/jpeg;base64,${dataUpdate.avatar}`);
-                // setPreviewImage(`data:image/jpeg;base64,${dataUpdate.avatar}`);
+                setAvatar(dataUpdate.avatar);
+                setPreviewImage(dataUpdate.avatar);
             }
         }
     }, [dataUpdate]);
@@ -45,7 +40,7 @@ const ModalUpdateCategory = (props) => {
         }
     };
     const handleSubmitUpdateCategory = async (event) => {
-        // validate?
+        // validate
         // callapi
         const config = {
             headers: {
@@ -77,7 +72,7 @@ const ModalUpdateCategory = (props) => {
                     <form className="row g-3">
                         <div className="col-md-12">
                             <label className="form-label">Name</label>
-                            <input type="text" className="form-control" placeholder="Category example" value={name} onChange={(event) => setName(event.target.value)}  />
+                            <input type="text" className="form-control" placeholder="Category example" value={name} onChange={(event) => setName(event.target.value)} />
                         </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileCategory">

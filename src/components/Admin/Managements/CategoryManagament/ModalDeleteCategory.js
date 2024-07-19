@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateCategory, getAllCategories, putUpdateCategory, deleteCategory } from "../../../../services/apiServices";
+import { deleteCategory } from "../../../../services/apiServices";
 import _ from "lodash";
 import { useSelector } from "react-redux";
 const ModalDeleteCategory = (props) => {
@@ -16,7 +14,7 @@ const ModalDeleteCategory = (props) => {
         const config = {
             headers: {
                 "Content-Type": "application/json",
-                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+                authorization: `Bearer ${token}`, 
             },
         };
         let res_data = await deleteCategory(dataDelete._id,config);
@@ -44,10 +42,6 @@ const ModalDeleteCategory = (props) => {
     };
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
-
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm delete category ?</Modal.Title>

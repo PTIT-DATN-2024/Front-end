@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import _ from "lodash";
-import { useDispatch, useSelector } from "react-redux";
 function ModalViewCategory(props) {
     const { show, setShow, dataView } = props;
 
@@ -22,10 +21,6 @@ function ModalViewCategory(props) {
     }, [dataView]);
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Information of category: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
@@ -46,9 +41,6 @@ function ModalViewCategory(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>

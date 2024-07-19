@@ -3,10 +3,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateOrder, getAllOrders, putUpdateOrder, deleteOrder } from "../../../../services/apiServices";
+import { postCreateOrder } from "../../../../services/apiServices";
 
 const ModalCreateOrder = (props) => {
-    // console.log(props);
     // const FormData = require("form-data");
     const { show, setShow } = props;
     const handleClose = () => {
@@ -28,7 +27,7 @@ const ModalCreateOrder = (props) => {
         }
     };
     const handleSubmitCreateOrder = async (event) => {
-        // validate?
+        // validate
         // callapi
         let res_data = await postCreateOrder(name, avatar);
         if (res_data && res_data.EC === 0) {

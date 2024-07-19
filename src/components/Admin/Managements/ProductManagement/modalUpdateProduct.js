@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } from "../../../../services/apiServices";
+import { putUpdateProduct } from "../../../../services/apiServices";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 const ModalUpdateProduct = (props) => {
@@ -11,10 +11,6 @@ const ModalUpdateProduct = (props) => {
     const listCategories = useSelector((state) => state.category.listCategories);
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
-    // console.log("1",dataUpdate);
-    // console.log("123", dataUpdate);
-
-    // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
         // setName("");
@@ -60,7 +56,7 @@ const ModalUpdateProduct = (props) => {
         }
     };
     const handleSubmitUpdateCategory = async (event) => {
-        // validate?
+        // validate
         // callapi
         const config = {
             headers: {

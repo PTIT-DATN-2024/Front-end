@@ -1,16 +1,14 @@
-const { User, Product, Category, Order, Voucher, Comment } = require("../model/model");
+const { Comment } = require("../model/model");
 
 const commentController = {
-    // Thêm mới Comment
+    // add Comment
     addComment: async (req, res) => {
         try {
             const newComment = new Comment({
                 ...req.body,
                 listReply: [],
             });
-
             const savedComment = await newComment.save();
-
             if (req.body.replyFor) {
                 const parentComment = await Comment.findById(req.body.replyFor);
                 if (parentComment) {
@@ -18,14 +16,13 @@ const commentController = {
                     await parentComment.save();
                 }
             }
-
             res.status(200).json({ EC: 0, MS: "Thêm Comment thành công!", comment: savedComment });
         } catch (err) {
             res.status(500).json({ EC: 1, MS: "Lỗi thêm Comment!", err });
         }
     },
 
-    // Lấy tất cả Comments của một sản phẩm theo idProduct
+    // get cmt by product id
     getAllCommentsByProductId: async (req, res) => {
         try {
             const comments = await Comment.find({ idProduct: req.params.idProduct });
@@ -35,7 +32,7 @@ const commentController = {
         }
     },
 
-    // Lấy một Comment theo id
+    // get Comment theo id
     getAnComment: async (req, res) => {
         try {
             const comment = await Comment.findById(req.params.id);
@@ -48,7 +45,7 @@ const commentController = {
         }
     },
 
-    // Cập nhật Comment theo id
+    // ud Comment theo id
     updateComment: async (req, res) => {
         try {
             const comment = await Comment.findById(req.params.id);
@@ -59,7 +56,7 @@ const commentController = {
         }
     },
 
-    // Xóa Comment theo id
+    // delete Comment theo id
     deleteComment: async (req, res) => {
         try {
             const comment = await Comment.findById(req.params.id);
@@ -68,7 +65,7 @@ const commentController = {
                 return res.status(404).json({ EC: 1, MS: "Không tìm thấy Comment" });
             }
 
-            // Xóa id của comment trong listReply của comment cha (nếu có)
+            // Xóa id của comment trong listReply của comment parent
             if (comment.replyFor) {
                 const parentComment = await Comment.findById(comment.replyFor);
                 if (parentComment) {

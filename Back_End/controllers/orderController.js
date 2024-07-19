@@ -1,4 +1,4 @@
-const { User, Product, Category, Order, Voucher } = require("../model/model");
+const {  Order } = require("../model/model");
 
 const orderController = {
     //ADD Order
@@ -12,17 +12,15 @@ const orderController = {
         }
     },
     //GET ALL Order
-    // GET ALL Order
+
     getAllOrders: async (req, res) => {
         try {
             const ordersOld = await Order.find()
                 .populate("listItem.idProduct", "name presentimage sellingprice") // Populate product fields
-                .populate("user", "email avatar"); // Populate user field
-
+                .populate("user", "email avatar"); 
             if (!ordersOld) {
                 return res.status(404).json({ message: "Không tìm thấy đơn hàng nào." });
             }
-
             const orders = ordersOld.map((order) => ({
                 _id: order._id,
                 user: {
@@ -41,7 +39,6 @@ const orderController = {
                 total: order.total,
                 createdAt: order.createdAt,
             }));
-
             res.json({ EC: 0, MS: "Get all Order success!", orders });
         } catch (err) {
             res.status(500).json({ EC: 0, MS: "Get all Order success!", err });
@@ -49,7 +46,6 @@ const orderController = {
     },
 
     //GET AN Order
-    // GET AN Order
     getAnOrder: async (req, res) => {
         try {
             const order = await Order.findById(req.params.id)
@@ -59,7 +55,6 @@ const orderController = {
             if (!order) {
                 return res.status(404).json({ EC: 1, MS: "Order not found" });
             }
-
             const formattedOrder = {
                 _id: order._id,
                 user: {
@@ -78,7 +73,6 @@ const orderController = {
                 total: order.total,
                 createdAt: order.createdAt,
             };
-
             res.status(200).json({ EC: 0, MS: "Get an Order success!", order: formattedOrder });
         } catch (err) {
             res.status(500).json({ EC: 2, MS: "Get an Order error!", err });
@@ -104,5 +98,4 @@ const orderController = {
         }
     },
 };
-
 module.exports = orderController;

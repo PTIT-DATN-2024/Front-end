@@ -3,12 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateCategory,getAllCategories,putUpdateCategory,deleteCategory } from "../../../../services/apiServices";
+import { postCreateCategory } from "../../../../services/apiServices";
 import { useSelector } from "react-redux";
 
 const ModalCreateCategory = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
-    // const FormData = require("form-data");
     const { show, setShow } = props;
     const handleClose = () => {
         setShow(false);
@@ -29,7 +28,7 @@ const ModalCreateCategory = (props) => {
         }
     };
     const handleSubmitCreateCategory = async (event) => {
-        // validate?
+        // validate
         // callapi
         const config = {
             headers: {

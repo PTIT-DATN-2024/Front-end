@@ -5,11 +5,6 @@ import React from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
-// import CategogyManagement from "./Managements/CategoryManagement";
-// import InfoShopManagement from "./Managements/InfoShopManagement";
-// import UserManagement from "./Managements/UserManagement";
-// import ProductManagement from "./Managements/ProductManagement";
-// import OrderManagement from "./Managements/OrderManagement";
 const Admin = (props) => {
     return (
         <div className="admin-container">

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -10,10 +9,6 @@ function ModalViewOrder(props) {
 
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Information of Order: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
@@ -23,9 +18,6 @@ function ModalViewOrder(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>

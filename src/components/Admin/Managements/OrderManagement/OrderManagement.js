@@ -4,7 +4,7 @@ import ModalCreateOrder from "./ModalCreateOrder";
 import "./OrderManagement.scss";
 import { FcPlus } from "react-icons/fc";
 import { useEffect } from "react";
-import { getAllOrders, getAllProducts, getAllUsers } from "../../../../services/apiServices";
+import { getAllOrders } from "../../../../services/apiServices";
 import { toast } from "react-toastify";
 import ModalUpdateOrder from "./modalUpdateOrder";
 import TableOrdersPaginate from "./tableOrderPaginate";

@@ -1,16 +1,12 @@
-// import a from "../uploads";
-
-const { User, Product, Category, Order, Voucher } = require("../model/model");
+const { Product } = require("../model/model");
 const fs = require("fs");
 const path = require("path");
-
 const productController = {
     //ADD Product
     addProduct: async (req, res) => {
         try {
             const { name, importprice, weight, sellingprice, description, count, category } = req.body;
             const presentImage = req.file ? req.file.path : null; // Lấy đường dẫn của ảnh được tải lên
-
             const newProduct = new Product({
                 name,
                 weight,
@@ -21,7 +17,6 @@ const productController = {
                 category,
                 presentImage,
             });
-
             const savedProduct = await newProduct.save();
             res.status(200).json({ EC: 0, MS: "Add Product success!", savedProduct });
         } catch (err) {
@@ -33,11 +28,9 @@ const productController = {
     getAllProducts: async (req, res) => {
         try {
             const productsOld = await Product.find().populate("category", "name");
-
             if (!productsOld || productsOld.length === 0) {
                 return res.status(404).json({ EC: 2, MS: "Product not found!" });
             }
-
             const products = productsOld.map((product) => ({
                 _id: product._id,
                 name: product.name,
@@ -52,7 +45,6 @@ const productController = {
                 description: product.description,
                 count: product.count,
             }));
-
             res.json({ EC: 0, MS: "Get all Products success!", products });
         } catch (err) {
             console.error("Get all Products error:", err);
@@ -66,7 +58,6 @@ const productController = {
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
-
             const productData = {
                 _id: product._id,
                 name: product.name,
@@ -81,7 +72,6 @@ const productController = {
                 description: product.description,
                 count: product.count,
             };
-
             res.status(200).json({ EC: 0, MS: "Get a product success!", product: productData });
         } catch (err) {
             res.status(500).json({ EC: 2, MS: "Get a product error!", err });
@@ -95,23 +85,15 @@ const productController = {
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
-
-            // Xử lý cập nhật tệp ảnh presentImage nếu có
             if (req.file) {
                 if (product.presentImage) {
                     const imagePath = path.join(__dirname, "..", product.presentImage);
-
-                    // Kiểm tra xem tệp cũ có tồn tại không trước khi xóa
                     if (fs.existsSync(imagePath)) {
-                        fs.unlinkSync(imagePath); // Xóa tệp cũ từ hệ thống tệp
+                        fs.unlinkSync(imagePath); 
                     }
                 }
-
-                // Cập nhật đường dẫn tệp ảnh mới
                 product.presentImage = req.file.path;
             }
-
-            // Cập nhật các trường thông tin sản phẩm từ req.body
             product.name = req.body.name || product.name;
             product.importprice = req.body.importprice || product.importprice;
             product.weight = req.body.weight || product.weight;
@@ -120,9 +102,7 @@ const productController = {
             product.count = req.body.count || product.count;
             product.category = req.body.category || product.category;
 
-            // Lưu các thay đổi vào cơ sở dữ liệu
             await product.save();
-
             res.status(200).json({ EC: 0, MS: "Update product success!" });
         } catch (err) {
             console.error("Update product error:", err);
@@ -134,25 +114,19 @@ const productController = {
     deleteProduct: async (req, res) => {
         try {
             const product = await Product.findById(req.params.id);
-
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
-
-            // Xóa tệp presentImage nếu tồn tại
             if (product.presentImage) {
                 let imagePath = path.join(__dirname, "..", product.presentImage);
-                imagePath = path.normalize(imagePath); // Chuẩn hóa đường dẫn
-                // Kiểm tra xem tệp có tồn tại không trước khi xóa
+                imagePath = path.normalize(imagePath);
                 if (fs.existsSync(imagePath)) {
-                    fs.unlinkSync(imagePath); // Xóa tệp từ hệ thống tệp
+                    fs.unlinkSync(imagePath);
                 } else {
                     console.log(`File ${imagePath} not found`);
                 }
             }
-
             await product.remove(); // Xóa sản phẩm từ cơ sở dữ liệu
-
             res.status(200).json({ EC: 0, MS: "Delete product success!" });
         } catch (err) {
             console.error("Delete product error:", err);

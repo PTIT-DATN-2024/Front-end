@@ -6,7 +6,7 @@ const router = require("express").Router();
 router.post(
     "/",
     (req, res, next) => {
-        req.entityType = "category"; // Thêm trường entityType cho user
+        req.entityType = "category"; 
         next();
     },
     upload.single("avatar"),
@@ -23,7 +23,7 @@ router.get("/:id", categoryController.getAnCategory);
 router.put(
     "/:id",
     (req, res, next) => {
-        req.entityType = "category"; // Thêm trường entityType cho user
+        req.entityType = "category"; 
         next();
     },
     upload.single("avatar"),

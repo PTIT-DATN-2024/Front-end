@@ -1,4 +1,3 @@
-import axios from "axios";
 import { postLogin } from "../../services/apiServices";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";

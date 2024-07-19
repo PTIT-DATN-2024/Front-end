@@ -39,11 +39,8 @@ const TableCategoriesPaginate = (props) => {
     }
 
     const PaginatedItems = ({ itemsPerPage }) => {
-        // We start with an empty list of items.
         const [currentItems, setCurrentItems] = useState(null);
         const [pageCount, setPageCount] = useState(0);
-        // Here we use item offsets; we could also use page offsets
-        // following the API or data you're working with.
         const [itemOffset, setItemOffset] = useState(0);
 
         useEffect(() => {
@@ -94,8 +91,7 @@ const TableCategoriesPaginate = (props) => {
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        {/* <th scope="col">ID</th> */}
-                        <th scope="col">name</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Setting</th>
                     </tr>
                 </thead>

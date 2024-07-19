@@ -2,11 +2,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useNavigate } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch, useSelector } from "react-redux";
-// import { postLogin } from "../../services/apiServices";
 import { toast } from "react-toastify";
 const Header = () => {
     const dispatch = useDispatch();
@@ -23,6 +20,9 @@ const Header = () => {
         navigate("/SignUp");
     };
     const handleLogOut = async () => {
+
+        // logout phias server
+
         // const config = {
         //     headers: {
         //         "Content-Type": "multipart/form-data",

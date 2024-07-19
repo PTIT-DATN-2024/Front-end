@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -48,7 +47,6 @@ function ModalViewProduct(props) {
             setPreviewImage(`${dataView.presentImage}`);
         }
     }, [dataView]);
-    // console.log(props.dataUpdate);
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">

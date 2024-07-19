@@ -2,12 +2,13 @@ const userController = require("../controllers/userController");
 const { protectOnlyAdmin, protectOwnerAdmin } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware");
 const router = require("express").Router();
+
 // protectOnlyAdmin, authorize("ADMIN"),
 //ADD new user
 router.post(
     "/",
     (req, res, next) => {
-        req.entityType = "user"; // Thêm trường entityType cho user
+        req.entityType = "user"; 
         next();
     },
     upload.single("avatar"),
@@ -24,7 +25,7 @@ router.get("/:id", userController.getAnUser);
 router.put(
     "/:id",
     (req, res, next) => {
-        req.entityType = "user"; // Thêm trường entityType cho user
+        req.entityType = "user"; 
         next();
     },
     upload.single("avatar"),
@@ -39,7 +40,7 @@ router.post("/login", userController.postLogin);
 router.post(
     "/signup",
     (req, res, next) => {
-        req.entityType = "user"; // Thêm trường entityType cho user
+        req.entityType = "user"; 
         next();
     },
     upload.single("avatar"),
