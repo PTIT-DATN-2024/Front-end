@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 // timeStart
 // timeEnd
 // quantity
@@ -147,7 +148,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    presentimage: {
+    presentImage: {
         type: String,
     },
     description: {
@@ -198,6 +199,12 @@ userSchema.pre("save", async function (next) {
 });
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
+};
+// Phương thức tạo JWT
+userSchema.methods.getSignedJwtToken = function () {
+    return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+    });
 };
 
 let User = mongoose.model("Users", userSchema);

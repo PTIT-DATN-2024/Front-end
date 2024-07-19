@@ -117,7 +117,7 @@ const ProductFilterPage = (props) => {
         <>
             {/* <button onClick={()=>test()}>clcik up date product</button> */}
 
-            <div className="tableProduct">
+            <div className="tableProduct_filter">
                 <div className="tableProductHeader">Popular Fast Foods</div>
                 <div style={{ marginBottom: "20px" }}>
                     <label className="form-label">Name</label>
@@ -163,7 +163,8 @@ const ProductFilterPage = (props) => {
                         filteredProducts.map((product, index) => {
                             return (
                                 <SwiperSlide>
-                                    <div className="SwiperSliceBGI"></div>
+                                    <img src={product.presentImage} alt="presentImage" className="SwiperSlideImg" />
+
                                     <div onClick={() => navigate(`/productsPage/${product._id}`)} className="SwiperSlideImg"></div>
                                     <div className="SwiperSlideDes">
                                         <div className="SwiperSlideDes_Price">{product.sellingprice.toLocaleString("vi-VN") + " đ"} </div>

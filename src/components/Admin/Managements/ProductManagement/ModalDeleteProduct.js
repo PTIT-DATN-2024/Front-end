@@ -3,15 +3,22 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import {deleteProduct } from "../../../../services/apiServices";
+import { deleteProduct } from "../../../../services/apiServices";
 import _ from "lodash";
-
+import { useSelector } from "react-redux";
 const ModalDeleteProduct = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     const { show, setShow, dataDelete } = props;
     // console.log(dataDelete);
     const handleClose = () => setShow(false);
     const handleSubmitDeleteProduct = async () => {
-        let res_data = await deleteProduct(dataDelete._id);
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+            },
+        };
+        let res_data = await deleteProduct(dataDelete._id, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();

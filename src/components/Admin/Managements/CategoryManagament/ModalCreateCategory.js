@@ -4,9 +4,10 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateCategory,getAllCategories,putUpdateCategory,deleteCategory } from "../../../../services/apiServices";
-
+import { useSelector } from "react-redux";
 
 const ModalCreateCategory = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     // const FormData = require("form-data");
     const { show, setShow } = props;
     const handleClose = () => {
@@ -30,7 +31,16 @@ const ModalCreateCategory = (props) => {
     const handleSubmitCreateCategory = async (event) => {
         // validate?
         // callapi
-        let res_data = await postCreateCategory(name, avatar);
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                authorization: `Bearer ${token}`,
+            },
+        };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("avatar", avatar);
+        let res_data = await postCreateCategory(formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();

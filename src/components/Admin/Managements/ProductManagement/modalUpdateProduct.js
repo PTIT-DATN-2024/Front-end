@@ -7,6 +7,7 @@ import { postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } fr
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 const ModalUpdateProduct = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     const listCategories = useSelector((state) => state.category.listCategories);
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
@@ -21,9 +22,9 @@ const ModalUpdateProduct = (props) => {
         // setImportprice("");
         // setSellingprice("");
         // setWeight("");
-        // setPresenimage("");
+        // setPresentImage("");
         // setDescriptiom("");
-        // setcount("");
+        // setCount("");
         // setPreviewImage("");
     };
     const [name, setName] = useState("");
@@ -31,9 +32,9 @@ const ModalUpdateProduct = (props) => {
     const [importprice, setImportprice] = useState("");
     const [sellingprice, setSellingprice] = useState("");
     const [weight, setWeight] = useState("");
-    const [presentimage, setPresenimage] = useState("");
+    const [presentImage, setPresentImage] = useState("");
     const [description, setDescriptiom] = useState("");
-    const [count, setcount] = useState("");
+    const [count, setCount] = useState("");
     const [previewImage, setPreviewImage] = useState("");
 
     useEffect(() => {
@@ -43,17 +44,17 @@ const ModalUpdateProduct = (props) => {
             setImportprice(dataUpdate.importprice);
             setSellingprice(dataUpdate.sellingprice);
             setWeight(dataUpdate.weight);
-            setPresenimage(dataUpdate.presentimage);
+            setPresentImage(dataUpdate.presentImage);
             setDescriptiom(dataUpdate.description);
-            setcount(dataUpdate.count);
-            setPreviewImage(`${dataUpdate.presentimage}`);
+            setCount(dataUpdate.count);
+            setPreviewImage(`${dataUpdate.presentImage}`);
         }
     }, [dataUpdate]);
 
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setPresenimage(event.target.files[0]);
+            setPresentImage(event.target.files[0]);
         } else {
             // setPreviewImage("");
         }
@@ -61,7 +62,22 @@ const ModalUpdateProduct = (props) => {
     const handleSubmitUpdateCategory = async (event) => {
         // validate?
         // callapi
-        let res_data = await putUpdateProduct(dataUpdate._id, name, category, importprice, sellingprice, weight, presentimage, description, count);
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                authorization: `Bearer ${token}`,
+            },
+        };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("weight", weight);
+        formData.append("importprice", importprice);
+        formData.append("sellingprice", sellingprice);
+        formData.append("description", description);
+        formData.append("count", count);
+        formData.append("category", category);
+        formData.append("presentImage", presentImage);
+        let res_data = await putUpdateProduct(dataUpdate._id, formData,config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
@@ -87,10 +103,10 @@ const ModalUpdateProduct = (props) => {
                         <div className="col-md-6">
                             <label className="form-label">Category</label>
                             {
-                                <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)} placeholder={!_.isEmpty(dataUpdate)?dataUpdate.category.nameCategory:""}>
+                                <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)} placeholder={!_.isEmpty(dataUpdate) ? dataUpdate.category.nameCategory : ""}>
                                     {listCategories.map((category) => {
                                         return (
-                                            <option key={category._id} value={category._id} selected={!_.isEmpty(dataUpdate)?category.name === dataUpdate.category.nameCategory:false}>
+                                            <option key={category._id} value={category._id} selected={!_.isEmpty(dataUpdate) ? category.name === dataUpdate.category.nameCategory : false}>
                                                 {category.name}
                                             </option>
                                         );
@@ -111,8 +127,8 @@ const ModalUpdateProduct = (props) => {
                             <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={weight} onChange={(event) => setWeight(event.target.value)} />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">present image</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={presentimage} onChange={(event) => setPresenimage(event.target.value)} />
+                            <label className="form-label">Count</label>
+                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={count} onChange={(event) => setCount(event.target.value)} />
                         </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileProduct">

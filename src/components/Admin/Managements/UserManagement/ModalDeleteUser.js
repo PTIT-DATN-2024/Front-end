@@ -5,13 +5,20 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { deleteUser } from "../../../../services/apiServices";
 import _ from "lodash";
-
+import { useSelector } from "react-redux";
 const ModalDeleteUser = (props) => {
-    const { show, setShow, fetchListUsers,dataDelete } = props;
+    const token = useSelector((state) => state.user.account.access_token);
+    const { show, setShow, fetchListUsers, dataDelete } = props;
     // console.log(dataDelete);
     const handleClose = () => setShow(false);
     const handleSubmitDeleteUSer = async () => {
-        let res_data = await deleteUser(dataDelete._id);
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+            },
+        };
+        let res_data = await deleteUser(dataDelete._id,config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();

@@ -6,8 +6,10 @@ import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import "./CartOrder.scss";
 import Table from "react-bootstrap/Table";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CartOrder = (props) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const stateProduct = useSelector((state) => state.product);
 
@@ -128,7 +130,15 @@ const CartOrder = (props) => {
                     <Button variant="secondary" onClick={() => props.toggleDiv()}>
                         Close
                     </Button>
-                    <Button variant="primary">Pay</Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            props.toggleDiv();
+                            navigate("/PayPage");
+                        }}
+                    >
+                        Pay
+                    </Button>
                 </div>
             </div>
         </>

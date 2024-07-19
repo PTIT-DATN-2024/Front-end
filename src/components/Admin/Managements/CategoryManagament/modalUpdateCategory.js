@@ -5,7 +5,11 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateCategory,getAllCategories,putUpdateCategory,deleteCategory } from "../../../../services/apiServices";
 import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+
 const ModalUpdateCategory = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
+
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
     // console.log("dâtupdate",dataUpdate);
@@ -22,6 +26,8 @@ const ModalUpdateCategory = (props) => {
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setName(dataUpdate.name);
+            setAvatar(dataUpdate.avatar);
+            setPreviewImage(dataUpdate.avatar);
             // setPassword("");
             if (dataUpdate.avatar) {
                 // setPreviewImage(`data:image/jpeg;base64,${dataUpdate.avatar}`);
@@ -41,7 +47,16 @@ const ModalUpdateCategory = (props) => {
     const handleSubmitUpdateCategory = async (event) => {
         // validate?
         // callapi
-        let res_data = await putUpdateCategory(dataUpdate._id, name, avatar);
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                authorization: `Bearer ${token}`,
+            },
+        };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("avatar", avatar);
+        let res_data = await putUpdateCategory(dataUpdate._id, formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();

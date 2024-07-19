@@ -1,6 +1,6 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
-
+import "./tableCategory.scss"
 const TableCategoriesPaginate = (props) => {
     const { listCategories } = props;
     const items = listCategories;
@@ -11,9 +11,9 @@ const TableCategoriesPaginate = (props) => {
                     currentItems.length > 0 &&
                     currentItems.map((category, index) => {
                         return (
-                            <tr key={`table_category_${index}`}>
+                            <tr key={`table_category_${index}`} className="tableCategory_row">
                                 <td>{itemOffset + index + 1}</td>
-                                {/* <td>{user._id}</td> */}
+                                <td className="tableCategory_rowItem">{<img src={category.avatar} alt="" className="categoryPresent" />}</td>
                                 <td>{category.name}</td>
                                 <td>
                                     <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(category)}>

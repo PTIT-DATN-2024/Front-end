@@ -21,9 +21,9 @@ function ModalViewProduct(props) {
         // setImportprice("");
         // setSellingprice("");
         // setWeight("");
-        // setPresenimage("");
+        // setPresentImage("");
         // setDescriptiom("");
-        // setcount("");
+        // setCount("");
         // setPreviewImage("");
     };
     const [name, setName] = useState("");
@@ -31,9 +31,9 @@ function ModalViewProduct(props) {
     const [importprice, setImportprice] = useState("");
     const [sellingprice, setSellingprice] = useState("");
     const [weight, setWeight] = useState("");
-    const [presentimage, setPresenimage] = useState("");
+    const [presentImage, setPresentImage] = useState("");
     const [description, setDescriptiom] = useState("");
-    const [count, setcount] = useState("");
+    const [count, setCount] = useState("");
     const [previewImage, setPreviewImage] = useState("");
     useEffect(() => {
         if (!_.isEmpty(dataView)) {
@@ -42,10 +42,10 @@ function ModalViewProduct(props) {
             setImportprice(dataView.importprice);
             setSellingprice(dataView.sellingprice);
             setWeight(dataView.weight);
-            setPresenimage(dataView.presentimage);
+            setPresentImage(dataView.presentImage);
             setDescriptiom(dataView.description);
-            setcount(dataView.count);
-            setPreviewImage(`${dataView.presentimage}`);
+            setCount(dataView.count);
+            setPreviewImage(`${dataView.presentImage}`);
         }
     }, [dataView]);
     // console.log(props.dataUpdate);
@@ -84,6 +84,10 @@ function ModalViewProduct(props) {
                         <div className="col-md-6">
                             <label className="form-label">Weight</label>
                             <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={weight} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Count</label>
+                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={count} disabled />
                         </div>
                         <div className="col-12  img-preview">
                             <img src={previewImage} alt="preview image" />

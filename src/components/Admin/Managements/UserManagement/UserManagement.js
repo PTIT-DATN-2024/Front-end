@@ -8,11 +8,11 @@ import { getAllUsers } from "../../../../services/apiServices";
 import { toast } from "react-toastify";
 import ModalUpdateUser from "./modalUpdateUser";
 import TableUsersPaginate from "./tableUserPaginate";
-import TableUsers from "./tableUsers";
 import ModalDeleteUser from "./ModalDeleteUser";
 import ModalViewUser from "./ModalViewUser";
-
+import { useSelector } from "react-redux";
 const UserManagement = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
@@ -34,7 +34,13 @@ const UserManagement = (props) => {
         setDataView(user);
     };
     const fetchListUsers = async () => {
-        let res = await getAllUsers();
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+            },
+        };
+        let res = await getAllUsers(config);
         if (res.EC === 0) {
             setListUsers(res.users);
             toast.success(res.MS);
@@ -45,7 +51,6 @@ const UserManagement = (props) => {
     }, []);
     return (
         <div className="UserManagement_container">
-            
             <div className="Title">đây là UserManagement</div>
             <div className="UserManagement_content">
                 <div>

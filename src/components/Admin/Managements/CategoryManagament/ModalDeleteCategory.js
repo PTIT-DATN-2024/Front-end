@@ -5,21 +5,42 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateCategory, getAllCategories, putUpdateCategory, deleteCategory } from "../../../../services/apiServices";
 import _ from "lodash";
-
+import { useSelector } from "react-redux";
 const ModalDeleteCategory = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     const { show, setShow, fetchListCategories, dataDelete } = props;
+    
     // console.log(dataDelete);
     const handleClose = () => setShow(false);
     const handleSubmitDeleteCategory = async () => {
-        let res_data = await deleteCategory(dataDelete._id);
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+            },
+        };
+        let res_data = await deleteCategory(dataDelete._id,config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
             await props.fetchListCategories();
         }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
+        if (res_data && res_data.EC === 1) {
+            toast.warning(res_data.MS);
+            handleClose();
+            await props.fetchListCategories();
         }
+        if (res_data && res_data.EC === 2) {
+            toast.error(res_data.MS);
+            handleClose();
+            await props.fetchListCategories();
+        }
+        if (res_data && res_data.EC === 3) {
+            toast.error(res_data.MS);
+            handleClose();
+            await props.fetchListCategories();
+        }
+
     };
     return (
         <>

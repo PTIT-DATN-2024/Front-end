@@ -7,6 +7,7 @@ import { postCreateProduct, getAllProducts, putUpdateProduct, deleteProduct } fr
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const ModalCreateProduct = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     const listCategories = useSelector((state) => state.category.listCategories);
     // const FormData = require("form-data");
     const { show, setShow } = props;
@@ -28,7 +29,7 @@ const ModalCreateProduct = (props) => {
         setImportprice("");
         setSellingprice("");
         setWeight("");
-        setPresenimage("");
+        setPresentImage("");
         setDescriptiom("");
         setcount("");
         setPreviewImage("");
@@ -46,7 +47,7 @@ const ModalCreateProduct = (props) => {
     const [importprice, setImportprice] = useState("");
     const [sellingprice, setSellingprice] = useState("");
     const [weight, setWeight] = useState("");
-    const [presentimage, setPresenimage] = useState("");
+    const [presentImage, setPresentImage] = useState("");
     const [description, setDescriptiom] = useState("");
     const [count, setcount] = useState("");
     const [previewImage, setPreviewImage] = useState("");
@@ -55,11 +56,12 @@ const ModalCreateProduct = (props) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
             const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPresenimage(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setPresentImage(file);
+            // const reader = new FileReader();
+            // reader.onloadend = () => {
+            //     setPresentImage(reader.result);
+            // };
+            // reader.readAsDataURL(file);
         } else {
             // setPreviewImage("");
         }
@@ -67,7 +69,24 @@ const ModalCreateProduct = (props) => {
     const handleSubmitCreateProduct = async (event) => {
         // validate?
         // callapi
-        let res_data = await postCreateProduct(name, category, importprice, sellingprice, weight, presentimage, description, count);
+
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                authorization: `Bearer ${token}`,
+            },
+        };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("weight", weight);
+        formData.append("importprice", importprice);
+        formData.append("sellingprice", sellingprice);
+        formData.append("description", description);
+        formData.append("count", count);
+        formData.append("category", category);
+        formData.append("presentImage", presentImage);
+
+        let res_data = await postCreateProduct(formData, config);
 
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
@@ -94,7 +113,8 @@ const ModalCreateProduct = (props) => {
                             <label className="form-label">Category</label>
                             {
                                 <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)}>
-                                    {listCategories.map((category) => (
+                                    <option key={0} value=""></option>
+                                    {listCategories.map((category, index) => (
                                         <option key={category._id} value={category._id}>
                                             {category.name}
                                         </option>

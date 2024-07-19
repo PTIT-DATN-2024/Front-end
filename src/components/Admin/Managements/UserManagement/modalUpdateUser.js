@@ -5,7 +5,9 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { putUpdateUser } from "../../../../services/apiServices";
 import _ from "lodash";
+import { useSelector } from "react-redux";
 const ModalUpdateUser = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
     // console.log("dâtupdate",dataUpdate);
@@ -49,7 +51,22 @@ const ModalUpdateUser = (props) => {
     const handleSubmitUpdateUser = async (event) => {
         // validate?
         // callapi
-        let res_data = await putUpdateUser(dataUpdate._id, address, phoneNumber, role, avatar);
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+            },
+        };
+
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("address", address);
+        formData.append("phoneNumber", phoneNumber);
+        formData.append("role", role);
+        formData.append("avatar", avatar);
+
+        let res_data = await putUpdateUser(dataUpdate._id, formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
@@ -88,9 +105,15 @@ const ModalUpdateUser = (props) => {
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)}>
-                                    <option value="USER" selected={"USER" === dataUpdate.role}>USER</option>
-                                    <option value="STAFF" selected={"STAFF" === dataUpdate.role}>STAFF</option>
-                                    <option value="ADMIN" selected={"ADMIN" === dataUpdate.role}>ADMIN</option>
+                                <option value="USER" selected={"USER" === dataUpdate.role}>
+                                    USER
+                                </option>
+                                <option value="STAFF" selected={"STAFF" === dataUpdate.role}>
+                                    STAFF
+                                </option>
+                                <option value="ADMIN" selected={"ADMIN" === dataUpdate.role}>
+                                    ADMIN
+                                </option>
                             </select>
                         </div>
                         <div className="col-3">
@@ -100,7 +123,7 @@ const ModalUpdateUser = (props) => {
                             </label>
                             <input type="file" className="form-control" hidden id="inputFileUser" onChange={(event) => handleUploadImage(event)} />
                         </div>
-                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
+                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" className="user-avatar" /> : <span>Preview Image</span>}</div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

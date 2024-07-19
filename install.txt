@@ -33,8 +33,6 @@ be
 npm install express mongoose bcryptjs jsonwebtoken body-parser
 
 
-
-
 npm install --save-exact sass@1.53.0
 npm install --save-exact react-router-dom@6.3.0 bootstrap@5.2.0 react-bootstrap@2.4.0
 npm install --save-exact react-pro-sidebar@0.7.1

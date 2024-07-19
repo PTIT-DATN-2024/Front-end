@@ -4,8 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { postCreateUser } from "../../../../services/apiServices";
-
+import { useSelector } from "react-redux";
 const ModalCreateUser = (props) => {
+    const token = useSelector((state) => state.user.account.access_token);
     // const FormData = require("form-data");
     const { show, setShow } = props;
     const handleClose = () => {
@@ -31,19 +32,33 @@ const ModalCreateUser = (props) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
             const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setAvatar(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setAvatar(file);
+            // const reader = new FileReader();
+            // reader.onloadend = () => {
+            //     setAvatar(reader.result);
+            // };
+            // reader.readAsDataURL(file);
         } else {
             // setPreviewImage("");
         }
     };
     const handleSubmitCreateUser = async (event) => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+            },
+        };
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("address", address);
+        formData.append("phoneNumber", phoneNumber);
+        formData.append("role", role);
+        formData.append("avatar", avatar);
         // validate?
         // callapi
-        let res_data = await postCreateUser(email, password, address, phoneNumber, role, avatar);
+        let res_data = await postCreateUser(formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();

@@ -1,35 +1,50 @@
 import { FcPlus } from "react-icons/fc";
-import { postCreateUser } from "../../services/apiServices";
+import { postSignUp } from "../../services/apiServices";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "./login.scss";
+import "./SignUp.scss";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 const SignUp = (props) => {
+    const dispatch = useDispatch();
     let navigate = useNavigate();
     const handleLogIn = () => {
         navigate("/logIn");
     };
     const handleSignUp = async () => {
-        let res_data = await postCreateUser(email, password, address, phoneNumber, "USER", avatar);
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("address", address);
+        formData.append("phoneNumber", phoneNumber);
+        formData.append("role", "USER");
+        formData.append("avatar", avatar);
+        let res_data = await postSignUp(formData,config);
+
         if (res_data && res_data.EC === 0) {
+            dispatch({ 
+                type: "fetch_user_login_success", 
+                payload: res_data 
+            });
             toast.success(res_data.MS);
-            alert("11111");
+            navigate("/");
         }
-        if (res_data && res_data.EC !== 0) {
+        if (res_data && res_data.EC === 1) {
             toast.error(res_data.MS);
-            alert("asdasd");
+        }
+        if (res_data && res_data.EC === 2) {
+            toast.error(res_data.MS);
         }
     };
     const handleUploadImage = (event) => {
-        // `data:image/jpeg;base64,${data}`
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setAvatar(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setAvatar(event.target.files[0]);
         } else {
             // setPreviewImage("");
         }
@@ -52,7 +67,7 @@ const SignUp = (props) => {
             </div>
             <div className="form" id="form-1">
                 <h3 className="heading">Wellcome!!!</h3>
-                {/* <p className="desc">Cùng nhau học nhé ❤️</p> */}
+                <p className="desc">Rất nhiều món ăn ngon đang chờ bạn!</p>
                 <div className="form-group">
                     <lable className="form-lable">Email</lable>
                     <input type="email" id="email" className="form-control" placeholder="example@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -74,14 +89,14 @@ const SignUp = (props) => {
                     <span className="form-message"></span>
                 </div>
                 <div className="form-group">
-                    <lable className="form-lable">
+                    <label className="form-label label_input-file" htmlFor="inputFileUser">
                         <FcPlus />
                         Upload file image
-                    </lable>
+                    </label>
                     <input type="file" className="form-control" hidden id="inputFileUser" onChange={(event) => handleUploadImage(event)} />
                     <span className="form-message"></span>
                 </div>
-                <div className="form-group">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
+                <div className="form-group col-12  divimg_preview">{previewImage ? <img src={previewImage} alt="" className="previewImage"/> : <span>Preview Image</span>}</div>
                 <button className="form-submit" onClick={() => handleSignUp()}>
                     Create free account
                 </button>

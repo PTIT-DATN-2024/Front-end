@@ -14,7 +14,11 @@ const LogIn = (props) => {
         navigate("/signUp");
     };
     const handleLogin = async () => {
-        let res_data = await postLogin(userEmail, userPassword);
+        let dataLogin = {
+            email: userEmail,
+            password: userPassword,
+        };
+        let res_data = await postLogin(dataLogin);
         if (res_data && res_data.EC === 0) {
             dispatch({ 
                 type: "fetch_user_login_success", 

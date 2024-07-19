@@ -110,7 +110,9 @@ const MainPage = (props) => {
                                         <div className="SwiperSlideDes_item">Description</div>
                                         <div className="SwiperSlideDes_item">More</div>
                                     </div>
-                                    <div className="SwiperSlideImg"></div>
+                                    <div className="SwiperSlideImg">
+                                        <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
+                                    </div>
                                 </SwiperSlide>
                             );
                         })}
@@ -143,7 +145,9 @@ const MainPage = (props) => {
                         listCategories.map((category, index) => {
                             return (
                                 <SwiperSlide>
-                                    <div className="SwiperSlideImg"></div>
+                                    <div className="SwiperSlideImg">
+                                        <img src={category.avatar} alt="presentImage" className="SwiperSlideImgItem" />
+                                    </div>
                                     <div className="SwiperSlideName">{category.name} </div>
                                     <div className="SwiperSlideCount">{category._id} </div>
                                 </SwiperSlide>
@@ -161,7 +165,7 @@ const MainPage = (props) => {
 
                 <div className="foodBannerItem_img"></div>
             </div>
-            <img src="./03.jpg" alt="1231231231" className="test_img" />
+
             <div className="tableProduct">
                 <div className="tableProductHeader">Popular Fast Foods</div>
 
@@ -188,7 +192,8 @@ const MainPage = (props) => {
                                 <SwiperSlide>
                                     <div className="SwiperSliceBGI"></div>
                                     <div onClick={() => navigate(`/productsPage/${product._id}`)} className="topItem">
-                                        <div className="SwiperSlideImg"></div>
+                                        <img src={product.presentImage} alt="presentImage" className="SwiperSlideImg" />
+
                                         <div className="SwiperSlideDes">
                                             <div className="SwiperSlideDes_Price">{product.sellingprice.toLocaleString("vi-VN") + " đ"} </div>
                                             <div className={`${product._id} SwiperSlideDes_Name`}>{product.name} </div>
@@ -244,7 +249,7 @@ const MainPage = (props) => {
                         listProducts.map((product, index) => {
                             return (
                                 <SwiperSlide>
-                                    <div className="SwiperSlideImg">{product.presentimage ? <img src={product.presentimage} alt="" /> : <span>presentimage</span>}</div>
+                                    <div className="SwiperSlideImg">{product.presentImage ? <img src={product.presentImage} alt="" /> : <span>presentImage</span>}</div>
                                 </SwiperSlide>
                             );
                         })}

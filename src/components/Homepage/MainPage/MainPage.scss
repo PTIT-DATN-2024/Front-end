@@ -45,11 +45,10 @@
             font-weight: 700;
         }
         .SwiperSlideImg {
-            height: 400px;
+            height: 500px;
             width: 500px;
-            background-image: url(../../../assets/image/chiken.png);
-            background-size: contain;
-            background-repeat: no-repeat;
+            .SwiperSlideImgItem {
+            }
         }
     }
 
@@ -87,7 +86,6 @@
         .SwiperSlideImg {
             height: 200px;
             width: 200px;
-            background-image: url(../../../assets/image/burger-2.png);
             background-size: contain;
             background-repeat: no-repeat;
         }
@@ -166,7 +164,7 @@
         background-size: cover;
     }
 }
-.test_img{
+.test_img {
     width: 300px;
     height: 300px;
     text-align: center;
@@ -210,14 +208,11 @@
     .swiper-slide {
         text-align: center;
         font-size: 18px;
-        // background-image: url(../../../assets/image/hero-bg.jpg);
         background-color: transparent;
-        /* Center slide text vertically */
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -242,12 +237,17 @@
             align-items: center;
             flex-direction: column;
             .SwiperSlideImg {
-                height: 250px;
+                // height: 250px;
                 width: 250px;
-                background-image: url(../../../assets/image/burger-2.png);
-                background-size: contain;
-                background-repeat: no-repeat;
-                
+                overflow: hidden;
+                // background-color: #fff;
+                // justify-content: center;
+                // align-items: center;
+                // display: flex;
+                // .SwiperSlideImgItem {
+                //     height: 200px;
+                //     width: 200px;
+                // }
             }
             .SwiperSlideDes {
                 margin-top: 20px;
@@ -274,7 +274,7 @@
                 }
             }
         }
-        .bottomItem{
+        .bottomItem {
             z-index: 4;
             min-height: 70px;
             display: flex;
@@ -345,7 +345,7 @@
     .swiper-slide {
         text-align: center;
         font-size: 18px;
-        background-color: #fff;
+        background-color: transparent;
         /* Center slide text vertically */
         display: flex;
         flex-direction: column;
@@ -356,9 +356,8 @@
         .SwiperSlideImg {
             height: 200px;
             width: 200px;
-            background-image: url(../../../assets/image/burger-2.png);
-            background-size: contain;
-            background-repeat: no-repeat;
+            .SwiperSlideImgItem {
+            }
         }
         .SwiperSlideName {
             font-size: 40px;

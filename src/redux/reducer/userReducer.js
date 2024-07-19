@@ -24,6 +24,19 @@ const userReducer = (state = USER_STATE, action) => {
                 },
                 isAuthenticated: true,
             };
+        case "user_logout":
+            return {
+                ...state,
+                account: {
+                    access_token: "",
+                    refresh_token: "",
+                    userName: "",
+                    role: "",
+                    avatar: "",
+                    _id: "",
+                },
+                isAuthenticated: false,
+            };
 
         default:
             return state;

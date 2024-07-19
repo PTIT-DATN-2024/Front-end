@@ -22,6 +22,7 @@ import OrderManagement from "./components/Admin/Managements/OrderManagement/Orde
 import ProfilePage from "./components/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
+import PayPage from "./components/Homepage/PayPage/PayPage";
 const App = () => {
     return (
         <>
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path="contactPage" element={<ContactPage />} />
                         <Route path="productsPage/:id" element={<ProductsPage />}></Route>
                         <Route path="profilePage" element={<ProfilePage />}></Route>
+                        <Route path="PayPage" element={<PayPage />}></Route>
                     </Route>
                     <Route
                         path="admins"

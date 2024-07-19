@@ -1,10 +1,11 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./tableProduct.scss"
+import "./tableProduct.scss";
+// import sample from "../../../../assets/image/04.jpg";
 const TableProductsPaginate = (props) => {
-    const listProducts =useSelector(state => state.product.listProducts);
-    
+    const listProducts = useSelector((state) => state.product.listProducts);
+
     const items = listProducts;
     function Items({ currentItems, itemOffset }) {
         return (
@@ -15,7 +16,7 @@ const TableProductsPaginate = (props) => {
                         return (
                             <tr key={`table_product_${index}`} className="tableProduct_row">
                                 <td className="tableProduct_rowItem">{itemOffset + index + 1}</td>
-                                <td className="tableProduct_rowItem">{ <img src={product.presentimage} alt="" className="productPresent"/> }</td>
+                                <td className="tableProduct_rowItem">{<img src={product.presentImage} alt="" className="productPresent" />}</td>
                                 <td className="tableProduct_rowItem">{product.name}</td>
                                 <td className="tableProduct_rowItem">{product.category.nameCategory}</td>
                                 <td className="tableProduct_rowItem">{product.importprice}</td>
@@ -102,16 +103,36 @@ const TableProductsPaginate = (props) => {
                 <caption>Danh sách product</caption>
                 <thead>
                     <tr className="tableProduct_row">
-                        <th scope="col" className="tableProduct_rowItem">STT</th>
-                        <th scope="col"className="tableProduct_rowItem">presentimage</th>
-                        <th scope="col"className="tableProduct_rowItem">name</th>
-                        <th scope="col"className="tableProduct_rowItem">category</th>
-                        <th scope="col"className="tableProduct_rowItem">importprice</th>
-                        <th scope="col"className="tableProduct_rowItem">sellingprice</th>
-                        <th scope="col"className="tableProduct_rowItem">weight</th>
-                        <th scope="col"className="tableProduct_rowItem">description</th>
-                        <th scope="col"className="tableProduct_rowItem">count</th>
-                        <th scope="col"className="tableProduct_rowItem">Setting</th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            STT
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            presentImage
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            name
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            category
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            importprice
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            sellingprice
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            weight
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            description
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            count
+                        </th>
+                        <th scope="col" className="tableProduct_rowItem">
+                            Setting
+                        </th>
                     </tr>
                 </thead>
                 <PaginatedItems itemsPerPage={10} />

@@ -2,14 +2,15 @@ import Header from "./Header/Header";
 import "./HomePage.scss";
 import { Outlet } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartOrder from "./CartOrder/CartOrder";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { FaArrowUp } from "react-icons/fa";
-
+import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postLogin } from "../../services/apiServices";
 const HomePage = (props) => {
+    const dispatch = useDispatch();
     const [isDivVisible, setIsDivVisible] = useState(false);
     const toggleDiv = () => {
         setIsDivVisible(!isDivVisible);
@@ -21,7 +22,26 @@ const HomePage = (props) => {
             behavior: "smooth",
         });
     };
-
+    const fetchListComment = async () => {
+        
+        let res_data = await postLogin("a", "1");
+        if (res_data && res_data.EC === 0) {
+            dispatch({
+                type: "fetch_user_login_success",
+                payload: res_data,
+            });
+            toast.success(res_data.MS);
+            // navigate("/");
+        }
+        if (res_data && res_data.EC !== 0) {
+            toast.error(res_data.MS);
+            alert("sai1111");
+        }
+    };
+    useEffect(() => {
+        // fetchListComment();
+        
+    }, []);
     return (
         <div className="HomePageContainer">
             <div className="headerContainer">

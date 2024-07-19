@@ -5,10 +5,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+// import { postLogin } from "../../services/apiServices";
+import { toast } from "react-toastify";
 const Header = () => {
+    const dispatch = useDispatch();
+    const token = useSelector((state) => state.user.account.access_token);
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const account = useSelector((state) => state.user.account);
+
     // console.log(isAuthenticated, account);
     let navigate = useNavigate();
     const handleLogIn = () => {
@@ -16,6 +21,33 @@ const Header = () => {
     };
     const handleSignUp = () => {
         navigate("/SignUp");
+    };
+    const handleLogOut = async () => {
+        // const config = {
+        //     headers: {
+        //         "Content-Type": "multipart/form-data",
+        //         authorization: `Bearer ${token}`,
+        //     },
+
+        // };
+        // let res_data = await postLogin(account._id,config);
+        // if (res_data && res_data.EC === 0) {
+        //     dispatch({
+        //         type: "user_logout",
+        //         payload: res_data
+        //     });
+        //     toast.success(res_data.MS);
+        //     navigate("/");
+        // }
+        // if (res_data && res_data.EC !== 0) {
+        //     toast.error(res_data.MS);
+        //     alert("errr");
+        // }
+        dispatch({
+            type: "user_logout",
+        });
+        toast.success("LogOut Successful");
+        navigate("/");
     };
     return (
         <Navbar expand="lg" className="bg-body-tertiary headerContainer">
@@ -29,9 +61,11 @@ const Header = () => {
                         <NavLink to="/" className="nav-link">
                             Home
                         </NavLink>
-                        <NavLink to="/admins" className="nav-link">
-                            Admin
-                        </NavLink>
+                        {account.role === "ADMIN" && (
+                            <NavLink to="/admins" className="nav-link">
+                                Admin
+                            </NavLink>
+                        )}
                         <NavLink to="/productFilterPage" className="nav-link">
                             product
                         </NavLink>
@@ -78,9 +112,8 @@ const Header = () => {
                         ) : (
                             <>
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                    <NavDropdown.Item>Log in</NavDropdown.Item>
-                                    <NavDropdown.Item>Log out</NavDropdown.Item>
                                     <NavDropdown.Item>Profile</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
                                 </NavDropdown>
                             </>
                         )}

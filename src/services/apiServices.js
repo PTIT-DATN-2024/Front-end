@@ -1,92 +1,52 @@
 import axios from "../utils/axiosCustomize";
-const postCreateUser = (email, password, address, phoneNumber, role, avatar) => {
-    let data = {
-        email: email,
-        password: password,
-        address: address,
-        phoneNumber: phoneNumber,
-        role: role,
-        avatar: avatar,
-    };
-    return axios.post("/user", data);
-};
-const postLogin = (email, password) => {
-    let data = {
-        email: email,
-        password: password,
-    };
-
-    return axios.post("/user/login", data);
+const postCreateUser = (formData, config) => {
+    return axios.post("/user", formData, config);
 };
 
-const getAllUsers = () => {
-    return axios.get("/user");
+const getAllUsers = (config) => {
+    return axios.get("/user",config);
 };
-const putUpdateUser = (_id, address, phoneNumber, role, avatar) => {
-    let data = {
-        address: address,
-        phoneNumber: phoneNumber,
-        role: role,
-        avatar: avatar,
-    };
-    return axios.put(`/user/${_id}`, data);
+const putUpdateUser = (_id, formData,config) => {
+
+    return axios.put(`/user/${_id}`, formData, config);
 };
-const deleteUser = (_id) => {
-    return axios.delete(`/user/${_id}`);
+const deleteUser = (_id,config) => {
+    return axios.delete(`/user/${_id}`,config);
+};
+const postLogin = (dataLogin) => {
+
+    return axios.post("/user/login", dataLogin);
+};
+const postSignUp = (formData,config) => {
+    return axios.post("/user/signup", formData,config);
 };
 
-const postCreateCategory = (name, avatar) => {
-    let data = {
-        name: name,
-        avatar: avatar,
-    };
-    return axios.post("/category", data);
+const postCreateCategory = (formData, config) => {
+    return axios.post("/category", formData, config);
 };
 const getAllCategories = () => {
     return axios.get("/category");
 };
-const putUpdateCategory = (_id, name, avatar) => {
-    let data = {
-        name: name,
-        avatar: avatar,
-    };
-    return axios.put(`/category/${_id}`, data);
+const putUpdateCategory = (_id, formData, config) => {
+    return axios.put(`/category/${_id}`, formData, config);
 };
-const deleteCategory = (_id) => {
-    return axios.delete(`/category/${_id}`);
+const deleteCategory = (_id,config) => {
+    return axios.delete(`/category/${_id}`,config);
 };
 
-const postCreateProduct = (name, category, importprice, sellingprice, weight, presentimage, description, count) => {
-    let data = {
-        name: name,
-        category: category,
-        importprice: importprice,
-        sellingprice: sellingprice,
-        weight: weight,
-        presentimage: presentimage,
-        description: description,
-        count: count,
-    };
-    return axios.post("/product", data);
+
+
+const postCreateProduct = (formData, config) => {
+    return axios.post("/product", formData, config);
 };
 const getAllProducts = () => {
     return axios.get("/product");
 };
-const putUpdateProduct = (_id, name, category, importprice, sellingprice, weight, presentimage, description, count) => {
-    let data = {
-        name: name,
-        category: category,
-        importprice: importprice,
-        sellingprice: sellingprice,
-        weight: weight,
-        presentimage: presentimage,
-        description: description,
-        count: count,
-    };
-    return axios.put(`/product/${_id}`, data);
+const putUpdateProduct = (_id, formData, config) => {
+    return axios.put(`/product/${_id}`, formData, config);
 };
-const deleteProduct = (_id) => {
-    return axios.delete(`/product/${_id}`);
+const deleteProduct = (_id,config) => {
+    return axios.delete(`/product/${_id}`,config);
 };
 
 // user
@@ -155,6 +115,7 @@ const deleteComment = (_id) => {
 
 export {
     postLogin,
+    postSignUp,
     postCreateUser,
     getAllUsers,
     putUpdateUser,

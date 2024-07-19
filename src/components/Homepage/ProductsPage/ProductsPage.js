@@ -57,19 +57,19 @@ const ProductsPage = (props) => {
             setListComment(sortedComments);
             toast.success("get comments done");
         }
-        let res_data = await postLogin("a", "1");
-        if (res_data && res_data.EC === 0) {
-            dispatch({
-                type: "fetch_user_login_success",
-                payload: res_data,
-            });
-            toast.success(res_data.MS);
-            // navigate("/");
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
-            alert("sai");
-        }
+        // let res_data = await postLogin("a", "1");
+        // if (res_data && res_data.EC === 0) {
+        //     dispatch({
+        //         type: "fetch_user_login_success",
+        //         payload: res_data,
+        //     });
+        //     toast.success(res_data.MS);
+        //     // navigate("/");
+        // }
+        // if (res_data && res_data.EC !== 0) {
+        //     toast.error(res_data.MS);
+        //     alert("sai");
+        // }
     };
 
     const onReplyClick = async (commentId, cmt) => {
