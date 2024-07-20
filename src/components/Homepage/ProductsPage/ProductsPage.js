@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
-import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postLogin } from "../../../services/apiServices";
+import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postVote,getAllProducts } from "../../../services/apiServices";
 import { toast } from "react-toastify";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -30,6 +30,7 @@ const ProductsPage = (props) => {
     const product = listProducts.find((item) => item._id === id);
     const [listcomment, setListComment] = useState([]);
     const [newComment, setNewCommnet] = useState([]);
+    const [userRating, setUserRating] = useState(null);
     const addProductOrder = async (productId) => {
         dispatch({
             type: "add_product",
@@ -102,7 +103,6 @@ const ProductsPage = (props) => {
     };
     useEffect(() => {
         fetchListComment();
-        console.log("get comments done", listcomment);
     }, []);
 
     // Kiểm tra xem sản phẩm có tồn tại không
@@ -182,6 +182,39 @@ const ProductsPage = (props) => {
             </div>
         );
     };
+    const fetchListProducts = async () => {
+        let res = await getAllProducts();
+        if (res.EC === 0) {
+            dispatch({
+                type: "fetch_all_product",
+                payload: res.products,
+            });
+            console.log(listProducts);
+            toast.success(res.MS);
+        }
+    };
+    const handleRating = async (rating) => {
+        
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${userState.access_token}`,
+            },
+        };
+        let formData ={
+            userId:userState._id,
+            rating: rating,
+        }
+        
+        let res_data = await postVote(product._id,formData,config);
+        if (res_data && res_data.EC === 0) {
+            toast.success(res_data.MS);
+            fetchListProducts();
+        }
+        if (res_data && res_data.EC !== 0) {
+            toast.error(res_data.MS);
+        }
+    };
     return (
         <div className="productContainer">
             <div className="productBanner">
@@ -190,7 +223,7 @@ const ProductsPage = (props) => {
             <div className="productContent">
                 <div className="topContent">
                     <div className="presentImage">
-                        <img src={product.presenimage} alt={product.name} />
+                        <img src={product.presentImage} alt={product.name} />
                     </div>
                     <div className="itemDes">
                         <div className="topItemDes">
@@ -198,12 +231,18 @@ const ProductsPage = (props) => {
                             <h4>Loại: {product.category.nameCategory}</h4>
                             <h4>Giá bán: {product.sellingprice}</h4>
                             <h4>Số lượng còn lại: {product.count}</h4>
+                            <h4>Rate: {product.rate}</h4>
+                            <h4>NumberVote: {product.numberVote}</h4>
+                            <div>
+                            <span>Đánh giá sản phẩm: </span>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <button key={star} onClick={() => handleRating(star)}>
+                                    {star} sao
+                                </button>
+                            ))}
+                        </div>
                             <p className="description">
-                                Mô tả : {product.description} Elit proident dolore cillum in minim ad duis aute. Nostrud laborum duis nulla Lorem ad labore ea exercitation duis. Non ullamco sint est excepteur enim occaecat consectetur anim duis
-                                consectetur proident. Cupidatat consectetur laboris commodo enim nostrud ullamco dolore. Cillum commodo consequat tempor sunt ad adipisicing aliqua veniam sunt aliqua sunt aute. Consequat occaecat fugiat eu deserunt
-                                qui nulla ex excepteur voluptate pariatur dolor dolor. Ullamco eiusmod ea ex elit aute fugiat non duis. Elit proident dolore cillum in minim ad duis aute. Nostrud laborum duis nulla Lorem ad labore ea exercitation
-                                duis. Non ullamco sint est excepteur enim occaecat consectetur anim duis consectetur proident. Cupidatat consectetur laboris commodo enim nostrud ullamco dolore. Cillum commodo consequat tempor sunt ad adipisicing
-                                aliqua veniam sunt aliqua sunt aute. Consequat occaecat fugiat eu deserunt qui nulla ex excepteur voluptate pariatur dolor dolor. Ullamco eiusmod ea ex elit aute fugiat non duis.{" "}
+                                Mô tả : {product.description} 
                             </p>
                         </div>
 

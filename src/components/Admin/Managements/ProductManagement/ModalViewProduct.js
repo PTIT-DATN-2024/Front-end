@@ -61,10 +61,8 @@ function ModalViewProduct(props) {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Category</label>
-                            <select className="form-control form-select" placeholder={!_.isEmpty(dataView)?dataView.category.nameCategory:""} disabled>
-                                <option  selected>
-                                    {!_.isEmpty(dataView)?dataView.category.nameCategory:""}
-                                </option>
+                            <select className="form-control form-select" placeholder={!_.isEmpty(dataView) ? dataView.category.nameCategory : ""} disabled>
+                                <option selected>{!_.isEmpty(dataView) ? dataView.category.nameCategory : ""}</option>
                             </select>
                         </div>
                         <div className="col-md-12">
@@ -86,6 +84,10 @@ function ModalViewProduct(props) {
                         <div className="col-md-6">
                             <label className="form-label">Count</label>
                             <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={count} disabled />
+                        </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Description</label>
+                            <input type="text" className="form-control" placeholder="Example description" value={description} disabled />
                         </div>
                         <div className="col-12  img-preview">
                             <img src={previewImage} alt="preview image" />

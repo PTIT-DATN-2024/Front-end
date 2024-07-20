@@ -50,6 +50,9 @@ const deleteBgImage = (_id,config) => {
 const postCreateProduct = (formData, config) => {
     return axios.post("/product", formData, config);
 };
+const postVote = (productId, formData, config) => {
+    return axios.post(`/product/rateProduct/${productId}`, formData, config);
+};
 const getAllProducts = () => {
     return axios.get("/product");
 };
@@ -59,6 +62,7 @@ const putUpdateProduct = (_id, formData, config) => {
 const deleteProduct = (_id,config) => {
     return axios.delete(`/product/${_id}`,config);
 };
+
 
 // user
 // listItem
@@ -147,6 +151,7 @@ export {
     getAllProducts,
     putUpdateProduct,
     deleteProduct,
+    postVote,
     postCreateOrder,
     postCreateUserOrder,
     getAllOrders,

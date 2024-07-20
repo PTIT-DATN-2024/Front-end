@@ -42,7 +42,7 @@ const HomePage = (props) => {
         }
     };
     useEffect(() => {
-        autoLoginforCode();
+        // autoLoginforCode();
     }, []);
     return (
         <div className="HomePageContainer">

@@ -126,6 +126,10 @@ const ModalUpdateProduct = (props) => {
                             <label className="form-label">Count</label>
                             <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={count} onChange={(event) => setCount(event.target.value)} />
                         </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Description</label>
+                            <input type="text" className="form-control" placeholder="Example description" value={description} onChange={(event) => setDescriptiom(event.target.value)} />
+                        </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileProduct">
                                 <FcPlus />

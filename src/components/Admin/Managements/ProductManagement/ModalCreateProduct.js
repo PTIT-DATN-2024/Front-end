@@ -133,7 +133,10 @@ const ModalCreateProduct = (props) => {
                             <label className="form-label">Count </label>
                             <input type="number" className="form-control" placeholder="500" value={count} onChange={(event) => setcount(event.target.value)} />
                         </div>
-
+                        <div className="col-md-12">
+                            <label className="form-label">Description</label>
+                            <input type="text" className="form-control" placeholder="Example description" value={description} onChange={(event) => setDescriptiom(event.target.value)} />
+                        </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileProduct">
                                 <FcPlus />

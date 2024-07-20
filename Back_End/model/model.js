@@ -171,6 +171,29 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    rate: {
+        type: Number,
+        default: 5,
+        min: 0,
+        max: 5,
+    },
+    numberVote: {
+        type: Number,
+        default: 1,
+    },
+    userRatings: [
+        {
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Users",
+            },
+            rating: {
+                type: Number,
+                min: 0,
+                max: 5,
+            },
+        },
+    ],
 });
 // email: email,
 // password: password,
