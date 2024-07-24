@@ -1,4 +1,4 @@
-const {  Product, Category} = require("../model/model");
+const { Product, Category } = require("../model/model");
 const path = require("path");
 const fs = require("fs");
 const categoryController = {
@@ -20,7 +20,7 @@ const categoryController = {
     //GET ALL Category
     getAllCategories: async (req, res) => {
         try {
-            const categories = await Category.find();
+            const categories = await Category.find({ isDeleted: false });
             const categoriesWithImages = categories.map((category) => ({
                 _id: category._id,
                 name: category.name,
@@ -34,7 +34,7 @@ const categoryController = {
     //GET AN Category
     getAnCategory: async (req, res) => {
         try {
-            const category = await Category.findById(req.params.id);
+            const category = await Category.findById({ isDeleted: false, _id: req.params.id });
             if (!category) {
                 return res.status(404).json({ EC: 1, MS: "Category not found" });
             }
@@ -86,12 +86,17 @@ const categoryController = {
             if (!category) {
                 return res.status(404).json({ EC: 2, MS: "Category not found" });
             }
+
             const hasRelatedProducts = await Product.exists({ category: req.params.id });
             if (hasRelatedProducts) {
-                return res.status(200).json({ EC: 1, MS: "Cannot delete category with related products" });
+                // Thực hiện xóa mềm
+                category.isDeleted = true;
+                await category.save();
+                return res.status(200).json({ EC: 0, MS: "Category marked as deleted successfully!" });
             }
-            if (category.avatarImage) {
-                let imagePath = path.join(__dirname, "..", category.avatarImage);
+
+            if (category.avatar) {
+                let imagePath = path.join(__dirname, "..", category.avatar);
                 imagePath = path.normalize(imagePath);
                 if (fs.existsSync(imagePath)) {
                     fs.unlinkSync(imagePath);

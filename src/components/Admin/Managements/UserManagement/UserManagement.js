@@ -11,7 +11,9 @@ import TableUsersPaginate from "./tableUserPaginate";
 import ModalDeleteUser from "./ModalDeleteUser";
 import ModalViewUser from "./ModalViewUser";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 const UserManagement = (props) => {
+    const dispatch = useDispatch();
     const token = useSelector((state) => state.user.account.access_token);
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
@@ -20,7 +22,6 @@ const UserManagement = (props) => {
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
-    const [listUsers, setListUsers] = useState([]);
     const handleClickBtnUpdate = (user) => {
         setShowModalUpdateUser(true);
         setDataUpdate(user);
@@ -42,7 +43,10 @@ const UserManagement = (props) => {
         };
         let res = await getAllUsers(config);
         if (res.EC === 0) {
-            setListUsers(res.users);
+            dispatch({
+                type: "fetch_all_users",
+                payload: res.users,
+            });
             toast.success(res.MS);
         }
     };
@@ -61,7 +65,7 @@ const UserManagement = (props) => {
                 </div>
             </div>
             <div className="table_user_management_content">
-                <TableUsersPaginate listUsers={listUsers} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
+                <TableUsersPaginate  handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>
             <ModalCreateUser show={showModalCreateUser} setShow={setShowModalCreateUser} fetchListUsers={fetchListUsers} />
             <ModalUpdateUser show={showModalUpdateUser} setShow={setShowModalUpdateUser} fetchListUsers={fetchListUsers} dataUpdate={dataUpdate} />

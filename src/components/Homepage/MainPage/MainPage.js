@@ -165,10 +165,8 @@ const MainPage = (props) => {
 
                 <div className="foodBannerItem_img"></div>
             </div>
-
             <div className="tableProduct">
                 <div className="tableProductHeader">Popular Fast Foods</div>
-
                 <Swiper
                     grid={{
                         rows: 2,

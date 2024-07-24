@@ -59,7 +59,6 @@ const ProductFilterPage = (props) => {
                 type: "fetch_all_product",
                 payload: res.products,
             });
-            console.log(listProducts);
             toast.success(res.MS);
         }
     };

@@ -1,8 +1,9 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import "./tableCategory.scss"
+import { useSelector } from "react-redux";
 const TableCategoriesPaginate = (props) => {
-    const { listCategories } = props;
+    const listCategories = useSelector((state) => state.category.listCategories);
     const items = listCategories;
     function Items({ currentItems, itemOffset }) {
         return (

@@ -1,4 +1,4 @@
-const { Product } = require("../model/model");
+const { Product, Order } = require("../model/model");
 const fs = require("fs");
 const path = require("path");
 
@@ -28,9 +28,9 @@ const productController = {
     // GET ALL Products
     getAllProducts: async (req, res) => {
         try {
-            const productsOld = await Product.find().populate("category", "name");
+            const productsOld = await Product.find({ isDeleted: false }).populate("category", "name");
             if (!productsOld || productsOld.length === 0) {
-                return res.status(404).json({ EC: 2, MS: "Product not found!" });
+                return res.status(404).json({ EC: 2, MS: "Products not found!" });
             }
             const products = productsOld.map((product) => ({
                 _id: product._id,
@@ -58,7 +58,7 @@ const productController = {
     // GET A Product
     getAnProduct: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id).populate("category", "name");
+            const product = await Product.findOne({ _id: req.params.id, isDeleted: false }).populate("category", "name");
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
@@ -120,21 +120,31 @@ const productController = {
     // DELETE Product
     deleteProduct: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id);
+            const productId = req.params.id;
+            const product = await Product.findById(productId);
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
-            if (product.presentImage) {
-                let imagePath = path.join(__dirname, "..", product.presentImage);
-                imagePath = path.normalize(imagePath);
-                if (fs.existsSync(imagePath)) {
-                    fs.unlinkSync(imagePath);
-                } else {
-                    console.log(`File ${imagePath} not found`);
+            const orders = await Order.find({ "listItem.idProduct": productId });
+            if (orders.length > 0) {
+                // Nếu có đơn hàng liên quan, thực hiện xóa mềm
+                product.isDeleted = true;
+                await product.save();
+                res.status(200).json({ EC: 0, MS: "Product marked as deleted successfully!" });
+            } else {
+                // Nếu không có đơn hàng liên quan, thực hiện xóa thực sự
+                if (product.presentImage) {
+                    let imagePath = path.join(__dirname, "..", product.presentImage);
+                    imagePath = path.normalize(imagePath);
+                    if (fs.existsSync(imagePath)) {
+                        fs.unlinkSync(imagePath);
+                    } else {
+                        console.log(`File ${imagePath} not found`);
+                    }
                 }
+                await product.remove();
+                res.status(200).json({ EC: 0, MS: "Product deleted successfully!" });
             }
-            await product.remove();
-            res.status(200).json({ EC: 0, MS: "Delete product success!" });
         } catch (err) {
             console.error("Delete product error:", err);
             res.status(500).json({ EC: 1, MS: "Delete product error!", err });
@@ -144,7 +154,6 @@ const productController = {
     // RATE Product
     rateProduct: async (req, res) => {
         const { userId, rating } = req.body;
-
         if (rating < 0 || rating > 5) {
             return res.status(400).json({ EC: 1, MS: "Rating must be between 0 and 5" });
         }
@@ -154,9 +163,7 @@ const productController = {
             if (!product) {
                 return res.status(404).json({ EC: 1, MS: "Product not found" });
             }
-
             const userRatingIndex = product.userRatings.findIndex((r) => r.userId.toString() === userId);
-
             if (userRatingIndex > -1) {
                 // Người dùng đã đánh giá trước đó, cập nhật đánh giá cũ
                 product.userRatings[userRatingIndex].rating = rating;

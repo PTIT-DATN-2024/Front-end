@@ -92,6 +92,10 @@ const categorySchema = new mongoose.Schema({
     avatar: {
         type: String,
     },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 const commentSchema = new mongoose.Schema({
     idProduct: {
@@ -194,6 +198,10 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 // email: email,
 // password: password,
@@ -223,6 +231,10 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
     },
 });
 userSchema.pre("save", async function (next) {

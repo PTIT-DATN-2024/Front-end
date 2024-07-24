@@ -1,8 +1,9 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 const TableUsersPaginate = (props) => {
-    const { listUsers } = props;
+    const listUsers = useSelector((state) => state.listUser.users);
     const items = listUsers;
     function Items({ currentItems, itemOffset }) {
         return (

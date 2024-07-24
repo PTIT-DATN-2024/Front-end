@@ -5,6 +5,7 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { putUpdateUser } from "../../../../services/apiServices";
 import _ from "lodash";
+import validateFields from "../../../Golobal/validate";
 import { useSelector } from "react-redux";
 const ModalUpdateUser = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
@@ -13,6 +14,7 @@ const ModalUpdateUser = (props) => {
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
+        setErrors({});
         // setEmail("");
         // setPassword("");
         // setAddress("");
@@ -28,6 +30,7 @@ const ModalUpdateUser = (props) => {
     const [role, setRole] = useState("");
     const [avatar, setAvatar] = useState("");
     const [previewImage, setPreviewImage] = useState("");
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
@@ -48,32 +51,51 @@ const ModalUpdateUser = (props) => {
             // setPreviewImage("");
         }
     };
+    const handleBlur = (field, value) => {
+        const newErrors = { ...errors, ...validateFields({ [field]: value }) };
+        setErrors(newErrors);
+    };
+    const handleFocus = (field) => {
+        const newErrors = { ...errors };
+        newErrors[field] = "";
+        setErrors(newErrors);
+    };
     const handleSubmitUpdateUser = async (event) => {
         // validate?
-        // callapi
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`, // Đặt token vào header Authorization
-            },
+        const dataValidate = {
+            address: address,
+            phoneNumber: phoneNumber,
+            role: role,
         };
+        const newErrors = { ...errors, ...validateFields(dataValidate) };
+        setErrors(newErrors);
+        const allFieldsEmpty = Object.values(errors).every((value) => value === "");
+        // callapi
+        if (allFieldsEmpty) {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`, // Đặt token vào header Authorization
+                },
+            };
 
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("address", address);
-        formData.append("phoneNumber", phoneNumber);
-        formData.append("role", role);
-        formData.append("avatar", avatar);
+            const formData = new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("address", address);
+            formData.append("phoneNumber", phoneNumber);
+            formData.append("role", role);
+            formData.append("avatar", avatar);
 
-        let res_data = await putUpdateUser(dataUpdate._id, formData, config);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            handleClose();
-            await props.fetchListUsers();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
+            let res_data = await putUpdateUser(dataUpdate._id, formData, config);
+            if (res_data && res_data.EC === 0) {
+                toast.success(res_data.MS);
+                handleClose();
+                await props.fetchListUsers();
+            }
+            if (res_data && res_data.EC !== 0) {
+                toast.error(res_data.MS);
+            }
         }
     };
     // console.log(props.dataUpdate);
@@ -95,16 +117,34 @@ const ModalUpdateUser = (props) => {
                         </div>
                         <div className="col-12">
                             <label className="form-label">Address</label>
-                            <input type="text" className="form-control" placeholder="18 Hoàng Quốc VIệt, Cầu Giấy, Hà Nội" value={address} onChange={(event) => setAddress(event.target.value)} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="18 Hoàng Quốc VIệt, Cầu Giấy, Hà Nội"
+                                value={address}
+                                onChange={(event) => setAddress(event.target.value)}
+                                onBlur={() => handleBlur("address", address)}
+                                onFocus={() => handleFocus("address")}
+                            />
+                            {errors.address && <div className="text-danger">{errors.address}</div>}
                         </div>
 
                         <div className="col-md-6">
                             <label className="form-label">Phone Number</label>
-                            <input type="number" className="form-control" placeholder="0123 456 789" value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} />
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="0123 456 789"
+                                value={phoneNumber}
+                                onChange={(event) => setPhoneNumber(event.target.value)}
+                                onBlur={() => handleBlur("phoneNumber", phoneNumber)}
+                                onFocus={() => handleFocus("phoneNumber")}
+                            />
+                            {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
-                            <select className="form-select" onChange={(event) => setRole(event.target.value)}>
+                            <select className="form-select" onChange={(event) => setRole(event.target.value)} onBlur={() => handleBlur("role", role)} onFocus={() => handleFocus("role")}>
                                 <option value="USER" selected={"USER" === dataUpdate.role}>
                                     USER
                                 </option>
@@ -115,6 +155,7 @@ const ModalUpdateUser = (props) => {
                                     ADMIN
                                 </option>
                             </select>
+                            {errors.role && <div className="text-danger">{errors.role}</div>}
                         </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileUser">

@@ -10,8 +10,9 @@ import ModalUpdateCategory from "./modalUpdateCategory";
 import TableCategoriesPaginate from "./tableCategoryPaginate";
 import ModalDeleteCategory from "./ModalDeleteCategory";
 import ModalViewCategory from "./ModalViewCategory";
-
+import { useDispatch } from "react-redux";
 const CategoryManagement = (props) => {
+    const dispatch = useDispatch();
     const [showModalCreateCategory, setShowModalCreateCategory] = useState(false);
     const [showModalUpdateCategory, setShowModalUpdateCategory] = useState(false);
     const [showModalDeleteCategory, setShowModalDeleteCategory] = useState(false);
@@ -19,7 +20,6 @@ const CategoryManagement = (props) => {
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
-    const [listCategories, setListCategories] = useState([]);
     const handleClickBtnUpdate = (category) => {
         setShowModalUpdateCategory(true);
         setDataUpdate(category);
@@ -35,9 +35,11 @@ const CategoryManagement = (props) => {
     const fetchListCategories = async () => {
         let res = await getAllCategories();
         if (res.EC === 0) {
-            setListCategories(res.categories);
-            toast.success(res.MS);
-            console.log(res);
+            dispatch({
+                type: "fetch_all_category",
+                payload: res.categories,
+            });
+            // toast.success(res.MS);
         }
     };
     useEffect(() => {
@@ -55,7 +57,7 @@ const CategoryManagement = (props) => {
                 </div>
             </div>
             <div className="table_Category_management_content">
-                <TableCategoriesPaginate listCategories={listCategories} handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
+                <TableCategoriesPaginate handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>
             <ModalCreateCategory show={showModalCreateCategory} setShow={setShowModalCreateCategory} fetchListCategories={fetchListCategories} />
             <ModalUpdateCategory show={showModalUpdateCategory} setShow={setShowModalUpdateCategory} fetchListCategories={fetchListCategories} dataUpdate={dataUpdate} />

@@ -47,21 +47,10 @@ const ProductManagement = (props) => {
         }
     };
 
-    const fetchListCategories = async () => {
-        let res = await getAllCategories();
-        // console.log(res);
-        if (res.EC === 0) {
-            dispatch({
-                type: "fetch_all_category",
-                payload: res.categories,
-            });
-        }
-    };
     useEffect(() => {
         fetchListProducts();
-        fetchListCategories();
+
         console.log("fetchListProducts", listProducts);
-        console.log("fetchListcate", listCategories);
     }, []);
     return (
         <div className="ProductManagement_container">
@@ -72,7 +61,6 @@ const ProductManagement = (props) => {
                         variant="primary"
                         onClick={() => {
                             setShowModalCreateProduct(true);
-                            fetchListCategories();
                         }}
                     >
                         <FcPlus />
