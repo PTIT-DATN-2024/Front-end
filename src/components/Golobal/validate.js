@@ -1,4 +1,3 @@
-// utils/validate.js
 
 // Validate user
 // Validate Email

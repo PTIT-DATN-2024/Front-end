@@ -20,7 +20,7 @@ import BgImageManagement from "./components/Admin/Managements/BgImageManagement/
 import UserManagement from "./components/Admin/Managements/UserManagement/UserManagement";
 import ProductManagement from "./components/Admin/Managements/ProductManagement/ProductManagement";
 import OrderManagement from "./components/Admin/Managements/OrderManagement/OrderManagement";
-import ProfilePage from "./components/Profile/ProfilePage";
+import ProfilePage from "./components/Golobal/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
 import PayPage from "./components/Homepage/PayPage/PayPage";

@@ -9,12 +9,13 @@
     position: relative;
     .headerContainer {
         width: 100%;
-        height: 100px;
+        height: 80px;
         position: fixed;
         z-index: 10;
-        background-color:#cbc8c1;
+        background-color:#a26a42;
         top: 0px;
         left: 0px;
+        font-weight: 500;
     }
 
     .cart_fixIcon {
@@ -65,35 +66,19 @@
         bottom: 50vh; /* Vị trí giữa màn hình */
     }
     .mainContainer {
-        margin-top: 100px;
+        margin-top: 80px;
         width: 100%;
         flex: 1;
         overflow: visible;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 40px;
     }
-    .footerContainer {
+    @media only screen and (max-width: 479px) {
         width: 100vw;
-        height: 660px;
-
-        .burger_shape {
-        }
-        .fry_shape {
-        }
-        .footerContent {
-            height: 550px;
-            width: 100%;
-        }
-        .footer_bottom {
-            display: flex;
-            padding: 0 10vw;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 110px;
-            background-color: #00a149;
-        }
     }
+}
+.no-scroll {
+    overflow: hidden;
 }

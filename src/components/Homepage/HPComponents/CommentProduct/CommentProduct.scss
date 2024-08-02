@@ -1,0 +1,41 @@
+.commentContainer {
+    width: 100%;
+    background-color: #fff;
+    padding: 30px;
+    .listCommentContent {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .commentItem {
+            width: 700px;
+            .commentItemContent {
+                border-radius: 10px;
+                margin-bottom: 10px;
+                padding: 10px;
+                .ItemContentTop {
+                    display: flex;
+                    justify-content: space-between;
+                    .tableEdit {
+                        display: flex;
+                    }
+                }
+                .replyinputgroup {
+                    display: none;
+                    .btnReply {
+                    }
+                }
+
+                &:hover {
+                    .replyinputgroup {
+                        display: flex;
+                    }
+                }
+            }
+            .listReply {
+                // background-color: #b13434;
+            }
+        }
+    }
+}

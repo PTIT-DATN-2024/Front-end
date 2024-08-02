@@ -1,0 +1,234 @@
+.topWrapper {
+    height: 630px;
+    width: 100vw;
+    .swiper {
+        width: 100%;
+        height: 100%;
+        background-image: url(../../../../assets/image/hero-bg.jpg);
+        background-position: bottom center;
+        background-size: cover;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10%;
+        padding: 0 10%;
+        .SwiperSlideDes {
+            width: 55%;
+            height: 80%;
+            text-align: start;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .SwiperSlideDes_item {
+                width: 100%;
+                &.name {
+                    font-size: 4rem;
+                    color: #ffffff;
+                    line-height: 1.2;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    // height: 40%;
+                    text-transform: uppercase;
+                }
+                &.desc {
+                    padding-right: 10%;
+                    font-size: 1.2rem;
+                    color: #ffffff;
+                    line-height: 1.5;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    // height: 60%;
+                }
+            }
+        }
+        .SwiperSlideImg {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .content {
+                margin: auto;
+                width: 100%;
+                height: 0;
+                padding-bottom: 100%;
+                position: relative;
+                overflow: hidden;
+                .SwiperSlideImgItem {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1023px) {
+        height: 500px;
+        width: 100vw;
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10%;
+            padding: 0 10%;
+            .SwiperSlideDes {
+                width: 55%;
+                height: 80%;
+                text-align: start;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .SwiperSlideDes_item {
+                    width: 100%;
+                    &.name {
+                        font-size: 2.6rem;
+                        color: #ffffff;
+                        line-height: 1.2;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        // height: 40%;
+                        text-transform: uppercase;
+                        margin-bottom: 10px;
+                    }
+                    &.desc {
+                        padding-right: 10%;
+                        font-size: 1rem;
+                        color: #ffffff;
+                        line-height: 1.5;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        // height: 60%;
+                    }
+                }
+            }
+            .SwiperSlideImg {
+                width: 40%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .content {
+                    margin: auto;
+                    width: 100%;
+                    height: 0;
+                    padding-bottom: 100%;
+                    position: relative;
+                    overflow: hidden;
+                    .SwiperSlideImgItem {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 479px) {
+        height: 500px;
+        width: 100vw;
+        .swiper {
+            width: 100%;
+            height: 100%;
+            background-image: url(../../../../assets/image/hero-bg.jpg);
+            background-position: bottom center;
+            background-size: cover;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 5%;
+            padding: 0 10%;
+            .SwiperSlideDes {
+                width: 100%;
+                // height: 80%;
+                text-align: start;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                .SwiperSlideDes_item {
+                    width: 100%;
+                    &.name {
+                        font-size: 2.2rem;
+                        color: #ffffff;
+                        line-height: 1.2;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-transform: uppercase;
+                    }
+                    &.desc {
+                        padding-right: 10%;
+                        font-size: 1rem;
+                        color: #ffffff;
+                        line-height: 1.5;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        // height: 60%;
+                    }
+                }
+            }
+            .SwiperSlideImg {
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .content {
+                    margin: auto;
+                    width: 100%;
+                    height: 0;
+                    padding-bottom: 100%;
+                    position: relative;
+                    overflow: hidden;
+                    .SwiperSlideImgItem {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

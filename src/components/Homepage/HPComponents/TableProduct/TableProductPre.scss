@@ -1,0 +1,169 @@
+.tableProduct {
+    width: 80vw;
+    transition: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    box-sizing: border-box;
+    font-size: 10px;
+    // background-color: #ffffff;
+    
+    // height: 700px;
+
+    .tableProductMore {
+        cursor: pointer;
+        width: fit-content;
+        text-align: center;
+        padding: 10px 20px;
+        margin: 20px auto 20px;
+        font-size: 22px;
+        font-weight: 600;
+        background-color: #ffdec8;
+        border-radius: 8px;
+        &:hover {
+            background-color: #eba376;
+            color: #ffffff;
+            
+        }
+    }
+    .swiper {
+        width: 100%;
+        height: 100%;
+        padding: 20px 0;
+    }
+    .swiper-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        overflow: inherit;
+        padding: 20px 0;
+
+        .swiper-slide {
+            z-index: 3;
+            text-align: center;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-radius: 0.8rem;
+            margin-top: 0!important;
+            transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+            
+
+            
+            .topItem {
+                z-index: 4;
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-direction: column;
+                .SwiperSlideImg {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    .content {
+                        width: 100%;
+                        height: 0;
+                        padding-bottom: 100%;
+                        position: relative;
+                        overflow: hidden;
+                        .SwiperSlideImgItem {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                }
+                .SwiperSlideDes {
+                    margin-top: 0;
+                    text-align: start;
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 5px;
+                    .SwiperSlideDes_Price {
+                        color: #000000;
+                        font-size: 1.2rem;
+                        line-height: 1.2;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-transform:none;
+                    }
+                    .SwiperSlideDes_Name {
+                        cursor: pointer;
+                        color: #000000;
+                        font-size: 1.4rem;
+                        line-height: 1.2;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-transform:none;
+                        &:hover {
+                            color: #000000;
+                        }
+                    }
+                }
+            }
+            .bottomItem {
+                z-index: 4;
+                min-height: 70px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .addmeBtn {
+                    padding: 5px 15px;
+                    border-radius: 5px;
+
+                    background-color: #ffdec8;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #eba376;
+                        color: #f4f1ea !important;
+                    }
+                }
+                .SwiperSlideDes_Btn {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .countItem {
+                        width: 60px;
+                        text-align: center;
+                        text-justify: center;
+                        border: 1px solid #000;
+                        background-color: #fff;
+                        border-radius: 10px;
+                        padding: 5px;
+                        height: auto;
+                    }
+                    .btn_icon {
+                        cursor: pointer;
+                        border-radius: 50%;
+                        &:hover {
+                            background-color: #f5d3c1;
+                            // padding: -1px;
+                            // color: #d82828;
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                background-color: #ffffff;
+                box-shadow: 5px 5px 10px 5px rgba(143, 143, 143, 0.2);
+                transform: translateY(-10px);
+            }
+        }
+    }
+}

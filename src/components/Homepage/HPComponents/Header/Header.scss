@@ -1,0 +1,77 @@
+.headerContainer {
+    padding: 0 !important;
+    font-style: 10px;
+    .container {
+        height: 100%;
+        padding: 0;
+        cursor: pointer;
+
+        .navbar-brand {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 8px;
+            color: #fff;
+            font-size: 2rem;
+        }
+        .navbar-toggler {
+            margin-right: 8px;
+            border: none;
+            &.btn_icon {
+                color: unset;
+            }
+            &.init {
+                border: none !important;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .navbar-collapse {
+            height: 100%;
+            .navbar-nav {
+                height: 100%;
+                border: none;
+                margin: 0;
+                .nav-link {
+                    height: 100%;
+                    color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    padding: 0 10px;
+                    &:hover {
+                        background-color: #fff;
+                        color: #000000;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width: 991px) {
+        .navbar-collapse {
+            &.show {
+                .navbar-nav {
+                    width: 100px;
+                    background-color: #fff;
+                    border: none;
+                    margin: 0;
+                    // height: 100vh;
+                    .navbar-nav-cart {
+                        display: none;
+                    }
+                    .nav-link {
+                        padding-left: 18px;
+                        &:hover {
+                            background-color: #4b4949;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

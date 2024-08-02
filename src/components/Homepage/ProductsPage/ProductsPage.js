@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
-import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postVote,getAllProducts } from "../../../services/apiServices";
+import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postVote, getAllProducts } from "../../../services/apiServices";
 import { toast } from "react-toastify";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -17,6 +17,19 @@ import "./ProductPage.scss";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { BsCartCheck } from "react-icons/bs";
+import TableProductFull from "../HPComponents/TableProduct/TableProductFull";
+import TopWrapper from "../HPComponents/TopWrapper/TopWrapper";
+import CategoryBanner from "../HPComponents/CategoryBanner/CategoryBanner";
+import ProductPre from "../HPComponents/ProductPre/ProductPre";
+import GridBanner from "../HPComponents/GridBanner/GridBanner";
+import SpecialBanner from "../HPComponents/SpecialBanner/SpecialBanner";
+import TableProductPre from "../HPComponents/TableProduct/TableProductPre";
+import ComboBanner from "../HPComponents/ComboBanner/ComboBanner";
+import Choosing from "../HPComponents/Choosing/Choosing";
+import ThankSlice from "../HPComponents/ThankSlice/ThankSlice";
+import CommentProduct from "../HPComponents/CommentProduct/CommentProduct";
+import { FaStar } from "react-icons/fa";
 const ProductsPage = (props) => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -50,138 +63,9 @@ const ProductsPage = (props) => {
         // console.log(listProducts);
         // console.log(stateProduct);
     };
-    const fetchListComment = async () => {
-        let res = await getCommentsProduct(product._id);
-        // console.log(res);
-        if (res.EC === 0) {
-            let sortedComments = res.comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            setListComment(sortedComments);
-            toast.success("get comments done");
-        }
-        // let res_data = await postLogin("a", "1");
-        // if (res_data && res_data.EC === 0) {
-        //     dispatch({
-        //         type: "fetch_user_login_success",
-        //         payload: res_data,
-        //     });
-        //     toast.success(res_data.MS);
-        //     // navigate("/");
-        // }
-        // if (res_data && res_data.EC !== 0) {
-        //     toast.error(res_data.MS);
-        //     alert("sai");
-        // }
-    };
 
-    const onReplyClick = async (commentId, cmt) => {
-        let res = await postCreateComment(product._id, userState._id, cmt, commentId);
-        // console.log(res);
-        if (res.EC === 0) {
-            toast.success("get comments done");
-        }
-        fetchListComment();
-        // Thực hiện logic để gọi form reply hoặc bất kỳ hành động nào khác
-    };
-    const onAddNewComment = async () => {
-        let res = await postCreateComment(product._id, userState._id, newComment);
-        // console.log(res);
-        if (res.EC === 0) {
-            toast.success("get comments done");
-        }
-        setNewCommnet("");
-        fetchListComment();
-        // Thực hiện logic để gọi form reply hoặc bất kỳ hành động nào khác
-    };
-    const onRemoveClick = async (commentId) => {
-        let res = await deleteComment(commentId);
-        // console.log(res);
-        if (res.EC === 0) {
-            toast.success("get comments done");
-        }
-        fetchListComment();
-        // Thực hiện logic để gọi form reply hoặc bất kỳ hành động nào khác
-    };
-    useEffect(() => {
-        fetchListComment();
-    }, []);
 
-    // Kiểm tra xem sản phẩm có tồn tại không
-    if (!product) {
-        return <div>Product not found</div>;
-    }
-    // Component Bình luận
 
-    const Comment = ({ comment, commentsMap }) => {
-        const [commentInput, setCommentInput] = useState([]);
-        return (
-            <div style={{ marginLeft: comment.replyFor ? "30px" : "0px", marginBottom: "10px" }} className="commentItem">
-                <div className="commentItemContent" style={{ border: "1px solid #ddd", padding: "10px", backgroundColor: "#fff" }}>
-                    {comment.replyFor && <BsArrowReturnRight />}
-                    <div className="ItemContentTop">
-                        <p className="a">
-                            <strong>User:</strong> {comment.idUser}
-                        </p>
-                        {comment.idUser === userState._id && (
-                            <div className="tableEdit">
-                                <div>
-                                    <MdOutlineEdit />
-                                </div>
-                                <div
-                                    onClick={() => {
-                                        onRemoveClick(comment._id, commentInput);
-                                    }}
-                                >
-                                    <FaRegTrashAlt />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <p>{comment.content}</p>
-                    <div className="replyinputgroup">
-                        <input type="text" className="form-control" placeholder="example comment" value={commentInput} onChange={(event) => setCommentInput(event.target.value)} />
-                        <button
-                            style={{ backgroundColor: "red" }}
-                            onClick={() => {
-                                onReplyClick(comment._id, commentInput);
-                                setCommentInput("");
-                            }}
-                            className="btnReply"
-                        >
-                            Reply
-                        </button>
-                    </div>
-                </div>
-                {comment.listReply.length > 0 && (
-                    <div className="listReply">
-                        {comment.listReply.map((replyId) => (
-                            <Comment key={replyId} comment={commentsMap[replyId]} commentsMap={commentsMap} />
-                        ))}
-                    </div>
-                )}
-            </div>
-        );
-    };
-
-    // Component chính để hiển thị danh sách bình luận
-    const CommentsList = ({ comments }) => {
-        // Tạo một bản đồ từ các bình luận để dễ dàng truy cập
-        const commentsMap = comments.reduce((map, comment) => {
-            map[comment._id] = comment;
-            return map;
-        }, {});
-
-        // Lọc ra các bình luận chính (không phải trả lời của bình luận khác)
-        const mainComments = comments.filter((comment) => comment.replyFor === null);
-
-        return (
-            <div className="listCommentContent">
-                {mainComments.map((comment) => (
-                    <Comment key={comment._id} comment={comment} commentsMap={commentsMap} />
-                ))}
-            </div>
-        );
-    };
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
@@ -193,20 +77,24 @@ const ProductsPage = (props) => {
             toast.success(res.MS);
         }
     };
+
+    if (!product) {
+        return <div>Product not found</div>;
+    }
     const handleRating = async (rating) => {
-        
+        setUserRating(rating);
         const config = {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${userState.access_token}`,
             },
         };
-        let formData ={
-            userId:userState._id,
+        let formData = {
+            userId: userState._id,
             rating: rating,
-        }
-        
-        let res_data = await postVote(product._id,formData,config);
+        };
+
+        let res_data = await postVote(product._id, formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             fetchListProducts();
@@ -223,33 +111,31 @@ const ProductsPage = (props) => {
             <div className="productContent">
                 <div className="topContent">
                     <div className="presentImage">
-                        <img src={product.presentImage} alt={product.name} />
+                        <div className="content">
+                            <img src={product.presentImage} alt={product.name} className="img" />
+                        </div>
                     </div>
                     <div className="itemDes">
                         <div className="topItemDes">
-                            <h1>{product.name}</h1>
-                            <h4>Loại: {product.category.nameCategory}</h4>
-                            <h4>Giá bán: {product.sellingprice}</h4>
-                            <h4>Số lượng còn lại: {product.count}</h4>
+                            {/* <h1>{product.name}</h1> */}
+                            <div className="voteStar">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <FaStar key={star} onClick={() => handleRating(star)} 
+                                    color={star <= userRating ? "#ffc107" : "#e4e5e9"}          className="voteStarItem" />
+                                ))}
+                            </div>
+                            {/* <h4>NumberVote: {product.numberVote}</h4> */}
                             <h4>Rate: {product.rate}</h4>
-                            <h4>NumberVote: {product.numberVote}</h4>
-                            <div>
-                            <span>Đánh giá sản phẩm: </span>
-                            {[1, 2, 3, 4, 5].map((star) => (
-                                <button key={star} onClick={() => handleRating(star)}>
-                                    {star} sao
-                                </button>
-                            ))}
-                        </div>
-                            <p className="description">
-                                Mô tả : {product.description} 
-                            </p>
+                            <h4>Loại: {product.category.nameCategory}</h4>
+                            <h4>Số lượng còn lại: {product.count}</h4>
+                            <h4>Giá: {product.sellingprice}</h4>
+                            <div className="description">Mô tả : {product.description}</div>
                         </div>
 
                         <div className="bottomItemDes">
                             {product.CountOrder === 0 ? (
                                 <div className={`addmeBtn`} onClick={() => addProductOrder(product._id)}>
-                                    Add me
+                                    <BsCartCheck size={30} style={{ color: "#212121" }} />
                                 </div>
                             ) : (
                                 <div className="SwiperSlideDes_Btn">
@@ -263,11 +149,10 @@ const ProductsPage = (props) => {
                 </div>
                 <div className="bottomContent"></div>
             </div>
-            <div className="commentContainer">
-                <button className="addNewComment" onClick={()=>onAddNewComment()}>Add new comment</button>
-                <input type="text" className="form-control" placeholder="example comment" value={newComment} onChange={(event) => setNewCommnet(event.target.value)} />
-                <CommentsList comments={listcomment} />
-            </div>
+            {/* <CommentProduct productId={id}/>                 */}
+            <SpecialBanner />
+            <GridBanner />
+            <ComboBanner />
         </div>
     );
 };

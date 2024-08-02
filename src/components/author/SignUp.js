@@ -58,7 +58,7 @@ const SignUp = (props) => {
     const [previewImage, setPreviewImage] = useState("");
 
     return (
-        <div className="main_login">
+        <div className="main_signUp">
             <div className="login_header">
                 <div className="des_btn">Have an account </div>
                 <button className="btn_signUp" onClick={() => handleLogIn()}>

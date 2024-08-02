@@ -1,0 +1,23 @@
+.footerContainer {
+    width: 100vw;
+    height: 660px;
+
+    .burger_shape {
+    }
+    .fry_shape {
+    }
+    .footerContent {
+        height: 550px;
+        width: 100%;
+    }
+    .footer_bottom {
+        display: flex;
+        padding: 0 10vw;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 110px;
+        background-color: #00a149;
+    }
+}

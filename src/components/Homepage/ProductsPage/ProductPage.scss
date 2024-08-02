@@ -25,18 +25,37 @@
     .productContent {
         width: 100vw;
         background-image: url(../../../assets/image/burger-shape-2.png);
-        height: 500px;
+        // height: 600px;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        flex-direction: colum;
         .topContent {
+            width: 80%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: row;
             gap: 30px;
             .presentImage {
                 border-radius: 10px;
-                width: 500px;
                 height: 100%;
-                // background-image: url(../../../assets/image/micay.jpg);
+                width: 30%;
+                overflow: hidden;
+                .content {
+                    width: 100%;
+                    height: 0;
+                    padding-bottom: 100%;
+                    position: relative;
+                    .img {
+                        height: 100%;
+                        width: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                }
             }
             .itemDes {
                 background-color: #fff;
@@ -55,16 +74,31 @@
                     flex-direction: column;
                     align-items: flex-start;
                     // align-items: ;
+                    .voteStar{
+                        .voteStarItem{
+                            font-size: 1.8rem;
+                            margin-right: 4px;
+                        }
+                    }
                     .description {
                         // height: 200px;
-                        max-height: 200px;
-                        flex: 1;
+                        // max-height: 200px;
+
                         width: 100%;
                         border: 1px solid #000;
                         // background-color: #fff;
                         border-radius: 8px;
                         padding: 10px;
+                        // overflow-y: scroll;
+                        font-size: 1.3rem;
+                        line-height: 1.3;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 5;
+                        text-overflow: ellipsis;
+                        text-transform: none;
                         overflow-y: scroll;
+                        overflow-x: hidden;
                     }
                 }
                 .bottomItemDes {
@@ -74,12 +108,14 @@
                     justify-content: center;
                     align-items: center;
                     .addmeBtn {
-                        padding: 10px 20px;
+                        padding: 5px 15px;
                         border-radius: 5px;
-                        background-color: #69eb2d;
+
+                        background-color: #ffdec8;
                         cursor: pointer;
                         &:hover {
-                            background-color: #cc4f30;
+                            background-color: #eba376;
+                            color: #f4f1ea !important;
                         }
                     }
                     .SwiperSlideDes_Btn {
@@ -112,47 +148,5 @@
             }
         }
     }
-    .commentContainer {
-        width: 100%;
-        background-color: #fff;
-        padding: 30px;
-        .listCommentContent {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            .commentItem {
-                width: 700px;
-                .commentItemContent{
-                    border-radius: 10px;
-                    margin-bottom: 10px;
-                    padding: 10px;
-                    .ItemContentTop{
-                        display: flex;
-                        justify-content: space-between;
-                        .tableEdit{
-                            display: flex;
-                        }
-                    }
-                    .replyinputgroup{
-                        display: none;
-                        .btnReply {
-                            
-                            
-                        }
-                    }
-                    
-                    &:hover{
-                        .replyinputgroup{
-                            display: flex;
-                        }
-                    }
-                }
-                .listReply{
-                    // background-color: #b13434;
-                }
-            }
-        }
-    }
+
 }

@@ -1,0 +1,151 @@
+.listOrderContent {
+    width: 900px;
+    // height: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 10px;
+    z-index: 10;
+
+    // box-shadow:inset 2px 3px ;
+    .header {
+        font-size: 2.5rem;
+    }
+    .remove{
+
+        font-size: 2rem !important;
+        // padding: 10px 20px;
+        // border: 1px solid #9f9e9e;
+        color: #000 !important;
+        // width: 50px;
+        // height: 50px;
+
+    }
+    .listOrderTable {
+        width: 100%;
+        max-height: 400px;
+        overflow-y: scroll;
+        padding-right: 5px;
+        .header {
+            width: 100%;
+            display: flex;
+            font-size: 1.4rem;
+            justify-content: space-between;
+            .item {
+                &.product {
+                    width: 5%;
+                }
+                &.name {
+                    // width: 15%;
+                    flex: 1;
+                }
+                &.price {
+                    width: 15%;
+                }
+                &.count {
+                    width: 15%;
+                    text-align: center;
+                }
+                &.sum {
+                    width: 15%;
+                    text-align: end;
+                }
+            }
+        }
+        .body {
+            width: 100%;
+            font-size: 1.1rem;
+            .orderItem {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 0.5px solid #d3d3d3;
+                // margin-top: 5px;
+                height: 80px;
+                .item {
+                    margin: auto 0;
+                    &.product {
+                        width: 5%;
+                    }
+                    &.name {
+                        // width: 15%;
+                        flex: 1;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-transform: none;
+                    }
+                    &.price {
+                        width: 15%;
+                    }
+                    &.count {
+                        width: 15%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .countItem {
+                            width: 60px;
+                            text-align: center;
+                            text-justify: center;
+                            border: 1px solid #000;
+                            background-color: #fff;
+                            border-radius: 10px;
+                            font-size: 15px;
+                            padding: 5px;
+                            height: auto;
+                        }
+                        .btn_icon {
+                            cursor: pointer;
+                            border-radius: 50%;
+
+                            &:hover {
+                                background-color: #f5d3c1;
+                                // padding: -1px;
+                                // color: #d82828;
+                            }
+                        }
+                    }
+                    &.sum {
+                        text-align: end;
+                        width: 15%;
+                    }
+                }
+            }
+            .noOrder{
+                width: 100%;
+                margin: 0 auto;
+                text-align: center;
+            }
+        }
+
+    }
+
+    .total {
+        // margin-left: 70%;
+        margin: 30px 0;
+        text-align: end;
+        font-size: 1.6rem;
+    }
+    .listOrderBottom {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        .item{
+            padding: 10px 20px;
+            &.close{
+
+            }
+            &.pay{
+
+            }
+        }
+    }
+}
