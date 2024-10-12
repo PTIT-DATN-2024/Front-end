@@ -54,7 +54,7 @@ const ProductManagement = (props) => {
     }, []);
     return (
         <div className="ProductManagement_container">
-            <div className="Title">đây là ProductManagement</div>
+            {/* <div className="Title">đây là ProductManagement</div> */}
             <div className="ProductManagement_content">
                 <div>
                     <Button

@@ -67,7 +67,7 @@ const SignUp = (props) => {
             </div>
             <div className="form" id="form-1">
                 <h3 className="heading">Wellcome!!!</h3>
-                <p className="desc">Rất nhiều món ăn ngon đang chờ bạn!</p>
+                <p className="desc">Rất nhiều ưu đãi đang chờ bạn!</p>
                 <div className="form-group">
                     <lable className="form-lable">Email</lable>
                     <input type="email" id="email" className="form-control" placeholder="example@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -96,7 +96,7 @@ const SignUp = (props) => {
                     <input type="file" className="form-control" hidden id="inputFileUser" onChange={(event) => handleUploadImage(event)} />
                     <span className="form-message"></span>
                 </div>
-                <div className="form-group col-12  divimg_preview">{previewImage ? <img src={previewImage} alt="" className="previewImage"/> : <span>Preview Image</span>}</div>
+                <div className="form-group col-12  divimg_preview">{previewImage ? <img src={previewImage} alt="" className="previewImage"/> : <span></span>}</div>
                 <button className="form-submit" onClick={() => handleSignUp()}>
                     Create free account
                 </button>

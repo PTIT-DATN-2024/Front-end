@@ -4,13 +4,13 @@ import { Routes, Route } from "react-router-dom";
 
 import LogIn from "./components/author/Login";
 import SignUp from "./components/author/SignUp";
-import HomePage from "./components/Homepage/Homepage";
-import MainPage from "./components/Homepage/MainPage/MainPage";
-import ProductsPage from "./components/Homepage/ProductsPage/ProductsPage";
-import ProductFilterPage from "./components/Homepage/ProductFilterPage/ProductFilterPage";
-import BlogsPage from "./components/Homepage/BlogsPage/BlogsPage";
-import AboutPage from "./components/Homepage/AboutPage/AboutPage";
-import ContactPage from "./components/Homepage/ContactPage/ContactPage";
+import HomePage from "./components/User/Homepage";
+import MainPage from "./components/User/HomePage/HomePage";
+import ProductsPage from "./components/User/ProductsPage/ProductsPage";
+import ProductFilterPage from "./components/User/ProductFilterPage/ProductFilterPage";
+import BlogsPage from "./components/User/BlogsPage/BlogsPage";
+import AboutPage from "./components/User/AboutPage/AboutPage";
+import ContactPage from "./components/User/ContactPage/ContactPage";
 
 import Admin from "./components/Admin/Admin";
 import DashBoard from "./components/Admin/DashBoard/DashBroad";
@@ -23,7 +23,7 @@ import OrderManagement from "./components/Admin/Managements/OrderManagement/Orde
 import ProfilePage from "./components/Golobal/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
-import PayPage from "./components/Homepage/PayPage/PayPage";
+import PayPage from "./components/User/PayPage/PayPage";
 const App = () => {
     return (
         <>

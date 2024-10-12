@@ -33,7 +33,7 @@ const Header = (props) => {
             <Container>
                 <Navbar.Brand>
                     <NavLink to="/" className="nav-link navbar-brand">
-                        Na's Food
+                        KAP PC
                     </NavLink>
                 </Navbar.Brand>
                 <div className="navbar-toggler init">

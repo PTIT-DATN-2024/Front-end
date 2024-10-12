@@ -20,8 +20,8 @@ GIT
 git config --list
 git init
 git add .
-git commit -m "qweqwe"
-git remote add origin https://github.com/naoisiic25/Food_Store.git
+git commit -m "12:43_12/10/24"
+git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin master
 
 #18 React dev tool/ Redux dev tool

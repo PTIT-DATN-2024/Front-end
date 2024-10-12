@@ -47,7 +47,6 @@ const CategoryManagement = (props) => {
     }, []);
     return (
         <div className="CategoryManagement_container">
-            <div className="Title">đây là CategoryManagement</div>
             <div className="CategoryManagement_content">
                 <div>
                     <Button variant="primary" onClick={() => setShowModalCreateCategory(true)}>

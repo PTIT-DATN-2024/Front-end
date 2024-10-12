@@ -43,7 +43,6 @@ const LogIn = (props) => {
             </div>
             <div className="form" id="form-1">
                 <h3 className="heading">Wellcome!!!</h3>
-                {/* <p className="desc">Cùng nhau học nhé ❤️</p> */}
                 <div className="form-group">
                     <lable className="form-lable">Email</lable>
                     <input type="text" name="email" id="email" className="form-control" placeholder="VD: email@domain.com.vm" value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />

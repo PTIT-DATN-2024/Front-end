@@ -13,7 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 // import "./styles.css";
 // import required modules
-import "./MainPage.scss";
+import "./HomePage.scss";
 import _ from "lodash";
 import TopWrapper from "../HPComponents/TopWrapper/TopWrapper";
 import CategoryBanner from "../HPComponents/CategoryBanner/CategoryBanner";

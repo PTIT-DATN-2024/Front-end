@@ -44,8 +44,7 @@ const userController = {
             console.error("Get all users error:", err);
             res.status(500).json({ EC: 1, MS: "Get all users error!", err });
         }
-    },
-    
+    }, 
     // GET A USER
     getAnUser: async (req, res) => {
         try {
