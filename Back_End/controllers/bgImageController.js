@@ -74,6 +74,9 @@ const bgImageController = {
         } catch (err) {
             console.error("Update bgImage error:", err);
             res.status(500).json({ EC: 1, MS: "Update error!", err });
+
+
+            
         }
     },
 
