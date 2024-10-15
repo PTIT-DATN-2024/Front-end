@@ -15,12 +15,14 @@ Download source code dự án:
 https://drive.google.com/file/d/17u_Q40NVP95YIPIhtW6JqnXjkHQZ18Bz/view?usp=sh
 aring
 
+git remote set-url origin https://github.com/PTIT-DATN-2024/Front-end.git
+git rm -r --cached backend
 
 GIT
 git config --list
 git init
 git add .
-git commit -m "12:43_12/10/24"
+git commit -m "9:35 15/10"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin master
 

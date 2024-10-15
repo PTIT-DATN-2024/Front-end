@@ -29,7 +29,6 @@ const SpecialBanner = (props) => {
                     <div className="foodBannerItem_text">
                         <div className="item">Save 20%</div>
                         <div className="item">Today's Astackin Day </div>
-                        <div className="item"> Grilled Chiken $59,00</div>
                     </div>
 
                     <div className="foodBannerItem_img"></div>
