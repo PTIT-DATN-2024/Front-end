@@ -33,7 +33,7 @@ const Header = (props) => {
             <Container>
                 <Navbar.Brand>
                     <NavLink to="/" className="nav-link navbar-brand">
-                        KAP PC
+                        <img src="/v1/uploads/bgImages/1729231869739.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
                     </NavLink>
                 </Navbar.Brand>
                 <div className="navbar-toggler init">
@@ -80,7 +80,7 @@ const Header = (props) => {
                         ) : (
                             <>
                                 <div className="nav-link" onClick={props.toggleDiv}>
-                                    <BsCartCheck size={30} className="navbar-nav-cart btn_icon "  />
+                                    <BsCartCheck size={30} className="navbar-nav-cart btn_icon " />
                                 </div>
 
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">

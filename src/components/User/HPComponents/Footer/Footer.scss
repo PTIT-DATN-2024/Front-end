@@ -1,23 +1,60 @@
-.footerContainer {
-    width: 100vw;
-    height: 660px;
 
-    .burger_shape {
+.footer-links {
+    a{
+        text-decoration: none;
+        color: black;
     }
-    .fry_shape {
-    }
-    .footerContent {
-        height: 550px;
+    width: 100%;
+    color: black;
+    .khaipv-footer-policies {
         width: 100%;
-    }
-    .footer_bottom {
         display: flex;
-        padding: 0 10vw;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100vw;
-        height: 110px;
-        background-color: #00a149;
+        justify-content: space-between;
+
+        .policy-container {
+            display: flex;
+            .policy-icon {
+            }
+            .policy-info {
+                display: flex;
+                flex-direction: column;
+                .policy-info-title {
+                }
+                .policy-info-content {
+                }
+            }
+        }
+    }
+
+    .khaipv-footer-links {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .links-group-container {
+        }
+        .loading {
+        }
+        .links-group-title {
+        }
+        .hotline {
+        }
+        .payment-method {
+        }
+        .footer-social-icons {
+        }
+        .icons {
+        }
+        .fab {
+        }
+        .fa-facebook-f {
+        }
+        .fa-youtube {
+        }
+        .fa-instagram {
+        }
+        .fa-tiktok {
+        }
+    }
+    .footer-info {
     }
 }

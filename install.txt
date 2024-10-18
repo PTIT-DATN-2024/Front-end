@@ -22,7 +22,7 @@ GIT
 git config --list
 git init
 git add .
-git commit -m "9:35 15/10"
+git commit -m "2:35 18/10"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin master
 
@@ -46,4 +46,6 @@ npm install --save-exact lodash@4.17.21
 npm install --save-exact nprogress@0.2.0
 npm install --save-exact redux-persist@6.0.0
 npm install --save-exact react-perfect-scrollbar@1.5.8
+npm install react-slick slick-carousel
+
 

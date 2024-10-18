@@ -19,7 +19,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { BsCartCheck } from "react-icons/bs";
 import TableProductFull from "../HPComponents/TableProduct/TableProductFull";
-import TopWrapper from "../HPComponents/TopWrapper/TopWrapper";
+import TopWrapper from "../HPComponents/MainSlider/MainSlider";
 import CategoryBanner from "../HPComponents/CategoryBanner/CategoryBanner";
 import ProductPre from "../HPComponents/ProductPre/ProductPre";
 import GridBanner from "../HPComponents/GridBanner/GridBanner";

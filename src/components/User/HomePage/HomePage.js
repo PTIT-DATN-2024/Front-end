@@ -15,7 +15,8 @@ import "swiper/css/navigation";
 // import required modules
 import "./HomePage.scss";
 import _ from "lodash";
-import TopWrapper from "../HPComponents/TopWrapper/TopWrapper";
+import MainSlider from "../HPComponents/MainSlider/MainSlider";
+import UnderMainSlider from "../HPComponents/UnderMainSlider/UnderMainSlider";
 import CategoryBanner from "../HPComponents/CategoryBanner/CategoryBanner";
 import ProductPre from "../HPComponents/ProductPre/ProductPre";
 import GridBanner from "../HPComponents/GridBanner/GridBanner";
@@ -24,6 +25,8 @@ import TableProductPre from "../HPComponents/TableProduct/TableProductPre";
 import ComboBanner from "../HPComponents/ComboBanner/ComboBanner";
 import Choosing from "../HPComponents/Choosing/Choosing";
 import ThankSlice from "../HPComponents/ThankSlice/ThankSlice";
+import BestSeller from "../HPComponents/BestSeller/BestSeller";
+import ThankCustomer from "../HPComponents/ThankCustomer/ThankCustomer";
 const MainPage = (props) => {
 
     const dispatch = useDispatch();
@@ -63,14 +66,17 @@ const MainPage = (props) => {
 
     return (
         <>
-            <TopWrapper/>
+            <MainSlider/>
+            <UnderMainSlider/>
+            <BestSeller/>
             <CategoryBanner />
-            <GridBanner />
-            <SpecialBanner />
             <TableProductPre/>
+            {/* <GridBanner />
+            <SpecialBanner />
+            <ProductPre /> */}
+            <ThankCustomer/>
             {/* <ComboBanner/> */}
             {/* <Choosing/> */}
-            <ProductPre />
             {/* <ThankSlice/> */}
         </>
     );

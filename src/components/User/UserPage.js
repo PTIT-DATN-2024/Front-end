@@ -1,5 +1,5 @@
 import Header from "./HPComponents/Header/Header";
-import "./HomePage.scss";
+import "./UserPage.scss";
 import { Outlet } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import { FaArrowUp } from "react-icons/fa";
 import { postLogin } from "../../services/apiServices";
-const HomePage = (props) => {
+const UserPage = (props) => {
     const dispatch = useDispatch();
     const [isDivVisible, setIsDivVisible] = useState(false);
     const toggleDiv = () => {
@@ -57,4 +57,4 @@ const HomePage = (props) => {
     );
 };
 
-export default HomePage;
+export default UserPage;

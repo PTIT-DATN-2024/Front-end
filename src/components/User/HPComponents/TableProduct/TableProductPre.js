@@ -1,117 +1,87 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Grid, Autoplay, Pagination, Navigation } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
+import Slider from "react-slick";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { NavLink, useNavigate } from "react-router-dom";
 import { BsCartPlus } from "react-icons/bs";
-import "swiper/css";
-import "swiper/css/grid";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+
 import "./TableProductPre.scss";
-// import required modules
 
-import _ from "lodash";
-
-const TableProductPre = (props) => {
+const TableProductPre = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const stateProduct = useSelector((state) => state.product);
     const listProducts = useSelector((state) => state.product.listProducts);
-    const listCategories = useSelector((state) => state.category.listCategories);
 
-    const addProductOrder = async (productId) => {
-        dispatch({
-            type: "add_product",
-            payload: productId,
-        });
+    const addProductOrder = (productId) => {
+        dispatch({ type: "add_product", payload: productId });
+        toast.success("Product added to order.");
+    };
 
-        toast.success("add done");
-        // console.log(listProducts);
-        console.log(stateProduct);
+    const removeProductOrder = (productId) => {
+        dispatch({ type: "remove_product", payload: productId });
+        toast.success("Product removed from order.");
     };
-    const removeProductOrder = async (productId) => {
-        dispatch({
-            type: "remove_product",
-            payload: productId,
-        });
-        toast.success("remove done");
-        // console.log(listProducts);
-        console.log(stateProduct);
+    // Custom next arrow
+
+    const SampleNextArrow = (props) => {
+        const { onClick } = props;
+        return <div className="slick-arrow slick-next" onClick={onClick} style={{ display: "block", color: "black", fontSize: "30px" }}></div>;
     };
+
+    // Custom previous arrow
+    const SamplePrevArrow = (props) => {
+        const { onClick } = props;
+        return <div className="slick-arrow slick-prev" onClick={onClick} style={{ display: "block", color: "black", fontSize: "30px" }}></div>;
+    };
+    const settings = {
+        dots: false, // Tắt dots
+        infinite: true,
+        speed: 300,
+        slidesToShow: 6, // Hiển thị 6 slide
+        slidesToScroll: 1,
+        draggable: true,
+        swipeToSlide: true,
+        autoplay: true, // Thêm autoplay
+        autoplaySpeed: 3000, // Tốc độ chuyển slide (3 giây)
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+    };
+
     return (
-        <>
-            <div className="tableProduct">
-                <Swiper
-                    grid={{
-                        rows: 2,
-                    }}
-                    spaceBetween={30}
-                    slidesPerView={4}
-                    breakpoints={{
-                        1024: {
-                            slidesPerView: 5,
-                            spaceBetween: 30,
-                        },
-                        780: {
-                            slidesPerView: 4,
-                            spaceBetween: 15,
-                        },
-
-                        480: {
-                            slidesPerView: 2,
-                            spaceBetween: 5,
-                        },
-                        1: {
-                            slidesPerView: 2,
-                            spaceBetween: 5,
-                        },
-                    }}
-                    modules={[Grid]}
-                    className="mySwiper"
-                >
-                    {listProducts &&
-                        listProducts.length > 0 &&
-                        listProducts.map((product, index) => {
-                            return (
-                                <SwiperSlide>
-                                    <div onClick={() => navigate(`/productsPage/${product._id}`)} className="topItem">
-                                        <div className="SwiperSlideImg">
-                                            <div className="content">
-                                                <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
-                                            </div>
-                                        </div>
-                                        <div className="SwiperSlideDes">
-                                            <div className={`${product._id} SwiperSlideDes_Name`}>{product.name} </div>
-                                            <div className="SwiperSlideDes_Price">{product.sellingprice.toLocaleString("vi-VN") + " đ"} </div>
-                                        </div>
-                                    </div>
-                                    <div className="bottomItem">
-                                        {product.CountOrder === 0 ? (
-                                            <div className={`addmeBtn`} onClick={() => addProductOrder(product._id)}>
-                                                <BsCartPlus  size={30}   style={{ color: '#212121' }}/>
-                                            </div>
-                                        ) : (
-                                            <div className="SwiperSlideDes_Btn">
-                                                <CiCircleMinus onClick={() => removeProductOrder(product._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
-                                                <div className={`${product._id} countItem`}> {product.CountOrder}</div>
-                                                <CiCirclePlus onClick={() => addProductOrder(product._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
-                                            </div>
-                                        )}
-                                    </div>
-                                </SwiperSlide>
-                            );
-                        })}
-                </Swiper>
-                <div className="tableProductMore" onClick={() => navigate("/productFilterPage")}>
-                    More Products
-                </div>
+        <div className="tableProduct">
+            <Slider {...settings}>
+                {listProducts &&
+                    listProducts.map((product, index) => (
+                        <div key={index} class="productSlide">
+                            <div class="p-img">
+                                <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                            </div>
+                            <div class="p-rate">
+                                {/* rate */}
+                                {/* <img src="/media/lib/star_0.png" alt="rate" class="p-rating"/> */}
+                                <span class="p-count-rate">{product.rate}</span>
+                                <p class="p-sku">Mã: LTAU861</p>
+                            </div>
+                            <div class="p-info">
+                                <p class="p-name">{product.name}</p>
+                                <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                <span class="p-discount"> (Tiết kiệm: 19% )</span>
+                            </div>
+                            <div class="p-action">
+                                <span class="p-qty">Sẵn hàng</span>
+                                <div className="addmeBtn" onClick={() => addProductOrder(product._id)}>
+                                    <BsCartPlus size={30} style={{ color: "#212121" }} />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+            </Slider>
+            <div className="tableProductMore" onClick={() => navigate("/productFilterPage")}>
+                More Products
             </div>
-        </>
+        </div>
     );
 };
+
 export default TableProductPre;

@@ -29,7 +29,7 @@ const CategoryBanner = (props) => {
     return (
         <>
             <div className="categoryBanner">
-                <div className="categoryBanner_header">Danh mục</div>
+                {/* <div className="categoryBanner_header">Danh mục</div> */}
                 <Swiper
                     speed={1500}
                     spaceBetween={30}

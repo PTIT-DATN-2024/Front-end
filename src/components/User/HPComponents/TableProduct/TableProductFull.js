@@ -84,7 +84,7 @@ const TableProductFull = (props) => {
     return (
         <>
             <div className="tableProduct_filter">
-                <div className="tableProductHeader">Popular Fast Foods</div>
+                <div className="tableProductHeader">Popular</div>
                 <div style={{ marginBottom: "20px" }} className="fillterContainer">
                     <input type="text" className="form-control itemFilter nameFillter" placeholder="Name: Gà lắc phô mai" value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
 

@@ -1,18 +1,18 @@
 .headerContainer {
     padding: 0 !important;
     font-style: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .4);
     .container {
         height: 100%;
         padding: 0;
         cursor: pointer;
-
         .navbar-brand {
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             padding-left: 8px;
-            color: #fff;
+            color: #000000;
             font-size: 2rem;
         }
         .navbar-toggler {
@@ -37,14 +37,14 @@
                 margin: 0;
                 .nav-link {
                     height: 100%;
-                    color: #fff;
+                    color: #333e48;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     flex-direction: column;
                     padding: 0 10px;
                     &:hover {
-                        background-color: #fff;
+                        background-color: #7a7a7a;
                         color: #000000;
                     }
                 }

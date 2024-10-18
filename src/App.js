@@ -1,10 +1,12 @@
 import "./App.scss";
 import "nprogress/nprogress.css";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import { Routes, Route } from "react-router-dom";
 
 import LogIn from "./components/author/Login";
 import SignUp from "./components/author/SignUp";
-import HomePage from "./components/User/Homepage";
+import UserPage from "./components/User/UserPage";
 import MainPage from "./components/User/HomePage/HomePage";
 import ProductsPage from "./components/User/ProductsPage/ProductsPage";
 import ProductFilterPage from "./components/User/ProductFilterPage/ProductFilterPage";
@@ -29,7 +31,7 @@ const App = () => {
         <>
             <div className="App">
                 <Routes>
-                    <Route path="/" element={<HomePage />}>
+                    <Route path="/" element={<UserPage />}>
                         <Route index element={<MainPage />} />
                         <Route path="productsPage" element={<ProductsPage />} />
                         <Route path="productFilterPage" element={<ProductFilterPage />} />

@@ -15,7 +15,7 @@ import "./ProductFilterPage.scss";
 import _ from "lodash";
 import axios from "axios";
 import TableProductFull from "../HPComponents/TableProduct/TableProductFull";
-import TopWrapper from "../HPComponents/TopWrapper/TopWrapper";
+import TopWrapper from "../HPComponents/MainSlider/MainSlider";
 import CategoryBanner from "../HPComponents/CategoryBanner/CategoryBanner";
 import ProductPre from "../HPComponents/ProductPre/ProductPre";
 import GridBanner from "../HPComponents/GridBanner/GridBanner";
