@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import Slider from "react-slick";
 import _ from "lodash";
 import { postCreateComment, getCommentsProduct, putUpdateComment, deleteComment, postVote, getAllProducts } from "../../../services/apiServices";
 import { toast } from "react-toastify";
@@ -64,8 +65,6 @@ const ProductsPage = (props) => {
         // console.log(stateProduct);
     };
 
-
-
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
@@ -77,10 +76,6 @@ const ProductsPage = (props) => {
             toast.success(res.MS);
         }
     };
-
-    if (!product) {
-        return <div>Product not found</div>;
-    }
     const handleRating = async (rating) => {
         setUserRating(rating);
         const config = {
@@ -103,12 +98,180 @@ const ProductsPage = (props) => {
             toast.error(res_data.MS);
         }
     };
+
+    const buyNow = (productId) => {
+        // Gọi hàm xử lý mua ngay
+        console.log(`Buy now: ${productId}`);
+    };
+    const settings = {
+        dots: false, // Tắt dots
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1, // Hiển thị 1 slide
+        slidesToScroll: 1,
+        draggable: true,
+        swipeToSlide: true,
+        autoplay: true, // Thêm autoplay
+        autoplaySpeed: 3000, // Tốc độ chuyển slide (3 giây)
+        // nextArrow: <SampleNextArrow />,
+        // prevArrow: <SamplePrevArrow />,
+    };
+    const images = Array.isArray(product.presentImage) ? product.presentImage : product.presentImage ? [product.presentImage] : []; // Chuyển đổi thành mảng nếu là chuỗi
+    if (!product) {
+        return <div>Product not found</div>;
+    }
     return (
         <div className="productContainer">
-            <div className="productBanner">
-                <h1 className="productBannerItem">{product.name}</h1>
+            <div className="pd-info-container">
+                <div className="pd-info-left">
+                    <div className="pd-img-gallery">
+                        {images.length > 0 &&
+                            images.map((imgItem, index) => (
+                                <div className="p-img" key={index}>
+                                    <img src={imgItem} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
+                                </div>
+                            ))}
+                        {images.length > 0 &&
+                            images.map((imgItem, index) => (
+                                <div className="p-img" key={index}>
+                                    <img src={imgItem} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
+                                </div>
+                            ))}
+                    </div>
+
+                    <div className="pd-big-image">
+                        <div className="pd-list-img">
+                            {/* <Slider {...settings}> */}
+                            {images.length > 0 &&
+                                images.map((imgItem, index) => (
+                                    <div className="p-img" key={index}>
+                                        <img src={imgItem} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
+                                    </div>
+                                ))}
+                            {/* </Slider> */}
+                        </div>
+
+                        <div className="pd-image-btn">
+                            <a href="" className="item item-image js-box-open-gallery">
+                                <span className="item-icon lazy" style={{ backgroundImage: `url(${product.image})` }}></span>
+
+                                <span className="item-text">
+                                    Hình ảnh chụp
+                                    <br />
+                                    sản phẩm
+                                </span>
+                            </a>
+
+                            <a href="https://www.youtube.com/watch?v=u5r6RbBESw4" data-fancybox className="item item-video" target="_blank" rel="noopener noreferrer">
+                                <span className="item-icon">
+                                    <i className="fab fa-youtube"></i>
+                                </span>
+                                <span className="item-text">
+                                    Video
+                                    <br />
+                                    sản phẩm
+                                </span>
+                            </a>
+
+                            <a href="" className="item item-product-spec">
+                                <span className="item-icon">
+                                    <i className="fal fa-clipboard-list-check tada" style={{ color: "#2d2c74" }}></i>
+                                </span>
+                                <span className="item-text">
+                                    Thông số
+                                    <br />
+                                    kỹ thuật
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="pd-info-right">
+                    {/* ten  */}
+                    <h1 className="sptitle2024">{product.name}</h1>
+                    {/* danh gia  */}
+                    <div className="pd-status-group">
+                        <p>
+                            Mã SP: <b className="blue">LTAU811</b>
+                        </p>
+                        <p style={{ cursor: "pointer" }}>
+                            Đánh giá:{" "}
+                            <b className="blue">
+                                {product.rate} {product.numberVote}
+                            </b>
+                        </p>
+                        <p style={{ cursor: "pointer" }}>
+                            Bình luận: <b className="blue">0</b>
+                        </p>
+                        <p>
+                            Lượt xem: <b className="blue">28.084</b>
+                        </p>
+                    </div>
+                    {/* thong so  */}
+                    <div className="pd-summary-group" id="js-pd-summary">
+                        <p className="group-title">Thông số sản phẩm</p>
+                        <div>
+                            <div className="item">CPU: AMD Ryzen™ R5 7520U</div>
+                            <div className="item">Ram: 16GB LPDDR5 (hàn liền)</div>
+                            <div className="item">Ổ cứng: 512GB M.2 NVMe™</div>
+                            <div className="item">VGA: AMD Radeon™ Graphics</div>
+                            <div className="item">Display: 14 inch FHD (1920 x 1080) 16:9, LED, 60Hz, 250nits, 45% NTSC</div>
+                            <div className="item">HĐH: Win 11 Home</div>
+                            <div className="item">Màu: Bạc</div>
+                        </div>
+                    </div>
+                    {/* giá  */}
+                    <div className="pd-price-group">
+                        <div className="pd-special-price">
+                            <div className="left">
+                                <p className="pd-price" data-price="11999000">
+                                    {product.sellingprice.toLocaleString("vi-VN")}
+                                    <u>đ</u>
+                                </p>
+                                <p>
+                                    Tiết kiệm: 2.500.000<u>đ</u>
+                                </p>
+                            </div>
+                            <del className="pd-market-price">
+                                {"Giá gốc " + product.sellingprice.toLocaleString("vi-VN")}
+                                <u>đ</u>
+                            </del>
+                        </div>
+
+                        <div className="pd-warranty-group">
+                            <p>Giá đã bao gồm VAT</p>
+                            <p>Bảo hành: 24 Tháng (Pin 12 Tháng)</p>
+                        </div>
+                    </div>
+                    {/* soluon + add to cart  */}
+
+                    <div className="SwiperSlideDes_Btn">
+                        <span onClick={() => removeProductOrder(product._id)} size={30} color="#000" className="btn_icon">
+                            -
+                        </span>
+                        <div className={`${product._id} countItem`}> {product.CountOrder}</div>
+
+                        <span onClick={() => addProductOrder(product._id)} size={30} color="#000" className="btn_icon">
+                            +
+                        </span>
+                    </div>
+                    {/* mua  */}
+                    <div className="pd-btn-group">
+                        <a
+                            href=""
+                            className="pd-buy-now"
+                            onClick={() => {
+                                navigate("/PayPage");
+                            }}
+                        >
+                            <b>mua ngay</b>
+                            <span>Giao nhanh tận nơi, miễn phí toàn quốc</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div className="productContent">
+            {/* <div className="productContent">
                 <div className="topContent">
                     <div className="presentImage">
                         <div className="content">
@@ -117,14 +280,13 @@ const ProductsPage = (props) => {
                     </div>
                     <div className="itemDes">
                         <div className="topItemDes">
-                            {/* <h1>{product.name}</h1> */}
+                        
                             <div className="voteStar">
                                 {[1, 2, 3, 4, 5].map((star) => (
-                                    <FaStar key={star} onClick={() => handleRating(star)} 
-                                    color={star <= userRating ? "#ffc107" : "#e4e5e9"}          className="voteStarItem" />
+                                    <FaStar key={star} onClick={() => handleRating(star)} color={star <= userRating ? "#ffc107" : "#e4e5e9"} className="voteStarItem" />
                                 ))}
                             </div>
-                            {/* <h4>NumberVote: {product.numberVote}</h4> */}
+                      
                             <h4>Rate: {product.rate}</h4>
                             <h4>Loại: {product.category.nameCategory}</h4>
                             <h4>Số lượng còn lại: {product.count}</h4>
@@ -148,11 +310,11 @@ const ProductsPage = (props) => {
                     </div>
                 </div>
                 <div className="bottomContent"></div>
-            </div>
+            </div> */}
             {/* <CommentProduct productId={id}/>                 */}
-            <SpecialBanner />
+            {/* <SpecialBanner />
             <GridBanner />
-            <ComboBanner />
+            <ComboBanner /> */}
         </div>
     );
 };

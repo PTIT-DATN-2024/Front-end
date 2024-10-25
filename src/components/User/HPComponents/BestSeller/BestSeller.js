@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Slider from "react-slick";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,10 +11,23 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./BestSeller.scss";
-
+// import "../../../Golobal/productCard.scss";
+import { BsCartPlus } from "react-icons/bs";
 const BestSeller = (props) => {
     const dispatch = useDispatch();
     const listProducts = useSelector((state) => state.product.listProducts);
+    const navigate = useNavigate();
+
+    const addProductOrder = (productId) => {
+        dispatch({ type: "add_product", payload: productId });
+        toast.success("Product added to order.");
+    };
+
+    const removeProductOrder = (productId) => {
+        dispatch({ type: "remove_product", payload: productId });
+        toast.success("Product removed from order.");
+    };
+
     // Custom next arrow
 
     const SampleNextArrow = (props) => {
@@ -34,7 +48,7 @@ const BestSeller = (props) => {
         slidesToScroll: 1,
         draggable: true,
         swipeToSlide: true,
-        autoplay: true, // Thêm autoplay
+        autoplay: false, // Thêm autoplay
         autoplaySpeed: 3000, // Tốc độ chuyển slide (3 giây)
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
@@ -48,67 +62,111 @@ const BestSeller = (props) => {
                     {listProducts &&
                         listProducts.length > 0 &&
                         listProducts.map((product, index) => (
-                            <div key={index} className="">
-                                <div className="SwiperSlideImg">
-                                    <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
+                            <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)}  class="productSlide">
+                                <div class="p-img">
+                                    <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
-                                <div className="SwiperSlideDes">
-                                    <div className="SwiperSlideDes_item name">{product.name}</div>
-                                    <div className="SwiperSlideDes_item desc">{product.description}</div>
+                                <div class="p-rate">
+                                    <span class="p-count-rate">{product.rate}</span>
+                                    <span class="p-count-rate">({product.numberVote})</span>
+                                    <p class="p-sku">Mã: LTAU861</p>
                                 </div>
-                            </div>
-                        ))}
-                </Slider>
-            </div>
-            <div className="item_sell">
-                <h3>TOP BÀN PHÍM ĐƯỢC ƯA CHUỘNG NHẤT</h3>
-                <Slider {...settings}>
-                    {listProducts &&
-                        listProducts.length > 0 &&
-                        listProducts.map((product, index) => (
-                            <div key={index} className="">
-                                <div className="SwiperSlideImg">
-                                    <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
+                                <div class="p-info">
+                                    <p class="p-name">{product.name}</p>
+                                    <span class="p-discount"> (Tiết kiệm: 19% )</span>
+                                    <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
                                 </div>
-                                <div className="SwiperSlideDes">
-                                    <div className="SwiperSlideDes_item name">{product.name}</div>
-                                    <div className="SwiperSlideDes_item desc">{product.description}</div>
+                                <div class="p-action">
+                                    <span class="p-qty">Sẵn hàng</span>
+
+                                    <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                                 </div>
                             </div>
                         ))}
                 </Slider>
             </div>
             <div className="item_sell">
-                <h3>NHỮNG MÀN HÌNH BEST SELLER</h3>
+                <h3>TOP LAPTOP BÁN CHẠY NHẤT 2024</h3>
                 <Slider {...settings}>
                     {listProducts &&
                         listProducts.length > 0 &&
                         listProducts.map((product, index) => (
-                            <div key={index} className="">
-                                <div className="SwiperSlideImg">
-                                    <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
+                            <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)}  class="productSlide">
+                                <div class="p-img">
+                                    <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
-                                <div className="SwiperSlideDes">
-                                    <div className="SwiperSlideDes_item name">{product.name}</div>
-                                    <div className="SwiperSlideDes_item desc">{product.description}</div>
+                                <div class="p-rate">
+                                    <span class="p-count-rate">{product.rate}</span>
+                                    <span class="p-count-rate">({product.numberVote})</span>
+                                    <p class="p-sku">Mã: LTAU861</p>
+                                </div>
+                                <div class="p-info">
+                                    <p class="p-name">{product.name}</p>
+                                    <span class="p-discount"> (Tiết kiệm: 19% )</span>
+                                    <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                </div>
+                                <div class="p-action">
+                                    <span class="p-qty">Sẵn hàng</span>
+
+                                    <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                                 </div>
                             </div>
                         ))}
                 </Slider>
             </div>
             <div className="item_sell">
-                <h3>TOP TAI NGHE GAMING TỐT NHẤT</h3>
+                <h3>TOP LAPTOP BÁN CHẠY NHẤT 2024</h3>
                 <Slider {...settings}>
                     {listProducts &&
                         listProducts.length > 0 &&
                         listProducts.map((product, index) => (
-                            <div key={index} className="">
-                                <div className="SwiperSlideImg">
-                                    <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
+                            <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)}  class="productSlide">
+                                <div class="p-img">
+                                    <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
-                                <div className="SwiperSlideDes">
-                                    <div className="SwiperSlideDes_item name">{product.name}</div>
-                                    <div className="SwiperSlideDes_item desc">{product.description}</div>
+                                <div class="p-rate">
+                                    <span class="p-count-rate">{product.rate}</span>
+                                    <span class="p-count-rate">({product.numberVote})</span>
+                                    <p class="p-sku">Mã: LTAU861</p>
+                                </div>
+                                <div class="p-info">
+                                    <p class="p-name">{product.name}</p>
+                                    <span class="p-discount"> (Tiết kiệm: 19% )</span>
+                                    <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                </div>
+                                <div class="p-action">
+                                    <span class="p-qty">Sẵn hàng</span>
+
+                                    <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
+                                </div>
+                            </div>
+                        ))}
+                </Slider>
+            </div>
+            <div className="item_sell">
+                <h3>TOP LAPTOP BÁN CHẠY NHẤT 2024</h3>
+                <Slider {...settings}>
+                    {listProducts &&
+                        listProducts.length > 0 &&
+                        listProducts.map((product, index) => (
+                            <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)}  class="productSlide">
+                                <div class="p-img">
+                                    <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                </div>
+                                <div class="p-rate">
+                                    <span class="p-count-rate">{product.rate}</span>
+                                    <span class="p-count-rate">({product.numberVote})</span>
+                                    <p class="p-sku">Mã: LTAU861</p>
+                                </div>
+                                <div class="p-info">
+                                    <p class="p-name">{product.name}</p>
+                                    <span class="p-discount"> (Tiết kiệm: 19% )</span>
+                                    <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                </div>
+                                <div class="p-action">
+                                    <span class="p-qty">Sẵn hàng</span>
+
+                                    <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                                 </div>
                             </div>
                         ))}

@@ -52,27 +52,26 @@ const TableProductPre = () => {
         <div className="tableProduct">
             <Slider {...settings}>
                 {listProducts &&
+                    listProducts.length > 0 &&
                     listProducts.map((product, index) => (
-                        <div key={index} class="productSlide">
+                        <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)} class="productSlide">
                             <div class="p-img">
                                 <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                             </div>
                             <div class="p-rate">
-                                {/* rate */}
-                                {/* <img src="/media/lib/star_0.png" alt="rate" class="p-rating"/> */}
                                 <span class="p-count-rate">{product.rate}</span>
+                                <span class="p-count-rate">({product.numberVote})</span>
                                 <p class="p-sku">Mã: LTAU861</p>
                             </div>
                             <div class="p-info">
                                 <p class="p-name">{product.name}</p>
-                                <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
                                 <span class="p-discount"> (Tiết kiệm: 19% )</span>
+                                <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
                             </div>
                             <div class="p-action">
                                 <span class="p-qty">Sẵn hàng</span>
-                                <div className="addmeBtn" onClick={() => addProductOrder(product._id)}>
-                                    <BsCartPlus size={30} style={{ color: "#212121" }} />
-                                </div>
+
+                                <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                             </div>
                         </div>
                     ))}

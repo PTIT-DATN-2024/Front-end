@@ -1,6 +1,5 @@
-
 .footer-links {
-    a{
+    a {
         text-decoration: none;
         color: black;
     }
@@ -19,8 +18,21 @@
                 display: flex;
                 flex-direction: column;
                 .policy-info-title {
+                    font-family: "Open Sans", Arial, sans-serif;
+                    color: #333e48;
+                    word-break: break-word;
+                    box-sizing: border-box;
+                    font-size: 16px;
+                    font-weight: 700;
+                    margin: 0;
                 }
                 .policy-info-content {
+                    font-family: "Open Sans", Arial, sans-serif;
+                    color: #333e48;
+                    word-break: break-word;
+                    box-sizing: border-box;
+                    display: block;
+                    font-size: 12px;
                 }
             }
         }
@@ -31,13 +43,42 @@
         display: flex;
         justify-content: space-between;
         .links-group-container {
+            .links-group-title {
+                font-family: "Open Sans",Arial,sans-serif;
+                color: #333e48;
+                word-break: break-word;
+                box-sizing: border-box;
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 16px;
+                display: block;
+            }
+            p {
+                font-family: "Open Sans", Arial, sans-serif;
+                word-break: break-word;
+                line-height: 1;
+                box-sizing: border-box;
+                cursor: pointer;
+                text-decoration: none;
+                transition: 0.2s;
+                color: #333e48;
+                font-size: 12px;
+            }
+            .hotline {
+                font-family: "Open Sans",Arial,sans-serif;
+                word-break: break-word;
+                cursor: pointer;
+                line-height: 1;
+                box-sizing: border-box;
+                display: block;
+                color: #333e48;
+                position: relative;
+                font-size: 16px;
+            }
         }
         .loading {
         }
-        .links-group-title {
-        }
-        .hotline {
-        }
+
         .payment-method {
         }
         .footer-social-icons {
