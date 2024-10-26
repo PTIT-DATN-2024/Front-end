@@ -10,6 +10,7 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import { FaArrowUp } from "react-icons/fa";
 import { postLogin } from "../../services/apiServices";
+import ThankCustomer from "./HPComponents/ThankCustomer/ThankCustomer";
 const UserPage = (props) => {
     const dispatch = useDispatch();
     const [isDivVisible, setIsDivVisible] = useState(false);
@@ -51,6 +52,7 @@ const UserPage = (props) => {
             </div>
             <div className="mainContainer">
                 <Outlet />
+                <ThankCustomer/>
             </div>
             <Footer />
         </div>

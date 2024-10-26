@@ -62,6 +62,10 @@ const putUpdateProduct = (_id, formData, config) => {
 const deleteProduct = (_id,config) => {
     return axios.delete(`/product/${_id}`,config);
 };
+const getSearchProduct = (query) => {
+    return axios.get(`/product/search?query=${query}`);
+};
+
 
 
 // user
@@ -149,6 +153,7 @@ export {
     deleteBgImage,
     postCreateProduct,
     getAllProducts,
+    getSearchProduct,
     putUpdateProduct,
     deleteProduct,
     postVote,

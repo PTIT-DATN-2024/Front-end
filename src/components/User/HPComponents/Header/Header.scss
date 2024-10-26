@@ -1,7 +1,7 @@
 .headerContainer {
     padding: 0 !important;
     font-style: 10px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .4);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
     .container {
         height: 100%;
         padding: 0;
@@ -31,6 +31,21 @@
         }
         .navbar-collapse {
             height: 100%;
+            .box-search{
+                flex: 1;
+            }
+            .suggestion-list {
+                z-index: 1000; // Đảm bảo danh sách gợi ý nằm trên các phần tử khác
+                width: 900px; // Đảm bảo danh sách gợi ý cùng chiều rộng với thanh tìm kiếm
+                max-height: 200px; // Giới hạn chiều cao của danh sách gợi ý
+                overflow-y: auto; // Cho phép cuộn nếu danh sách dài
+                bottom:0;
+                right: 0;
+                transform: translate(0%,100%);
+                
+
+            }
+
             .navbar-nav {
                 height: 100%;
                 border: none;

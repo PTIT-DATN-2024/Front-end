@@ -30,7 +30,8 @@ const productReducer = (state = productState, action) => {
                 total: 0, // Reset total khi reset CountOrder
             };
         case "add_product":
-            const updatedProductsAdd = state.listProducts.map((product) => (product._id === action.payload ? { ...product, CountOrder: product.CountOrder + 1 } : product));
+            const { productId, quantity } = action.payload;
+            const updatedProductsAdd = state.listProducts.map((product) => (product._id === productId ? { ...product, CountOrder: product.CountOrder + quantity } : product));
             return {
                 ...state,
                 listProducts: updatedProductsAdd,

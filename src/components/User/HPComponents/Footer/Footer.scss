@@ -1,101 +1,121 @@
-.footer-links {
-    a {
-        text-decoration: none;
+.footer {
+    width: 100vw;
+    .footer-links {
+        // width: 1200px;
+        a {
+            text-decoration: none;
+            color: black;
+        }
         color: black;
-    }
-    width: 100%;
-    color: black;
-    .khaipv-footer-policies {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-
-        .policy-container {
+        .khaipv-footer-policies {
+            margin: 0 auto;
+            width: 1200px;
             display: flex;
-            .policy-icon {
-            }
-            .policy-info {
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+
+            .policy-container {
                 display: flex;
-                flex-direction: column;
-                .policy-info-title {
+                .policy-icon {
+                    word-break: break-word;
+                    color: #ed1b24;
+                    font-size: 32px;
+                    box-sizing: border-box;
+                    -webkit-font-smoothing: antialiased;
+                    display: inline-block;
+                    font-style: normal;
+                    font-variant: normal;
+                    text-rendering: auto;
+                    line-height: 1;
+                    font-weight: 300;
+                    font-family: "Font Awesome 5 Pro";
+                    margin-right: 15px;
+                }
+                .policy-info {
+                    display: flex;
+                    flex-direction: column;
+                    .policy-info-title {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        color: #333e48;
+                        word-break: break-word;
+                        box-sizing: border-box;
+                        font-size: 16px;
+                        font-weight: 700;
+                        margin: 0;
+                    }
+                    .policy-info-content {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        color: #333e48;
+                        word-break: break-word;
+                        box-sizing: border-box;
+                        display: block;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        .khaipv-footer-links {
+            width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            .links-group-container {
+                .links-group-title {
                     font-family: "Open Sans", Arial, sans-serif;
                     color: #333e48;
                     word-break: break-word;
                     box-sizing: border-box;
                     font-size: 16px;
                     font-weight: 700;
-                    margin: 0;
-                }
-                .policy-info-content {
-                    font-family: "Open Sans", Arial, sans-serif;
-                    color: #333e48;
-                    word-break: break-word;
-                    box-sizing: border-box;
+                    margin-bottom: 16px;
                     display: block;
+                }
+                p {
+                    font-family: "Open Sans", Arial, sans-serif;
+                    word-break: break-word;
+                    line-height: 1;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: 0.2s;
+                    color: #333e48;
                     font-size: 12px;
                 }
+                .hotline {
+                    font-family: "Open Sans", Arial, sans-serif;
+                    word-break: break-word;
+                    cursor: pointer;
+                    line-height: 1;
+                    box-sizing: border-box;
+                    display: block;
+                    color: #333e48;
+                    position: relative;
+                    font-size: 16px;
+                }
             }
-        }
-    }
+            .loading {
+            }
 
-    .khaipv-footer-links {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        .links-group-container {
-            .links-group-title {
-                font-family: "Open Sans",Arial,sans-serif;
-                color: #333e48;
-                word-break: break-word;
-                box-sizing: border-box;
-                font-size: 16px;
-                font-weight: 700;
-                margin-bottom: 16px;
-                display: block;
+            .payment-method {
             }
-            p {
-                font-family: "Open Sans", Arial, sans-serif;
-                word-break: break-word;
-                line-height: 1;
-                box-sizing: border-box;
-                cursor: pointer;
-                text-decoration: none;
-                transition: 0.2s;
-                color: #333e48;
-                font-size: 12px;
+            .footer-social-icons {
             }
-            .hotline {
-                font-family: "Open Sans",Arial,sans-serif;
-                word-break: break-word;
-                cursor: pointer;
-                line-height: 1;
-                box-sizing: border-box;
-                display: block;
-                color: #333e48;
-                position: relative;
-                font-size: 16px;
+            .icons {
+            }
+            .fab {
+            }
+            .fa-facebook-f {
+            }
+            .fa-youtube {
+            }
+            .fa-instagram {
+            }
+            .fa-tiktok {
             }
         }
-        .loading {
+        .footer-info {
         }
-
-        .payment-method {
-        }
-        .footer-social-icons {
-        }
-        .icons {
-        }
-        .fab {
-        }
-        .fa-facebook-f {
-        }
-        .fa-youtube {
-        }
-        .fa-instagram {
-        }
-        .fa-tiktok {
-        }
-    }
-    .footer-info {
     }
 }

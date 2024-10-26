@@ -2,11 +2,13 @@
     margin-top: 20px;
     width: 100%;
     padding: 0 10px;
+    min-height: 1500px;
     .pd-info-container {
         width: 100%;
         justify-content: space-between;
         padding: 20px;
         display: flex;
+        height: auto;
         .pd-info-left {
             display: flex;
             width: 63%;
@@ -33,14 +35,13 @@
             }
             .pd-big-image {
                 width: 85%;
-                height: 472px;
                 display: flex;
                 justify-content: flex-start;
                 flex-direction: column;
                 padding: 0 10px;
                 .pd-list-img {
                     width: 100%;
-                    height: 100%;
+                    height: 472px;
                     .p-img {
                         width: 100%;
                         height: 100%;
@@ -53,33 +54,71 @@
                     }
                 }
                 .pd-image-btn {
+                    font-family: "Open Sans",Arial,sans-serif;
+                    color: #333e48;
+                    word-break: break-word;
+                    font-size: 13px;
+                    box-sizing: border-box;
                     display: flex;
+                    align-items: center;
                     justify-content: space-around;
-                    .item {
-                    }
-                    .item-image {
-                    }
-                    .js-box-open-gallery {
-                    }
-                    .item-icon {
-                    }
-                    .lazy {
-                    }
-                    .item-text {
-                    }
-                    .item-video {
-                    }
-                    .fab {
-                    }
-                    .fa-youtube {
-                    }
-                    .item-product-spec {
-                    }
-                    .fal {
-                    }
-                    .fa-clipboard-list-check {
-                    }
-                    .tada {
+                    flex-wrap: wrap;
+                    font-weight: 600;
+                    text-align: center;
+                    margin-top: 20px;
+                    background: #f4f4f4;
+                    padding: 15px 0px 10px;
+                    width: 100%;
+                    border-radius: 10px;
+                    height: 125px;
+                    .box{
+                        height: 100%;
+                        width: auto;
+                        display: flex;
+                        .item {
+                            height: 100%;
+                            width: 100px;
+                            .item-icon {
+                                font-family: "Open Sans",Arial,sans-serif;
+                                word-break: break-word;
+                                font-weight: 600;
+                                text-align: center;
+                                cursor: pointer;
+                                color: #333e48;
+                                font-size: inherit;
+                                box-sizing: border-box;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 55px;
+                                height: 55px;
+                                border-radius: 10px;
+                                overflow: hidden;
+                                margin: auto auto 7px;
+                                background: #fff;
+                                background-position: center;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                background-image: url("https://hanoicomputercdn.com/media/product/120_73001_laptop_asus_vivobook_go_e1404fa_18.png");
+                            }
+        
+                            .item-text {
+                                font-family: "Open Sans",Arial,sans-serif;
+                                word-break: break-word;
+                                font-weight: 600;
+                                text-align: center;
+                                cursor: pointer;
+                                color: #333e48;
+                                font-size: inherit;
+                                box-sizing: border-box;
+                            }
+                        }
+                        .item-image {
+                        }
+                        .item-video {
+                        }
+                        .item-product-spec {
+                        }
                     }
                 }
             }
@@ -207,32 +246,82 @@
                     }
                 }
             }
-            .SwiperSlideDes_Btn {
-                height: 30px;
-                width: 109px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border: 1px solid #000;
-                .btn_icon {
-                    border: 1px solid #000;
-                    height: 30px;
-                    width: 30px;
-                    display: block;
-                    align-self: center;
-                    justify-self: center;
 
-                }
-            }
-            .pd-btn-group {
+            .pd-quantity-group {
+                display: flex;
+                // height: 30px;
                 width: 100%;
-                .pd-buy-now {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 30px;
+                margin-bottom: 10px;
+
+                .pd-quantity-change {
+                    width: 109px;
+                    display: flex;
+                    height: 30px;
+                    justify-content: space-between;
+                    align-items: center;
+                    button {
+                        display: block;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 4px;
+                        background-color: #fff;
+                        border: 1px solid #a1a1a1;
+                        &:hover {
+                            border: 1px solid #4b4b4b;
+                        }
+                    }
+
+                    span {
+                    }
+                }
+                button {
+                    background-color: #fff;
+                    border: 1px solid #a1a1a1;
+                    border-radius: 6px;
+                    &:hover {
+                       
+                        border: 1px solid #4b4b4b;
+                    }
+                }
+                .addToCart{
                     font-family: "Open Sans",Arial,sans-serif;
                     word-break: break-word;
                     box-sizing: border-box;
                     cursor: pointer;
+                    color: #333e48;
                     text-decoration: none;
-                    transition: all .2s ease;
+                    border: 1px solid #d8d8d8;
+                    overflow: hidden;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                    padding: 0 20px;
+                    font-weight: 500;
+                    font-size: 13px;
+                    line-height: 32px;
+                    height: 32px;
+                    transition: .1s all;
+                    &:hover {
+                        background: repeating-linear-gradient(to right, #2d2b75 0, red 100%);
+                        border: 1px solid #4b4b4b;
+                        color: #fff;
+                    }
+                }
+
+
+            }
+            .pd-btn-group {
+                width: 100%;
+                .pd-buy-now {
+                    font-family: "Open Sans", Arial, sans-serif;
+                    word-break: break-word;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: all 0.2s ease;
                     color: #fff;
                     text-align: center;
                     border-radius: 7px;
@@ -243,8 +332,8 @@
                     padding: 8px;
                     display: flex;
                     flex-direction: column;
-                    b{
-                        font-family: "Open Sans",Arial,sans-serif;
+                    b {
+                        font-family: "Open Sans", Arial, sans-serif;
                         word-break: break-word;
                         cursor: pointer;
                         color: #fff;
@@ -256,8 +345,8 @@
                         margin: 0;
                         font-size: 18px;
                     }
-                    span{
-                        font-family: "Open Sans",Arial,sans-serif;
+                    span {
+                        font-family: "Open Sans", Arial, sans-serif;
                         word-break: break-word;
                         cursor: pointer;
                         color: #fff;
@@ -266,7 +355,6 @@
                         display: block;
                         font-size: 11px;
                     }
-
                 }
             }
         }

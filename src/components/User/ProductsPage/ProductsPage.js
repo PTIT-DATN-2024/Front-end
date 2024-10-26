@@ -45,15 +45,13 @@ const ProductsPage = (props) => {
     const [listcomment, setListComment] = useState([]);
     const [newComment, setNewCommnet] = useState([]);
     const [userRating, setUserRating] = useState(null);
-    const addProductOrder = async (productId) => {
+    const addProductOrder = async (productId, quantity) => {
         dispatch({
             type: "add_product",
-            payload: productId,
+            payload: { productId, quantity },
         });
 
-        toast.success("add done");
-        // console.log(listProducts);
-        console.log(stateProduct);
+        toast.success("Added to order successfully");
     };
     const removeProductOrder = async (productId) => {
         dispatch({
@@ -64,6 +62,12 @@ const ProductsPage = (props) => {
         // console.log(listProducts);
         // console.log(stateProduct);
     };
+    const [quantity, setQuantity] = useState(1);
+
+    const handleIncrease = () => setQuantity(quantity + 1);
+    const handleDecrease = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
+
+    const handleAddToCart = () => addProductOrder(product._id, quantity);
 
     const fetchListProducts = async () => {
         let res = await getAllProducts();
@@ -152,37 +156,39 @@ const ProductsPage = (props) => {
                         </div>
 
                         <div className="pd-image-btn">
-                            <a href="" className="item item-image js-box-open-gallery">
-                                <span className="item-icon lazy" style={{ backgroundImage: `url(${product.image})` }}></span>
+                            <div className="box">
+                                <a href="" className="item item-image js-box-open-gallery">
+                                    <span className="item-icon lazy" style={{ backgroundImage: `url(${product.presentImage})` }}></span>
 
-                                <span className="item-text">
-                                    Hình ảnh chụp
-                                    <br />
-                                    sản phẩm
-                                </span>
-                            </a>
+                                    <span className="item-text">
+                                        Hình ảnh chụp
+                                        <br />
+                                        sản phẩm
+                                    </span>
+                                </a>
 
-                            <a href="https://www.youtube.com/watch?v=u5r6RbBESw4" data-fancybox className="item item-video" target="_blank" rel="noopener noreferrer">
-                                <span className="item-icon">
-                                    <i className="fab fa-youtube"></i>
-                                </span>
-                                <span className="item-text">
-                                    Video
-                                    <br />
-                                    sản phẩm
-                                </span>
-                            </a>
+                                <a href="https://www.youtube.com/watch?v=u5r6RbBESw4" data-fancybox className="item item-video" target="_blank" rel="noopener noreferrer">
+                                    <span className="item-icon">
+                                        <i className="fab fa-youtube"></i>
+                                    </span>
+                                    <span className="item-text">
+                                        Video
+                                        <br />
+                                        sản phẩm
+                                    </span>
+                                </a>
 
-                            <a href="" className="item item-product-spec">
-                                <span className="item-icon">
-                                    <i className="fal fa-clipboard-list-check tada" style={{ color: "#2d2c74" }}></i>
-                                </span>
-                                <span className="item-text">
-                                    Thông số
-                                    <br />
-                                    kỹ thuật
-                                </span>
-                            </a>
+                                <a href="" className="item item-product-spec">
+                                    <span className="item-icon">
+                                        <i className="fal fa-clipboard-list-check tada" style={{ color: "#2d2c74" }}></i>
+                                    </span>
+                                    <span className="item-text">
+                                        Thông số
+                                        <br />
+                                        kỹ thuật
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -246,15 +252,16 @@ const ProductsPage = (props) => {
                     </div>
                     {/* soluon + add to cart  */}
 
-                    <div className="SwiperSlideDes_Btn">
-                        <span onClick={() => removeProductOrder(product._id)} size={30} color="#000" className="btn_icon">
-                            -
-                        </span>
-                        <div className={`${product._id} countItem`}> {product.CountOrder}</div>
-
-                        <span onClick={() => addProductOrder(product._id)} size={30} color="#000" className="btn_icon">
-                            +
-                        </span>
+                    <div className="pd-quantity-group">
+                        <span>Số lượng</span>
+                        <div className="pd-quantity-change">
+                            <button onClick={handleDecrease}>-</button>
+                            <span>{quantity}</span>
+                            <button onClick={handleIncrease}>+</button>
+                        </div>
+                        <button onClick={handleAddToCart} className="addToCart">
+                            Thêm vào giỏ hàng
+                        </button>
                     </div>
                     {/* mua  */}
                     <div className="pd-btn-group">

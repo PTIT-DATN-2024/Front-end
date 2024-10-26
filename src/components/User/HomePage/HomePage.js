@@ -74,7 +74,7 @@ const MainPage = (props) => {
             {/* <GridBanner />
             <SpecialBanner />
             <ProductPre /> */}
-            <ThankCustomer/>
+            {/* <ThankCustomer/> */}
             {/* <ComboBanner/> */}
             {/* <Choosing/> */}
             {/* <ThankSlice/> */}

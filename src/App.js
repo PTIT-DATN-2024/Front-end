@@ -26,6 +26,7 @@ import ProfilePage from "./components/Golobal/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
 import PayPage from "./components/User/PayPage/PayPage";
+import SearchPage from "./components/User/SearchPage/SearchPage";
 const App = () => {
     return (
         <>
@@ -39,6 +40,7 @@ const App = () => {
                         <Route path="aboutPage" element={<AboutPage />} />
                         <Route path="contactPage" element={<ContactPage />} />
                         <Route path="productsPage/:id" element={<ProductsPage />}></Route>
+                        <Route path="searchPage" element={<SearchPage />} />
                         <Route path="profilePage" element={<ProfilePage />}></Route>
                         <Route path="PayPage" element={<PayPage />}></Route>
                     </Route>
