@@ -35,13 +35,73 @@
                 flex: 1;
             }
             .suggestion-list {
+
+                border: 1px solid #ddd;
+                background-color: #fff;
+                position: absolute;
                 z-index: 1000; // Đảm bảo danh sách gợi ý nằm trên các phần tử khác
-                width: 900px; // Đảm bảo danh sách gợi ý cùng chiều rộng với thanh tìm kiếm
-                max-height: 200px; // Giới hạn chiều cao của danh sách gợi ý
-                overflow-y: auto; // Cho phép cuộn nếu danh sách dài
+                width: 600px; // Đảm bảo danh sách gợi ý cùng chiều rộng với thanh tìm kiếm
+                max-height: 300px; // Giới hạn chiều cao của danh sách gợi ý
+                overflow-y: scroll; // Cho phép cuộn nếu danh sách dài
                 bottom:0;
                 right: 0;
                 transform: translate(0%,100%);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                border-radius: 6px;
+                .list-group-item{
+                    width: 100%;
+                    height: 80px;
+                    // overflow: hidden;
+                    display: flex;
+                    gap: 10px;
+                    .p-img {
+                        width: 80px;
+                        height: 80px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        img {
+                            height: 100%;
+                            width: 100%;
+                            display: block;
+                            object-fit: cover;
+                        }
+                    }
+                    .info{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+
+                        .p-name{
+                            --swiper-theme-color: #007aff;
+                            --swiper-navigation-size: 44px;
+                            font-family: "Open Sans",Arial,sans-serif;
+                            word-break: break-word;
+                            cursor: pointer;
+                            font-size: 12px;
+                            box-sizing: border-box;
+                            display: block;
+                            color: #333e48;
+                        
+                        }
+                        .p-price{
+                            --swiper-theme-color: #007aff;
+                            --swiper-navigation-size: 44px;
+                            font-family: "Open Sans",Arial,sans-serif;
+                            word-break: break-word;
+                            cursor: pointer;
+                            font-size: 12px;
+                            box-sizing: border-box;
+                            color: #e00;
+                        
+                        }
+                    }
+                    &:hover{
+                        background-color: #e5e5e5;
+                    }
+                }
                 
 
             }

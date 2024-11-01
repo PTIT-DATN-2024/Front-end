@@ -50,12 +50,12 @@ const ProductsPage = (props) => {
             type: "add_product",
             payload: { productId, quantity },
         });
-
+        setQuantity(1);
         toast.success("Added to order successfully");
     };
     const removeProductOrder = async (productId) => {
         dispatch({
-            type: "remove_product",
+            type: "decrement_product",
             payload: productId,
         });
         toast.success("remove done");

@@ -27,15 +27,15 @@ const PayPage = (props) => {
     const addProductOrder = async (productId) => {
         dispatch({
             type: "add_product",
-            payload: productId,
+            payload: {productId,quantity:1}
         });
-        toast.success("add done");
+        toast.success("add done +1");
         // console.log(listProducts);
         console.log(stateProduct);
     };
     const removeProductOrder = async (productId) => {
         dispatch({
-            type: "remove_product",
+            type: "decrement_product",
             payload: productId,
         });
         toast.success("remove done");

@@ -20,7 +20,7 @@ const Header = (props) => {
     const [errorMessage, setErrorMessage] = useState(""); // Thêm trạng thái cho thông báo lỗi
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const account = useSelector((state) => state.user.account);
-    const searchRef = useRef(null); 
+    const searchRef = useRef(null);
 
     // console.log(isAuthenticated, account);
     let navigate = useNavigate();
@@ -139,20 +139,27 @@ const Header = (props) => {
 
                         {/* Suggestions List */}
                         {suggestions.length > 0 ? (
-                            <ListGroup className="position-absolute suggestion-list">
+                            <div className="position-absolute suggestion-list">
                                 {suggestions.map((product) => (
-                                    <ListGroup.Item
+                                    <div
                                         key={product.id}
                                         onClick={() => {
                                             navigate(`/productsPage/${product._id}`);
                                             setSuggestions([]); // Ẩn gợi ý sau khi chọn
                                             setSearchQuery(""); // Reset thanh tìm kiếm
                                         }}
+                                        className="list-group-item"
                                     >
-                                        {product.name}
-                                    </ListGroup.Item>
+                                        <div class="p-img">
+                                            <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                        </div>
+                                        <div className="info">
+                                            <p class="p-name">{product.name}</p>
+                                            <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                        </div>
+                                    </div>
                                 ))}
-                            </ListGroup>
+                            </div>
                         ) : (
                             errorMessage && (
                                 <ListGroup className="position-absolute suggestion-list">

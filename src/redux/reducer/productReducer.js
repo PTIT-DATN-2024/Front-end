@@ -38,13 +38,25 @@ const productReducer = (state = productState, action) => {
                 total: calculateTotal(updatedProductsAdd),
             };
 
+        case "decrement_product":
+            const updatedProductsdecrement = state.listProducts.map((product) => (product._id === action.payload && product.CountOrder > 0 ? { ...product, CountOrder: product.CountOrder - 1 } : product));
+            return {
+                ...state,
+                listProducts: updatedProductsdecrement,
+                total: calculateTotal(updatedProductsdecrement),
+            };
         case "remove_product":
-            const updatedProductsRemove = state.listProducts.map((product) => (product._id === action.payload && product.CountOrder > 0 ? { ...product, CountOrder: product.CountOrder - 1 } : product));
+            const updatedProductsRemove = state.listProducts.map((product) => 
+                (product._id === action.payload
+                    ? { ...product, CountOrder: 0 } 
+                    : product)
+            );
             return {
                 ...state,
                 listProducts: updatedProductsRemove,
-                total: calculateTotal(updatedProductsRemove),
+                total: calculateTotal(updatedProductsRemove), // Cập nhật tổng nếu cần
             };
+
 
         default:
             return state;

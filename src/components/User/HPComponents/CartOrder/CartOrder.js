@@ -27,16 +27,26 @@ const CartOrder = (props) => {
     const addProductOrder = async (productId) => {
         dispatch({
             type: "add_product",
-            payload: productId,
+            payload: {productId,quantity:1}
         });
 
-        toast.success("add done");
+        toast.success("add done +1");
         // console.log(listProducts);
         console.log(stateProduct);
     };
     const removeProductOrder = async (productId) => {
         dispatch({
             type: "remove_product",
+            payload: productId
+        });
+
+        toast.success("remove");
+        // console.log(listProducts);
+        console.log(stateProduct);
+    };
+    const decrementProductOrder = async (productId) => {
+        dispatch({
+            type: "decrement_product",
             payload: productId,
         });
         toast.success("remove done");
@@ -85,11 +95,12 @@ const CartOrder = (props) => {
                                         <div className="item name">{item.name}</div>
                                         <div className="item price">{item.sellingprice} đ</div>
                                         <div className="item count">
-                                            <CiCircleMinus onClick={() => removeProductOrder(item._id)} size={20} color="#000" style={{ margin: "0", fontWeight: 200 }} className="btn_icon" />
+                                            <CiCircleMinus onClick={() => decrementProductOrder(item._id)} size={20} color="#000" style={{ margin: "0", fontWeight: 200 }} className="btn_icon" />
                                             <div className={`${item._id} countItem`}> {item.CountOrder}</div>
                                             <CiCirclePlus onClick={() => addProductOrder(item._id)} size={20} color="#000" style={{ margin: "0", fontWeight: 200 }} className="btn_icon" />
                                         </div>
                                         <div className="item sum">{item.sellingprice * item.CountOrder} đ</div>
+                                        <div onClick={() => removeProductOrder(item._id)} >X</div>
                                     </div>
                                 );
                             })
