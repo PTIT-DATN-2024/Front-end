@@ -13,15 +13,6 @@ import { postLogin } from "../../services/apiServices";
 import ThankCustomer from "./HPComponents/ThankCustomer/ThankCustomer";
 const UserPage = (props) => {
     const dispatch = useDispatch();
-    const [isDivVisible, setIsDivVisible] = useState(false);
-    const toggleDiv = () => {
-        setIsDivVisible(!isDivVisible);
-        // if (!isDivVisible) {
-        //     document.body.classList.add("no-scroll");
-        // } else {
-        //     document.body.classList.remove("no-scroll");
-        // }
-    };
     const autoLoginforCode = async () => {
         let datalogin = {
             email: "a",
@@ -46,10 +37,7 @@ const UserPage = (props) => {
     }, []);
     return (
         <div className="HomePageContainer">
-            <Header toggleDiv={toggleDiv} />
-            <div className={`listOrderContainer  ${isDivVisible ? "visible" : ""}`}>
-                <CartOrder toggleDiv={toggleDiv} />
-            </div>
+            <Header />
             <div className="mainContainer">
                 <Outlet />
                 <ThankCustomer/>

@@ -27,7 +27,7 @@ const PayPage = (props) => {
     const addProductOrder = async (productId) => {
         dispatch({
             type: "add_product",
-            payload: {productId,quantity:1}
+            payload: { productId, quantity: 1 }
         });
         toast.success("add done +1");
         // console.log(listProducts);
@@ -83,7 +83,7 @@ const PayPage = (props) => {
         // formData.append("Total", stateOrder.total);
         // console.log(formData);
 
-        let res_data = await postCreateUserOrder(formData,config);
+        let res_data = await postCreateUserOrder(formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             remove();
@@ -96,52 +96,84 @@ const PayPage = (props) => {
     return (
         <>
             <div className="PaylistOrderContent">
-                <div className="header">List Order</div>
+                <div className="header">Giỏ hàng</div>
 
-                <div>
-                    <button onClick={remove}> remove</button>
-                </div>
-                <div className="listOrderTable">
-                    <Table striped bordered hover responsive="xl">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Note</th>
-                                <th>price</th>
-                                <th>Count</th>
-                                <th>$</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                {/* // */}
+
+                <div className="cart-content-2021">
+                    <div className="cart-content-2021-left">
+                        <div className="header-cart-ct-left">
+                            <div className="cart-col-product">
+                                {/* <div className="fake-checkbox" ></div> */}
+                                <span>Tất cả sản phẩm </span>
+                            </div>
+                            <div className="cart-col-price">Đơn giá</div>
+                            <div className="cart-col-quantity">Số lượng</div>
+                            <div className="cart-col-total-price">Thành tiền</div>
+                            <div className="cart-col-delete">
+                                <div onClick={remove}>X</div>
+                            </div>
+                        </div>
+                        <div className="cart-list-item">
                             {!_.isEmpty(stateOrder.listItemsOder) ? (
                                 stateOrder.listItemsOder.map((item, index) => {
                                     return (
-                                        <tr key={`table_product_${index}`}>
-                                            <td className="table_orderItem">{index + 1}</td>
-                                            <td className="table_orderItem">{item.name}</td>
-                                            <td className="table_orderItem">{item.description}</td>
-                                            <td className="table_orderItem">{item.sellingprice}</td>
-                                            <td className="table_orderItem table_orderItemCount">
+                                        <div className="new-cart-items" >
+
+                                            <div className="cart-col-product">
+                                                {item.name}
+                                            </div>
+                                            <div className="cart-col-price">
+                                                {item.sellingprice}
+                                            </div>
+                                            <div className="cart-col-quantity">
                                                 <CiCircleMinus onClick={() => removeProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
                                                 <div className={`${item._id} countItem`}> {item.CountOrder}</div>
                                                 <CiCirclePlus onClick={() => addProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
-                                            </td>
-                                            <td className="table_orderItem">{item.sellingprice * item.CountOrder}</td>
-                                        </tr>
+                                            </div>
+                                            <div className="cart-col-total-price">
+                                                {item.sellingprice * item.CountOrder}
+                                            </div>
+                                            <div className="cart-col-delete" onClick={() => removeProductOrder(item._id)} >X
+                                            </div>
+                                        </div>
                                     );
                                 })
                             ) : (
                                 <div>no order</div>
                             )}
-                        </tbody>
-                    </Table>
+
+                        </div>
+                    </div>
+                    {/* // */}
+                    <div className="cart-content-2021-right">
+                        <div class="box-cart-total-price">
+                            <p>
+                                <span>Tạm tính</span>
+                                <span class="total-cart-price">{stateOrder.total}₫</span>
+                            </p>
+                            <p>
+                                <span>Giảm giá</span>
+                                <span id="price-discount">0₫</span>
+                            </p>
+                            <p>
+                                <span>Thành tiền</span>
+                                <span class="red-b total-cart-payment">{stateOrder.total}₫</span>
+                            </p>
+
+                            <span class="cart-vat">(Đã bao gồm VAT nếu có)</span>
+                        </div>
+                        <button class="button-buy-submit-cart" onClick={() => handleSubmitOrder()}>Tiến hành đặt hàng</button>
+                    </div>
+                    {/* // */}
                 </div>
 
-                <div>Total:{stateOrder.total}</div>
+
+
+                {/* // */}
                 <div className="listOrderBottom">
                     <Button
-                        variant="secondary"
+                        variant="success"
                         onClick={() => {
                             navigate("/productFilterPage");
                         }}
@@ -149,17 +181,17 @@ const PayPage = (props) => {
                         ADD more product
                     </Button>
                     <Button
-                        variant="secondary"
+                        variant="success"
                         onClick={() => {
                             navigate("/");
                         }}
                     >
                         Home
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitOrder()}>
-                        Pay
-                    </Button>
+
                 </div>
+
+
             </div>
         </>
     );

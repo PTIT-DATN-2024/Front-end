@@ -23,6 +23,10 @@ const SearchPage = () => {
     const [categoryFilter, setCategoryFilter] = useState("");
     const [sortType, setSortType] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
+    useEffect(() => {
+        // Cuộn lên đầu trang khi component được gắn vào
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         const fetchSearchResults = async () => {

@@ -48,7 +48,7 @@ const BestSeller = (props) => {
         slidesToScroll: 1,
         draggable: true,
         swipeToSlide: true,
-        autoplay: false, // Thêm autoplay
+        autoplay: true, // Thêm autoplay
         autoplaySpeed: 3000, // Tốc độ chuyển slide (3 giây)
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,

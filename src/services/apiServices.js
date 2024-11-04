@@ -1,8 +1,9 @@
 import axios from "../utils/axiosCustomize";
+
+// USER, AUTHOR
 const postCreateUser = (formData, config) => {
     return axios.post("/user", formData, config);
 };
-
 const getAllUsers = (config) => {
     return axios.get("/user",config);
 };
@@ -19,7 +20,7 @@ const postLogin = (dataLogin) => {
 const postSignUp = (formData,config) => {
     return axios.post("/user/signup", formData,config);
 };
-
+// CATEGORY 
 const postCreateCategory = (formData, config) => {
     return axios.post("/category", formData, config);
 };
@@ -32,6 +33,8 @@ const putUpdateCategory = (_id, formData, config) => {
 const deleteCategory = (_id,config) => {
     return axios.delete(`/category/${_id}`,config);
 };
+
+// IMAGE SHOP
 const postCreateBgImage = (formData, config) => {
     return axios.post("/bgImage", formData, config);
 };
@@ -46,7 +49,7 @@ const deleteBgImage = (_id,config) => {
 };
 
 
-
+// PRODUCT 
 const postCreateProduct = (formData, config) => {
     return axios.post("/product", formData, config);
 };
@@ -68,10 +71,7 @@ const getSearchProduct = (query) => {
 
 
 
-// user
-// listItem
-// Total
-// createdAt
+// ORDER 
 
 const postCreateOrder = (user, listItem, Total, createdAt) => {
     let data = {
@@ -101,11 +101,10 @@ const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
 };
-// commentapi
-// "idProduct": "6683994c1fb0f44c34b608a2",
-// "idUser": "668390ef6954eb2c817d4d84",
-// "content": "cmt2"
-// // "replyFor": "6690af22950012ba9728b913"
+
+
+
+// CMT 
 const postCreateComment = (idProduct, idUser, content, replyFor = null) => {
     let data = {
         idProduct: idProduct,

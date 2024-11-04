@@ -33,6 +33,10 @@ const ProductFilterPage = () => {
     const listCategories = useSelector((state) => state.category.listCategories);
     const location = useLocation();
     const categoryFilter = location.state?.categoryFilter || null;
+    useEffect(() => {
+        // Cuộn lên đầu trang khi component được gắn vào
+        window.scrollTo(0, 0);
+    }, []);
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
@@ -67,9 +71,9 @@ const ProductFilterPage = () => {
     return (
         <>
             <TableProductFull categoryFilter={categoryFilter}/>
-            <GridBanner />
+            {/* <GridBanner />
             <SpecialBanner />
-            <ComboBanner/>
+            <ComboBanner/> */}
         </>
     );
 };

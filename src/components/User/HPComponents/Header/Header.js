@@ -180,7 +180,9 @@ const Header = (props) => {
                             </>
                         ) : (
                             <>
-                                <div className="nav-link" onClick={props.toggleDiv}>
+                                <div className="nav-link" onClick={() => {
+                                    navigate("/PayPage");
+                                }}>
                                     <BsCartCheck size={30} className="navbar-nav-cart btn_icon " />
                                 </div>
 
