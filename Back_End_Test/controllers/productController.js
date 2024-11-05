@@ -116,7 +116,6 @@ const productController = {
             res.status(500).json({ EC: 1, MS: "Update product error!", err });
         }
     },
-
     // DELETE Product
     deleteProduct: async (req, res) => {
         try {
@@ -148,40 +147,6 @@ const productController = {
         } catch (err) {
             console.error("Delete product error:", err);
             res.status(500).json({ EC: 1, MS: "Delete product error!", err });
-        }
-    },
-
-    // RATE Product
-    rateProduct: async (req, res) => {
-        const { userId, rating } = req.body;
-        if (rating < 0 || rating > 5) {
-            return res.status(400).json({ EC: 1, MS: "Rating must be between 0 and 5" });
-        }
-
-        try {
-            const product = await Product.findById(req.params.id);
-            if (!product) {
-                return res.status(404).json({ EC: 1, MS: "Product not found" });
-            }
-            const userRatingIndex = product.userRatings.findIndex((r) => r.userId.toString() === userId);
-            if (userRatingIndex > -1) {
-                // Người dùng đã đánh giá trước đó, cập nhật đánh giá cũ
-                product.userRatings[userRatingIndex].rating = rating;
-            } else {
-                // Người dùng chưa đánh giá, thêm đánh giá mới
-                product.userRatings.push({ userId, rating });
-            }
-
-            // Tính toán lại rate và numberVote
-            const totalRatings = product.userRatings.reduce((acc, r) => acc + r.rating, 0);
-            product.numberVote = product.userRatings.length;
-            product.rate = totalRatings / product.numberVote;
-
-            await product.save();
-            res.status(200).json({ EC: 0, MS: "Product rated successfully", product });
-        } catch (error) {
-            console.error("Rate product error:", error);
-            res.status(500).json({ EC: 1, MS: "Rate product error!", error });
         }
     },
     searchProducts: async (req, res) => {
