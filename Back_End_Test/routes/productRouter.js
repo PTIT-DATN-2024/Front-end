@@ -35,6 +35,5 @@ router.put(
 
 //DELETE Product
 router.delete("/:id", productController.deleteProduct);
-router.post("/rateProduct/:id", productController.rateProduct);
 
 module.exports = router;

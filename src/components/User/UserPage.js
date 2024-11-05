@@ -40,7 +40,7 @@ const UserPage = (props) => {
             <Header />
             <div className="mainContainer">
                 <Outlet />
-                <ThankCustomer/>
+                <ThankCustomer />
             </div>
             <Footer />
         </div>

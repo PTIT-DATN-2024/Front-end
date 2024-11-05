@@ -56,6 +56,9 @@ const postCreateProduct = (formData, config) => {
 const postVote = (productId, formData, config) => {
     return axios.post(`/product/rateProduct/${productId}`, formData, config);
 };
+const deleteVote = (productId, formData, config) => {
+    return axios.delete(`/product/removeRating/${productId}`, formData, config);
+};
 const getAllProducts = () => {
     return axios.get("/product");
 };
@@ -105,17 +108,13 @@ const deleteOrder = (_id) => {
 
 
 // CMT 
-const postCreateComment = (idProduct, idUser, content, replyFor = null) => {
+const postCreateComment = (idProduct, idUser, content, rating) => {
     let data = {
         idProduct: idProduct,
         idUser: idUser,
         content: content,
+        rating: rating,
     };
-
-    if (replyFor !== null) {
-        data.replyFor = replyFor;
-    }
-
     return axios.post("/comment", data);
 };
 
@@ -156,6 +155,7 @@ export {
     putUpdateProduct,
     deleteProduct,
     postVote,
+    deleteVote,
     postCreateOrder,
     postCreateUserOrder,
     getAllOrders,

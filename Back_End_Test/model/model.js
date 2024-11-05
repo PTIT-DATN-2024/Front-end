@@ -112,21 +112,16 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    listReply: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comments",
-        },
-    ], // Array of IDs of comments that are replies to this comment
+    rating: {
+        type: Number,
+        required: true,
+        default: 5,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
     },
-    replyFor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comments",
-        default: null,
-    }, // ID of the comment this comment is replying to
+
 });
 
 module.exports = mongoose.model("Comment", commentSchema);
@@ -185,19 +180,6 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 1,
     },
-    userRatings: [
-        {
-            userId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Users",
-            },
-            rating: {
-                type: Number,
-                min: 0,
-                max: 5,
-            },
-        },
-    ],
     isDeleted: {
         type: Boolean,
         default: false,

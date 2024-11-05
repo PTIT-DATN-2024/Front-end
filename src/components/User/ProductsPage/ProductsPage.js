@@ -67,12 +67,10 @@ const ProductsPage = (props) => {
         // console.log(stateProduct);
     };
     const [quantity, setQuantity] = useState(1);
-
     const handleIncrease = () => setQuantity(quantity + 1);
     const handleDecrease = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
     const handleAddToCart = () => addProductOrder(product._id, quantity);
-
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
@@ -282,50 +280,7 @@ const ProductsPage = (props) => {
                     </div>
                 </div>
             </div>
-            {/* <div className="productContent">
-                <div className="topContent">
-                    <div className="presentImage">
-                        <div className="content">
-                            <img src={product.presentImage} alt={product.name} className="img" />
-                        </div>
-                    </div>
-                    <div className="itemDes">
-                        <div className="topItemDes">
-                        
-                            <div className="voteStar">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                    <FaStar key={star} onClick={() => handleRating(star)} color={star <= userRating ? "#ffc107" : "#e4e5e9"} className="voteStarItem" />
-                                ))}
-                            </div>
-                      
-                            <h4>Rate: {product.rate}</h4>
-                            <h4>Loại: {product.category.nameCategory}</h4>
-                            <h4>Số lượng còn lại: {product.count}</h4>
-                            <h4>Giá: {product.sellingprice}</h4>
-                            <div className="description">Mô tả : {product.description}</div>
-                        </div>
-
-                        <div className="bottomItemDes">
-                            {product.CountOrder === 0 ? (
-                                <div className={`addmeBtn`} onClick={() => addProductOrder(product._id)}>
-                                    <BsCartCheck size={30} style={{ color: "#212121" }} />
-                                </div>
-                            ) : (
-                                <div className="SwiperSlideDes_Btn">
-                                    <CiCircleMinus onClick={() => removeProductOrder(product._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
-                                    <div className={`${product._id} countItem`}> {product.CountOrder}</div>
-                                    <CiCirclePlus onClick={() => addProductOrder(product._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className="bottomContent"></div>
-            </div> */}
-            {/* <CommentProduct productId={id}/>                 */}
-            {/* <SpecialBanner />
-            <GridBanner />
-            <ComboBanner /> */}
+            <CommentProduct productId={product._id}/>
         </div>
     );
 };

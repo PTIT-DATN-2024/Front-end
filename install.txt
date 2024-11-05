@@ -19,12 +19,17 @@ git remote set-url origin https://github.com/PTIT-DATN-2024/Front-end.git
 git rm -r --cached backend
 
 GIT
+git branch main 
+gti
 git config --list
 git init
 git add .
-git commit -m "LIST API 4/11"
+git commit -m "reviewPage 5/11"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
+git push origin main
 git push origin master
+
+
 
 #18 React dev tool/ Redux dev tool
 React devtool: https://chrome.google.com/webstore/detail/react-developertools/fmkadmapgofadopljbjfkapdkoienihi?hl=en

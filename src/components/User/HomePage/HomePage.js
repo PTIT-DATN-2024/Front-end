@@ -40,7 +40,7 @@ const MainPage = (props) => {
                 payload: res.products,
             });
             console.log(listProducts);
-            toast.success(res.MS);
+
         }
     };
     const fetchListCategories = async () => {

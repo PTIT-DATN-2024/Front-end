@@ -1,4 +1,4 @@
-const { Comment } = require("../model/model");
+const { Comment, Product } = require("../model/model");
 
 const commentController = {
     // add Comment
@@ -6,22 +6,26 @@ const commentController = {
         try {
             const newComment = new Comment({
                 ...req.body,
-                listReply: [],
             });
             const savedComment = await newComment.save();
-            if (req.body.replyFor) {
-                const parentComment = await Comment.findById(req.body.replyFor);
-                if (parentComment) {
-                    parentComment.listReply.push(savedComment._id);
-                    await parentComment.save();
-                }
+
+            const product = await Product.findById(req.body.idProduct);
+            if (!product) {
+                return res.status(404).json({ EC: 1, MS: "Không tìm thấy sản phẩm để cập nhật đánh giá!" });
             }
-            res.status(200).json({ EC: 0, MS: "Thêm Comment thành công!", comment: savedComment });
+
+            const newNumberVote = product.numberVote + 1;
+            const newRate = ((product.rate * product.numberVote) + req.body.rating) / newNumberVote;
+
+            product.rate = newRate;
+            product.numberVote = newNumberVote;
+            await product.save();
+
+            res.status(200).json({ EC: 0, MS: "Thêm Comment thành công và cập nhật đánh giá!", comment: savedComment });
         } catch (err) {
-            res.status(500).json({ EC: 1, MS: "Lỗi thêm Comment!", err });
+            res.status(500).json({ EC: 1, MS: "Lỗi thêm Comment hoặc cập nhật sản phẩm!", err });
         }
     },
-
     // get cmt by product id
     getAllCommentsByProductId: async (req, res) => {
         try {
@@ -65,25 +69,25 @@ const commentController = {
                 return res.status(404).json({ EC: 1, MS: "Không tìm thấy Comment" });
             }
 
-            // Xóa id của comment trong listReply của comment parent
-            if (comment.replyFor) {
-                const parentComment = await Comment.findById(comment.replyFor);
-                if (parentComment) {
-                    parentComment.listReply.pull(comment._id);
-                    await parentComment.save();
+            // Tìm sản phẩm dựa trên idProduct của comment
+            const product = await Product.findById(comment.idProduct);
+            if (product && product.numberVote > 0) {
+                // Tính toán lại số vote và rate mới
+                const newNumberVote = product.numberVote - 1;
+                let newRate = 0;
+                if (newNumberVote > 0) {
+                    newRate = ((product.rate * product.numberVote) - comment.rating) / newNumberVote;
                 }
+                // Cập nhật product với rate và numberVote mới
+                product.rate = newRate;
+                product.numberVote = newNumberVote;
+                await product.save();
             }
-
-            // Xóa các comment con trong listReply của comment
-            for (const replyId of comment.listReply) {
-                await Comment.findByIdAndDelete(replyId);
-            }
-
+            // Xóa comment
             await Comment.findByIdAndDelete(comment._id);
-
-            res.status(200).json({ EC: 0, MS: "Xóa thành công!" });
+            res.status(200).json({ EC: 0, MS: "Xóa comment thành công và cập nhật đánh giá!" });
         } catch (err) {
-            res.status(500).json({ EC: 1, MS: "Lỗi xóa!", err });
+            res.status(500).json({ EC: 1, MS: "Lỗi xóa comment hoặc cập nhật sản phẩm!", err });
         }
     },
 };
