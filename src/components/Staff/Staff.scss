@@ -1,0 +1,63 @@
+.homeStaffContainer{
+    width: 100vw;
+    background-color: transparent;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    padding: 0 10px;
+    align-items: center;
+    .headerContainer {
+        width: 100%;
+        height: 80px;
+        position: fixed;
+        z-index: 100;
+        background-color:#ffffff;
+        top: 0px;
+        left: 0px;
+        font-weight: 500;
+    }
+    .staff-container {
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        margin-top: 80px;
+        z-index: 1!important;
+        flex-grow: 1;
+        overflow: hidden; // Ngăn toàn bộ container cuộn
+        height: 100%;
+        .staff-sidebar {
+            // width: 250px; // Đặt chiều rộng cho sidebar
+            position: fixed; // Để sidebar luôn cố định
+            height: 100%; // Chiều cao của sidebar bằng toàn màn hình
+            top: 80px;
+            left: 0;
+            background-color: #f8f8f8; // Màu nền hoặc phong cách của bạn
+            z-index: 1;
+            div{
+                height: 100%;
+                .pro-sidebar {
+                    background-color: #000000 !important;
+                    display: block;
+                    height: 100%;
+                    width: 300px;
+                }
+            }
+        }
+        .staff-content {
+            margin-left: 300px;
+            width: calc(100% - 300px);
+            .staff_header{
+                height: 40px;
+                background-color: #9c3333;
+            }
+            .staff_main {
+                // height: 300px;
+                height: calc(100vh - 40px);
+            }
+        }
+    }
+}
+

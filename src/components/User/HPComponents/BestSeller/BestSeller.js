@@ -11,31 +11,23 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./BestSeller.scss";
-// import "../../../Golobal/productCard.scss";
+
 import { BsCartPlus } from "react-icons/bs";
 const BestSeller = (props) => {
     const dispatch = useDispatch();
-    const listProducts = useSelector((state) => state.product.listProducts);
     const navigate = useNavigate();
-
-    const addProductOrder = (productId) => {
-        dispatch({ type: "add_product", payload: productId });
-        toast.success("Product added to order.");
+    const listProducts = useSelector((state) => state.product.listProducts);
+    const addProductOrder = async (productId) => {
+        dispatch({
+            type: "add_product",
+            payload: { productId, quantity:1 },
+        });
+        toast.success("Added to order successfully");
     };
-
-    const removeProductOrder = (productId) => {
-        dispatch({ type: "remove_product", payload: productId });
-        toast.success("Product removed from order.");
-    };
-
-    // Custom next arrow
-
     const SampleNextArrow = (props) => {
         const { onClick } = props;
         return <div className="slick-arrow slick-next" onClick={onClick} style={{ display: "block", color: "black", fontSize: "30px" }}></div>;
     };
-
-    // Custom previous arrow
     const SamplePrevArrow = (props) => {
         const { onClick } = props;
         return <div className="slick-arrow slick-prev" onClick={onClick} style={{ display: "block", color: "black", fontSize: "30px" }}></div>;
@@ -79,7 +71,7 @@ const BestSeller = (props) => {
                                 <div class="p-action">
                                     <span class="p-qty">Sẵn hàng</span>
 
-                                    <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
+                                    <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id,1)} />
                                 </div>
                             </div>
                         ))}

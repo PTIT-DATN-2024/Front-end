@@ -3,7 +3,6 @@ import "./UserPage.scss";
 import { Outlet } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
 import { useEffect, useState } from "react";
-import CartOrder from "./HPComponents/CartOrder/CartOrder";
 import Footer from "./HPComponents/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
