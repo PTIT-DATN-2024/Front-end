@@ -1,0 +1,243 @@
+.pd-box-container{
+    width: 63%;
+    display: flex;
+    flex-direction: column;
+    .box-title{
+        font-family: "Open Sans",Arial,sans-serif;
+        color: #333e48;
+        word-break: break-word;
+        box-sizing: border-box;
+        margin-top: 0;
+        font-size: 20px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        font-weight: 600;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+    
+    }
+    .pd-comment-filter{
+        width: 100%;
+        display: flex;
+    
+        .group-title{
+            width: 140px;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            padding: 10px 20px;
+            b{
+                font-family: "Open Sans",Arial,sans-serif;
+                word-break: break-word;
+                text-align: center;
+                color: #ff9727;
+                font-size: 30px;
+                line-height: 22px;
+                box-sizing: border-box;
+                font-weight: 700;
+                display: block;
+            }
+            .loading{
+                font-family: "Open Sans",Arial,sans-serif;
+                word-break: break-word;
+                text-align: center;
+                color: #ff9727;
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 22px;
+                aspect-ratio: auto 1 / 1;
+                box-sizing: border-box;
+                border: none;
+                max-width: 100%;
+                height: auto;
+                width: auto;
+            
+            }
+        }
+        .pd-filter-list{
+            display: flex;
+            align-items: center;
+            flex: 1;
+            align-items: center;
+            .js-filter-rate{
+                height: 32px;
+                font-family: "Open Sans",Arial,sans-serif;
+                word-break: break-word;
+                box-sizing: border-box;
+                cursor: pointer;
+                color: #333e48;
+                text-decoration: none;
+                margin: 0 14px 14px 0;
+                line-height: 32px;
+                border: 1px solid #ccc;
+                border-radius: 7px;
+                min-width: 73px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 600;
+                transition: unset;
+                text-align: center;
+            
+            }
+            .current{
+            
+            }
+            .fas{
+            
+            }
+            svg{
+                word-break: break-word;
+                cursor: pointer;
+                text-align: center;
+                font-size: 14px;
+                box-sizing: border-box;
+                -webkit-font-smoothing: antialiased;
+                display: inline-block;
+                font-style: normal;
+                font-variant: normal;
+                text-rendering: auto;
+                line-height: 1;
+                font-family: "Font Awesome 5 Pro";
+                font-weight: 900;
+                color: #ff9727;
+            }
+        }
+    }
+    #review-2020{
+        width: 100%;
+        #form-review{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .star-rank{
+                display: flex;
+                margin-bottom: 20px;
+                justify-content: flex-start;
+                align-items: center;
+                span{
+                    // flex: 1;
+                }
+                .rating-comment{
+                    flex: 1;
+                    display: flex;
+                    .rating-input{
+                        cursor: pointer;
+                    }
+                    .rating-star{
+                        font-family: "Open Sans",Arial,sans-serif;
+                        word-break: break-word;
+                        font-size: 13px;
+                        margin-left: 10px;
+                        position: relative;
+                        background: #52b858;
+                        color: #fff;
+                        padding: 2px 8px 3px;
+                        box-sizing: border-box;
+                        border-radius: 3px;
+                        display: inline;
+                        
+                    }
+                }
+
+            }
+            .review-box{
+                width: 100%;
+                .review-left{
+                    width: 100%;
+                    textarea{
+                        width: 100%;
+                        word-break: break-word;
+                        box-sizing: border-box;
+                        font-family: "Open Sans",Arial,sans-serif;
+                        border: 1px solid #7b7878;
+                        display: block;
+                        overflow: hidden;
+                        min-height: 100px!important;
+                        // border-right: 0;
+                        // border-left: 0;
+                        // border-top: 0;
+                        border-radius: 4px;
+                        padding: 10px;
+                        font-size: 14px;
+                        color: #333e48;
+                        outline: 0;
+                        background: 0 0;
+                        margin-bottom: 20px;
+                    }
+                }
+                .review-right{
+                    width: 200px !important;
+                    cursor: pointer;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    background-color: #2d7ac2;
+                    color: #fff;
+                
+                }
+            }
+        }
+
+    }
+    .list-review-2020{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 40px;
+        .comment-item{
+            padding: 10px;
+            width: 100%;
+
+            display: flex;
+            gap: 10px;
+            .cmtUser{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .name{
+                    font-family: "Open Sans",Arial,sans-serif;
+                    word-break: break-word;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    float: left;
+                    width: 64px;
+                    height: 64px;
+                    background: #DDDDDD;
+                    text-align: center;
+                    color: #666;
+                    text-transform: uppercase;
+                    font-size: 20px;
+                    line-height: 64px;
+                    font-weight: 600;
+                    text-shadow: 1px 1px 0 rgba(255,255,255,.2);
+                    border-radius: 9999px;
+                }
+                .time{
+                    font-family: "Open Sans",Arial,sans-serif;
+                    word-break: break-word;
+                    box-sizing: border-box;
+                    font-size: 12px;
+                    color: #999;
+                    text-transform: uppercase;
+                }
+                .rating-input{
+                
+                }
+            
+            }
+            .review{
+                flex: 1;
+                background-color: #F8F8F8;
+                border: 1px solid #e8e8e8;
+                border-radius: 4px;
+                min-height: 150px;
+                padding: 10px;
+            }
+            .comment-actions{
+                display: flex;
+                flex-direction: column;
+            
+            }
+        }
+    }
+}

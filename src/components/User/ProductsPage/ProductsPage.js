@@ -33,20 +33,14 @@ import CommentProduct from "../HPComponents/CommentProduct/CommentProduct";
 import { FaStar } from "react-icons/fa";
 const ProductsPage = (props) => {
     const navigate = useNavigate();
-    const { id } = useParams();
     const dispatch = useDispatch();
-    const stateProduct = useSelector((state) => state.product);
-    const listProducts = useSelector((state) => state.product.listProducts);
-    const listCategories = useSelector((state) => state.category.listCategories);
+    const { id } = useParams();
     const userState = useSelector((state) => state.user.account);
-    // console.log("userstate",userState);
-    // Tìm sản phẩm theo ID
+    const listProducts = useSelector((state) => state.product.listProducts);
     const product = listProducts.find((item) => item._id === id);
-    const [listcomment, setListComment] = useState([]);
-    const [newComment, setNewCommnet] = useState([]);
-    const [userRating, setUserRating] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+
     useEffect(() => {
-        // Cuộn lên đầu trang khi component được gắn vào
         window.scrollTo(0, 0);
     }, []);
     const addProductOrder = async (productId, quantity) => {
@@ -63,13 +57,9 @@ const ProductsPage = (props) => {
             payload: productId,
         });
         toast.success("remove done");
-        // console.log(listProducts);
-        // console.log(stateProduct);
     };
-    const [quantity, setQuantity] = useState(1);
     const handleIncrease = () => setQuantity(quantity + 1);
     const handleDecrease = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
-
     const handleAddToCart = () => addProductOrder(product._id, quantity);
     const fetchListProducts = async () => {
         let res = await getAllProducts();
@@ -78,36 +68,14 @@ const ProductsPage = (props) => {
                 type: "fetch_all_product",
                 payload: res.products,
             });
-            console.log(listProducts);
             toast.success(res.MS);
-        }
-    };
-    const handleRating = async (rating) => {
-        setUserRating(rating);
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${userState.access_token}`,
-            },
-        };
-        let formData = {
-            userId: userState._id,
-            rating: rating,
-        };
-
-        let res_data = await postVote(product._id, formData, config);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            fetchListProducts();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
         }
     };
 
     const buyNow = (productId) => {
-        // Gọi hàm xử lý mua ngay
-        console.log(`Buy now: ${productId}`);
+        addProductOrder(product._id, quantity);
+        navigate("/PayPage");
+
     };
     const settings = {
         dots: false, // Tắt dots
@@ -267,20 +235,14 @@ const ProductsPage = (props) => {
                     </div>
                     {/* mua  */}
                     <div className="pd-btn-group">
-                        <a
-                            href=""
-                            className="pd-buy-now"
-                            onClick={() => {
-                                navigate("/PayPage");
-                            }}
-                        >
+                        <div className="pd-buy-now" onClick={buyNow}>
                             <b>mua ngay</b>
                             <span>Giao nhanh tận nơi, miễn phí toàn quốc</span>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <CommentProduct productId={product._id}/>
+            <CommentProduct productId={product._id} />
         </div>
     );
 };

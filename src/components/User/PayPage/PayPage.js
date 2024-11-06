@@ -14,9 +14,9 @@ const PayPage = (props) => {
     const dispatch = useDispatch();
     const account = useSelector((state) => state.user.account);
     const stateProduct = useSelector((state) => state.product);
-    const listCategories = useSelector((state) => state.category.listCategories);
     const listProducts = useSelector((state) => state.product.listProducts);
     const stateOrder = useSelector((state) => state.listOrder);
+    const listCategories = useSelector((state) => state.category.listCategories);
     const updateStateOrder = () => {
         const productsToOrder = listProducts.filter((product) => product.CountOrder > 0);
         dispatch({
@@ -33,18 +33,25 @@ const PayPage = (props) => {
         // console.log(listProducts);
         console.log(stateProduct);
     };
-    const removeProductOrder = async (productId) => {
+    const decremeneProductOrder = async (productId) => {
         dispatch({
             type: "decrement_product",
             payload: productId,
         });
-        toast.success("remove done");
+        toast.success("decre done");
         // console.log(listProducts);
         console.log(stateProduct);
     };
-    useEffect(() => {
-        updateStateOrder();
-    }, [listProducts]);
+    const removeProductOrder = async (productId) => {
+        dispatch({
+            type: "remove_product",
+            payload: productId,
+        });
+        toast.success("remove done");
+    };
+    // useEffect(() => {
+    //     updateStateOrder();
+    // }, [listProducts]);
     const remove = async () => {
         try {
             await dispatch({
@@ -127,7 +134,7 @@ const PayPage = (props) => {
                                                 {item.sellingprice}
                                             </div>
                                             <div className="cart-col-quantity">
-                                                <CiCircleMinus onClick={() => removeProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
+                                                <CiCircleMinus onClick={() => decremeneProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
                                                 <div className={`${item._id} countItem`}> {item.CountOrder}</div>
                                                 <CiCirclePlus onClick={() => addProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
                                             </div>

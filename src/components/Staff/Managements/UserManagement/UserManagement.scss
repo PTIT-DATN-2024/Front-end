@@ -1,0 +1,47 @@
+.UserManagement_container{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    .table_user_management_content{
+        img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            border: 1px solid #000;
+        }
+        // width: 100px;
+        // height: 300px;
+        // background-color: #b13f3f;
+    }
+}
+.ModalAddUser {
+    font-size: 20px;
+    .label_input-file {
+        background-color: rgb(95, 239, 51);
+        padding: 5px 25px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        &:hover{
+            background-color: rgb(69, 191, 32);
+        }
+    }
+    .img-preview {
+        border: 1px dashed rgb(180, 180, 180);
+        border-radius: 5px;
+        min-height: 200px;
+        max-height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #909090;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+}

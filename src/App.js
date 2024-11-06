@@ -1,6 +1,6 @@
 import "./App.scss";
 import "nprogress/nprogress.css";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Routes, Route } from "react-router-dom";
 
@@ -22,6 +22,10 @@ import BgImageManagement from "./components/Admin/Managements/BgImageManagement/
 import UserManagement from "./components/Admin/Managements/UserManagement/UserManagement";
 import ProductManagement from "./components/Admin/Managements/ProductManagement/ProductManagement";
 import OrderManagement from "./components/Admin/Managements/OrderManagement/OrderManagement";
+import Staff from "./components/Staff/Staff";
+import HomeStaff from "./components/Staff/DashBoard/HomeStaff";
+import UserManagementStaff from "./components/Staff/Managements/UserManagement/UserManagement";
+import OrderManagementStaff from "./components/Staff/Managements/OrderManagement/OrderManagement";
 import ProfilePage from "./components/Golobal/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
@@ -42,7 +46,7 @@ const App = () => {
                         <Route path="productsPage/:id" element={<ProductsPage />}></Route>
                         <Route path="searchPage" element={<SearchPage />} />
                         <Route path="profilePage" element={<ProfilePage />}></Route>
-                        <Route path="PayPage" element={<PayPage />}></Route> 
+                        <Route path="PayPage" element={<PayPage />}></Route>
                     </Route>
                     <Route
                         path="admins"
@@ -60,6 +64,16 @@ const App = () => {
                         <Route path="InfoShopManagement" element={<InfoShopManagement />} />
                         <Route path="BgImageManagement" element={<BgImageManagement />} />
                     </Route>
+                    <Route
+                        path="staffs"
+                        element={
+                            <Staff />
+                        }
+                    >
+                        <Route index element={<HomeStaff />} />    
+                        <Route path="OrderManagement"  element={<OrderManagementStaff />} />
+                        <Route path="UserManagement" element={<UserManagementStaff />} />
+                    </Route>
                     <Route path="/logIn" element={<LogIn />}></Route>
                     <Route path="/signUp" element={<SignUp />}></Route>
                 </Routes>
@@ -75,7 +89,7 @@ const App = () => {
                 draggable
                 pauseOnHover={false}
                 theme="light"
-                // transition: Bounce
+            // transition: Bounce
             />
         </>
     );

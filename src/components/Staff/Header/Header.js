@@ -11,12 +11,10 @@ import React, { useState, useEffect, useRef } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./Header.scss";
 import { BsCartCheck } from "react-icons/bs";
-import { getSearchProduct } from "../../../../services/apiServices";
+import { getSearchProduct } from "../../../services/apiServices";
 const Header = (props) => {
     const dispatch = useDispatch();
-    const stateProduct = useSelector((state) => state.product);
-    const listProducts = useSelector((state) => state.product.listProducts);
-    const stateOrder = useSelector((state) => state.listOrder.listItemsOder);
+
     const token = useSelector((state) => state.user.account.access_token);
     const [suggestions, setSuggestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -24,19 +22,7 @@ const Header = (props) => {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const account = useSelector((state) => state.user.account);
     const searchRef = useRef(null);
-
-    // console.log(isAuthenticated, account);
     let navigate = useNavigate();
-    const updateStateOrder = () => {
-        const productsToOrder = listProducts.filter((product) => product.CountOrder > 0);
-        dispatch({
-            type: "Update_order_user",
-            payload: productsToOrder,
-        });
-    };
-    useEffect(() => {
-        updateStateOrder();
-    }, [listProducts]);
     const handleLogIn = () => {
         navigate("/login");
     };
@@ -103,7 +89,6 @@ const Header = (props) => {
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
-        console.log(stateOrder);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
     return (
@@ -123,12 +108,6 @@ const Header = (props) => {
                         <NavLink to="/" className="nav-link">
                             Home
                         </NavLink>
-                        {account.role === "ADMIN" && (
-                            <NavLink to="/admins" className="nav-link">
-                                Admin
-                            </NavLink>
-                        )}
-
                         <NavLink to="/staffs" className="nav-link">
                             Staff
                         </NavLink>
@@ -136,17 +115,11 @@ const Header = (props) => {
                         <NavLink to="/productFilterPage" className="nav-link">
                             product
                         </NavLink>
-                        <NavLink to="/profilePage" className="nav-link">
-                            Profile
+                        <NavLink to="OrderManagement" className="nav-link">
+                            Quản lí đơn hàng
                         </NavLink>
-                        <NavLink to="/blogsPage" className="nav-link">
-                            Blogs
-                        </NavLink>
-                        <NavLink to="/aboutPage" className="nav-link">
-                            About Us
-                        </NavLink>
-                        <NavLink to="/contactPage" className="nav-link">
-                            Contact
+                        <NavLink to="UserManagement" className="nav-link">
+                            Quản lí người dùng
                         </NavLink>
                     </Nav>
                     {/* Search Bar */}
@@ -204,7 +177,7 @@ const Header = (props) => {
                                 }}>
                                     <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
                                     <div className="cart-count">
-                                        {stateOrder.length}
+
                                     </div>
                                 </div>
 

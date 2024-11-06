@@ -6,6 +6,7 @@ import "./CommentProduct.scss";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 const CommentProduct = (props) => {
     const dispatch = useDispatch();
@@ -14,7 +15,8 @@ const CommentProduct = (props) => {
     let product = listProducts.find((item) => item._id === props.productId);
     const [listcomment, setListComment] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [userRating, setUserRating] = useState(null);
+    const [userRating, setUserRating] = useState(5);
+    const [filteredComments, setFilteredComments] = useState([]);
 
     // Lấy danh sách bình luận
     const fetchListComment = async () => {
@@ -35,7 +37,16 @@ const CommentProduct = (props) => {
             product = listProducts.find((item) => item._id === props.productId);
         }
     };
-
+    const filterReviewByRate = (rating) => {
+        if (rating === "") {
+            // Nếu không có rating, hiển thị tất cả bình luận
+            setFilteredComments(listcomment);
+        } else {
+            // Lọc danh sách bình luận theo rating
+            const filtered = listcomment.filter((comment) => comment.rating === rating);
+            setFilteredComments(filtered);
+        }
+    };
     // Thêm mới đánh giá và bình luận
     const onAddNewComment = async () => {
         if (userRating === null) {
@@ -75,10 +86,14 @@ const CommentProduct = (props) => {
     };
 
     useEffect(() => {
-        fetchListProducts();
         fetchListComment();
+        filterReviewByRate("");
 
     }, []);
+    useEffect(() => {
+        filterReviewByRate("");
+
+    }, [listcomment]);
 
     return (
         <div className="pd-box-container" id="pd-review-group">
@@ -90,14 +105,14 @@ const CommentProduct = (props) => {
                     <img src="https://hacom.vn/media/lib/star_0.png" alt="rating" width="1" height="1" className="loading" data-was-processed="true" />
                 </p>
 
-                {/* <div className="pd-filter-list d-flex flex-wrap align-items-center">
-                    <a href="javascript:void(0)" onClick={() => filterReviewByRate('')} className="js-filter-rate current">Tất cả</a>
+                <div className="pd-filter-list">
+                    <div onClick={() => filterReviewByRate('')} className="js-filter-rate current">Tất cả</div>
                     {[5, 4, 3, 2, 1].map((rate) => (
-                        <a key={rate} href="javascript:void(0)" onClick={() => filterReviewByRate(rate)} className="js-filter-rate">
-                            {rate} <i className="fas fa-star"></i>
-                        </a>
+                        <div key={rate} onClick={() => filterReviewByRate(rate)} className="js-filter-rate">
+                            {rate} <FaStar />
+                        </div>
                     ))}
-                </div> */}
+                </div>
             </div>
 
             <div id="review-2020">
@@ -105,23 +120,18 @@ const CommentProduct = (props) => {
                     <div className="star-rank">
                         <span style={{ float: 'left' }}>Chọn đánh giá của bạn</span>
                         <div className="rating-comment" style={{ float: 'left', marginLeft: '20px' }} id="select-rate-pro">
-                            {[5, 4, 3, 2, 1].map((value) => (
-                                <React.Fragment key={value}>
-                                    <input
-                                        type="radio"
-                                        className="rating-input"
-                                        id={`rating-input-review-0-${value}`}
-                                        value={value}
-                                        checked={userRating === value}
-                                        onChange={() => setUserRating(value)}
-                                    />
-                                    <label htmlFor={`rating-input-review-0-${value}`} className="rating-star" data-title={
-                                        value === 5 ? "Rất hài lòng" : value === 4 ? "Hài lòng" : value === 3 ? "Bình thường" : value === 2 ? "Tạm được" : "Không thích"
-                                    }></label>
-                                </React.Fragment>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <FaStar
+                                    key={star}
+                                    onClick={() => setUserRating(star)}
+                                    className="rating-input"
+                                    color={star <= userRating ? "#ffc107" : "#e4e5e9"}
+                                />
                             ))}
+                            <div className="rating-star" >{
+                                userRating === 5 ? "Rất hài lòng" : userRating === 4 ? "Hài lòng" : userRating === 3 ? "Bình thường" : userRating === 2 ? "Tạm được" : "Không thích"
+                            }</div>
                         </div>
-                        <span id="star_tip" style={{ display: 'inline' }}>Hài lòng</span>
                     </div>
 
                     <div className="review-box">
@@ -132,19 +142,38 @@ const CommentProduct = (props) => {
                                 onChange={(e) => setNewComment(e.target.value)}
                             ></textarea>
                         </div>
-                        <div className="review-right" onClick={onAddNewComment} style={{ width: '100%', marginLeft: '0' }}>
+                        <div className="review-right" onClick={onAddNewComment} style={{ marginLeft: '0' }}>
                             GỬI ĐÁNH GIÁ
                         </div>
                     </div>
                 </div>
 
                 <div className="list-review-2020">
-                    {listcomment.map((comment) => (
+                    {filteredComments.map((comment) => (
                         <div key={comment._id} className="comment-item">
-                            <p>{comment.content}</p>
-                            <p>{comment.rating}</p>
+                            <div className="cmtUser">
+                                <div className="name">
+                                    {comment.idUser}
+                                </div>
+                                <div className="time">
+                                    {comment.createdAt}
+                                </div>
+                                <div>
+
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <FaStar
+                                        key={star}
+                                        className="rating-input"
+                                        color={star <= comment.rating ? "#ffc107" : "#e4e5e9"}
+                                    />
+                                ))}
+                                </div>
+                            </div>
+                            <div className="review">
+
+                                {comment.content}
+                            </div>
                             <div className="comment-actions">
-                                <BsArrowReturnRight />
                                 <MdOutlineEdit />
                                 <FaRegTrashAlt onClick={() => onRemoveClick(comment._id)} />
                             </div>
