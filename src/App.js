@@ -13,7 +13,7 @@ import ProductFilterPage from "./components/User/ProductFilterPage/ProductFilter
 import BlogsPage from "./components/User/BlogsPage/BlogsPage";
 import AboutPage from "./components/User/AboutPage/AboutPage";
 import ContactPage from "./components/User/ContactPage/ContactPage";
-
+import ProfilePage from "./components/User/ProfilePage/ProfilePage";
 import Admin from "./components/Admin/Admin";
 import DashBoard from "./components/Admin/DashBoard/DashBroad";
 import CategogyManagement from "./components/Admin/Managements/CategoryManagament/CategoryManagement";
@@ -26,7 +26,6 @@ import Staff from "./components/Staff/Staff";
 import HomeStaff from "./components/Staff/DashBoard/HomeStaff";
 import UserManagementStaff from "./components/Staff/Managements/UserManagement/UserManagement";
 import OrderManagementStaff from "./components/Staff/Managements/OrderManagement/OrderManagement";
-import ProfilePage from "./components/Golobal/Profile/ProfilePage";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
 import PayPage from "./components/User/PayPage/PayPage";
@@ -38,15 +37,15 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<UserPage />}>
                         <Route index element={<MainPage />} />
+                        <Route path="aboutPage" element={<AboutPage />} />
+                        <Route path="blogsPage" element={<BlogsPage />} />
+                        <Route path="contactPage" element={<ContactPage />} />
                         <Route path="productsPage" element={<ProductsPage />} />
                         <Route path="productFilterPage" element={<ProductFilterPage />} />
-                        <Route path="blogsPage" element={<BlogsPage />} />
-                        <Route path="aboutPage" element={<AboutPage />} />
-                        <Route path="contactPage" element={<ContactPage />} />
-                        <Route path="productsPage/:id" element={<ProductsPage />}></Route>
-                        <Route path="searchPage" element={<SearchPage />} />
-                        <Route path="profilePage" element={<ProfilePage />}></Route>
+                        <Route path="productsPage/:id" element={<ProductsPage />}/>
                         <Route path="PayPage" element={<PayPage />}></Route>
+                        <Route path="searchPage" element={<SearchPage />} />
+                        <Route path="profilePage" element={<ProfilePage />} />
                     </Route>
                     <Route
                         path="admins"

@@ -55,15 +55,24 @@ const MainPage = (props) => {
             // console.log(res.categories);
         }
     };
+    const updateStateOrder = () => {
+        dispatch({
+            type: "Update_order_user",
+            payload: listProducts,
+        });
+    };
     useEffect(() => {
         if (_.isEmpty(listProducts)) {
             fetchListProducts();
+            // updateStateOrder()
         }
         if (_.isEmpty(listCategories)) {
             fetchListCategories();
         }
     }, []);
-
+    useEffect(() => {
+        updateStateOrder();
+    }, [listProducts]);
     return (
         <>
             <MainSlider/>

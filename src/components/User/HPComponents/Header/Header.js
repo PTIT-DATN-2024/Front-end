@@ -14,10 +14,9 @@ import { BsCartCheck } from "react-icons/bs";
 import { getSearchProduct } from "../../../../services/apiServices";
 const Header = (props) => {
     const dispatch = useDispatch();
-    const stateProduct = useSelector((state) => state.product);
-    const listProducts = useSelector((state) => state.product.listProducts);
-    const stateOrder = useSelector((state) => state.listOrder.listItemsOder);
     const token = useSelector((state) => state.user.account.access_token);
+
+    const stateOrder = useSelector((state) => state.listOrder);
     const [suggestions, setSuggestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [errorMessage, setErrorMessage] = useState(""); // Thêm trạng thái cho thông báo lỗi
@@ -27,16 +26,7 @@ const Header = (props) => {
 
     // console.log(isAuthenticated, account);
     let navigate = useNavigate();
-    const updateStateOrder = () => {
-        const productsToOrder = listProducts.filter((product) => product.CountOrder > 0);
-        dispatch({
-            type: "Update_order_user",
-            payload: productsToOrder,
-        });
-    };
-    useEffect(() => {
-        updateStateOrder();
-    }, [listProducts]);
+
     const handleLogIn = () => {
         navigate("/login");
     };
@@ -49,6 +39,9 @@ const Header = (props) => {
         });
         toast.success("LogOut Successful");
         navigate("/");
+    };
+    const gotoProfilePage = () => {
+        navigate("/profilePage");
     };
     const handleSearch = (e) => {
         e.preventDefault();
@@ -103,7 +96,6 @@ const Header = (props) => {
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
-        console.log(stateOrder);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
     return (
@@ -204,12 +196,13 @@ const Header = (props) => {
                                 }}>
                                     <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
                                     <div className="cart-count">
-                                        {stateOrder.length}
+                                        {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
+
                                     </div>
                                 </div>
 
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                                    <NavDropdown.Item onclick={() => gotoProfilePage()}>Profile</NavDropdown.Item>
                                     <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
                                 </NavDropdown>
                             </>

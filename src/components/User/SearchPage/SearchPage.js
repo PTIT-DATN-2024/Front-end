@@ -24,7 +24,6 @@ const SearchPage = () => {
     const [sortType, setSortType] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
     useEffect(() => {
-        // Cuộn lên đầu trang khi component được gắn vào
         window.scrollTo(0, 0);
     }, []);
 

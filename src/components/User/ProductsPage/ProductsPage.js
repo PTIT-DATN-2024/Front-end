@@ -39,28 +39,22 @@ const ProductsPage = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
     const product = listProducts.find((item) => item._id === id);
     const [quantity, setQuantity] = useState(1);
+    const stateOrder = useSelector((state) => state.listOrder);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        fetchListProducts();
+        updateStateOrder();
     }, []);
-    const addProductOrder = async (productId, quantity) => {
+    useEffect(() => {
+        updateStateOrder();
+    }, [listProducts]);
+    const updateStateOrder = () => {
         dispatch({
-            type: "add_product",
-            payload: { productId, quantity },
+            type: "Update_order_user",
+            payload: listProducts,
         });
-        setQuantity(1);
-        toast.success("Added to order successfully");
     };
-    const removeProductOrder = async (productId) => {
-        dispatch({
-            type: "decrement_product",
-            payload: productId,
-        });
-        toast.success("remove done");
-    };
-    const handleIncrease = () => setQuantity(quantity + 1);
-    const handleDecrease = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
-    const handleAddToCart = () => addProductOrder(product._id, quantity);
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
@@ -68,12 +62,33 @@ const ProductsPage = (props) => {
                 type: "fetch_all_product",
                 payload: res.products,
             });
-            toast.success(res.MS);
+            console.log(listProducts);
+            console.log(stateOrder);
+
         }
     };
-
+    const addProductOrder = async (productId, quantity) => {
+        dispatch({
+            type: "add_product_to_order",
+            payload: { productId, quantity },
+        });
+        setQuantity(1);
+        toast.success("Added to order successfully");
+        console.log(stateOrder);
+    };
+    const removeProductOrder = async (productId) => {
+        dispatch({
+            type: "remove_product_from_order",
+            payload: productId,
+        });
+        toast.success("remove done");
+    };
+    const handleIncrease = () => setQuantity(quantity + 1);
+    const handleDecrease = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
+    const handleAddToCart = () => addProductOrder(product._id, quantity);
     const buyNow = (productId) => {
         addProductOrder(product._id, quantity);
+        console.log(stateOrder);
         navigate("/PayPage");
 
     };

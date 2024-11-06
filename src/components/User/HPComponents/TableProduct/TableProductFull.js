@@ -19,11 +19,9 @@ import ReactPaginate from "react-paginate";
 const TableProductFull = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const stateProduct = useSelector((state) => state.product);
     const listProducts = useSelector((state) => state.product.listProducts);
     const listCategories = useSelector((state) => state.category.listCategories);
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [nameFilter, setNameFilter] = useState("");
     const [countFilter, setCountFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState(props.categoryFilter);
     const [sortType, setSortType] = useState("");

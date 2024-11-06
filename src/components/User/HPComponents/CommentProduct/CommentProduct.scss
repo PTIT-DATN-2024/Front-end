@@ -19,13 +19,16 @@
     .pd-comment-filter{
         width: 100%;
         display: flex;
-    
+        align-items: center;
         .group-title{
             width: 140px;
             display: flex;
             gap: 10px;
             flex-direction: column;
             padding: 10px 20px;
+            height: 100px;
+            justify-content: center;
+            align-items: center;
             b{
                 font-family: "Open Sans",Arial,sans-serif;
                 word-break: break-word;
@@ -38,19 +41,20 @@
                 display: block;
             }
             .loading{
+                width: 100%;
                 font-family: "Open Sans",Arial,sans-serif;
                 word-break: break-word;
-                text-align: center;
                 color: #ff9727;
                 font-weight: 700;
-                font-size: 30px;
-                line-height: 22px;
-                aspect-ratio: auto 1 / 1;
+                font-size: 20px;
+                line-height: 20px;
                 box-sizing: border-box;
                 border: none;
-                max-width: 100%;
-                height: auto;
-                width: auto;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
             
             }
         }

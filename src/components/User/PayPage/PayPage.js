@@ -8,6 +8,7 @@ import Table from "react-bootstrap/Table";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postCreateUserOrder } from "../../../services/apiServices";
+import { getAllProducts } from "../../../services/apiServices";
 
 const PayPage = (props) => {
     const navigate = useNavigate();
@@ -18,78 +19,94 @@ const PayPage = (props) => {
     const stateOrder = useSelector((state) => state.listOrder);
     const listCategories = useSelector((state) => state.category.listCategories);
     const updateStateOrder = () => {
-        const productsToOrder = listProducts.filter((product) => product.CountOrder > 0);
         dispatch({
             type: "Update_order_user",
-            payload: productsToOrder,
+            payload: listProducts,
         });
+    };
+    const fetchListProducts = async () => {
+        let res = await getAllProducts();
+        if (res.EC === 0) {
+            dispatch({
+                type: "fetch_all_product",
+                payload: res.products,
+            });
+            
+
+        }
     };
     const addProductOrder = async (productId) => {
         dispatch({
-            type: "add_product",
+            type: "add_product_to_order",
             payload: { productId, quantity: 1 }
         });
         toast.success("add done +1");
-        // console.log(listProducts);
-        console.log(stateProduct);
+        console.log(stateOrder);
+
     };
     const decremeneProductOrder = async (productId) => {
         dispatch({
-            type: "decrement_product",
+            type: "decrement_product_in_order",
             payload: productId,
         });
         toast.success("decre done");
-        // console.log(listProducts);
-        console.log(stateProduct);
     };
     const removeProductOrder = async (productId) => {
         dispatch({
-            type: "remove_product",
+            type: "remove_product_from_order",
             payload: productId,
         });
         toast.success("remove done");
     };
-    // useEffect(() => {
-    //     updateStateOrder();
-    // }, [listProducts]);
+    useEffect(() => {
+        fetchListProducts();
+    }, []);
+    useEffect(() => {
+        updateStateOrder();
+    }, [listProducts]);
     const remove = async () => {
         try {
             await dispatch({
-                type: "reset_order_counts",
+                type: "Clear_order_user",
             });
-            console.log("listItemsOder", stateOrder.listItemsOder);
             toast.success("clear done!");
         } catch (error) {
-            console.error("Failed to clear order:", error);
             toast.error("Failed to clear order.");
         }
+        console.log(stateOrder);
     };
     const handleSubmitOrder = async (event) => {
-        // validate
-        // callapi
-        let simplifiedList = stateOrder.listItemsOder.map((item) => {
-            return {
-                idProduct: item._id,
-                quantity: item.CountOrder,
-                sum: item.sellingprice * item.CountOrder,
-            };
-        });
+        // Lọc các sản phẩm có CountOrder > 0
+        let simplifiedList = stateOrder.listItemsOrder
+            .filter(item => item.CountOrder > 0)  // Chỉ giữ lại các sản phẩm có CountOrder > 0
+            .map((item) => {
+                return {
+                    idProduct: item._id,
+                    quantity: item.CountOrder,
+                    sum: item.sellingprice * item.CountOrder,
+                };
+            });
+    
+        // Nếu không có sản phẩm hợp lệ (CountOrder > 0), không thực hiện submit
+        if (simplifiedList.length === 0) {
+            toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
+            return;
+        }
+    
         const config = {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${account.access_token}`,
             },
         };
+    
         const formData = {
             user: account._id,
             listItem: simplifiedList,
             total: stateOrder.total,
         };
-        // formData.append("user", account._id);
-        // formData.append("listItem", stateOrder.listItemsOder);
-        // formData.append("Total", stateOrder.total);
-        // console.log(formData);
-
+    
+        // Gọi API để tạo đơn hàng
         let res_data = await postCreateUserOrder(formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
@@ -99,6 +116,7 @@ const PayPage = (props) => {
             toast.error(res_data.MS);
         }
     };
+    
 
     return (
         <>
@@ -122,33 +140,35 @@ const PayPage = (props) => {
                             </div>
                         </div>
                         <div className="cart-list-item">
-                            {!_.isEmpty(stateOrder.listItemsOder) ? (
-                                stateOrder.listItemsOder.map((item, index) => {
-                                    return (
-                                        <div className="new-cart-items" >
+                            {
+                                !_.isEmpty(stateOrder.listItemsOrder) ? (
+                                    stateOrder.listItemsOrder.filter(item => item.CountOrder > 0).map((item, index) => {
+                                        return (
+                                            <div className="new-cart-items" key={item._id}>
+                                                <div className="cart-col-product">
+                                                    {item.name}
+                                                </div>
+                                                <div className="cart-col-price">
+                                                    {item.sellingprice}
+                                                </div>
+                                                <div className="cart-col-quantity">
+                                                    <CiCircleMinus onClick={() => decremeneProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
+                                                    <div className={`${item._id} countItem`}> {item.CountOrder}</div>
+                                                    <CiCirclePlus onClick={() => addProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
+                                                </div>
+                                                <div className="cart-col-total-price">
+                                                    {item.sellingprice * item.CountOrder}
+                                                </div>
+                                                <div className="cart-col-delete" onClick={() => removeProductOrder(item._id)} >X
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div>no order</div>
+                                )
+                            }
 
-                                            <div className="cart-col-product">
-                                                {item.name}
-                                            </div>
-                                            <div className="cart-col-price">
-                                                {item.sellingprice}
-                                            </div>
-                                            <div className="cart-col-quantity">
-                                                <CiCircleMinus onClick={() => decremeneProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
-                                                <div className={`${item._id} countItem`}> {item.CountOrder}</div>
-                                                <CiCirclePlus onClick={() => addProductOrder(item._id)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
-                                            </div>
-                                            <div className="cart-col-total-price">
-                                                {item.sellingprice * item.CountOrder}
-                                            </div>
-                                            <div className="cart-col-delete" onClick={() => removeProductOrder(item._id)} >X
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            ) : (
-                                <div>no order</div>
-                            )}
 
                         </div>
                     </div>

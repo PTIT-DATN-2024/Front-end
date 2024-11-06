@@ -12,6 +12,7 @@ import { postLogin } from "../../services/apiServices";
 import ThankCustomer from "./HPComponents/ThankCustomer/ThankCustomer";
 const UserPage = (props) => {
     const dispatch = useDispatch();
+
     const autoLoginforCode = async () => {
         let datalogin = {
             email: "a",
@@ -31,6 +32,8 @@ const UserPage = (props) => {
             alert("incorrect");
         }
     };
+
+
     useEffect(() => {
         // autoLoginforCode();
     }, []);
