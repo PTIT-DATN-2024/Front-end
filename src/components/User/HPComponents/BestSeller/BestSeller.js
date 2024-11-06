@@ -19,7 +19,7 @@ const BestSeller = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
     const addProductOrder = async (productId) => {
         dispatch({
-            type: "add_product",
+            type: "add_product_to_order",
             payload: { productId, quantity:1 },
         });
         toast.success("Added to order successfully");

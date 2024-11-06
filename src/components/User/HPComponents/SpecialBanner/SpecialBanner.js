@@ -16,11 +16,6 @@ import "./SpecialBanner.scss";
 import _ from "lodash";
 
 const SpecialBanner = (props) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const stateProduct = useSelector((state) => state.product);
-    const listProducts = useSelector((state) => state.product.listProducts);
-    const listCategories = useSelector((state) => state.category.listCategories);
 
     return (
         <>

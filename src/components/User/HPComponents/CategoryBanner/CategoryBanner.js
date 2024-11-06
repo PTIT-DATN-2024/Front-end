@@ -16,10 +16,7 @@ import "./CategoryBanner.scss";
 
 import _ from "lodash";
 const CategoryBanner = (props) => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const stateProduct = useSelector((state) => state.product);
-    const listProducts = useSelector((state) => state.product.listProducts);
     const listCategories = useSelector((state) => state.category.listCategories);
 
 

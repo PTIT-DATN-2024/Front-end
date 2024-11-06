@@ -13,14 +13,12 @@ const TableProductPre = () => {
     const dispatch = useDispatch();
     const listProducts = useSelector((state) => state.product.listProducts);
 
-    const addProductOrder = (productId) => {
-        dispatch({ type: "add_product", payload: productId });
-        toast.success("Product added to order.");
-    };
-
-    const removeProductOrder = (productId) => {
-        dispatch({ type: "remove_product", payload: productId });
-        toast.success("Product removed from order.");
+    const addProductOrder = async (productId) => {
+        dispatch({
+            type: "add_product_to_order",
+            payload: { productId, quantity:1 },
+        });
+        toast.success("Added to order successfully");
     };
     // Custom next arrow
 

@@ -92,7 +92,6 @@ const CommentProduct = (props) => {
     }, []);
     useEffect(() => {
         filterReviewByRate("");
-
     }, [listcomment]);
 
     return (
@@ -102,7 +101,17 @@ const CommentProduct = (props) => {
             <div className="pd-comment-filter">
                 <p className="group-title">
                     <b>{product.rate.toFixed(1)}/5</b>
-                    <img src="https://hacom.vn/media/lib/star_0.png" alt="rating" width="1" height="1" className="loading" data-was-processed="true" />
+                    <div className="loading">
+
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <FaStar
+                                key={star}
+                                className="rating-input"
+                                color={star <= product.rate ? "#ffc107" : "#e4e5e9"}
+                            />
+                        ))}
+                    </div>
+                    {/* <img src="https://hacom.vn/media/lib/star_0.png" alt="rating" width="1" height="1" className="loading" data-was-processed="true" /> */}
                 </p>
 
                 <div className="pd-filter-list">
@@ -160,13 +169,13 @@ const CommentProduct = (props) => {
                                 </div>
                                 <div>
 
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                    <FaStar
-                                        key={star}
-                                        className="rating-input"
-                                        color={star <= comment.rating ? "#ffc107" : "#e4e5e9"}
-                                    />
-                                ))}
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <FaStar
+                                            key={star}
+                                            className="rating-input"
+                                            color={star <= comment.rating ? "#ffc107" : "#e4e5e9"}
+                                        />
+                                    ))}
                                 </div>
                             </div>
                             <div className="review">
