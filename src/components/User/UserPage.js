@@ -1,15 +1,15 @@
-import Header from "./HPComponents/Header/Header";
+import Header from "./UserComponents/Header/Header";
 import "./UserPage.scss";
 import { Outlet } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
 import { useEffect, useState } from "react";
-import Footer from "./HPComponents/Footer/Footer";
+import Footer from "./UserComponents/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { FaArrowUp } from "react-icons/fa";
 import { postLogin } from "../../services/apiServices";
-import ThankCustomer from "./HPComponents/ThankCustomer/ThankCustomer";
+import ThankCustomer from "./UserComponents/ThankCustomer/ThankCustomer";
 const UserPage = (props) => {
     const dispatch = useDispatch();
 

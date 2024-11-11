@@ -15,18 +15,18 @@ import "swiper/css/navigation";
 // import required modules
 import "./HomePage.scss";
 import _ from "lodash";
-import MainSlider from "../HPComponents/MainSlider/MainSlider";
-import UnderMainSlider from "../HPComponents/UnderMainSlider/UnderMainSlider";
-import CategoryBanner from "../HPComponents/CategoryBanner/CategoryBanner";
-import ProductPre from "../HPComponents/ProductPre/ProductPre";
-import GridBanner from "../HPComponents/GridBanner/GridBanner";
-import SpecialBanner from "../HPComponents/SpecialBanner/SpecialBanner";
-import TableProductPre from "../HPComponents/TableProduct/TableProductPre";
-import ComboBanner from "../HPComponents/ComboBanner/ComboBanner";
-import Choosing from "../HPComponents/Choosing/Choosing";
-import ThankSlice from "../HPComponents/ThankSlice/ThankSlice";
-import BestSeller from "../HPComponents/BestSeller/BestSeller";
-import ThankCustomer from "../HPComponents/ThankCustomer/ThankCustomer";
+import MainSlider from "../UserComponents/MainSlider/MainSlider";
+import UnderMainSlider from "../UserComponents/UnderMainSlider/UnderMainSlider";
+import CategoryBanner from "../UserComponents/CategoryBanner/CategoryBanner";
+import ProductPre from "../UserComponents/ProductPre/ProductPre";
+import GridBanner from "../UserComponents/GridBanner/GridBanner";
+import SpecialBanner from "../UserComponents/SpecialBanner/SpecialBanner";
+import TableProductPre from "../UserComponents/TableProduct/TableProductPre";
+import ComboBanner from "../UserComponents/ComboBanner/ComboBanner";
+import Choosing from "../UserComponents/Choosing/Choosing";
+import ThankSlice from "../UserComponents/ThankSlice/ThankSlice";
+import BestSeller from "../UserComponents/BestSeller/BestSeller";
+import ThankCustomer from "../UserComponents/ThankCustomer/ThankCustomer";
 const MainPage = (props) => {
 
     const dispatch = useDispatch();

@@ -62,6 +62,11 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    statusOrder: {
+        type: String,
+        enum: ['CXN', 'CLH', 'DG', 'DH', 'HT'],  // Mã viết tắt cho các trạng thái
+        default: 'CXN',  // Trạng thái mặc định là 'CXN' (Chờ xác nhận)
+    },
     createdAt: {
         type: Date,
         default: Date.now,

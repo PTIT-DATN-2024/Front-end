@@ -86,11 +86,13 @@ const postCreateOrder = (user, listItem, Total, createdAt) => {
     return axios.post("/order", data);
 };
 const postCreateUserOrder = (formData,config) => {
-
     return axios.post("/order", formData);
 };
 const getAllOrders = () => {
     return axios.get("/order");
+};
+const getOrdersByUserId = (userId) => {
+    return axios.get(`/order/user/${userId}`);
 };
 const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
     let data = {
@@ -101,11 +103,15 @@ const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
     };
     return axios.put(`/order/${_id}`, data);
 };
+const putEditStatusOrder = (_id, statusOrder) => {
+    let data = {
+        statusOrder: statusOrder,
+    };
+    return axios.put(`/order/${_id}`, data);
+};
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
 };
-
-
 
 // CMT 
 const postCreateComment = (idProduct, idUser, content, rating) => {
@@ -141,14 +147,17 @@ export {
     getAllUsers,
     putUpdateUser,
     deleteUser,
+
     postCreateCategory,
     getAllCategories,
     putUpdateCategory,
     deleteCategory,
+
     postCreateBgImage,
     getAllBgImages,
     putUpdateBgImage,
     deleteBgImage,
+
     postCreateProduct,
     getAllProducts,
     getSearchProduct,
@@ -156,11 +165,15 @@ export {
     deleteProduct,
     postVote,
     deleteVote,
+
     postCreateOrder,
     postCreateUserOrder,
     getAllOrders,
+    getOrdersByUserId,
     putUpdateOrder,
     deleteOrder,
+    putEditStatusOrder,
+
     postCreateComment,
     getCommentsProduct,
     putUpdateComment,

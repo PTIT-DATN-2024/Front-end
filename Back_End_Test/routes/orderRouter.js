@@ -11,6 +11,8 @@ router.get("/", orderController.getAllOrders);
 
 router.get("/:id", orderController.getAnOrder);
 
+router.get("/user/:id", orderController.getOrdersByUserId);
+
 
 router.put("/:id", orderController.updateOrder);
 
