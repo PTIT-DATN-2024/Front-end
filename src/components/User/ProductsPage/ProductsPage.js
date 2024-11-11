@@ -88,8 +88,14 @@ const ProductsPage = (props) => {
     const handleAddToCart = () => addProductOrder(product._id, quantity);
     const buyNow = (productId) => {
         addProductOrder(product._id, quantity);
-        console.log(stateOrder);
-        navigate("/PayPage");
+
+        if (userState.role === 'STAFF' || userState.role === 'ADMIN') {
+
+            navigate('/staffs');
+        } else {
+            navigate("/PayPage");
+        }
+
 
     };
     const settings = {

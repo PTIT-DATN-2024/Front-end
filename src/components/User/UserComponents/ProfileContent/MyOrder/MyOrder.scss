@@ -62,17 +62,27 @@
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
+        padding: 10px;
+        gap: 10px;
         .order_item{
             display: flex;
             align-items: center;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 5px 0 rgba(167, 167, 167, 0.5);
             .order_code{
-                height: 100%;
-                width: 40px;
+                height: 40px;
+                width: 100%;
+                word-break: break-all;
             }
             .order_item_pdList{
+                border-top: 1px solid #f1f1f1;
+                padding-top: 10px;
                 display: flex;
                 justify-content: flex-start;
                 flex-direction: column;
+                width: 100%;
                 .order_item_pdItem{
                     display: flex;
                     justify-content: space-between;
@@ -90,40 +100,87 @@
                     
                     }
                     .pd-info-right{
-                    
-                    }
-                    .name{
-                        width: 100%;
-                        font-family: "Open Sans",Arial,sans-serif;
-                        word-break: break-word;
-                        box-sizing: border-box;
-                        cursor: pointer;
-                        color: #333e48;
-                        text-decoration: none;
-                        transition: all .2s ease;
-                        display: block;
-                        font-size: 1.1em;
-                        font-weight: 600;
-                        margin-bottom: 10px;
-                    
-                    }
-                    .pd-price{
-                    
-                    }
-                    .pd-quantity{
-                        font-family: "Open Sans",Arial,sans-serif;
-                        color: #333e48;
-                        word-break: break-word;
-                        font-size: 12px;
-                        box-sizing: border-box;
-                        display: block;
-                        margin-bottom: 10px;
+                        flex: 1;
+                        .name{
+                            width: 100%;
+                            font-family: "Open Sans",Arial,sans-serif;
+                            word-break: break-word;
+                            box-sizing: border-box;
+                            cursor: pointer;
+                            color: #333e48;
+                            text-decoration: none;
+                            transition: all .2s ease;
+                            display: block;
+                            font-size: 1.1em;
+                            font-weight: 600;
+                            margin-bottom: 10px;
+                        
+                        }
+                        .pd-price{
+                        
+                        }
+                        .pd-quantity{
+                            font-family: "Open Sans",Arial,sans-serif;
+                            color: #333e48;
+                            word-break: break-word;
+                            font-size: 12px;
+                            box-sizing: border-box;
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+                        .pd-total{
+                            word-break: break-word;
+                            box-sizing: border-box;
+                            font-family: Helvetica, Arial, sans-serif;
+                            color: #ed1b24;
+                            font-size: 1.25em;
+                        }
                     }
                 }
             }
-            .order_total{
-                height: 100%;width: 40px;
-            
+            .order_bottom{
+                height: 50px;
+                padding-top: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                border-top: 1px solid #f1f1f1;
+                align-items: center;
+                .order_total{
+                    font-family: "Open Sans",Arial,sans-serif;
+                    color: #333e48;
+                    word-break: break-word;
+                    font-size: 12px;
+                    box-sizing: border-box;
+                    line-height: 40px;
+                    padding: 0 20px;
+                    span{
+                        word-break: break-word;
+                        line-height: 40px;
+                        box-sizing: border-box;
+                        font-family: Helvetica, Arial, sans-serif;
+                        color: #ed1b24;
+                        font-size: 1.5em;
+                    }
+                }
+                .btn_submit{
+                    height: 36px;
+                    font-family: "Open Sans",Arial,sans-serif;
+                    word-break: break-word;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: all .2s ease;
+                    font-size: 12px;
+                    display: inline-block;
+                    background: #ed1b24;
+                    color: #fff;
+                    border: none;
+                    line-height: 36px;
+                    padding: 0px 20px;
+                    border-radius: 3px;
+                
+                }
             }  
         }
         .tk-ct-null{

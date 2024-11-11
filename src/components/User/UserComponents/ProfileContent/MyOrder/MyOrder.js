@@ -113,12 +113,11 @@ const MyOrder = () => {
                                             </div>
 
                                             <p className="pd-price" >
-                                                {item.sellingpriceProduct.toLocaleString("vi-VN")}
+                                                Giá: {item.sellingpriceProduct.toLocaleString("vi-VN")}
                                                 <u>đ</u>
                                             </p>
                                             <p className="pd-quantity" >
-                                                {item.quantity}
-                                                <u>đ</u>
+                                                Số lượng: {item.quantity}
                                             </p>
 
                                         </div>
@@ -129,7 +128,15 @@ const MyOrder = () => {
                                     </div>
                                 ))}
                             </div>
-                            <p className="order_total">{order.total}</p>
+                            <div className="order_bottom">
+                                <div className="order_total">
+                                    Tổng số tiền: <span>{order.total}đ</span>
+
+                                </div>
+                                <div href="/" className="btn_submit" onClick={() => { navigate("/"); }}>
+                                    Mua lại
+                                </div>
+                            </div>
                         </div>
                     ))
                 ) : (

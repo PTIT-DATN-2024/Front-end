@@ -14,6 +14,7 @@ import BlogsPage from "./components/User/BlogsPage/BlogsPage";
 import AboutPage from "./components/User/AboutPage/AboutPage";
 import ContactPage from "./components/User/ContactPage/ContactPage";
 import ProfilePage from "./components/User/ProfilePage/ProfilePage";
+
 import Admin from "./components/Admin/Admin";
 import DashBoard from "./components/Admin/DashBoard/DashBroad";
 import CategogyManagement from "./components/Admin/Managements/CategoryManagament/CategoryManagement";
@@ -22,8 +23,9 @@ import BgImageManagement from "./components/Admin/Managements/BgImageManagement/
 import UserManagement from "./components/Admin/Managements/UserManagement/UserManagement";
 import ProductManagement from "./components/Admin/Managements/ProductManagement/ProductManagement";
 import OrderManagement from "./components/Admin/Managements/OrderManagement/OrderManagement";
+
 import Staff from "./components/Staff/Staff";
-import HomeStaff from "./components/Staff/DashBoard/HomeStaff";
+import HomeStaff from "./components/Staff/HomeStaff/HomeStaff";
 import UserManagementStaff from "./components/Staff/Managements/UserManagement/UserManagement";
 import OrderManagementStaff from "./components/Staff/Managements/OrderManagement/OrderManagement";
 import { ToastContainer, toast } from "react-toastify";

@@ -154,8 +154,6 @@ const ModalCreateUser = (props) => {
                             <label className="form-label">Role</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)} onBlur={() => handleBlur("role", role)} onFocus={() => handleFocus("role")}>
                                 <option value="USER">USER</option>
-                                <option value="STAFF">STAFF</option>
-                                <option value="ADMIN">ADMIN</option>
                             </select>
                             {errors.role && <div className="text-danger">{errors.role}</div>}
                         </div>

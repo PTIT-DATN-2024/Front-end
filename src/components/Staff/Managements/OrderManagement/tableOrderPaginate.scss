@@ -1,0 +1,140 @@
+.table-orders-container {
+    width: 100%;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  
+    .table-caption {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+  
+      .filter-item {
+          flex: 1 1 200px;
+          label {
+              font-weight: bold;
+          }
+          select, input {
+              width: 100%;
+              padding: 0.5rem;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              margin-top: 0.25rem;
+          }
+      }
+  }
+  
+    .table-headers,
+    .order-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+  
+      .header-item,
+      > div {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  
+    .order-item {
+      &-index {
+        width: 5%;
+      }
+  
+      .order-id,
+      .order-time,
+      .order-avatar,
+      .order-user,
+      .order-products,
+      .order-quantity,
+      .order-sum,
+      .order-total,
+      .order-settings {
+        width: 10%;
+      }
+  
+      .tableOrder_avatarUser,
+      .tableOrder_imgProduct {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+  
+      .product-item,
+      .product-quantity,
+      .product-sum {
+        margin: 5px 0;
+      }
+  
+      .order-settings {
+        .btn {
+          margin: 2px;
+          padding: 5px 10px;
+          font-size: 0.8rem;
+        }
+      }
+      .order-status {
+        .status-label {
+          padding: 5px 10px;
+          border-radius: 5px;
+          font-weight: bold;
+    
+          &.status-cxn {
+            background-color: #fff3cd; // light yellow for "Chờ xác nhận"
+            color: #664d03;
+          }
+          
+          &.status-clh {
+            background-color: #cfe2ff; // light blue for "Chờ lấy hàng"
+            color: #084298;
+          }
+    
+          &.status-dg {
+            background-color: #d1e7dd; // light green for "Đang giao"
+            color: #0f5132;
+          }
+    
+          &.status-dh {
+            background-color: #f8d7da; // light red for "Đã hủy"
+            color: #842029;
+          }
+    
+          &.status-ht {
+            background-color: #d1e7dd; // light green for "Hoàn thành"
+            color: #0f5132;
+          }
+        }
+      }
+    }
+  
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+  
+      .page-item {
+        margin: 0 5px;
+  
+        .page-link {
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  
+    .no-orders {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+    }
+  }
+  
