@@ -1,4 +1,4 @@
-const {  Order } = require("../model/model");
+const { Order } = require("../model/model");
 
 const orderController = {
     //ADD Order
@@ -17,7 +17,7 @@ const orderController = {
         try {
             const ordersOld = await Order.find()
                 .populate("listItem.idProduct", "name presentImage sellingprice") // Populate product fields
-                .populate("user", "email avatar"); 
+                .populate("user", "email avatar");
             if (!ordersOld) {
                 return res.status(404).json({ message: "Không tìm thấy đơn hàng nào." });
             }
@@ -31,12 +31,13 @@ const orderController = {
                 listItem: order.listItem.map((item) => ({
                     idProduct: item.idProduct._id,
                     nameProduct: item.idProduct.name,
-                    presentImageProduct: item.idProduct.presentImage? `/v1/uploads/products/${item.idProduct.presentImage.replace("uploads\\products\\", "")}` : null,
+                    presentImageProduct: item.idProduct.presentImage ? `/v1/uploads/products/${item.idProduct.presentImage.replace("uploads\\products\\", "")}` : null,
                     sellingpriceProduct: item.idProduct.sellingprice,
                     quantity: item.quantity,
                     sum: item.sum,
                 })),
                 total: order.total,
+                statusOrder: order.statusOrder,
                 createdAt: order.createdAt,
             }));
             res.json({ EC: 0, MS: "Get all Order success!", orders });
@@ -55,6 +56,7 @@ const orderController = {
             if (!order) {
                 return res.status(404).json({ EC: 1, MS: "Order not found" });
             }
+
             const formattedOrder = {
                 _id: order._id,
                 user: {
@@ -70,6 +72,7 @@ const orderController = {
                     quantity: item.quantity,
                     sum: item.sum,
                 })),
+                statusOrder: order.statusOrder,
                 total: order.total,
                 createdAt: order.createdAt,
             };
@@ -78,8 +81,54 @@ const orderController = {
             res.status(500).json({ EC: 2, MS: "Get an Order error!", err });
         }
     },
+    // GET orders by user_id
+    getOrdersByUserId: async (req, res) => {
+        try {
+            const userId = req.params.userId;  // Lấy userId từ params
+
+            // Tìm tất cả đơn hàng của userId
+            const orders = await Order.find({ "user.idUser": userId })
+                .populate("listItem.idProduct", "name presentImage sellingprice")  // Populate thông tin sản phẩm
+                .populate("user", "email avatar");  // Populate thông tin người dùng
+
+            if (orders.length === 0) {
+                return res.status(404).json({ EC: 1, MS: "Không tìm thấy đơn hàng cho người dùng này." });
+            }
+
+            // Chuyển đổi dữ liệu đơn hàng để trả về
+            const formattedOrders = orders.map((order) => ({
+                _id: order._id,
+                user: {
+                    idUser: order.user._id,
+                    emailUser: order.user.email,
+                    avatarUser: order.user.avatar ? `/v1/uploads/users/${order.user.avatar.replace("uploads\\users\\", "")}` : null,
+                },
+                listItem: order.listItem.map((item) => ({
+                    idProduct: item.idProduct._id,
+                    nameProduct: item.idProduct.name,
+                    presentImageProduct: item.idProduct.presentImage ? `/v1/uploads/products/${item.idProduct.presentImage.replace("uploads\\products\\", "")}` : null,
+                    sellingpriceProduct: item.idProduct.sellingprice,
+                    quantity: item.quantity,
+                    sum: item.sum,
+                })),
+                total: order.total,
+                createdAt: order.createdAt,
+                statusOrder: order.statusOrder,  // Đảm bảo trạng thái đơn hàng cũng được trả về
+            }));
+
+            res.status(200).json({ EC: 0, MS: "Get Orders by UserId success!", orders: formattedOrders });
+        } catch (err) {
+            res.status(500).json({ EC: 2, MS: "Get Orders by UserId error!", err });
+        }
+    },
 
     updateOrder: async (req, res) => {
+        const { status } = req.body;  // Lấy trạng thái từ body nếu có
+
+        // Kiểm tra trạng thái có hợp lệ không
+        if (status && !['CXN', 'CLH', 'DG', 'DH', 'HT'].includes(status)) {
+            return res.status(400).json({ EC: 1, MS: "Trạng thái không hợp lệ" });
+        }
         try {
             const order = await Order.findById(req.params.id);
             await order.updateOne({ $set: req.body });
@@ -90,6 +139,7 @@ const orderController = {
     },
     //DELETE Order
     deleteOrder: async (req, res) => {
+
         try {
             await Order.findByIdAndDelete(req.params.id);
             res.status(200).json({ EC: 0, MS: "Delete Order success!" });

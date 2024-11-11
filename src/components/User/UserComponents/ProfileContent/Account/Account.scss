@@ -1,0 +1,99 @@
+.profile-content{
+    width: 100%;
+    .title-tk-2021{
+        font-family: "Open Sans",Arial,sans-serif;
+        word-break: break-word;
+        box-sizing: border-box;
+        width: 100%;
+        float: left;
+        margin: 15px 20px 0;
+        padding-bottom: 15px;
+        font-size: 20px;
+        color: #000;
+        border-bottom: 1px solid #efefef;
+        width: 100%;
+    }
+    .box-cus-info-2021-ct{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+
+    
+        .item-tk{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            label{
+                color: rgba(85, 85, 85, .8);
+                width: 15%;
+                text-align: right;
+                font-size: 14px;
+                line-height: 2.5;
+                height: 40px;
+                margin-right: 20px;
+                float: right;
+            }
+        
+            .item-tk-ct{
+                width: calc(100% - 180px);
+                float: left;
+                height: 100%;
+                .inputText{
+                    height: 100%;
+                    width: 100%;
+                    background: #f5f5f5;
+                    border: solid 1px #e1e1e1;
+                    border-radius: 2px;
+                    padding: 0px 10px;
+                
+                }
+                .item-tk-ct-note{
+                    font-family: "Open Sans",Arial,sans-serif;
+                    color: #333e48;
+                    word-break: break-word;
+                    font-size: 12px;
+                    box-sizing: border-box;
+                    width: 100%;
+                    float: left;
+                }
+                .item-input-tk{
+                
+                }
+                .label-select-radio{
+                
+                }
+                .tk-btn-submit{
+                    width: 230px;
+                    float: left;
+                    text-align: center;
+                    border: none;
+                    line-height: 55px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    color: #fff;
+                    background: #ed1b24;
+                    text-decoration: none;
+                    font-family: "Open Sans",Arial,sans-serif;
+                    a{
+                        word-break: break-word;
+                        box-sizing: border-box;
+                        cursor: pointer;
+                        text-decoration: none;
+                        transition: all .2s ease;
+                        width: 230px;
+                        float: left;
+                        text-align: center;
+                        border: none;
+                        line-height: 55px;
+                        border-radius: 5px;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+    
+                }
+            }
+            }
+    }
+}

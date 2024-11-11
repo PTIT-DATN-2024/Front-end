@@ -41,7 +41,7 @@ const Header = (props) => {
         navigate("/");
     };
     const gotoProfilePage = () => {
-        navigate("/profilePage");
+        navigate("/");
     };
     const handleSearch = (e) => {
         e.preventDefault();
@@ -197,12 +197,15 @@ const Header = (props) => {
                                     <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
                                     <div className="cart-count">
                                         {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
-
                                     </div>
                                 </div>
 
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                    <NavDropdown.Item onclick={() => gotoProfilePage()}>Profile</NavDropdown.Item>
+                                    <NavDropdown.Item >
+                                        <NavLink to="/profilePage" className="nav-link">
+                                            Profile
+                                        </NavLink>
+                                    </NavDropdown.Item>
                                     <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
                                 </NavDropdown>
                             </>
