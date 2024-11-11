@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import React, { useState, useEffect, useRef } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./Header.scss";
-import { BsCartCheck } from "react-icons/bs";
+import { BsBell  } from "react-icons/bs";
 import { getSearchProduct } from "../../../services/apiServices";
 const Header = (props) => {
     const dispatch = useDispatch();
@@ -95,25 +95,18 @@ const Header = (props) => {
         <Navbar expand="lg" className="bg-body-tertiary headerContainer">
             <Container>
                 <Navbar.Brand>
-                    <NavLink to="/" className="nav-link navbar-brand">
+                    <NavLink to="/staffs" className="nav-link navbar-brand">
                         <img src="/v1/uploads/bgImages/1729231869739.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
                     </NavLink>
                 </Navbar.Brand>
                 <div className="navbar-toggler init">
-                    <BsCartCheck size={50} className=" navbar-toggler navbar-nav-cart btn_icon" onClick={props.toggleDiv} />
+                    <BsBell size={50} className=" navbar-toggler navbar-nav-cart btn_icon" onClick={props.toggleDiv} />
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 </div>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavLink to="/" className="nav-link">
-                            Home
-                        </NavLink>
                         <NavLink to="/staffs" className="nav-link">
-                            Staff
-                        </NavLink>
-
-                        <NavLink to="/productFilterPage" className="nav-link">
-                            product
+                            Home staff
                         </NavLink>
                         <NavLink to="OrderManagement" className="nav-link">
                             Quản lí đơn hàng
@@ -173,9 +166,9 @@ const Header = (props) => {
                         ) : (
                             <>
                                 <div className="nav-link cart-container" onClick={() => {
-                                    navigate("/PayPage");
+                                    navigate("/staffs");
                                 }}>
-                                    <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
+                                    <BsBell size={30} className="navbar-nav-cart btn_icon  " />
                                     <div className="cart-count">
 
                                     </div>

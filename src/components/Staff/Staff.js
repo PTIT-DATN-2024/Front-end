@@ -10,9 +10,9 @@ const Staff = (props) => {
         <div className="homeStaffContainer">
             <Header />
             <div className="staff-container">
-                <div className="staff-sidebar">
+                {/* <div className="staff-sidebar">
                     <SidebarStaff />
-                </div>
+                </div> */}
                 <div className="staff-content">
                     {/* <PerfectScrollbar> */}
                         <div className="staff_main">

@@ -22,6 +22,7 @@ const UserManagementStaff = (props) => {
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
+    
     const handleClickBtnUpdate = (user) => {
         setShowModalUpdateUser(true);
         setDataUpdate(user);
