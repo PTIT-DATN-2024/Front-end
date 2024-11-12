@@ -89,7 +89,7 @@ const ProductsPage = (props) => {
     const buyNow = (productId) => {
         addProductOrder(product._id, quantity);
 
-        if (userState.role === 'STAFF' || userState.role === 'ADMIN') {
+        if (userState.role === 'STAFF') {
 
             navigate('/staffs');
         } else {

@@ -1,31 +1,138 @@
 
 .HomeStaff-container{
+    .customer_info{
+        .btn_acc{
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+        }
+        .searchBox{
+            padding: 20px;
+            .input_search{
 
 
+            }
+            .result{
+                margin-top: 10px;
+                width: 400px;
+                min-height: 200px;
+                box-shadow: 0px 0px 5px 0 rgba(167, 167, 167, 0.5);
+                padding: 10px;
+                .item{
+                    padding: 6px;
+                    height: 30px;
+                    border-radius: 4px;
+                    &:hover{
+                        background-color: #e2e2e2;
+                        color: #000000;
+                    }
+                }
+            }
+        }
+        .info_user_order{
+            .box-cus-info-2021-ct{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 20px;
+    
+            
+                .item-tk{
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    label{
+                        color: rgba(85, 85, 85, .8);
+                        width: 10%;
+                        text-align: left;
+                        font-size: 14px;
+                        line-height: 2.5;
+                        height: 40px;
+                        margin-right: 20px;
+                        float: right;
+                    }
+                
+                    .item-tk-ct{
+                        width: calc(50% - 120px);
+                        float: left;
+                        height: 100%;
+                        .inputText{
+                            height: 100%;
+                            width: 100%;
+                            background: #f5f5f5;
+                            border: solid 1px #e1e1e1;
+                            border-radius: 2px;
+                            padding: 0px 10px;
+                        
+                        }
+                        .item-tk-ct-note{
+                            font-family: "Open Sans",Arial,sans-serif;
+                            color: #333e48;
+                            word-break: break-word;
+                            font-size: 12px;
+                            box-sizing: border-box;
+                            width: 100%;
+                            float: left;
+                        }
+                        .item-input-tk{
+                        
+                        }
+                        .label-select-radio{
+                        
+                        }
+                        .tk-btn-submit{
+                            width: 230px;
+                            float: left;
+                            text-align: center;
+                            border: none;
+                            line-height: 55px;
+                            border-radius: 5px;
+                            font-size: 14px;
+                            color: #fff;
+                            background: #ed1b24;
+                            text-decoration: none;
+                            font-family: "Open Sans",Arial,sans-serif;
+                            a{
+                                word-break: break-word;
+                                box-sizing: border-box;
+                                cursor: pointer;
+                                text-decoration: none;
+                                transition: all .2s ease;
+                                width: 230px;
+                                float: left;
+                                text-align: center;
+                                border: none;
+                                line-height: 55px;
+                                border-radius: 5px;
+                                font-size: 14px;
+                                color: #fff;
+                            }
+            
+                        }
+                    }
+                    }
+            }
+        }
+    }
     .PaylistOrderContent{
         margin-top: 40px;
         width: 100%;
+        margin-bottom: 600px;
     
-        .header{
-            width: 100%;
-            font-family: "Open Sans",Arial,sans-serif;
-            word-break: break-word;
-            box-sizing: border-box;
-            float: left;
-            font-size: 22px;
-            font-weight: 700;
-            color: #000;
-            margin-bottom: 10px;
-        
-        }
+
         .cart-content-2021{
             width: 100%;
             display: flex;
             min-height: 300px;
+            gap: 10px;
             .cart-content-2021-left{
                 flex: 1;
                 width: 72%;
+                box-shadow: 0px 0px 5px 0 rgba(167, 167, 167, 0.5);
+                padding: 20px;
                 .header-cart-ct-left{
+                    border-bottom: 1px solid #bebebe;
                     width: 100%;    
                     color: #333e48;
                     word-break: break-word;
@@ -42,10 +149,11 @@
                     height: 42px;
                     font-family: "Open Sans",Arial,sans-serif;
                     word-break: break-word;
-                    font-size: 14px;
+                    font-size: 16px;
                     color: #000;
                     line-height: 19px;
                     box-sizing: border-box;
+                    font-weight: 600;
                     .cart-col-product{
                         flex: 1;
                         height: 100%;
@@ -168,6 +276,8 @@
                 }
             }
             .cart-content-2021-right{
+                box-shadow: 0px 0px 5px 0 rgba(167, 167, 167, 0.5);
+                padding: 20px;
                 height: 100%;
                 width: calc(28% - 10px);
                 .box-cart-total-price{
@@ -191,7 +301,7 @@
                         
                         }
                         .cart-vat{
-                        
+                            
                         }
                         .listOrderBottom{
                         
@@ -214,6 +324,7 @@
                     font-weight: 500;
                     color: #fff;
                     background: #243a76;
+                    margin-top: 10px;
                 }
                 
             }

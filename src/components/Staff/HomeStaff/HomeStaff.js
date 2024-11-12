@@ -158,7 +158,7 @@ const HomeStaff = () => {
     // Chọn khách hàng
     const handleSelectCustomer = (user) => {
         setCustomerInfo(user);
-        setSearchQuery("?"); // Xóa ô tìm kiếm sau khi chọn khách hàng
+        // setSearchQuery("?"); // Xóa ô tìm kiếm sau khi chọn khách hàng
     };
     // Mở modal tạo tài khoản mới
     const handleCreateNewUser = () => {
@@ -171,10 +171,12 @@ const HomeStaff = () => {
                 setShow={setShowModalCreateUser}
                 fetchListUsers={fetchListUsers}
             />
+            <h2>Tạo đơn hàng mới</h2>
+            <TableProduct />
             {/* Thông Tin Khách Hàng */}
-            <div className="customer-info">
-                <h2>Tạo đơn hàng mới</h2>
-                <div>
+            <div className="customer_info">
+
+                <div className='btn_acc'>
                     <Button
                         variant={isExistingCustomer === true ? "primary" : "secondary"}
                         onClick={() => setIsExistingCustomer(true)}
@@ -193,20 +195,31 @@ const HomeStaff = () => {
 
                 </div>
                 {isExistingCustomer === true && (
-                    <div>
+                    <div className='searchBox'>
                         <input
                             type="text"
                             placeholder="Nhập email hoặc số điện thoại"
                             value={searchQuery}
                             onChange={handleSearchChange}
+                            className='input_search'
                         />
-                        <div>
+                        <div className='result'>
                             {filteredUsers.length > 0 ? (
                                 <>
                                     {filteredUsers.map((user) => (
-                                        <div key={user.email} onClick={() => handleSelectCustomer(user)}>
+                                        <div
+                                            key={user.email}
+                                            onClick={() => handleSelectCustomer(user)}
+                                            className="item"
+                                            style={
+                                                user?._id === customerInfo?._id
+                                                    ? { backgroundColor: '#e2e2e2', color: '#000000' }
+                                                    : {}
+                                            }
+                                        >
                                             {user.email} - {user.phoneNumber}
                                         </div>
+
                                     ))}
                                 </>
                             ) : (
@@ -216,11 +229,43 @@ const HomeStaff = () => {
                     </div>
                 )}
                 <div className="info_user_order">
-                    <h3>Thông tin khách hàng:</h3>
-                    <p>Id: {customerInfo?._id || "Chưa cập nhật"}</p>
-                    <p>Email: {customerInfo?.email || "Chưa cập nhật"}</p>
-                    <p>Địa chỉ: {customerInfo?.address || "Chưa cập nhật"}</p>
-                    <p>Số điện thoại: {customerInfo?.phoneNumber || "Chưa cập nhật"}</p>
+                    <div className="box-cus-info-2021-ct" id="manhinhtaikhoan1">
+                        <div className="item-tk">
+                            <label>Họ tên</label>
+                            <div className="item-tk-ct">
+                                <input type="text" value={customerInfo?._id || "Chưa cập nhật"} className="inputText" readOnly />
+                                <div className="item-tk-ct-note"></div>
+                            </div>
+                        </div>
+                        <div className="item-tk">
+                            <label>Số điện thoại</label>
+                            <div className="item-tk-ct">
+                                <input type="text" value={customerInfo?.phoneNumber || "Chưa cập nhật"} className="inputText" readOnly />
+                                <div className="item-tk-ct-note" id="js-sms-result"></div>
+                            </div>
+                        </div>
+                        <div className="item-tk">
+                            <label>Email</label>
+                            <div className="item-tk-ct">
+                                <input type="text" value={customerInfo?.email || "Chưa cập nhật"} className="inputText" readOnly />
+                                <div className="item-tk-ct-note"></div>
+                            </div>
+                        </div>
+                        <div className="item-tk">
+                            <label>Giới tính</label>
+                            <div className="item-tk-ct label-select-radio">
+                                <input type="text" value="Nam" className="inputText" readOnly />
+                            </div>
+                        </div>
+                        <div className="item-tk">
+                            <label>Địa chỉ</label>
+                            <div className="item-tk-ct">
+                                <input type="text" value={customerInfo?.address || "Chưa cập nhật"} className="inputText" readOnly />
+                                <div className="item-tk-ct-note"></div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -299,7 +344,7 @@ const HomeStaff = () => {
             </div>
 
             {/* Bảng Sản Phẩm */}
-            <TableProduct />
+
         </div>
     );
 };

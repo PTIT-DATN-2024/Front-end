@@ -95,7 +95,7 @@ const Header = (props) => {
         <Navbar expand="lg" className="bg-body-tertiary headerContainer">
             <Container>
                 <Navbar.Brand>
-                    <NavLink to="/staffs" className="nav-link navbar-brand">
+                    <NavLink to="/" className="nav-link navbar-brand">
                         <img src="/v1/uploads/bgImages/1729231869739.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
                     </NavLink>
                 </Navbar.Brand>
