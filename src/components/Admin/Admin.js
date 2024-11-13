@@ -12,7 +12,6 @@ const Admin = (props) => {
                 <Sidebar />
             </div>
             <div className="admin-content">
-                <div className="admin_header">admin-header</div>
                 <PerfectScrollbar>
                     <div className="admin_main">
                         <Outlet />

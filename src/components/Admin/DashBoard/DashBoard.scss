@@ -1,0 +1,87 @@
+.DashBoard-container{
+    width: 100%;
+    display: flex;
+    .eco_dashBoard_left{
+        padding: 0px 12px;
+        margin-top: 24px;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        background-color: #F5F7FA;
+        h2{
+            height: 55px;
+            margin-bottom: 55px;
+        }
+        .statistics_order{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;   
+        
+            .ordernew{
+                
+            
+            }
+            .orderproces{
+
+            }
+            .ordercancle{
+
+            }
+
+        }
+        .total_sell_selection{
+            height: 65px;
+            width: calc(100% );
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .heading{
+
+                .header{
+                    
+    
+                }
+                .desc{
+    
+                }
+            }
+            .selectBox{
+                width: 195px;
+                height: 34px;
+                background-color: #FFFFFF;
+                border: 1px solid #000;
+                border-radius: 8px;
+
+            }
+        
+        }
+        .total_sell_chart{
+            height: 320px;
+            width: 100%;
+            
+        }
+    }
+    .eco_dashBoard_right{
+    
+        .item_top{
+        
+            .left{
+            
+            }
+            .right{
+            
+            }
+        }
+        .bottom{
+            .left{
+            
+            }
+            .right{
+            
+            }
+
+        }
+    }
+}

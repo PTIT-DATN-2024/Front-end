@@ -1,10 +1,11 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import "./tableOrderPaginate.scss";
+import { PiCodepenLogo } from "react-icons/pi";
 
 const TableOrdersPaginate = (props) => {
     const items = props.listOrders;
-
+    console.log(props);
     // Status options with full labels
     const orderStatusOptions = [
         { label: "Chờ xác nhận", value: "CXN" },
@@ -16,7 +17,7 @@ const TableOrdersPaginate = (props) => {
 
     const [filteredItems, setFilteredItems] = useState(items);
     const [filters, setFilters] = useState({
-        timeSort: "", // "" means no sorting
+        timeSort: "asc", // "" means no sorting
         userEmail: "",
         product: "",
         status: "",
@@ -31,7 +32,6 @@ const TableOrdersPaginate = (props) => {
     // Filter function
     const applyFilters = () => {
         let newFilteredItems = [...items];
-
         // Filter by user email (if provided)
         if (filters.userEmail) {
             newFilteredItems = newFilteredItems.filter((order) =>
@@ -59,14 +59,17 @@ const TableOrdersPaginate = (props) => {
                 newFilteredItems.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             }
         }
-
         setFilteredItems(newFilteredItems);
     };
 
     useEffect(() => {
-        // When the page loads or filters are changed, apply the filters
-        applyFilters();
-    }, [filters]);
+        if (filters.timeSort || filters.userEmail || filters.product || filters.status) {
+            applyFilters(); // Áp dụng bộ lọc chỉ khi có bộ lọc được chọn
+        } else {
+            setFilteredItems(items); // Hiển thị tất cả đơn hàng nếu không có bộ lọc
+        }
+    }, [filters, items]);
+
 
     function Items({ currentItems, itemOffset }) {
         return (
@@ -74,20 +77,16 @@ const TableOrdersPaginate = (props) => {
                 {currentItems && currentItems.length > 0 ? (
                     currentItems.map((order, index) => (
                         <div key={`order_${index}`} className="order-item">
-                            <div className="order-item-index">{itemOffset + index + 1}</div>
-                            <div className="order-id">{order._id}</div>
-                            <div className="order-time">{order.createdAt}</div>
+                            {/* <div className="order-item-index">{itemOffset + index + 1}</div>
+                            <div className="order-id">{order._id.slice(0, 5)}</div> */}
+                            <div className="order-time"> {new Date(order.createdAt).toISOString().slice(0, 10)}</div>
                             <div className="order-avatar">
                                 {order.user.avatarUser && (
-                                    <img src={order.user.avatarUser} alt="" className="tableOrder_avatarUser" />
+                                    <img src={order.user.avatarUser} alt="" className="tableOrder_avatarUsers" />
                                 )}
+                                <div className="order-user">{order.user.emailUser}</div>
                             </div>
-                            <div className="order-user">{order.user.emailUser}</div>
-                            <div className="order-status">
-                                <span className={`status-label status-${order.statusOrder.toLowerCase()}`}>
-                                    {getStatusLabel(order.statusOrder)} {/* Display full label */}
-                                </span>
-                            </div>
+
                             <div className="order-products">
                                 {order.listItem.map((item, idx) => (
                                     <div key={idx} className="product-item">
@@ -97,21 +96,19 @@ const TableOrdersPaginate = (props) => {
                                             )}
                                         </div>
                                         <div className="product-name">{item.nameProduct}</div>
+                                        {/* <div key={idx} className="product-sellingprice">{item.sellingpriceProduct}</div> */}
+                                        <div key={idx} className="product-quantity">{item.quantity}</div>
+                                        <div key={idx} className="product-sum">{item.sum}</div>
                                     </div>
                                 ))}
                             </div>
-                            <div className="order-quantity">
-                                {order.listItem.map((item, idx) => (
-                                    <div key={idx} className="product-quantity">{item.quantity}</div>
-                                ))}
-                            </div>
-                            <div className="order-sum">
-                                {order.listItem.map((item, idx) => (
-                                    <div key={idx} className="product-sum">{item.sum}</div>
-                                ))}
-                            </div>
                             <div className="order-total">{order.total}</div>
-                            <div className="order-settings">
+                            <div className="order-status">
+                                <span className={`status-label status-${order.statusOrder.toLowerCase()}`}>
+                                    {getStatusLabel(order.statusOrder)}
+                                </span>
+                            </div>
+                            <div className="order-settings-staff">
                                 <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(order)}>View</button>
                                 <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(order)}>Edit</button>
                                 <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(order)}>Delete</button>
@@ -182,7 +179,7 @@ const TableOrdersPaginate = (props) => {
                         value={filters.timeSort}
                         onChange={(e) => setFilters({ ...filters, timeSort: e.target.value })}
                     >
-                        <option value="">--All--</option>
+                        <option value="">All</option>
                         <option value="desc">Newest First</option>
                         <option value="asc">Oldest First</option>
                     </select>
@@ -230,6 +227,20 @@ const TableOrdersPaginate = (props) => {
 
             {/* Order Table */}
             <div className="order-table">
+                < div className="header-table"> 
+                        {/* <div className="item header-stt">STT</div>
+                        <div className="item header-code">CODE</div> */}
+                        <div className="item header-date">THỜI GIAN</div>
+                        <div className="item header-user">KHÁCH HÀNG</div>
+                        <div className="item header-nameProduct">TÊN SẢN PHẨM</div>
+                        {/* <div className="item header-price">ĐƠN GIÁ</div> */}
+                        <div className="item header-quantity">SL</div>
+                        <div className="item header-sum">TỔNG</div>
+                        <div className="item header-total">THANH TOÁN</div>
+                        <div className="item header-statusOrder">TRẠNG THÁI</div>
+                        <div className="item header-setting">CÀI ĐẶT</div>
+                        
+                </div>
                 <PaginatedItems itemsPerPage={10} />
             </div>
         </div>

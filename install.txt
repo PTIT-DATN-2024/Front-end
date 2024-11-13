@@ -24,7 +24,7 @@ gti
 git config --list
 git init
 git add .
-git commit -m "start 12/11"
+git commit -m "dashboard 13/11"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin main
 git push origin master
@@ -53,5 +53,12 @@ npm install --save-exact nprogress@0.2.0
 npm install --save-exact redux-persist@6.0.0
 npm install --save-exact react-perfect-scrollbar@1.5.8
 npm install react-slick slick-carousel
+npm install antd chart.js react-chartjs-2 
+npm install @babel/runtime
+npm install --save-dev babel-loader @babel/core @babel/preset-env
+npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+
+
+
 
 

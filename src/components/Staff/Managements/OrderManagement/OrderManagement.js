@@ -41,25 +41,17 @@ const OrderManagementStaff = (props) => {
         if (res.EC === 0) {
             setListOrders(res.orders);
             toast.success(res.MS);
-            console.log("fetch res",res.orders);
+            console.log("fetch list",listOrders);
         }
     };
-
+    useEffect(() => {
+        console.log("Updated listOrders", listOrders);
+    }, [listOrders]);
     useEffect(() => {
         fetchListOrders();
-        console.log("fetch123",listOrders) ;
     },[] );
     return (
         <div className="OrderManagement_container">
-            <div className="Title">đây là OrderManagement</div>
-            <div className="OrderManagement_content">
-                <div>
-                    <Button variant="primary" onClick={() => setShowModalCreateOrder(true)}>
-                        <FcPlus />
-                        Add new Order
-                    </Button>
-                </div>
-            </div>
             <div className="table_Order_management_content">
                 <TableOrdersPaginate listOrders={listOrders}  handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>

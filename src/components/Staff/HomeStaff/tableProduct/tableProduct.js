@@ -134,7 +134,7 @@ const TableProduct = (props) => {
     };
 
     return (
-        <div className="search-page-container">
+        <div className="product-container">
             <div className="tableProduct">
                 <div style={{ marginBottom: "20px" }} className="fillterContainer">
                     <input
@@ -165,7 +165,7 @@ const TableProduct = (props) => {
                     </select>
                 </div>
 
-                <PaginatedItems itemsPerPage={7} />
+                <PaginatedItems itemsPerPage={10} />
             </div>
         </div>
     );

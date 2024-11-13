@@ -1,142 +1,193 @@
-:root {
-    --whiteColor: #fff;
-    --textColor: #5c5c5b;
-    --primaryColor: #00a149;
-    --mainColor: #ffc222;
-    --border: #d9d9d9;
-    --border2: #ffffff2b;
-    --button: #1c2539;
-    --fontFamily: "Oswald", sans-serif;
-    --secondaryColor: #d12121;
-    --blackColor: #212121;
-    --backgroundColor: #f4f1ea;
-}
-
-
-
-
-
-.tableProduct_filter {
-    margin-top: 100px;
-    height: 1030px;
-    width: 80vw;
-    background-position: bottom center;
-    background-size: cover;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    .tableProductHeader{
-        font-size: 60px;
-        margin-bottom: 60px;
-        color: #00a149;
-        font-weight: 600;
-    }
-    .swiper {
+.product-container{
+    width: 1200px;
+    .tableProduct {
         width: 100%;
-        height: 100%;
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        // background-image: url(../../../assets/image/hero-bg.jpg);
-        background-color: transparent;
-        /* Center slide text vertically */
+        height: auto;
+        overflow: hidden;
+        // background-color: #757575;
         display: flex;
-        justify-content: center;
         align-items: center;
-        
-
-        display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        .addmeBtn{
-            padding: 10px 20px;
-            border-radius: 5px;
-            background-color: #69eb2d;
-            cursor: pointer;
-            &:hover{
-                background-color: #cc4f30;
-            }
-        }
-        .SwiperSliceBGI{
-            position: absolute;
-            background-color: #ffffff;
-            width: 100%;
-            height: 260px;
-            border-radius: 10px;
-            top: 0;
-            z-index: 1;
-            transition: ease-out 0.25s;
-        }
-        .SwiperSlideImg {
-            // height: 250px;
-            width: 250px;
-            overflow: hidden;
-            // background-color: #fff;
-            // justify-content: center;
-            // align-items: center;
-            // display: flex;
-            // .SwiperSlideImgItem {
-            //     height: 200px;
-            //     width: 200px;
-            // }
-        }
-        .SwiperSlideDes {
-            margin-top: 20px;
-            line-height: normal;
-            text-align: start;
-            flex: 1;
-            color: #000000;
-            font-size: 18px;
-            font-weight: 700;
-            z-index: 2;
+        .fillterContainer {
+            background-color: #f2f2f2;
+            width: 890px;
+            height: 50px;
+            border-radius: 8px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            flex-direction: column;
-            gap: 5px;
-            .SwiperSlideDes_Price{
-                margin-top: 15px;
+            justify-content: space-between;
+            .itemFilter {
+                --swiper-theme-color: #007aff;
+                --swiper-navigation-size: 44px;
+                word-break: break-word;
+                box-sizing: border-box;
+                font-family: "Open Sans", Arial, sans-serif;
+                margin: 0 20px ;
+                border-color: #ccc;
+                border-radius: 3px;
+                padding-right: 10px;
+                padding-left: 5px;
+                min-width: 180px;
+                height: 30px;
+                font-size: 12px;
             }
-            .SwiperSlideDes_Name{
-                cursor: pointer;
-                &:hover{
-                    color: #fff;
-                }
+            .priceFillter {
             }
-            .SwiperSlideDes_Btn{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                .countItem{
-                    width: 100px;
-                    text-align: center;
-                    border: 1px solid #000;
-                    background-color: #fff;
-                    border-radius: 10px;
-                    margin: 0 10px;
-                    font-size: 18px;
-                    padding: 5px;
-                }
-                .btn_icon{
-                    cursor: pointer;
-                    border-radius: 50%;
-                    &:hover {
-                        background-color: #f4f1ea;
-                        // padding: -1px;
-                        // color: #d82828;
+            .categoryFillter {
+            }
+            .sortFillter {
+            }
+        }
+        .listPd {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); // 3 cột
+            gap: 10px; // Khoảng cách giữa các sản phẩm
+            margin: 20px 0; // Khoảng cách trên và dưới bảng sản phẩm
+            .productSlide {
+                box-sizing: border-box;
+                border-radius: 6px;
+                overflow: hidden;
+                padding: 5px 5px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 3px 3px rgba(165, 165, 165, 0.2);
+                border: 1px solid #dcdcdc;
+                .p-img {
+                    width: 192px;
+                    height: 192px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        display: block;
+                        object-fit: cover;
                     }
-                    
+                }
+                .p-rate {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    .p-count-rate {
+                    }
+                    .p-sku {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        color: #333e48;
+                        word-break: break-word;
+                        -webkit-tap-highlight-color: transparent;
+                        user-select: none;
+                        text-align: left;
+                        box-sizing: border-box;
+                        display: inline-block;
+                        background: #f1f1f1;
+                        text-transform: uppercase;
+                        padding: 3px 5px;
+                        border-radius: 3px;
+                        margin: 0;
+                        font-size: 10px;
+                    }
+                }
+                .p-info {
+                    .p-name {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        word-break: break-word;
+                        -webkit-tap-highlight-color: transparent;
+                        user-select: none;
+                        text-align: left;
+                        box-sizing: border-box;
+                        display: block;
+                        color: #333e48;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        line-height: 18px;
+                        margin-bottom: 8px;
+                        margin-top: 0;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        font-size: 12px;
+                        height: 54px;
+                    }
+                    .p-price {
+                        word-break: break-word;
+                        -webkit-tap-highlight-color: transparent;
+                        user-select: none;
+                        text-align: left;
+                        box-sizing: border-box;
+                        font-size: 22px;
+                        font-weight: 600;
+                        color: #000;
+                        display: block;
+                        font-family: Helvetica, Arial, sans-serif;
+                        margin-top: 4px;
+                    }
+                    .p-discount {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        word-break: break-word;
+                        -webkit-tap-highlight-color: transparent;
+                        user-select: none;
+                        text-align: left;
+                        color: #d82a29;
+                        font-size: 12px;
+                        box-sizing: border-box;
+                        letter-spacing: -0.4px;
+                    }
+                }
+                .p-action {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    overflow: hidden;
+                    height: auto;
+                    .p-qty {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        word-break: break-word;
+                        -webkit-tap-highlight-color: transparent;
+                        user-select: none;
+                        text-align: left;
+                        box-sizing: border-box;
+                        color: #2cc067;
+                        font-size: 14px;
+                        line-height: 30px;
+                    }
+                    .addmeBtn {
+                        font-family: "Open Sans", Arial, sans-serif;
+                        word-break: break-word;
+                        -webkit-tap-highlight-color: transparent;
+                        user-select: none;
+                        text-align: left;
+                        box-sizing: border-box;
+                        cursor: pointer;
+                        text-decoration: none;
+                        transition: 0.2s;
+                        font-size: 15px;
+                        float: right;
+                        color: #fff;
+                        // margin-top: -3px;
+                        border-radius: 50%;
+                        background-color: #ed1b24;
+                        padding: 5px;
+                    }
                 }
             }
         }
-        &:hover .SwiperSliceBGI{
-            background-color: #FFC222;
-            height: 100%;
+    
+        .pagination {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .page-item {
+                .page-link {
+                }
+            }
+            .disabled {
+            }
+    
+            .active {
+            }
         }
     }
 }
