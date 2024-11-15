@@ -84,6 +84,10 @@ const bgImageSchema = new mongoose.Schema({
     img: {
         type: String,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 // name
@@ -100,6 +104,10 @@ const categorySchema = new mongoose.Schema({
     isDeleted: {
         type: Boolean,
         default: false,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
     },
 });
 const commentSchema = new mongoose.Schema({
@@ -189,6 +197,10 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 // email: email,
 // password: password,
@@ -223,6 +235,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
@@ -249,5 +265,4 @@ let Order = mongoose.model("Orders", orderSchema);
 let Comment = mongoose.model("Comments", commentSchema);
 let Voucher = mongoose.model("Vouchers", voucherSchema);
 let BgImage = mongoose.model("BgImages", bgImageSchema);
-module.exports = mongoose.model("Comment", commentSchema);
 module.exports = { User, Product, Category, Order, Voucher, Comment, BgImage };

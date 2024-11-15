@@ -1,4 +1,5 @@
 .DashBoard-container{
+    background-color: #F5F7FA;
     width: 100%;
     display: flex;
     .eco_dashBoard_left{
@@ -7,7 +8,8 @@
         width: 50%;
         display: flex;
         flex-direction: column;
-        background-color: #F5F7FA;
+        justify-content: space-between;
+
         h2{
             height: 55px;
             margin-bottom: 55px;
@@ -38,8 +40,9 @@
             justify-content: space-between;
             align-items: center;
             .heading{
-
+                
                 .header{
+                    
                     
     
                 }
@@ -60,25 +63,58 @@
         .total_sell_chart{
             height: 320px;
             width: 100%;
+            border: 1px solid #000;
+            margin-bottom: 12px;
             
         }
     }
     .eco_dashBoard_right{
+        display: flex;
+        flex-direction: column;
+        // gap: 24px;
     
         .item_top{
-        
+            display: flex;
             .left{
+                height: 300px;width: 300px;
+                background-color: #FFFFFF;
+                border-radius: 10px;
+                border: 1px solid #bcbcbc8f;
+                margin: 12px;
+                padding: 15px;
+                // box-sizing: content-box;
             
             }
             .right{
+                height: 300px;width: 300px;
+                background-color: #FFFFFF;
+                border-radius: 10px;
+                border: 1px solid #bcbcbc8f;
+                margin: 12px;
+                padding: 15px;
             
             }
         }
-        .bottom{
+        .item_bottom{
+            display: flex;
             .left{
+                height: 300px;width: 300px;
+                background-color: #FFFFFF;
+                border-radius: 10px;
+                border: 1px solid #bcbcbc8f;
+                margin: 12px;
+                padding: 15px;
             
             }
             .right{
+                height: 300px;width: 300px;
+                background-color: #FFFFFF;
+                border-radius: 10px;
+                border: 1px solid #bcbcbc8f;
+                border: 1px solid #ffffff00;
+                border: 1px solid transparent;
+                margin: 12px;
+                padding: 15px;
             
             }
 

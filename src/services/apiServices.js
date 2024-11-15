@@ -140,6 +140,16 @@ const deleteComment = (_id) => {
     return axios.delete(`/comment/${_id}`);
 };
 
+
+
+// dashboard 
+const getDataEcommerce = () => {
+    return axios.get("/dashboard/ecommerce");
+};
+
+
+
+
 export {
     postLogin,
     postSignUp,
@@ -178,4 +188,7 @@ export {
     getCommentsProduct,
     putUpdateComment,
     deleteComment,
+
+
+    getDataEcommerce,
 };
