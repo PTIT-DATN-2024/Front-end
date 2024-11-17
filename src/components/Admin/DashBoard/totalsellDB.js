@@ -6,7 +6,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const TotalSellChart = (props) => {
     const dataChart = props.data;
-
     if (!dataChart || !dataChart.dailyRevenueLast30Days) {
         return <div>Đang tải dữ liệu...</div>;
     }
@@ -24,7 +23,7 @@ const TotalSellChart = (props) => {
             {
                 label: 'Tổng doanh thu trung bình',
                 data: Data,
-                borderColor: '#4A90E2',
+                borderColor: '#3874FF',
                 backgroundColor: 'rgba(74, 144, 226, 0.2)',
                 fill: true,
                 borderWidth: 2,
