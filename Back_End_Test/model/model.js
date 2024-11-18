@@ -265,4 +265,5 @@ let Order = mongoose.model("Orders", orderSchema);
 let Comment = mongoose.model("Comments", commentSchema);
 let Voucher = mongoose.model("Vouchers", voucherSchema);
 let BgImage = mongoose.model("BgImages", bgImageSchema);
+module.exports = mongoose.model("Comment", commentSchema);
 module.exports = { User, Product, Category, Order, Voucher, Comment, BgImage };
