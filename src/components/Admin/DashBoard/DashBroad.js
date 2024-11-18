@@ -9,7 +9,7 @@ import TotalSellChart from "./totalsellDB";
 import AvgTotalChart from "./avgTotalChart";
 import DoubleColumnChart from "./DoubleColumnChart ";
 import TripLineChart from "./TripLineChart";
-
+import OrderRatiosChart from "./OrderRatiosChart";
 const DashBoard = () => {
     const [orders, setOrders] = useState([]);
     const [data, setData] = useState({});
@@ -86,8 +86,10 @@ const DashBoard = () => {
 
                 </div>
                 <div className="itemChart">
+                    <OrderRatiosChart data={data} />
 
                 </div>
+
 
             </div>
         </>
