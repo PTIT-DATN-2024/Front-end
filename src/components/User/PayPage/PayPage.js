@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
@@ -7,7 +8,7 @@ import "./PayPage.scss";
 import Table from "react-bootstrap/Table";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { postCreateUserOrder } from "../../../services/apiServices";
+import { postCreateUserOrder, postCreatePayment } from "../../../services/apiServices";
 import { getAllProducts } from "../../../services/apiServices";
 
 const PayPage = (props) => {
@@ -18,6 +19,7 @@ const PayPage = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
     const stateOrder = useSelector((state) => state.listOrder);
     const listCategories = useSelector((state) => state.category.listCategories);
+    const [paymentUrl, setPaymentUrl] = useState("");
     const updateStateOrder = () => {
         dispatch({
             type: "Update_order_user",
@@ -31,7 +33,7 @@ const PayPage = (props) => {
                 type: "fetch_all_product",
                 payload: res.products,
             });
-            
+
 
         }
     };
@@ -75,6 +77,47 @@ const PayPage = (props) => {
         }
         console.log(stateOrder);
     };
+    const handleSubmitOrder1 = async (event) => {
+        // Lọc các sản phẩm có CountOrder > 0
+        let simplifiedList = stateOrder.listItemsOrder
+            .filter(item => item.CountOrder > 0)  // Chỉ giữ lại các sản phẩm có CountOrder > 0
+            .map((item) => {
+                return {
+                    idProduct: item._id,
+                    quantity: item.CountOrder,
+                    sum: item.sellingprice * item.CountOrder,
+                };
+            });
+
+        // Nếu không có sản phẩm hợp lệ (CountOrder > 0), không thực hiện submit
+        if (simplifiedList.length === 0) {
+            toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
+            return;
+        }
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${account.access_token}`,
+            },
+        };
+
+        const formData = {
+            user: account._id,
+            listItem: simplifiedList,
+            total: stateOrder.total,
+        };
+
+        // Gọi API để tạo đơn hàng
+        let res_data = await postCreateUserOrder(formData, config);
+        if (res_data && res_data.EC === 0) {
+            toast.success(res_data.MS);
+            remove();
+        }
+        if (res_data && res_data.EC !== 0) {
+            toast.error(res_data.MS);
+        }
+    };
     const handleSubmitOrder = async (event) => {
         // Lọc các sản phẩm có CountOrder > 0
         let simplifiedList = stateOrder.listItemsOrder
@@ -86,45 +129,40 @@ const PayPage = (props) => {
                     sum: item.sellingprice * item.CountOrder,
                 };
             });
-    
+
         // Nếu không có sản phẩm hợp lệ (CountOrder > 0), không thực hiện submit
         if (simplifiedList.length === 0) {
             toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
             return;
         }
-    
         const config = {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${account.access_token}`,
             },
         };
-    
         const formData = {
-            user: account._id,
-            listItem: simplifiedList,
-            total: stateOrder.total,
-        };
-    
+            "amount": stateOrder.total,// Số tiền thanh toán (VND)
+            "orderInfo": "thanh toan 12345"  // Mô tả đơn hàng
+        }
+
         // Gọi API để tạo đơn hàng
-        let res_data = await postCreateUserOrder(formData, config);
+        let res_data = await postCreatePayment(formData, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
-            remove();
+            setPaymentUrl(res_data.paymentUrl);
         }
         if (res_data && res_data.EC !== 0) {
             toast.error(res_data.MS);
         }
     };
-    
+
 
     return (
         <>
             <div className="PaylistOrderContent">
                 <div className="header">Giỏ hàng</div>
-
                 {/* // */}
-
                 <div className="cart-content-2021">
                     <div className="cart-content-2021-left">
                         <div className="header-cart-ct-left">
@@ -168,11 +206,8 @@ const PayPage = (props) => {
                                     <div>no order</div>
                                 )
                             }
-
-
                         </div>
                     </div>
-                    {/* // */}
                     <div className="cart-content-2021-right">
                         <div class="box-cart-total-price">
                             <p>
@@ -187,17 +222,20 @@ const PayPage = (props) => {
                                 <span>Thành tiền</span>
                                 <span class="red-b total-cart-payment">{stateOrder.total}₫</span>
                             </p>
-
                             <span class="cart-vat">(Đã bao gồm VAT nếu có)</span>
                         </div>
-                        <button class="button-buy-submit-cart" onClick={() => handleSubmitOrder()}>Tiến hành đặt hàng</button>
+                        <button class="button-buy-submit-cart" onClick={() => handleSubmitOrder()}>Tiến hành thanh toán</button>
+                        {paymentUrl && (
+                            <a href={paymentUrl} target="_blank" rel="noopener noreferrer">
+                                <button class="button-buy-submit-cart goVNPay">Thanh toán qua VNPay</button>
+                            </a>
+                        )}
                     </div>
-                    {/* // */}
                 </div>
 
 
 
-                {/* // */}
+
                 <div className="listOrderBottom">
                     <Button
                         variant="success"

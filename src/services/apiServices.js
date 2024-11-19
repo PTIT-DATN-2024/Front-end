@@ -147,6 +147,12 @@ const getDataEcommerce = () => {
     return axios.get("/dashboard/ecommerce");
 };
 
+// pay
+const postCreatePayment = (formData, config) => {
+    return axios.post("/payment/create_payment",formData);
+};
+
+
 
 
 
@@ -191,4 +197,7 @@ export {
 
 
     getDataEcommerce,
+
+
+    postCreatePayment,
 };

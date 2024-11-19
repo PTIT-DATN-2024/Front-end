@@ -10,6 +10,9 @@ import AvgTotalChart from "./avgTotalChart";
 import DoubleColumnChart from "./DoubleColumnChart ";
 import TripLineChart from "./TripLineChart";
 import OrderRatiosChart from "./OrderRatiosChart";
+import { FaStar } from "react-icons/fa";
+import { FaPause } from "react-icons/fa";
+import { IoIosClose } from "react-icons/io";
 const DashBoard = () => {
     const [orders, setOrders] = useState([]);
     const [data, setData] = useState({});
@@ -36,14 +39,32 @@ const DashBoard = () => {
 
     return (
         <>
-
             <div className="DashBoard-container">
                 <div className="eco_dashBoard_left">
                     <h2>Biểu đồ thống kê doanh thu</h2>
                     <div className="statistics_order">
-                        <div className="ordernew">{data?.orderRatios?.newOrdersInWeek} đơn hàng mới</div>
-                        <div className="orderproces">{data?.orderRatios?.processingOrders} đơn hàng đang xử lí</div>
-                        <div className="ordercancle">{data?.orderRatios?.canceledOrdersInWeek} đơn hàng bị hủy</div>
+                        <div className=" item ordernew">
+                            <FaStar className="icon" />
+                            <div className="content">
+                                <div className="heading">{data?.orderRatios?.newOrdersInWeek} đơn hàng mới</div>
+                                <div className="desc">Đang chờ xác nhận</div>
+                            </div>
+                        </div>
+                        <div className=" item orderproces">
+                            <FaPause className="icon" />
+                            <div className="content">
+                                <div className="heading">{data?.orderRatios?.processingOrders} đơn hàng</div>
+                                <div className="desc">Đang giao</div>
+                            </div>
+                        </div>
+                        <div className=" item ordercancle">
+                            <IoIosClose className="icon" />
+                            <div className="content">
+                                <div className="heading">{data?.orderRatios?.canceledOrdersInWeek} đơn hàng</div>
+                                <div className="desc">Đã hủy</div>
+                            </div>
+                        </div>
+
 
                     </div>
                     <div className="total_sell_selection">
@@ -65,11 +86,11 @@ const DashBoard = () => {
                 <div className="eco_dashBoard_right">
                     <div className="item_top">
                         <div className="left"><AvgTotalChart data={data} /></div>
-                        <div className="right">Số lượng khách hàng mới trong 7 ngày </div>
+                        <div className="right"><DoubleColumnChart data={data} /></div>
                     </div>
                     <div className="item_bottom">
-                        <div className="left">top sản phẩm bán chạy trong tuần </div>
-                        <div className="right">tỉ lệ hoàn thành đơn hàng</div>
+                        <div className="left"><TripLineChart data={data} /></div>
+                        <div className="right"><OrderRatiosChart data={data} /></div>
                     </div>
 
 

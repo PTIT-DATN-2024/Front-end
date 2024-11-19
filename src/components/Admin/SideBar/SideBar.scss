@@ -1,11 +1,30 @@
 .pro-sidebar {
-    background-color: #000000 !important;
+    background-color: #FFFFFF !important;
     display: block;
     height: 100vh;
     width: 250px;
-    border: 1px solid #000;
+    border-right: 1px solid #cfcfcf;
     .pro-sidebar-inner{
-        background-color: #000000!important;
+        background-color: #FFFFFF!important;
+        .pro-icon-wrapper{
+            background-color: #fff!important;
+            color: #000000;
+        }
+        .pro-item-content{
+            color: #000000;
+            .nav-link{
+                color: #000000;
+
+            }
+            .nav-link .active{
+                color: rgb(10, 130, 228) !important;
+            }
+        }
+        .pro-menu-item{
+            .pro-inner-list-item{
+                background-color: #fff!important;
+            }
+        }
     }
 
 }

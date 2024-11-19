@@ -39,6 +39,11 @@ https://chrome.google.com/webstore/detail/reduxdevtools/lmhkpmbekcpmknklioeibfk
 
 be
 npm install express mongoose bcryptjs jsonwebtoken body-parser
+npm install express body-parser qs crypto cors
+npm install moment-timezone
+npm install crypto-js
+
+
 
 
 npm install --save-exact sass@1.53.0

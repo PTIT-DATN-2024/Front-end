@@ -2,6 +2,7 @@
     background-color: #F5F7FA;
     width: 100%;
     display: flex;
+    padding: 10px;
     .eco_dashBoard_left{
         padding: 0px 12px;
         margin-top: 24px;
@@ -21,16 +22,58 @@
             align-items: center;
             height: 70px;   
         
-            .ordernew{
-                
-            
+            // General styling for items
+            .item {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                border-radius: 8px;
+                margin-bottom: 15px;
+                background-color: #f9f9f9;
+                transition: background-color 0.3s ease;
+                cursor: pointer;
+                &:hover{
+                    background-color: #dfdfdf;
+                }
+                .icon {
+                    font-size: 30px; // Size of the icon
+                    margin-right: 15px;
+                    font-weight: 700;
+                }
+                .content {
+                    flex-grow: 1;
+                    .heading {
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: #333;
+                    }
+                    .desc {
+                        font-size: 14px;
+                        color: #777;
+                    }
+                }
             }
-            .orderproces{
 
+            // Specific colors for different icons
+            .ordernew {
+                .icon {
+                    color: #ff9800; // Orange for new orders
+                }
             }
-            .ordercancle{
 
+            .orderproces {
+                .icon {
+                    color: #2196F3; // Blue for processing orders
+                }
             }
+
+            .ordercancle {
+                .icon {
+                    color: #f44336; // Red for canceled orders
+                    font-size: 60px;
+                }
+            }
+
 
         }
         .total_sell_selection{
@@ -65,14 +108,14 @@
             width: 100%;
             border: 1px solid #000;
             margin-bottom: 12px;
-            
+            cursor: pointer;
         }
     }
     .eco_dashBoard_right{
         display: flex;
         flex-direction: column;
         width: 50%;
-    
+        cursor: pointer;
         .item_top{
             display: flex;
             width: 100%;
@@ -125,6 +168,7 @@
     }
 }
 .listChart{
+    padding: 10px;
     width: 100%;
     border: 1px dashed #000000;
     min-height: 500px;
@@ -132,6 +176,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #F5F7FA;
     .itemChart{
         width: 100%;
         max-height: 400px;
