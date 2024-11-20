@@ -1,0 +1,22 @@
+.result-payment {
+    text-align: center;
+    padding: 20px;
+    min-height: 700px;
+}
+
+.status-message {
+margin: 20px 0;
+font-size: 18px;
+}
+
+.status-message.success {
+color: green;
+}
+
+.status-message.failed {
+color: red;
+}
+
+.status-message.error {
+color: orange;
+}

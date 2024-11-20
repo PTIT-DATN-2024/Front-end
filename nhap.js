@@ -1,0 +1,24 @@
+// http://localhost:3000/?
+// vnp_Amount=160000000
+// &vnp_BankCode=VNPAY
+// &vnp_CardType=QRCODE
+// &vnp_OrderInfo=Thanh+toan+cho+ma+GD%3AORDER_1732040661873
+// &vnp_PayDate=20241120012422
+// &vnp_ResponseCode=24
+// &vnp_TmnCode=F1I9CX1U&vnp_TransactionNo=0
+// &vnp_TransactionStatus=02&vnp_TxnRef=ORDER_1732040661873
+// &vnp_SecureHash=5ca096c
+
+// http://localhost:3000/
+// ?vnp_Amount=160000000
+// &vnp_BankCode=NCB
+// &vnp_BankTranNo=VNP14683793
+// &vnp_CardType=ATM
+// &vnp_OrderInfo=Thanh+toan+cho+ma+GD%3AORDER_1732042572554
+// &vnp_PayDate=20241120015656
+// &vnp_ResponseCode=00
+// &vnp_TmnCode=F1I9CX1U
+// &vnp_TransactionNo=14683793
+// &vnp_TransactionStatus=00
+// &vnp_TxnRef=ORDER_1732042572554
+// &vnp_SecureHash=5f367af58

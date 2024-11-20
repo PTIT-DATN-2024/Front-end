@@ -24,7 +24,7 @@ gti
 git config --list
 git init
 git add .
-git commit -m "dashboard 18/11"
+git commit -m "vnp 20/11"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin main
 git push origin master

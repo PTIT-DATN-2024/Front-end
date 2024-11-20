@@ -32,6 +32,7 @@ import { ToastContainer, toast } from "react-toastify";
 import PrivateRouter from "./router/PrivateRouter";
 import PayPage from "./components/User/PayPage/PayPage";
 import SearchPage from "./components/User/SearchPage/SearchPage";
+import ResultPaymentPage from "./components/User/ResultPaymentPage/ResultPaymentPage";
 const App = () => {
     return (
         <>
@@ -48,6 +49,7 @@ const App = () => {
                         <Route path="PayPage" element={<PayPage />}></Route>
                         <Route path="searchPage" element={<SearchPage />} />
                         <Route path="profilePage" element={<ProfilePage />} />
+                        <Route path="resultPaymentPage" element={<ResultPaymentPage />} />
                     </Route>
                     <Route
                         path="admins"

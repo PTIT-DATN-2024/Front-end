@@ -135,15 +135,21 @@ const PayPage = (props) => {
             toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
             return;
         }
-        const config = {
+        let config = {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${account.access_token}`,
             },
         };
-        const formData = {
+        const dataOrder = {
+            user: account._id,
+            listItem: simplifiedList,
+            total: stateOrder.total,
+        };
+        let formData = {
             "amount": stateOrder.total,// Số tiền thanh toán (VND)
-            "orderInfo": "thanh toan 12345"  // Mô tả đơn hàng
+            "orderInfo": "thanh toan 12345",  // Mô tả đơn hàng
+            dataOrder: dataOrder
         }
 
         // Gọi API để tạo đơn hàng
@@ -232,10 +238,6 @@ const PayPage = (props) => {
                         )}
                     </div>
                 </div>
-
-
-
-
                 <div className="listOrderBottom">
                     <Button
                         variant="success"
@@ -252,6 +254,14 @@ const PayPage = (props) => {
                         }}
                     >
                         Home
+                    </Button>
+                    <Button
+                        variant="success"
+                        onClick={() => {
+                            navigate("/resultPaymentPage");
+                        }}
+                    >
+                        resultPaymentPage
                     </Button>
 
                 </div>
