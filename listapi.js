@@ -1,5 +1,8 @@
 // apiDocumentation.js
 
+import { faDashboard } from "@fortawesome/free-solid-svg-icons";
+import { imageListClasses } from "@mui/material";
+
 const apiDocumentation = [
     // USER API
     {
@@ -657,3 +660,12 @@ const apiDocumentation = [
 ];
 
 export default apiDocumentation;
+
+
+// user 
+// product
+// category
+// order
+// comment
+// Dashboard
+// image

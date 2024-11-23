@@ -44,7 +44,17 @@ const ResultPaymentPage = () => {
             dispatch({ type: "Update_order_user", payload: listProducts });
         }
     }, [listProducts, dispatch]);
-
+    const remove = async () => {
+        try {
+            await dispatch({
+                type: "Clear_order_user",
+            });
+            toast.success("clear done!");
+        } catch (error) {
+            toast.error("Failed to clear order.");
+        }
+        console.log(stateOrder);
+    };
     // Xử lý trạng thái thanh toán dựa trên các tham số từ URL
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -56,6 +66,7 @@ const ResultPaymentPage = () => {
                 setPaymentStatus('success');
                 setMessage(`Thanh toán thành công! Mã giao dịch: ${params.get('vnp_TxnRef')}`);
                 handleStateOrder(params.get('vnp_TxnRef'));
+                remove();
                 break;
             case '07':
                 setPaymentStatus('failed');
