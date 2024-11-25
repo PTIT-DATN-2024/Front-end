@@ -15,7 +15,6 @@ import { getSearchProduct } from "../../../../services/apiServices";
 const Header = (props) => {
     const dispatch = useDispatch();
     const token = useSelector((state) => state.user.account.access_token);
-
     const stateOrder = useSelector((state) => state.listOrder);
     const [suggestions, setSuggestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -23,10 +22,8 @@ const Header = (props) => {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const account = useSelector((state) => state.user.account);
     const searchRef = useRef(null);
-
     // console.log(isAuthenticated, account);
     let navigate = useNavigate();
-
     const handleLogIn = () => {
         navigate("/login");
     };
@@ -48,12 +45,10 @@ const Header = (props) => {
         const searchQuery = e.target.elements.search.value;
         navigate(`/search?query=${searchQuery}`);
     };
-
     const fetchSuggestions = async (query) => {
         // Gọi API để lấy danh sách sản phẩm gợi ý
         try {
             const response = await getSearchProduct(query);
-
             // Kiểm tra mã phản hồi (EC) và xử lý tương ứng
             if (response.EC === 0) {
                 // Tìm kiếm thành công
@@ -71,7 +66,6 @@ const Header = (props) => {
             setErrorMessage("0 results"); // Hiển thị thông báo "0 kết quả"
         }
     };
-
     const handleSearchChange = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
@@ -112,73 +106,82 @@ const Header = (props) => {
                 </div>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavLink to="/" className="nav-link">
-                            Home
-                        </NavLink>
-                        {account.role === "ADMIN" && (
-                            <NavLink to="/admins" className="nav-link">
-                                Admin
+                        {(account.role === "USER" || account.role === "ADMIN") && (
+                            <NavLink to="/" className="nav-link">
+                                Trang Chủ
                             </NavLink>
                         )}
-
-                        <NavLink to="/staffs" className="nav-link">
-                            Staff
-                        </NavLink>
-
-                        <NavLink to="/productFilterPage" className="nav-link">
-                            product
-                        </NavLink>
-                        <NavLink to="/profilePage" className="nav-link">
-                            Profile
-                        </NavLink>
-                        <NavLink to="/blogsPage" className="nav-link">
-                            Blogs
-                        </NavLink>
-                        <NavLink to="/aboutPage" className="nav-link">
-                            About Us
-                        </NavLink>
-                        <NavLink to="/contactPage" className="nav-link">
-                            Contact
-                        </NavLink>
-                    </Nav>
-                    {/* Search Bar */}
-                    <Form ref={searchRef} className="d-flex position-relative box-search" onSubmit={handleSearchSubmit}>
-                        <Form.Control type="search" placeholder="Search" className="me-2" name="search" value={searchQuery} onChange={handleSearchChange} aria-label="Search" autoComplete="off" />
-                        <Button type="submit" variant="outline-success">
-                            Search
-                        </Button>
-
-                        {/* Suggestions List */}
-                        {suggestions.length > 0 ? (
-                            <div className="position-absolute suggestion-list">
-                                {suggestions.map((product) => (
-                                    <div
-                                        key={product.id}
-                                        onClick={() => {
-                                            navigate(`/productsPage/${product._id}`);
-                                            setSuggestions([]); // Ẩn gợi ý sau khi chọn
-                                            setSearchQuery(""); // Reset thanh tìm kiếm
-                                        }}
-                                        className="list-group-item"
-                                    >
-                                        <div class="p-img">
-                                            <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
-                                        </div>
-                                        <div className="info">
-                                            <p class="p-name">{product.name}</p>
-                                            <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            errorMessage && (
-                                <ListGroup className="position-absolute suggestion-list">
-                                    <ListGroup.Item>{errorMessage}</ListGroup.Item> {/* Hiển thị thông báo lỗi */}
-                                </ListGroup>
-                            )
+                        {(account.role === "USER" || account.role === "ADMIN") && (
+                            <NavLink to="/productFilterPage" className="nav-link">
+                                Sản Phẩm
+                            </NavLink>
                         )}
-                    </Form>
+                        {(account.role === "USER" || account.role === "ADMIN") && (
+                            <NavLink to="/blogsPage" className="nav-link">
+                                Bài Viết
+                            </NavLink>
+                        )}
+                        {(account.role === "USER" || account.role === "ADMIN") && (
+                            <NavLink to="/aboutPage" className="nav-link">
+                                Giới thiệu
+                            </NavLink>
+                        )}
+                        {(account.role === "USER" || account.role === "ADMIN") && (
+                            <NavLink to="/contactPage" className="nav-link">
+                                Thông tin liên hệ
+                            </NavLink>
+                        )}
+                                                {account.role === "ADMIN" && (
+                            <NavLink to="/admins" className="nav-link">
+                                Quản Lí !
+                            </NavLink>
+                        )}
+                        {(account.role === "STAFF" || account.role === "ADMIN") && (
+                            <NavLink to="/staffs" className="nav-link">
+                                Nhân Viên !
+                            </NavLink>
+                        )}
+                    </Nav>
+                    {account.role === "USER" && (
+                        <Form Form ref={searchRef} className="d-flex position-relative box-search" onSubmit={handleSearchSubmit}>
+                            <Form.Control type="search" placeholder="Search" className="me-2" name="search" value={searchQuery} onChange={handleSearchChange} aria-label="Search" autoComplete="off" />
+                            <Button type="submit" variant="outline-success">
+                                Search
+                            </Button>
+
+                            {/* Suggestions List */}
+                            {suggestions.length > 0 ? (
+                                <div className="position-absolute suggestion-list">
+                                    {suggestions.map((product) => (
+                                        <div
+                                            key={product.id}
+                                            onClick={() => {
+                                                navigate(`/productsPage/${product._id}`);
+                                                setSuggestions([]); // Ẩn gợi ý sau khi chọn
+                                                setSearchQuery(""); // Reset thanh tìm kiếm
+                                            }}
+                                            className="list-group-item"
+                                        >
+                                            <div class="p-img">
+                                                <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                            </div>
+                                            <div className="info">
+                                                <p class="p-name">{product.name}</p>
+                                                <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                errorMessage && (
+                                    <ListGroup className="position-absolute suggestion-list">
+                                        <ListGroup.Item>{errorMessage}</ListGroup.Item> {/* Hiển thị thông báo lỗi */}
+                                    </ListGroup>
+                                )
+                            )}
+                        </Form>
+                    )}
+                    {/* Search Bar */}
                     <Nav>
                         {isAuthenticated === false ? (
                             <>
@@ -199,7 +202,6 @@ const Header = (props) => {
                                         {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
                                     </div>
                                 </div>
-
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">
                                     <NavDropdown.Item >
                                         <NavLink to="/profilePage" className="nav-link">
@@ -213,7 +215,7 @@ const Header = (props) => {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     );
 };
 

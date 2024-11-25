@@ -24,10 +24,19 @@ gti
 git config --list
 git init
 git add .
-git commit -m "vnp 23/11"
+git commit -m "upd component 25/11"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin main
 git push origin master
+
+Microsoft Windows [Version 10.0.26100.2314]
+(c) Microsoft Corporation. All rights reserved.
+
+netstat -ano | findstr :3000
+  TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       17220
+taskkill /PID 17220 /F
+
+
 
 
 

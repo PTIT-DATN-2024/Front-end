@@ -65,7 +65,6 @@ const bgImageController = {
 
                 bgImage.img = req.file.path;
             }
-
             bgImage.name = req.body.name || bgImage.name;
 
             await bgImage.save();

@@ -115,44 +115,6 @@ const Header = (props) => {
                             Quản lí người dùng
                         </NavLink>
                     </Nav>
-                    {/* Search Bar */}
-                    <Form ref={searchRef} className="d-flex position-relative box-search" onSubmit={handleSearchSubmit}>
-                        <Form.Control type="search" placeholder="Search" className="me-2" name="search" value={searchQuery} onChange={handleSearchChange} aria-label="Search" autoComplete="off" />
-                        <Button type="submit" variant="outline-success">
-                            Search
-                        </Button>
-
-                        {/* Suggestions List */}
-                        {suggestions.length > 0 ? (
-                            <div className="position-absolute suggestion-list">
-                                {suggestions.map((product) => (
-                                    <div
-                                        key={product.id}
-                                        onClick={() => {
-                                            navigate(`/productsPage/${product._id}`);
-                                            setSuggestions([]); // Ẩn gợi ý sau khi chọn
-                                            setSearchQuery(""); // Reset thanh tìm kiếm
-                                        }}
-                                        className="list-group-item"
-                                    >
-                                        <div class="p-img">
-                                            <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
-                                        </div>
-                                        <div className="info">
-                                            <p class="p-name">{product.name}</p>
-                                            <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            errorMessage && (
-                                <ListGroup className="position-absolute suggestion-list">
-                                    <ListGroup.Item>{errorMessage}</ListGroup.Item> {/* Hiển thị thông báo lỗi */}
-                                </ListGroup>
-                            )
-                        )}
-                    </Form>
                     <Nav>
                         {isAuthenticated === false ? (
                             <>
@@ -165,15 +127,13 @@ const Header = (props) => {
                             </>
                         ) : (
                             <>
-                                <div className="nav-link cart-container" onClick={() => {
+                                {/* <div className="nav-link cart-container" onClick={() => {
                                     navigate("/staffs");
                                 }}>
                                     <BsBell size={30} className="navbar-nav-cart btn_icon  " />
                                     <div className="cart-count">
-
                                     </div>
-                                </div>
-
+                                </div> */}
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">
                                     <NavDropdown.Item>Profile</NavDropdown.Item>
                                     <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>

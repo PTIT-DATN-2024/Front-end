@@ -94,14 +94,12 @@ const Header = (props) => {
                             </>
                         ) : (
                             <>
-                                <div className="nav-link cart-container" onClick={() => {
-                                    navigate("/PayPage");
-                                }}>
+                                {/* <div className="nav-link cart-container" onClick={() => {navigate("/PayPage"); }}>
                                     <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
                                     <div className="cart-count">
                                         {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <NavDropdown title="Setting" id="basic-nav-dropdown">
                                     <NavDropdown.Item >
