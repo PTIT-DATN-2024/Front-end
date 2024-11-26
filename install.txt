@@ -24,11 +24,11 @@ git config --list
 git branch main 
 git init
 git add .
-git commit -m "tùy chỉnh lại fe tieng viet  26/11"
+git commit -m "update listAPI ( them api cart)  26/11"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin main --force
-git push origin main 
 git push origin main:master --force
+git push origin main 
 
 git push origin main
 git push origin master

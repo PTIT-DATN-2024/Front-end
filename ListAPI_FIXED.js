@@ -385,6 +385,170 @@ const apiDocumentation = [
         }
     },
 
+    // cart api
+
+    {
+        api: "getCartbyUserid",
+        url: "/cart/user/:userId",
+        method: "get",
+        description: "post product to cart of user",
+        req: {
+        },
+        res: {
+            EC: 0,
+            MS: "get cart sc!",
+            cart: {
+                cartId: "1278361872",
+                customer: {
+                    customerId: "12312",
+                    email: "12312"
+                    // ....
+                },
+                cartDetails: [
+                    {
+                        "cartDetailId": "cd006",
+                        "cart": {
+                            "cartId": "cart006",
+                            "customer": {
+                                "customerId": "cust006",
+                                "email": "user6@example.com",
+                                "password": "pass6",
+                                "userName": "user6",
+                                "fullName": "User Six",
+                                "address": "1",
+                                "role": "CUSTOMER",
+                                "avatar": "1728958738001.jpg",
+                                "phone": "1234567895",
+                                "isDelete": "false",
+                                "createdAt": "2024-11-08T10:10:24.402015",
+                                "updatedAt": "2024-11-08"
+                            },
+                            "createdAt": "2024-11-08T10:10:24.402015",
+                            "updatedAt": "2024-11-08T10:10:24.402015"
+                        },
+                        "product": {
+                            "productId": "prod006",
+                            "category": {
+                                "categoryId": "cate012",
+                                "name": "Groceries",
+                                "description": "Description of category 12",
+                                "avatar": "1728958738001.jpg",
+                                "createdAt": "2024-11-08T10:19:49.851705"
+                            },
+                            "productDiscount": {
+                                "productDiscountId": "disc006",
+                                "discountAmount": 30.0,
+                                "expiredDate": "2025-06-01T00:00:00",
+                                "createdAt": "2024-11-08T10:10:24.402015",
+                                "updatedAt": "2024-11-08T10:10:24.402015"
+                            },
+                            "name": "Basketball",
+                            "total": 80,
+                            "rate": 4.1,
+                            "numberVote": 110,
+                            "description": "Durable basketball, sci-fi",
+                            "importPrice": 15.0,
+                            "sellingPrice": 18.0,
+                            "status": "Available",
+                            "weight": "300g",
+                            "presentImage": "1728958738001.jpg",
+                            "createdAt": "2024-11-08T10:10:24.402015",
+                            "updatedAt": "2024-11-08T10:10:24.402015"
+                        },
+                        "quantity": 1,
+                        "totalPrice": 110000.0,
+                        "createdAt": "2024-11-08T10:10:24.402015",
+                        "updatedAt": "2024-11-08T10:10:24.402015"
+                    },
+                ],
+                total: 32781631
+            }
+        }
+    },
+    {
+        // khi chọn 1 sp hoặc thêm số lượng +1 ( quantity =1) sẽ call api thêm sản phẩm và giỏ hàng của user đó
+        // xử lí mỗi user khi tạo tài khoản sẽ mặc định có 1 cart rỗng
+        // nếu product đã có trong giỏ hàng thì sẽ cập nhật cartdetail thuộc cart tuong ứng với số lượng tăng lên 1
+        // nếu product chưa có trong giỏi của user đó sẽ tạo 1 cartdeatl mới với product và quantity truyền vào từ req, cho cartdetail đó vào cart của kh
+        api: "postProductToCart",
+        url: "/cart",
+        method: "PUT",
+        description: "post product to cart of user",
+        req: {
+            body:
+            {
+                customerId: "cust012",
+                product: {
+                    "productId": "prod001",
+                    "category": {
+                        "categoryId": "cat001",
+                        "name": "Mouse",
+                        "description": "Electronic devices",
+                        "avatar": "1728958738001.jpg",
+                        "createdAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "productDiscount": {
+                        "productDiscountId": "disc001",
+                        "discountAmount": 5.0,
+                        "expiredDate": "2025-01-01T00:00:00",
+                        "createdAt": "2024-11-08T10:10:24.402015",
+                        "updatedAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "name": "Laptop",
+                    "total": 100,
+                    "rate": 4.5,
+                    "numberVote": 150,
+                    "description": "High-performance laptop",
+                    "importPrice": 500.0,
+                    "sellingPrice": 550.0,
+                    "status": "Available",
+                    "weight": "300g",
+                    "presentImage": "1728958738001.jpg",
+                    "createdAt": "2024-11-08T10:10:24.402015",
+                    "updatedAt": "2024-11-08T10:10:24.402015"
+                },
+                quantity: 4,
+                totalPrice: 91000000
+            }
+        },
+        res: {
+            EC: 0,
+            MS: "Create order success!",
+        }
+    },
+    {
+        // remove cartdetail xóa cartdetail trong cart của kh
+        api: "prmoveProductToCart",
+        url: "/cart/cartDetail/:cartDetailId",
+        method: "DELETE",
+        description: "remove product to cart of user",
+        req: {
+        },
+        res: {
+            EC: 0,
+            MS: "Deleted order success!",
+        }
+    },
+    {
+        // nếu product đã có trong giỏ hàng thì sẽ cập nhật cartdetail thuộc cart tuong ứng với số lượng giảm đi 1 nếu sau klhi giảm =0 thì sẽ xóa luôn cart detail
+        api: "changeQuantityOfProductToCart",
+        url: "/cart/cartDetail/:cartDetailId",
+        method: "PUT",
+        description: "Change quantity product to cart of user",
+        req: {
+            body:
+            {
+                quantity: -1,
+            }
+        },
+        res: {
+            EC: 0,
+            MS: "Changed quantity of item success!",
+        }
+    },
+    // thay đổi create order sẽ chỉ truyền vào cartid mà không truyền thông tin gì nữa
+
+
     // ORDER API
     {
         api: "postCreateUserOrder",
