@@ -1,0 +1,222 @@
+.tableProductPre{
+    width: 100%;
+    .tableProductPre_item{
+        width: 100%;
+        .header{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 30px;
+            .title{
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .more{
+                background-color: #d82a29;
+                padding: 5px;
+                color: #f1f1f1;
+                border-radius: 6px;
+                font-size: 14px;
+                cursor: pointer;
+            
+            }
+        }
+        .tableProductPre_list {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin: 20px 0;
+            .slick-list {
+                overflow: hidden;
+                color: black;
+                height: 450px;
+                font-size: 10px;
+                box-sizing: border-box;
+                width: 100%;
+        
+                .slick-track {
+                    overflow: hidden;
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    gap: 10px;
+                    .slick-slide {
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+                        // box-sizing: content-box;
+                        .productSlide {
+                            
+                            box-sizing:border-box;
+                            border-radius: 6px;
+                            overflow: hidden;
+                            padding: 5px 5px;
+                            border-radius: 10px;
+                            box-shadow: 0px 0px 3px 3px rgba(165, 165, 165, 0.2);
+                            border: 1px solid #dcdcdc;
+                            .p-img {
+                                width: 192px;
+                                height: 192px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                    display: block;
+                                    object-fit: cover;
+                                }
+                            }
+                            .p-rate {
+                                width: 100%;
+                                display: flex;
+                                justify-content: space-between;
+                                .p-count-rate {
+                                }
+                                .p-sku {
+                                    font-family: "Open Sans", Arial, sans-serif;
+                                    color: #333e48;
+                                    word-break: break-word;
+                                    -webkit-tap-highlight-color: transparent;
+                                    user-select: none;
+                                    text-align: left;
+                                    box-sizing: border-box;
+                                    display: inline-block;
+                                    background: #f1f1f1;
+                                    text-transform: uppercase;
+                                    padding: 3px 5px;
+                                    border-radius: 3px;
+                                    margin: 0;
+                                    font-size: 10px;
+                                }
+                            }
+                            .p-info {
+                                .p-name {
+                                    font-family: "Open Sans", Arial, sans-serif;
+                                    word-break: break-word;
+                                    -webkit-tap-highlight-color: transparent;
+                                    user-select: none;
+                                    text-align: left;
+                                    box-sizing: border-box;
+                                    display: block;
+                                    color: #333e48;
+                                    font-weight: 600;
+                                    text-transform: uppercase;
+                                    line-height: 18px;
+                                    margin-bottom: 8px;
+                                    margin-top: 0;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    font-size: 12px;
+                                    height: 54px;
+                                }
+                                .p-price {
+                                    word-break: break-word;
+                                    -webkit-tap-highlight-color: transparent;
+                                    user-select: none;
+                                    text-align: left;
+                                    box-sizing: border-box;
+                                    font-size: 22px;
+                                    font-weight: 600;
+                                    color: #000;
+                                    display: block;
+                                    font-family: Helvetica, Arial, sans-serif;
+                                    margin-top: 4px;
+                                }
+                                .p-discount {
+                                    font-family: "Open Sans", Arial, sans-serif;
+                                    word-break: break-word;
+                                    -webkit-tap-highlight-color: transparent;
+                                    user-select: none;
+                                    text-align: left;
+                                    color: #d82a29;
+                                    font-size: 12px;
+                                    box-sizing: border-box;
+                                    letter-spacing: -0.4px;
+                                }
+                            }
+                            .p-action {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                width: 100%;
+                                overflow: hidden;
+                                height: auto;
+                                .p-qty {
+                                    font-family: "Open Sans", Arial, sans-serif;
+                                    word-break: break-word;
+                                    -webkit-tap-highlight-color: transparent;
+                                    user-select: none;
+                                    text-align: left;
+                                    box-sizing: border-box;
+                                    color: #2cc067;
+                                    font-size: 14px;
+                                    line-height: 30px;
+                                }
+                                .addmeBtn {
+                                    font-family: "Open Sans", Arial, sans-serif;
+                                    word-break: break-word;
+                                    -webkit-tap-highlight-color: transparent;
+                                    user-select: none;
+                                    text-align: left;
+                                    box-sizing: border-box;
+                                    cursor: pointer;
+                                    text-decoration: none;
+                                    transition: 0.2s;
+                                    font-size: 15px;
+                                    float: right;
+                                    color: #fff;
+                                    // margin-top: -3px;
+                                    border-radius: 50%;
+                                    background-color: #c0ecc0;
+                                    padding: 5px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        
+            .slick-list {
+                margin: 0 -5px;
+            }
+            .slick-arrow {
+                z-index: 1; // Đảm bảo các nút nằm trên slider
+                color: black; // Đổi màu nút thành đen
+                font-size: 30px; // Kích thước của biểu tượng mũi tên
+                .slick-next,
+                .slick-prev {
+                    position: relative;
+                }
+            }
+        
+            .slick-next::before {
+                position: absolute;
+                transform: translateX(-100%);
+            }
+            .slick-prev::before {
+                position: absolute;
+                transform: translateX(100%);
+            }
+            .slick-next::before,
+            .slick-prev::before {
+                // background-color: aqua;
+                display: block;
+                // width: 100px;
+                // height: 100px;
+                color: #333e48;
+                font-size: 30px;
+            }
+        
+            // Hover effect for arrows
+            .slick-next:hover::before,
+            .slick-prev:hover::before {
+                color: #ed1b24; // Màu đỏ khi hover
+            }
+        }
+    }
+}
+.tableProductMore {
+}

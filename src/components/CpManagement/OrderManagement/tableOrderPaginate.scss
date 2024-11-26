@@ -1,0 +1,311 @@
+.table-orders-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .table-caption{
+    width: 100%;
+  
+  }
+  .filter-section{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+  
+    .filter-item{ 
+      display: flex;
+      gap: 5px;
+      select{
+        padding: 5px;
+      }
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .order-table{
+    width: 100%;
+    margin-top: 20px;
+    // box-shadow: 0px 0px 5px 0 rgba(167, 167, 167, 0.5);
+    .header-table{
+      height: 60px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      background-color: #fff;
+      box-shadow: 0px 0px 5px 0 rgba(87, 87, 87, 0.5);
+      .item{
+        font-weight: 600;
+        font-size: 16px;
+        display: inline-block;
+        text-align: center;
+      }
+      .header-stt{
+        width: 40px;
+      
+      }
+      .header-code{
+        width: 80px;
+      
+      }
+      .header-date{
+        width: 150px;
+        text-align: center;
+      
+      }
+      .header-user{
+        width: 200px;
+      
+      }
+      .header-nameProduct{
+        width: 200px;
+        margin-right: 10px;
+        text-align: start;
+      }
+      .header-price{
+        width: 125px;
+      
+      }
+      .header-quantity{
+        width: 50px;
+        text-align: start;
+      }
+      .header-sum{
+        width: 100px;
+        text-align: end;
+      
+      }
+      .header-total{
+        width: 150px;
+      
+      }
+      .header-statusOrder{
+        width: 200px;
+      
+      }
+      .header-setting{
+        width: 100px;
+      }
+    }
+    .order-list{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      // padding: 20px;
+      // border: 1px solid #000;
+      gap: 20px;
+      .order-item{
+        padding: 10px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 0px 5px 0 rgba(87, 87, 87, 0.5);
+        .order-item-index{
+          width: 40px;
+          text-align: center;
+        }
+        .order-id{
+          width: 80px;
+          text-align: center;
+        
+        }
+        .order-time{
+          width: 150px;
+          text-align: center;
+        
+        }
+        .order-avatar{
+          width: 200px;
+          padding: 0 10px;
+          height: 100%;
+          overflow: hidden;
+          .tableOrder_avatarUsers{
+            // width: 100%;
+            display: block;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            margin: 0 auto;
+          }
+          .order-user{
+            width: 100%;
+            overflow-x: hidden;
+            height: 100%;
+            text-align: center;
+          
+          }
+        }
+
+        .order-products{
+          // width: 700px;
+          color: #333e48;
+          word-break: break-word;
+          font-size: 12px;
+          box-sizing: border-box;
+          float: left;
+          margin-bottom: 10px;
+          border-radius: 5px;
+          background: #fff;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          font-family: "Open Sans",Arial,sans-serif;
+          word-break: break-word;
+          font-size: 14px;
+          color: #000;
+          line-height: 19px;
+          box-sizing: border-box;
+          flex-direction: column;
+        
+          .product-item{
+            border-bottom: 1px solid #cacaca;
+            // width: 500px;
+            display: flex;
+            align-items: center;
+            height: 70px;
+          
+            .product-image{
+            
+              .tableOrder_imgProduct{
+              
+              }
+            }
+            .product-name{
+              width: 200px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2; // Limit to 2 lines
+              -webkit-box-orient: vertical;
+              line-height: 1.2; // Adjust line-height as needed
+              margin-right: 10px;
+            
+            }
+            .product-sellingprice{
+              width: 100px;
+              word-break: break-word;
+              box-sizing: border-box;
+              font-size: 16px;
+              font-family: Helvetica,Arial,sans-serif;
+              color: #000;
+              margin-right: 5px;
+              font-weight: 600;
+              text-align: start;
+            
+            }
+            .product-quantity{
+              display: flex;
+              flex-direction: row;
+              width: 50px;
+              height: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              cursor: pointer;
+              text-align: center;
+            
+            }
+            .product-sum{
+              width: 100px;
+              word-break: break-word;
+              box-sizing: border-box;
+              font-family: Helvetica,Arial,sans-serif;
+              font-size: 16px;
+              color: #ee2724;
+              font-weight: 600;
+              text-align: end;
+            
+            }
+          }
+        }
+        .order-total{
+          width: 150px;
+          word-break: break-word;
+          box-sizing: border-box;
+          font-family: Helvetica,Arial,sans-serif;
+          font-size: 16px;
+          color: #ee2724;
+          font-weight: 600;
+          text-align: center;
+        
+        }
+        .order-status{
+          height: 100%;
+          width: 200px;
+          text-align: center;
+          .status-cxn {
+            background-color: #f5a623; /* Màu cho trạng thái 'Chờ xác nhận' */
+            color: white;
+          }
+          
+          .status-clh {
+            background-color: #f1c40f; /* Màu cho trạng thái 'Chờ lấy hàng' */
+            color: white;
+          }
+          
+          .status-dg {
+            background-color: #2ecc71; /* Màu cho trạng thái 'Đang giao' */
+            color: white;
+          }
+          
+          .status-dh {
+            background-color: #e74c3c; /* Màu cho trạng thái 'Đã hủy' */
+            color: white;
+          }
+          
+          .status-ht {
+            background-color: #3498db; /* Màu cho trạng thái 'Hoàn thành' */
+            color: white;
+          }
+          
+          /* Style cho label */
+          .status-label {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: capitalize; /* Để các trạng thái hiển thị chữ in hoa đầu dòng */
+          }
+
+        }
+        
+        .order-settings-staff{
+          width: 100px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          gap: 10px;
+          align-items: center;
+          height: 100%;
+        
+          .btn{
+          
+          }
+          .btn-secondary{
+          
+          }
+          .btn-warning{
+          
+          }
+          .mx-3{
+          
+          }
+          .btn-danger{
+          
+          }
+        }
+      }
+      .no-orders{
+      
+      }
+    }
+  
+  }
+}
