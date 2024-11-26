@@ -32,6 +32,9 @@ const MainPage = (props) => {
     const dispatch = useDispatch();
     const listProducts = useSelector((state) => state.product.listProducts);
     const listCategories = useSelector((state) => state.category.listCategories);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {

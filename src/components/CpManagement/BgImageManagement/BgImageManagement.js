@@ -41,6 +41,10 @@ const BgImageManagement = (props) => {
         }
     };
     useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, []);
+    useEffect(() => {
         fetchListBgImages();
     }, []);
     return (

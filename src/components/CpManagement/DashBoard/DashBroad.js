@@ -32,6 +32,10 @@ const DashBoard = () => {
         }
     };
     useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, []);
+    useEffect(() => {
         fetchData();
         fetchListOrders();
     }, []);

@@ -26,6 +26,9 @@ const ResultPaymentPage = () => {
             toast.error(response.MS);
         }
     };
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     // Lấy danh sách sản phẩm khi trang được load
     useEffect(() => {
         const fetchListProducts = async () => {

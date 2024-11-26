@@ -43,6 +43,10 @@ const CategoryManagement = (props) => {
         }
     };
     useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, []);
+    useEffect(() => {
         fetchListCategories();
     }, []);
     return (

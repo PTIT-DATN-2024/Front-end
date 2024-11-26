@@ -11,7 +11,6 @@ import TableOrdersPaginate from "./tableOrderPaginate";
 import ModalDeleteOrder from "./ModalDeleteOrder";
 import ModalViewOrder from "./ModalViewOrder";
 import _ from "lodash";
-
 const OrderManagement = (props) => {
     const [showModalCreateOrder, setShowModalCreateOrder] = useState(false);
     const [showModalUpdateOrder, setShowModalUpdateOrder] = useState(false);
@@ -44,7 +43,10 @@ const OrderManagement = (props) => {
             console.log("fetch res",res.orders);
         }
     };
+    useEffect(() => {
+        window.scrollTo(0, 0);
 
+    }, []);
     useEffect(() => {
         fetchListOrders();
         console.log("fetch123",listOrders) ;

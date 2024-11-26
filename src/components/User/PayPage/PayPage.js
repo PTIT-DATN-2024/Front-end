@@ -20,6 +20,10 @@ const PayPage = (props) => {
     const stateOrder = useSelector((state) => state.listOrder);
     const listCategories = useSelector((state) => state.category.listCategories);
     const [paymentUrl, setPaymentUrl] = useState("");
+    useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, []);
     const updateStateOrder = () => {
         dispatch({
             type: "Update_order_user",
@@ -254,7 +258,7 @@ const PayPage = (props) => {
                             navigate("/productFilterPage");
                         }}
                     >
-                        ADD more product
+                        Xem thêm sản phẩm
                     </Button>
                     <Button
                         variant="success"
@@ -262,7 +266,7 @@ const PayPage = (props) => {
                             navigate("/");
                         }}
                     >
-                        Home
+                        Trang chủ
                     </Button>
                     <Button
                         variant="success"
@@ -270,7 +274,7 @@ const PayPage = (props) => {
                             navigate("/resultPaymentPage");
                         }}
                     >
-                        resultPaymentPage
+                        Kết quả thanh toán
                     </Button>
 
                 </div>

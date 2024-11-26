@@ -46,7 +46,10 @@ const ProductManagement = (props) => {
             toast.success(res.MS);
         }
     };
+    useEffect(() => {
+        window.scrollTo(0, 0);
 
+    }, []);
     useEffect(() => {
         fetchListProducts();
 

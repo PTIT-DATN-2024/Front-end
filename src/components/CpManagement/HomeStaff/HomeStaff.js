@@ -42,6 +42,10 @@ const HomeStaff = () => {
         }
     };
     useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, []);
+    useEffect(() => {
         fetchListUsers();
     }, []);
     const updateStateOrder = () => {

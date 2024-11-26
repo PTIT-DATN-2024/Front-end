@@ -131,7 +131,7 @@ const Header = (props) => {
                                 Thông tin liên hệ
                             </NavLink>
                         )}
-                                                {account.role === "ADMIN" && (
+                        {account.role === "ADMIN" && (
                             <NavLink to="/admins" className="nav-link">
                                 Quản Lí !
                             </NavLink>
@@ -144,9 +144,9 @@ const Header = (props) => {
                     </Nav>
                     {account.role === "USER" && (
                         <Form Form ref={searchRef} className="d-flex position-relative box-search" onSubmit={handleSearchSubmit}>
-                            <Form.Control type="search" placeholder="Search" className="me-2" name="search" value={searchQuery} onChange={handleSearchChange} aria-label="Search" autoComplete="off" />
+                            <Form.Control type="search" placeholder="Nhập tên sản phẩm ...." className="me-2" name="search" value={searchQuery} onChange={handleSearchChange} aria-label="Search" autoComplete="off" />
                             <Button type="submit" variant="outline-success">
-                                Search
+                                Tìm
                             </Button>
 
                             {/* Suggestions List */}
@@ -154,7 +154,7 @@ const Header = (props) => {
                                 <div className="position-absolute suggestion-list">
                                     {suggestions.map((product) => (
                                         <div
-                                            key={product.id}
+                                            key={product._id}
                                             onClick={() => {
                                                 navigate(`/productsPage/${product._id}`);
                                                 setSuggestions([]); // Ẩn gợi ý sau khi chọn
@@ -186,29 +186,36 @@ const Header = (props) => {
                         {isAuthenticated === false ? (
                             <>
                                 <button className="btn-logIn" onClick={() => handleLogIn()}>
-                                    Log in
+                                    Đăng nhập
                                 </button>
                                 <button className="btn-signUp" onClick={() => handleSignUp()}>
-                                    Sign up
+                                    Đăng kí
                                 </button>
                             </>
                         ) : (
                             <>
-                                <div className="nav-link cart-container" onClick={() => {
-                                    navigate("/PayPage");
-                                }}>
-                                    <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
-                                    <div className="cart-count">
-                                        {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
+                                {(account.role !== "") && (
+                                    <div className="nav-link cart-container" onClick={() => {
+                                        navigate("/PayPage");
+                                    }}>
+                                        <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
+                                        <div className="cart-count">
+                                            {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
+                                        </div>
                                     </div>
-                                </div>
-                                <NavDropdown title="Setting" id="basic-nav-dropdown">
+                                )}
+
+                                <NavDropdown title="Cài đặt" id="basic-nav-dropdown">
                                     <NavDropdown.Item >
-                                        <NavLink to="/profilePage" className="nav-link">
-                                            Profile
+                                        <NavLink to="/profilePage" className="nav-link profileInfo" id="profileInfo">
+                                            Thông tin tài khoản
                                         </NavLink>
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={() => handleLogOut()}>
+                                        <NavLink to="/profilePage" className="nav-link logOut" id="logOut">
+                                            Đăng xuất
+                                        </NavLink>
+                                    </NavDropdown.Item>
                                 </NavDropdown>
                             </>
                         )}

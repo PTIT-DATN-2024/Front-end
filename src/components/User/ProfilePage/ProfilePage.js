@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Table from "react-bootstrap/Table";
 import "./ProfilePage.scss";
 import { FaUser, FaListAlt, FaHeart, FaArchive, FaFire, FaEye, FaStar, FaComment, FaLock, FaPowerOff } from "react-icons/fa";
-
+import { useEffect } from "react";
 import ProfileContent from "../UserComponents/ProfileContent/ProfileContent";
 
 
@@ -18,7 +18,10 @@ const ProfilePage = () => {
     const handleTabChange = (tab) => {
         setSelectedTab(tab);
     };
+    useEffect(() => {
+        window.scrollTo(0, 0);
 
+    }, []);
     return (
         <div className="ProfilePageContainer">
             <div className="tk-ct-left">

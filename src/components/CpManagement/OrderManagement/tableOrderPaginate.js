@@ -76,7 +76,7 @@ const TableOrdersPaginate = (props) => {
             <div className="order-list">
                 {currentItems && currentItems.length > 0 ? (
                     currentItems.map((order, index) => (
-                        <div key={`order_${index}`} className="order-item">
+                        <div key={`order_${index}`} className="order-item" onClick={() => props.handleClickBtnView(order)}>
                             {/* <div className="order-item-index">{itemOffset + index + 1}</div>
                             <div className="order-id">{order._id.slice(0, 5)}</div> */}
                             <div className="order-time"> {new Date(order.createdAt).toISOString().slice(0, 10)}</div>

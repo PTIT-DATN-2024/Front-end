@@ -13,7 +13,7 @@ const TableProductsPaginate = (props) => {
                     currentItems.length > 0 &&
                     currentItems.map((product, index) => {
                         return (
-                            <tr key={`table_product_${index}`} className="tableProduct_row">
+                            <tr key={`table_product_${index}`} className="tableProduct_row" onClick={() => props.handleClickBtnView(product)}>
                                 <td className="tableProduct_rowItem">{itemOffset + index + 1}</td>
                                 <td className="tableProduct_rowItem">{<img src={product.presentImage} alt="" className="productPresent" />}</td>
                                 <td className="tableProduct_rowItem">{product.name}</td>
@@ -73,12 +73,12 @@ const TableProductsPaginate = (props) => {
             <>
                 <Items currentItems={currentItems} itemOffset={itemOffset} />
                 <ReactPaginate
-                    nextLabel="next >"
+                    nextLabel=">"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={2}
                     pageCount={pageCount}
-                    previousLabel="< previous"
+                    previousLabel="<"
                     pageClassName="page-item"
                     pageLinkClassName="page-link"
                     previousClassName="page-item"

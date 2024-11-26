@@ -34,7 +34,6 @@ const ProductFilterPage = () => {
     const location = useLocation();
     const categoryFilter = location.state?.categoryFilter || null;
     useEffect(() => {
-        // Cuộn lên đầu trang khi component được gắn vào
         window.scrollTo(0, 0);
     }, []);
     const fetchListProducts = async () => {

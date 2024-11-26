@@ -51,6 +51,10 @@ const UserManagement = (props) => {
         }
     };
     useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, []);
+    useEffect(() => {
         fetchListUsers();
     }, []);
     return (

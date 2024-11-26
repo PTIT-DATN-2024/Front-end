@@ -90,13 +90,7 @@ function ModalViewUser(props) {
                             </select>
                         </div>
                         <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
-                        <div className=" list_product">
-                            <div className="">Payed Product</div>
-                            <span>product 1</span>
-                            <span>product 2</span>
-                            <span>product 3</span>
-                            <span>product 4</span>
-                        </div>
+
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

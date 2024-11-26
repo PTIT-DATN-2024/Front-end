@@ -12,7 +12,7 @@ const TableUsersPaginate = (props) => {
                     currentItems.length > 0 &&
                     currentItems.map((user, index) => {
                         return (
-                            <tr key={`table_user_${index}`}>
+                            <tr key={`table_user_${index}`} onClick={() => props.handleClickBtnView(user)}>
                                 <td>{itemOffset + index + 1}</td>
                                 <td>{user.avatar ? <img src={user.avatar} alt="" className="user-avatar"/> : ""}</td>
                                 {/* <td>{user._id}</td> */}
@@ -70,12 +70,12 @@ const TableUsersPaginate = (props) => {
             <>
                 <Items currentItems={currentItems} itemOffset={itemOffset} />
                 <ReactPaginate
-                    nextLabel="next >"
+                    nextLabel=">"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={2}
                     pageCount={pageCount}
-                    previousLabel="< previous"
+                    previousLabel="<"
                     pageClassName="page-item"
                     pageLinkClassName="page-link"
                     previousClassName="page-item"

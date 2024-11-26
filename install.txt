@@ -24,8 +24,9 @@ git config --list
 git branch main 
 git init
 git add .
-git commit -m "cap nhat cau truc lai component v3 26/11"
+git commit -m "tùy chỉnh lại fe tieng viet  26/11"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
+git push origin main 
 git push origin main --force
 git push origin main:master --force
 
