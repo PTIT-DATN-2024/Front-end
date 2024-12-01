@@ -17,13 +17,13 @@ const TableBgImagesPaginate = (props) => {
                                 <td>{bgImage.name}</td>
                                 <td>
                                     <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(bgImage)}>
-                                        View
+                                        Xem
                                     </button>
                                     <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(bgImage)}>
-                                        Edit
+                                        Sửa
                                     </button>
                                     <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(bgImage)}>
-                                        Delete
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>

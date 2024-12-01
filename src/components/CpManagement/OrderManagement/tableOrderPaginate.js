@@ -35,20 +35,20 @@ const TableOrdersPaginate = (props) => {
         // Filter by user email (if provided)
         if (filters.userEmail) {
             newFilteredItems = newFilteredItems.filter((order) =>
-                order.user.emailUser.toLowerCase().includes(filters.userEmail.toLowerCase())
+                order.customer.email.toLowerCase().includes(filters.userEmail.toLowerCase())
             );
         }
 
         // Filter by product name (if provided)
         if (filters.product) {
             newFilteredItems = newFilteredItems.filter((order) =>
-                order.listItem.some((item) => item.nameProduct.toLowerCase().includes(filters.product.toLowerCase()))
+                order.detailOrderedProducts.some((item) => item.product.name.toLowerCase().includes(filters.product.toLowerCase()))
             );
         }
 
         // Filter by status (if provided)
         if (filters.status) {
-            newFilteredItems = newFilteredItems.filter((order) => order.statusOrder === filters.status);
+            newFilteredItems = newFilteredItems.filter((order) => order.status === filters.status);
         }
 
         // Sort by time (if provided)
@@ -76,47 +76,47 @@ const TableOrdersPaginate = (props) => {
             <div className="order-list">
                 {currentItems && currentItems.length > 0 ? (
                     currentItems.map((order, index) => (
-                        <div key={`order_${index}`} className="order-item" onClick={() => props.handleClickBtnView(order)}>
+                        <div key={`order_${index}`} className="order-item" >
                             {/* <div className="order-item-index">{itemOffset + index + 1}</div>
                             <div className="order-id">{order._id.slice(0, 5)}</div> */}
                             <div className="order-time"> {new Date(order.createdAt).toISOString().slice(0, 10)}</div>
                             <div className="order-avatar">
-                                {order.user.avatarUser && (
-                                    <img src={order.user.avatarUser} alt="" className="tableOrder_avatarUsers" />
+                                {order.customer.avatar && (
+                                    <img src="http://localhost:8080/uploads/users/banphim1.jpg" alt="" className="tableOrder_avatarUsers" />
                                 )}
-                                <div className="order-user">{order.user.emailUser}</div>
+                                <div className="order-user">{order.customer.emailUser}</div>
                             </div>
 
                             <div className="order-products">
-                                {order.listItem.map((item, idx) => (
+                                {order.detailOrderedProducts.map((item, idx) => (
                                     <div key={idx} className="product-item">
                                         <div className="product-image">
-                                            {item.presentimageProduct && (
-                                                <img src={item.presentimageProduct} alt="" className="tableOrder_imgProduct" />
+                                            {item.product.presentImage && (
+                                                <img src="" alt="" className="tableOrder_imgProduct" />
                                             )}
                                         </div>
-                                        <div className="product-name">{item.nameProduct}</div>
+                                        <div className="product-name">{item.product.name}</div>
                                         {/* <div key={idx} className="product-sellingprice">{item.sellingpriceProduct}</div> */}
                                         <div key={idx} className="product-quantity">{item.quantity}</div>
-                                        <div key={idx} className="product-sum">{item.sum}</div>
+                                        <div key={idx} className="product-sum">{item.totalPrice}</div>
                                     </div>
                                 ))}
                             </div>
                             <div className="order-total">{order.total}</div>
                             <div className="order-status">
-                                <span className={`status-label status-${order.statusOrder.toLowerCase()}`}>
-                                    {getStatusLabel(order.statusOrder)}
+                                <span className={`status-label status-${order.status.toLowerCase()}`}>
+                                    {getStatusLabel(order.status)}
                                 </span>
                             </div>
                             <div className="order-settings-staff">
-                                <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(order)}>View</button>
-                                <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(order)}>Edit</button>
-                                <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(order)}>Delete</button>
+                                <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(order)}>Xem</button>
+                                <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(order)}>Sửa</button>
+                                <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(order)}>Xóa</button>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <div className="no-orders">No orders found</div>
+                    <div className="no-orders">Không tìm thấy đơn hàng nào</div>
                 )}
             </div>
         );
@@ -173,21 +173,21 @@ const TableOrdersPaginate = (props) => {
             <div className="filter-section">
                 {/* Time Sort */}
                 <div className="filter-item">
-                    <label htmlFor="timeSort">Sort by Time</label>
+                    <label htmlFor="timeSort">Xếp theo thời gian</label>
                     <select
                         id="timeSort"
                         value={filters.timeSort}
                         onChange={(e) => setFilters({ ...filters, timeSort: e.target.value })}
                     >
-                        <option value="">All</option>
-                        <option value="desc">Newest First</option>
-                        <option value="asc">Oldest First</option>
+                        <option value="">Tất cả</option>
+                        <option value="desc">Mới nhất</option>
+                        <option value="asc">Cũ nhất</option>
                     </select>
                 </div>
 
                 {/* User Email */}
                 <div className="filter-item">
-                    <label htmlFor="userEmail">User Email</label>
+                    <label htmlFor="userEmail">Email khách hàng</label>
                     <input
                         type="text"
                         id="userEmail"
@@ -198,7 +198,7 @@ const TableOrdersPaginate = (props) => {
 
                 {/* Product */}
                 <div className="filter-item">
-                    <label htmlFor="product">Product</label>
+                    <label htmlFor="product">Sản phẩm</label>
                     <input
                         type="text"
                         id="product"
@@ -209,13 +209,13 @@ const TableOrdersPaginate = (props) => {
 
                 {/* Status */}
                 <div className="filter-item">
-                    <label htmlFor="status">Status</label>
+                    <label htmlFor="status">Trạng thái</label>
                     <select
                         id="status"
                         value={filters.status}
                         onChange={(e) => setFilters({ ...filters, status: e.target.value })}
                     >
-                        <option value="">All</option>
+                        <option value="">Tất cả</option>
                         {orderStatusOptions.map((status, index) => (
                             <option key={index} value={status.value}>
                                 {status.label}

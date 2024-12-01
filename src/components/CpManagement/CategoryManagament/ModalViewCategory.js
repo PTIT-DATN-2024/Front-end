@@ -23,13 +23,13 @@ function ModalViewCategory(props) {
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Information of category: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
+                    <Modal.Title>Thông tin danh mục: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {" "}
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Tên</label>
                             <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={name} disabled />
                         </div>
                         <div className="col-12  img-preview">
@@ -39,7 +39,7 @@ function ModalViewCategory(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Đóng
                     </Button>
                 </Modal.Footer>
             </Modal>

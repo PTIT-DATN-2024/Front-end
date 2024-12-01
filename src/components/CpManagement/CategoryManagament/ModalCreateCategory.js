@@ -12,6 +12,7 @@ const ModalCreateCategory = (props) => {
     const handleClose = () => {
         setShow(false);
         setName("");
+        setDesc("");
         setAvatar("");
         setPreviewImage("");
         setErrors({});
@@ -21,6 +22,7 @@ const ModalCreateCategory = (props) => {
     }, []);
     const [name, setName] = useState("");
     const [avatar, setAvatar] = useState();
+    const [desc, setDesc] = useState("");
     const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -55,12 +57,13 @@ const ModalCreateCategory = (props) => {
             // callapi
             const config = {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    // "Content-Type": "multipart/form-data",
                     authorization: `Bearer ${token}`,
                 },
             };
             const formData = new FormData();
             formData.append("name", name);
+            formData.append("description", desc);
             formData.append("avatar", avatar);
             let res_data = await postCreateCategory(formData, config);
             if (res_data && res_data.EC === 0) {
@@ -77,12 +80,12 @@ const ModalCreateCategory = (props) => {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddCategory">
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new category</Modal.Title>
+                    <Modal.Title>Thêm danh mục mới</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Tên</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -94,11 +97,24 @@ const ModalCreateCategory = (props) => {
                             />
                             {errors.categoryName && <div className="text-danger">{errors.categoryName}</div>}
                         </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Mô tả</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Moo tar"
+                                value={desc}
+                                onChange={(event) => setDesc(event.target.value)}
+                                onBlur={() => handleBlur("description", desc)}
+                                onFocus={() => handleFocus("description")}
+                            />
+                            {errors.description && <div className="text-danger">{errors.description}</div>}
+                        </div>
 
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileCategory">
                                 <FcPlus />
-                                Upload file image
+                                Tải ảnh lên
                             </label>
                             <input type="file" className="form-control" hidden id="inputFileCategory" onChange={(event) => handleUploadImage(event)} onBlur={() => handleBlur("categoryAvatar", avatar)} onFocus={() => handleFocus("categoryAvatar")} />
                             {errors.categoryAvatar && <div className="text-danger">{errors.categoryAvatar}</div>}
@@ -108,10 +124,10 @@ const ModalCreateCategory = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitCreateCategory()}>
-                        Save
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -55,7 +55,7 @@ const CategoryManagement = (props) => {
                 <div>
                     <Button variant="primary" onClick={() => setShowModalCreateCategory(true)}>
                         <FcPlus />
-                        Add new Category
+                        Thêm danh mục mới
                     </Button>
                 </div>
             </div>

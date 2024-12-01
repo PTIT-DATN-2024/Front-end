@@ -10,7 +10,7 @@ NProgress.configure({
 })
 
 const instance = axios.create({
-    baseURL: "http://localhost:8000/v1",
+    baseURL: "http://localhost:8080",
     // timeout: 3000,
     // headers: { "X-Custom-Header": "foobar" },
 });

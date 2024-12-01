@@ -8,7 +8,7 @@ const ModalDeleteOrder= (props) => {
     const { show, setShow, fetchListOrders, dataDelete } = props;
     const handleClose = () => setShow(false);
     const handleSubmitDeleteOrder = async () => {
-        let res_data = await deleteOrder(dataDelete._id);
+        let res_data = await deleteOrder(dataDelete.orderId);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
@@ -22,18 +22,18 @@ const ModalDeleteOrder= (props) => {
         <>
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm delete Order ?</Modal.Title>
+                    <Modal.Title>Xác nhận xóa đơn hàng ?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure delete this Order:
-                    <b> {dataDelete && dataDelete._id ? dataDelete._id : ""}</b>
+                    Bạn chắc chắn muốn xóa đơn hàng:
+                    <b> {dataDelete && dataDelete.orderId ? dataDelete.orderId : ""}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Cancle
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={handleSubmitDeleteOrder}>
-                        Confirm
+                        Xác nhận
                     </Button>
                 </Modal.Footer>
             </Modal>

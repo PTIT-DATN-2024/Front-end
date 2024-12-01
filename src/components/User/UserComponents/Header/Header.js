@@ -97,7 +97,7 @@ const Header = (props) => {
             <Container>
                 <Navbar.Brand>
                     <NavLink to="/" className="nav-link navbar-brand">
-                        <img src="/v1/uploads/bgImages/1729231869739.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
+                        <img src="http://localhost:8080/uploads/categories/logo.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
                     </NavLink>
                 </Navbar.Brand>
                 <div className="navbar-toggler init">
@@ -106,27 +106,27 @@ const Header = (props) => {
                 </div>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {(account.role === "USER" || account.role === "ADMIN") && (
+                        {(account.role === "CUSTOMER" || account.role === "ADMIN") && (
                             <NavLink to="/" className="nav-link">
                                 Trang Chủ
                             </NavLink>
                         )}
-                        {(account.role === "USER" || account.role === "ADMIN") && (
+                        {(account.role === "CUSTOMER" || account.role === "ADMIN") && (
                             <NavLink to="/productFilterPage" className="nav-link">
                                 Sản Phẩm
                             </NavLink>
                         )}
-                        {(account.role === "USER" || account.role === "ADMIN") && (
+                        {(account.role === "CUSTOMER" || account.role === "ADMIN") && (
                             <NavLink to="/blogsPage" className="nav-link">
                                 Bài Viết
                             </NavLink>
                         )}
-                        {(account.role === "USER" || account.role === "ADMIN") && (
+                        {(account.role === "CUSTOMER" || account.role === "ADMIN") && (
                             <NavLink to="/aboutPage" className="nav-link">
                                 Giới thiệu
                             </NavLink>
                         )}
-                        {(account.role === "USER" || account.role === "ADMIN") && (
+                        {(account.role === "CUSTOMER" || account.role === "ADMIN") && (
                             <NavLink to="/contactPage" className="nav-link">
                                 Thông tin liên hệ
                             </NavLink>
@@ -142,7 +142,7 @@ const Header = (props) => {
                             </NavLink>
                         )}
                     </Nav>
-                    {account.role === "USER" && (
+                    {account.role === "CUSTOMER" && (
                         <Form Form ref={searchRef} className="d-flex position-relative box-search" onSubmit={handleSearchSubmit}>
                             <Form.Control type="search" placeholder="Nhập tên sản phẩm ...." className="me-2" name="search" value={searchQuery} onChange={handleSearchChange} aria-label="Search" autoComplete="off" />
                             <Button type="submit" variant="outline-success">

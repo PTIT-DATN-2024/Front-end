@@ -27,8 +27,8 @@ function ModalViewProduct(props) {
     };
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
-    const [importprice, setImportprice] = useState("");
-    const [sellingprice, setSellingprice] = useState("");
+    const [importPrice, setImportprice] = useState("");
+    const [sellingPrice, setSellingprice] = useState("");
     const [weight, setWeight] = useState("");
     const [presentImage, setPresentImage] = useState("");
     const [description, setDescriptiom] = useState("");
@@ -37,13 +37,13 @@ function ModalViewProduct(props) {
     useEffect(() => {
         if (!_.isEmpty(dataView)) {
             setName(dataView.name);
-            setCategory(dataView.category.nameCategory);
-            setImportprice(dataView.importprice);
-            setSellingprice(dataView.sellingprice);
+            setCategory(dataView.category.categoryId);
+            setImportprice(dataView.importPrice);
+            setSellingprice(dataView.sellingPrice);
             setWeight(dataView.weight);
             setPresentImage(dataView.presentImage);
             setDescriptiom(dataView.description);
-            setCount(dataView.count);
+            setCount(dataView.total);
             setPreviewImage(`${dataView.presentImage}`);
         }
     }, [dataView]);
@@ -51,46 +51,42 @@ function ModalViewProduct(props) {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">
                 <Modal.Header closeButton>
-                    <Modal.Title>View Product: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
+                    <Modal.Title>Thông tin sản phẩm: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Name</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={name} disabled />
+                            <label className="form-label">Tên sản phẩm</label>
+                            <input type="text" className="form-control" placeholder="not found" value={name} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Category</label>
-                            <select className="form-control form-select" placeholder={!_.isEmpty(dataView) ? dataView.category.nameCategory : ""} disabled>
-                                <option selected>{!_.isEmpty(dataView) ? dataView.category.nameCategory : ""}</option>
+                            <label className="form-label">Danh mục</label>
+                            <select className="form-control form-select"  disabled >
+                                <option selected>{ dataView?.category?.name}</option>
                             </select>
                         </div>
-                        <div className="col-md-12">
-                            <label className="form-label">Description</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={description} disabled />
+                        <div className="col-md-6">
+                            <label className="form-label">Giá nhập</label>
+                            <input type="text" className="form-control" placeholder="not found" value={importPrice} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Import Price</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={importprice} disabled />
+                            <label className="form-label">Giá bán</label>
+                            <input type="text" className="form-control" placeholder="not found" value={sellingPrice} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Selling Price</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={sellingprice} disabled />
+                            <label className="form-label">khối lượng</label>
+                            <input type="text" className="form-control" placeholder="not found" value={weight} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Weight</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={weight} disabled />
-                        </div>
-                        <div className="col-md-6">
-                            <label className="form-label">Count</label>
-                            <input type="text" className="form-control" placeholder="Gà lắc phô mai" value={count} disabled />
+                            <label className="form-label">Số lượng</label>
+                            <input type="text" className="form-control" placeholder="not found" value={count} disabled />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Description</label>
-                            <input type="text" className="form-control" placeholder="Example description" value={description} disabled />
+                            <label className="form-label">Mô tả</label>
+                            <input type="text" className="form-control" placeholder="not found" value={description} disabled />
                         </div>
                         <div className="col-12  img-preview">
-                            <img src={previewImage} alt="preview image" />
+                            <img src={presentImage} alt="preview image" />
                         </div>
                     </form>
                 </Modal.Body>

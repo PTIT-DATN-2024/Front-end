@@ -40,10 +40,9 @@ const MainSlider = (props) => {
                                         <div className="SwiperSlideDes_item name">{product.name}</div>
                                         <div className="SwiperSlideDes_item desc">{product.description}</div>
                                     </div>
-
                                     <div className="SwiperSlideImg">
                                         <div className="content">
-                                            <img src={product.presentImage} alt="presentImage" className="SwiperSlideImgItem" />
+                                            <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="presentImage" className="SwiperSlideImgItem" />
                                         </div>
                                     </div>
                                 </SwiperSlide>

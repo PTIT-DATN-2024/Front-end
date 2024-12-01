@@ -2,24 +2,29 @@ import axios from "../utils/axiosCustomize";
 
 // USER, AUTHOR
 const postCreateUser = (formData, config) => {
-    return axios.post("/user", formData, config);
+    return axios.post("/auth/signup", formData, config);
 };
 const getAllUsers = (config) => {
-    return axios.get("/user",config);
+    return axios.get("/customer", config);
 };
-const putUpdateUser = (_id, formData,config) => {
+const putUpdateUser = (_id, formData, config) => {
 
     return axios.put(`/user/${_id}`, formData, config);
 };
-const deleteUser = (_id,config) => {
-    return axios.delete(`/user/${_id}`,config);
+const deleteUser = (_id, config) => {
+    return axios.delete(`/customer/customer/${_id}`, config);
+};
+const deleteStaff = (_id, config) => {
+    return axios.delete(`/customer/staff/${_id}`, config);
 };
 const postLogin = (dataLogin) => {
-    return axios.post("/user/login", dataLogin);
+    return axios.post("/auth/login", dataLogin);
 };
-const postSignUp = (formData,config) => {
-    return axios.post("/user/signup", formData,config);
+const postSignUp = (formData, config) => {
+    return axios.post("/auth/signup", formData, config);
 };
+
+
 // CATEGORY 
 const postCreateCategory = (formData, config) => {
     return axios.post("/category", formData, config);
@@ -27,12 +32,14 @@ const postCreateCategory = (formData, config) => {
 const getAllCategories = () => {
     return axios.get("/category");
 };
-const putUpdateCategory = (_id, formData, config) => {
-    return axios.put(`/category/${_id}`, formData, config);
+const putUpdateCategory = (categoryId, data, config) => {
+    return axios.put(`/category/${categoryId}`, data);
 };
-const deleteCategory = (_id,config) => {
-    return axios.delete(`/category/${_id}`,config);
+const deleteCategory = (categoryId, config) => {
+    return axios.delete(`/category/${categoryId}`);
 };
+
+
 
 // IMAGE SHOP
 const postCreateBgImage = (formData, config) => {
@@ -44,9 +51,10 @@ const getAllBgImages = () => {
 const putUpdateBgImage = (_id, formData, config) => {
     return axios.put(`/bgImage/${_id}`, formData, config);
 };
-const deleteBgImage = (_id,config) => {
-    return axios.delete(`/bgImage/${_id}`,config);
+const deleteBgImage = (_id, config) => {
+    return axios.delete(`/bgImage/${_id}`, config);
 };
+
 
 
 // PRODUCT 
@@ -65,17 +73,33 @@ const getAllProducts = () => {
 const putUpdateProduct = (_id, formData, config) => {
     return axios.put(`/product/${_id}`, formData, config);
 };
-const deleteProduct = (_id,config) => {
-    return axios.delete(`/product/${_id}`,config);
+const deleteProduct = (_id, config) => {
+    return axios.delete(`/product/${_id}`, config);
 };
 const getSearchProduct = (query) => {
     return axios.get(`/product/search?query=${query}`);
 };
-
-
+// cart 
+const getCartbyUserid = (customerId) => {
+    return axios.get(`/cart/customer/${customerId}`);
+};
+const postProductToCart = (_id, customerId, product, quantity, totalPrice) => {
+    let data = {
+        customerId: customerId,
+        product: product,
+        quantity: quantity,
+        totalPrice: totalPrice,
+    };
+    return axios.post(`/cart`, data);
+};
+const removeProductToCart = (cartDetailId) => {
+    return axios.delete(`/cart/cartDetail/${cartDetailId}`);
+};
+const changeQuantityOfProductToCart = (cartDetailId,quantity) => {
+    return axios.put(`/cart/cartDetail/${cartDetailId}`,quantity);
+};
 
 // ORDER 
-
 const postCreateOrder = (user, listItem, Total, createdAt) => {
     let data = {
         user: user,
@@ -85,7 +109,7 @@ const postCreateOrder = (user, listItem, Total, createdAt) => {
     };
     return axios.post("/order", data);
 };
-const postCreateUserOrder = (formData,config) => {
+const postCreateUserOrder = (formData, config) => {
     return axios.post("/order", formData);
 };
 const getAllOrders = () => {
@@ -103,16 +127,12 @@ const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
     };
     return axios.put(`/order/${_id}`, data);
 };
-const putEditStatusOrder = (_id, statusOrder) => {
-    let data = {
-        statusOrder: statusOrder,
-    };
-    return axios.put(`/order/${_id}`, data);
+const putEditStatusOrder = (_id, data) => {
+    return axios.put(`/order/${_id}`,data);
 };
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
 };
-
 // CMT 
 const postCreateComment = (idProduct, idUser, content, rating) => {
     let data = {
@@ -123,7 +143,6 @@ const postCreateComment = (idProduct, idUser, content, rating) => {
     };
     return axios.post("/comment", data);
 };
-
 const getCommentsProduct = (_idProduct) => {
     return axios.get(`/comment/product/${_idProduct}`);
 };
@@ -139,22 +158,14 @@ const putUpdateComment = (_id, user, listItem, Total, createdAt) => {
 const deleteComment = (_id) => {
     return axios.delete(`/comment/${_id}`);
 };
-
-
-
 // dashboard 
 const getDataEcommerce = () => {
     return axios.get("/dashboard/ecommerce");
 };
-
 // pay
 const postCreatePayment = (formData, config) => {
-    return axios.post("/payment/create_payment",formData);
+    return axios.post("/payment/create_payment", formData);
 };
-
-
-
-
 
 export {
     postLogin,
@@ -163,6 +174,7 @@ export {
     getAllUsers,
     putUpdateUser,
     deleteUser,
+    deleteStaff,
 
     postCreateCategory,
     getAllCategories,
@@ -182,6 +194,11 @@ export {
     postVote,
     deleteVote,
 
+    changeQuantityOfProductToCart,
+    postProductToCart,
+    removeProductToCart,
+    getCartbyUserid,
+
     postCreateOrder,
     postCreateUserOrder,
     getAllOrders,
@@ -195,9 +212,7 @@ export {
     putUpdateComment,
     deleteComment,
 
-
     getDataEcommerce,
-
 
     postCreatePayment,
 };

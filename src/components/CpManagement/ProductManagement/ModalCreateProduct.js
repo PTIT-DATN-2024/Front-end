@@ -17,8 +17,8 @@ const ModalCreateProduct = (props) => {
         setShow(false);
         setName("");
         setCategory("");
-        setImportprice("");
-        setSellingprice("");
+        setImportPrice("");
+        setSellingPrice("");
         setWeight("");
         setPresentImage("");
         setDescriptiom("");
@@ -36,8 +36,8 @@ const ModalCreateProduct = (props) => {
     //  count
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
-    const [importprice, setImportprice] = useState("");
-    const [sellingprice, setSellingprice] = useState("");
+    const [importPrice, setImportPrice] = useState("");
+    const [sellingPrice, setSellingPrice] = useState("");
     const [weight, setWeight] = useState("");
     const [presentImage, setPresentImage] = useState();
     const [description, setDescriptiom] = useState("");
@@ -56,7 +56,7 @@ const ModalCreateProduct = (props) => {
     };
     useEffect(() => {
         handleBlur("productPresent", presentImage);
-    },[]);
+    }, []);
     const handleBlur = (field, value) => {
         const newErrors = { ...errors, ...validateFields({ [field]: value }) };
         setErrors(newErrors);
@@ -72,8 +72,8 @@ const ModalCreateProduct = (props) => {
         const dataValidate = {
             productName: name,
             productCategory: category,
-            importprice: importprice,
-            sellingprice: { sellingprice: sellingprice, importprice: importprice },
+            importprice: importPrice,
+            sellingprice: { sellingprice: sellingPrice, importprice: importPrice },
             weight: weight,
             productPresent: presentImage,
             productDescription: description,
@@ -86,7 +86,7 @@ const ModalCreateProduct = (props) => {
         console.log(allFieldsEmpty);
         if (allFieldsEmpty) {
             // callapi
-            console.log("qwedqw");
+            // console.log("qwedqw");
             const config = {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -95,16 +95,14 @@ const ModalCreateProduct = (props) => {
             };
             const formData = new FormData();
             formData.append("name", name);
+            formData.append("categoryId", category);
+            formData.append("importPrice", importPrice);
+            formData.append("sellingPrice", sellingPrice);
             formData.append("weight", weight);
-            formData.append("importprice", importprice);
-            formData.append("sellingprice", sellingprice);
+            formData.append("avatar", presentImage);
             formData.append("description", description);
-            formData.append("count", count);
-            formData.append("category", category);
-            formData.append("presentImage", presentImage);
-
+            formData.append("total", count);
             let res_data = await postCreateProduct(formData, config);
-
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
@@ -114,21 +112,22 @@ const ModalCreateProduct = (props) => {
                 toast.error(res_data.MS);
             }
         }
+        // "MS": "Error while creating: Unable to find selling_electronic_devices.back_end.Entity.Product with id 2170897d-b563-4f67-a36f-e884c36a15dd",
     };
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddProduct">
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new Product</Modal.Title>
+                    <Modal.Title>Thêm sản phẩm mới</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Tên</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Gà lắc phô mai"
+                                placeholder="Màn hình ASUS"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                                 onBlur={() => handleBlur("productName", name)}
@@ -137,12 +136,12 @@ const ModalCreateProduct = (props) => {
                             {errors.productName && <div className="text-danger">{errors.productName}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Category</label>
+                            <label className="form-label">Danh mục</label>
                             {
                                 <select className="form-control form-select" onChange={(event) => setCategory(event.target.value)} onBlur={() => handleBlur("productCategory", category)} onFocus={() => handleFocus("productCategory")}>
                                     <option key={0} value=""></option>
                                     {listCategories.map((category, index) => (
-                                        <option key={category._id} value={category._id}>
+                                        <option key={category.categoryId} value={category.categoryId}>
                                             {category.name}
                                         </option>
                                     ))}
@@ -151,16 +150,16 @@ const ModalCreateProduct = (props) => {
                             {errors.productCategory && <div className="text-danger">{errors.productCategory}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Import Price</label>
+                            <label className="form-label">Giá nhập</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="50000"
-                                value={importprice}
-                                onChange={(event) => setImportprice(event.target.value)}
+                                value={importPrice}
+                                onChange={(event) => setImportPrice(event.target.value)}
                                 onBlur={() => {
-                                    handleBlur("sellingprice", { sellingprice: sellingprice, importprice: importprice });
-                                    handleBlur("importprice", importprice);
+                                    handleBlur("sellingprice", { sellingprice: sellingPrice, importprice: importPrice });
+                                    handleBlur("importprice", importPrice);
                                 }}
                                 onFocus={() => {
                                     handleFocus("sellingprice");
@@ -170,30 +169,30 @@ const ModalCreateProduct = (props) => {
                             {errors.importprice && <div className="text-danger">{errors.importprice}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Selling Price</label>
+                            <label className="form-label">Giá bán</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="80000"
-                                value={sellingprice}
-                                onChange={(event) => setSellingprice(event.target.value)}
-                                onBlur={() => handleBlur("sellingprice", { sellingprice: sellingprice, importprice: importprice })}
+                                value={sellingPrice}
+                                onChange={(event) => setSellingPrice(event.target.value)}
+                                onBlur={() => handleBlur("sellingprice", { sellingprice: sellingPrice, importprice: importPrice })}
                                 onFocus={() => handleFocus("sellingprice")}
                             />
                             {errors.sellingprice && <div className="text-danger">{errors.sellingprice}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Weight (g)</label>
+                            <label className="form-label">Khối lượng (g)</label>
                             <input type="text" className="form-control" placeholder="500" value={weight} onChange={(event) => setWeight(event.target.value)} onBlur={() => handleBlur("weight", weight)} onFocus={() => handleFocus("weight")} />
                             {errors.weight && <div className="text-danger">{errors.weight}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Count </label>
+                            <label className="form-label">Số lượng </label>
                             <input type="text" className="form-control" placeholder="500" value={count} onChange={(event) => setCount(event.target.value)} onBlur={() => handleBlur("productCount", count)} onFocus={() => handleFocus("productCount")} />
                             {errors.productCount && <div className="text-danger">{errors.productCount}</div>}
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Description</label>
+                            <label className="form-label">Mô tả</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -208,7 +207,7 @@ const ModalCreateProduct = (props) => {
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileProduct">
                                 <FcPlus />
-                                Upload file image
+                                Tải ảnh lên
                             </label>
                             <input
                                 type="file"
@@ -226,10 +225,10 @@ const ModalCreateProduct = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitCreateProduct()}>
-                        Save
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

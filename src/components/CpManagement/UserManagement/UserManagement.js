@@ -43,9 +43,10 @@ const UserManagement = (props) => {
         };
         let res = await getAllUsers(config);
         if (res.EC === 0) {
+            const users = res.users.filter(user => user.isDelete === "false")
             dispatch({
                 type: "fetch_all_users",
-                payload: res.users,
+                payload: users,
             });
             toast.success(res.MS);
         }
@@ -59,12 +60,11 @@ const UserManagement = (props) => {
     }, []);
     return (
         <div className="UserManagement_container">
-            <div className="Title">đây là UserManagement</div>
             <div className="UserManagement_content">
                 <div>
                     <Button variant="primary" onClick={() => setShowModalCreateUser(true)}>
                         <FcPlus />
-                        Add new user
+                        Tạo tài khoản mới
                     </Button>
                 </div>
             </div>

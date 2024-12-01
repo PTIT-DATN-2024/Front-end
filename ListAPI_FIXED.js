@@ -1,4 +1,4 @@
-// apiDocumentation.js
+﻿// apiDocumentation.js
 
 const apiDocumentation = [
     // USER API
@@ -169,7 +169,9 @@ const apiDocumentation = [
         req: {
             body: {
                 "name": "theloai5",
+                "description" : "876238712531",
                 "avatar": "xxx"
+
             }
         },
         res: {
@@ -240,7 +242,7 @@ const apiDocumentation = [
                 "importPrice": "35000",
                 "sellingPrice": "55000",
                 "weight": "300g",
-                "presentImage": "",
+                "avatar": "",
                 "description": "example description",
                 "total": 30
             }
@@ -385,8 +387,9 @@ const apiDocumentation = [
         }
     },
 
-    // cart api
 
+
+    // cart api
     {
         api: "getCartbyUserid",
         url: "/cart/user/:userId",
@@ -395,74 +398,120 @@ const apiDocumentation = [
         req: {
         },
         res: {
-            EC: 0,
-            MS: "get cart sc!",
-            cart: {
-                cartId: "1278361872",
-                customer: {
-                    customerId: "12312",
-                    email: "12312"
-                    // ....
-                },
-                cartDetails: [
-                    {
-                        "cartDetailId": "cd006",
-                        "cart": {
-                            "cartId": "cart006",
-                            "customer": {
-                                "customerId": "cust006",
-                                "email": "user6@example.com",
-                                "password": "pass6",
-                                "userName": "user6",
-                                "fullName": "User Six",
-                                "address": "1",
-                                "role": "CUSTOMER",
-                                "avatar": "1728958738001.jpg",
-                                "phone": "1234567895",
-                                "isDelete": "false",
-                                "createdAt": "2024-11-08T10:10:24.402015",
-                                "updatedAt": "2024-11-08"
-                            },
+            "MS": "Get all item form Cart successfully.",
+            "EC": 0,
+            "cart": [
+                {
+                    "cartDetailId": "cd003",
+                    "cart": {
+                        "cartId": "cart003",
+                        "customer": {
+                            "customerId": "cust003",
+                            "email": "user3@example.com",
+                            "password": "pass3",
+                            "userName": "user3",
+                            "fullName": "User Three",
+                            "address": "1",
+                            "role": "CUSTOMER",
+                            "avatar": "1728958738001.jpg",
+                            "phone": "1234567892",
+                            "isDelete": "false",
                             "createdAt": "2024-11-08T10:10:24.402015",
-                            "updatedAt": "2024-11-08T10:10:24.402015"
+                            "updatedAt": "2024-11-08"
                         },
-                        "product": {
-                            "productId": "prod006",
-                            "category": {
-                                "categoryId": "cate012",
-                                "name": "Groceries",
-                                "description": "Description of category 12",
-                                "avatar": "1728958738001.jpg",
-                                "createdAt": "2024-11-08T10:19:49.851705"
-                            },
-                            "productDiscount": {
-                                "productDiscountId": "disc006",
-                                "discountAmount": 30.0,
-                                "expiredDate": "2025-06-01T00:00:00",
-                                "createdAt": "2024-11-08T10:10:24.402015",
-                                "updatedAt": "2024-11-08T10:10:24.402015"
-                            },
-                            "name": "Basketball",
-                            "total": 80,
-                            "rate": 4.1,
-                            "numberVote": 110,
-                            "description": "Durable basketball, sci-fi",
-                            "importPrice": 15.0,
-                            "sellingPrice": 18.0,
-                            "status": "Available",
-                            "weight": "300g",
-                            "presentImage": "1728958738001.jpg",
-                            "createdAt": "2024-11-08T10:10:24.402015",
-                            "updatedAt": "2024-11-08T10:10:24.402015"
-                        },
-                        "quantity": 1,
-                        "totalPrice": 110000.0,
                         "createdAt": "2024-11-08T10:10:24.402015",
                         "updatedAt": "2024-11-08T10:10:24.402015"
                     },
-                ],
-                total: 32781631
-            }
+                    "product": {
+                        "productId": "prod003",
+                        "category": {
+                            "categoryId": "cat003",
+                            "name": "Appliances",
+                            "description": "Home appliances",
+                            "avatar": "1728958738001.jpg",
+                            "createdAt": "2024-11-08T10:10:24.402015"
+                        },
+                        "productDiscount": {
+                            "productDiscountId": "disc003",
+                            "discountAmount": 15.0,
+                            "expiredDate": "2025-03-01T00:00:00",
+                            "createdAt": "2024-11-08T10:10:24.402015",
+                            "updatedAt": "2024-11-08T10:10:24.402015"
+                        },
+                        "name": "Washing Machine",
+                        "total": 75,
+                        "rate": 4.0,
+                        "numberVote": 100,
+                        "description": "Automatic washing machine",
+                        "importPrice": 300.0,
+                        "sellingPrice": 350.0,
+                        "status": "Available",
+                        "weight": "300g",
+                        "presentImage": "1728958738001.jpg",
+                        "createdAt": "2024-11-08T10:10:24.402015",
+                        "updatedAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "quantity": 1,
+                    "totalPrice": 110000.0,
+                    "createdAt": "2024-11-08T10:10:24.402015",
+                    "updatedAt": "2024-11-08T10:10:24.402015"
+                },
+                {
+                    "cartDetailId": "cd002",
+                    "cart": {
+                        "cartId": "cart003",
+                        "customer": {
+                            "customerId": "cust003",
+                            "email": "user3@example.com",
+                            "password": "pass3",
+                            "userName": "user3",
+                            "fullName": "User Three",
+                            "address": "1",
+                            "role": "CUSTOMER",
+                            "avatar": "1728958738001.jpg",
+                            "phone": "1234567892",
+                            "isDelete": "false",
+                            "createdAt": "2024-11-08T10:10:24.402015",
+                            "updatedAt": "2024-11-08"
+                        },
+                        "createdAt": "2024-11-08T10:10:24.402015",
+                        "updatedAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "product": {
+                        "productId": "prod002",
+                        "category": {
+                            "categoryId": "cat002",
+                            "name": "Furniture",
+                            "description": "Home furniture",
+                            "avatar": "1728958738001.jpg",
+                            "createdAt": "2024-11-08T10:10:24.402015"
+                        },
+                        "productDiscount": {
+                            "productDiscountId": "disc002",
+                            "discountAmount": 10.0,
+                            "expiredDate": "2025-02-01T00:00:00",
+                            "createdAt": "2024-11-08T10:10:24.402015",
+                            "updatedAt": "2024-11-08T10:10:24.402015"
+                        },
+                        "name": "Sofa",
+                        "total": 50,
+                        "rate": 4.2,
+                        "numberVote": 120,
+                        "description": "Comfortable sofa",
+                        "importPrice": 200.0,
+                        "sellingPrice": 220.0,
+                        "status": "Available",
+                        "weight": "300g",
+                        "presentImage": "1728958738001.jpg",
+                        "createdAt": "2024-11-08T10:10:24.402015",
+                        "updatedAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "quantity": 2,
+                    "totalPrice": 110000.0,
+                    "createdAt": "2024-11-08T10:10:24.402015",
+                    "updatedAt": "2024-11-08T10:10:24.402015"
+                }
+            ]
         }
     },
     {
@@ -518,7 +567,7 @@ const apiDocumentation = [
     },
     {
         // remove cartdetail xóa cartdetail trong cart của kh
-        api: "prmoveProductToCart",
+        api: "removeProductToCart",
         url: "/cart/cartDetail/:cartDetailId",
         method: "DELETE",
         description: "remove product to cart of user",
@@ -535,9 +584,11 @@ const apiDocumentation = [
         url: "/cart/cartDetail/:cartDetailId",
         method: "PUT",
         description: "Change quantity product to cart of user",
+        param:{
+            quantity: -1,
+        },
         req: {
-            body:
-            {
+            param:{
                 quantity: -1,
             }
         },

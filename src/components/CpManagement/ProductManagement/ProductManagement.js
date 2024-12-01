@@ -39,9 +39,10 @@ const ProductManagement = (props) => {
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
+            const products = res.products.filter(product => product.isDelete === "False")
             dispatch({
                 type: "fetch_all_product",
-                payload: res.products,
+                payload: products,
             });
             toast.success(res.MS);
         }
@@ -52,12 +53,9 @@ const ProductManagement = (props) => {
     }, []);
     useEffect(() => {
         fetchListProducts();
-
-        console.log("fetchListProducts", listProducts);
     }, []);
     return (
         <div className="ProductManagement_container">
-            {/* <div className="Title">đây là ProductManagement</div> */}
             <div className="ProductManagement_content">
                 <div>
                     <Button
@@ -67,7 +65,7 @@ const ProductManagement = (props) => {
                         }}
                     >
                         <FcPlus />
-                        Add new Product
+                        Thêm mới product
                     </Button>
                 </div>
             </div>
@@ -77,7 +75,6 @@ const ProductManagement = (props) => {
             <ModalCreateProduct show={showModalCreateProduct} setShow={setShowModalCreateProduct} fetchListProducts={fetchListProducts} />
             <ModalDeleteProduct show={showModalDeleteProduct} setShow={setShowModalDeleteProduct} fetchListProducts={fetchListProducts} dataDelete={dataDelete} />
             <ModalUpdateProduct show={showModalUpdateProduct} setShow={setShowModalUpdateProduct} fetchListProducts={fetchListProducts} dataUpdate={dataUpdate} />
-
             <ModalViewProduct show={showModalViewProduct} setShow={setShowModalViewProduct} fetchListProducts={fetchListProducts} dataView={dataView} />
         </div>
     );

@@ -14,17 +14,17 @@ const TableCategoriesPaginate = (props) => {
                         return (
                             <tr key={`table_category_${index}`} className="tableCategory_row">
                                 <td>{itemOffset + index + 1}</td>
-                                <td className="tableCategory_rowItem">{<img src={category.avatar} alt="" className="categoryPresent" />}</td>
+                                <td className="tableCategory_rowItem">{category.avatar !== "" ? <img src={category.avatar} alt="" className="categoryPresent" /> : ""}</td>
                                 <td>{category.name}</td>
                                 <td>
                                     <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(category)}>
-                                        View
+                                        Xem
                                     </button>
                                     <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(category)}>
-                                        Edit
+                                        Sửa
                                     </button>
                                     <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(category)}>
-                                        Delete
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>
@@ -32,7 +32,7 @@ const TableCategoriesPaginate = (props) => {
                     })}
                 {currentItems && currentItems.length === 0 && (
                     <tr>
-                        <td colSpan={6}>Not found category</td>
+                        <td colSpan={6}>Không tìm thấy danh mục sản phẩm</td>
                     </tr>
                 )}
             </tbody>
@@ -92,8 +92,8 @@ const TableCategoriesPaginate = (props) => {
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Setting</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Cài đặt</th>
                     </tr>
                 </thead>
                 <PaginatedItems itemsPerPage={10} />

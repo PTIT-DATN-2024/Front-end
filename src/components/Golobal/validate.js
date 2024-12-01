@@ -44,7 +44,7 @@ const validatePhoneNumber = (phoneNumber) => {
 
 // Validate Role
 const validateRole = (role) => {
-    const validRoles = ["USER", "STAFF", "ADMIN"];
+    const validRoles = ["CUSTOMER", "STAFF", "ADMIN"];
     if (!role) {
         return "Vai trò không được để trống";
     } else if (!validRoles.includes(role)) {
@@ -224,6 +224,24 @@ const validateQuantity = (quantity) => {
     }
     return "";
 };
+const validateDesc = (desc) => {
+    if (!desc) {
+        return "Mô tả không được để trống";
+    }
+    return "";
+};
+const validateUseName = (useName) => {
+    if (!useName) {
+        return "Tên không được để trống";
+    }
+    return "";
+};
+const validateFullNAme = (fullName) => {
+    if (!fullName) {
+        return "Tên đầy đủ không được để trống";
+    }
+    return "";
+};
 
 const validateFields = (fields) => {
     const errors = {};
@@ -258,6 +276,12 @@ const validateFields = (fields) => {
             errors.categoryName = validateCategoryName(value);
         } else if (field === "categoryAvatar") {
             errors.categoryAvatar = validateCategoryAvatar(value);
+        } else if (field === "description") {
+            errors.categoryAvatar = validateDesc(value);
+        } else if (field === "useName") {
+            errors.categoryAvatar = validateUseName(value);
+        } else if (field === "fullName") {
+            errors.categoryAvatar = validateFullNAme(value);
         }
     }
     return errors;

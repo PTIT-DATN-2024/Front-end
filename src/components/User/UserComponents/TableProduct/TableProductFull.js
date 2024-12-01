@@ -77,22 +77,22 @@ const TableProductFull = (props) => {
         <div className="listPd">
             {currentItems && currentItems.length > 0 ? (
                 currentItems.map((product, index) => (
-                    <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)} className="productSlide">
+                    <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} className="productSlide">
                         <div className="p-img">
-                            <img src={product.presentImage} alt={product.name} />
+                            <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt={product.name} />
                         </div>
                         <div className="p-rate">
                             <span className="p-count-rate">{product.rate}</span>
                             <span className="p-count-rate">({product.numberVote})</span>
-                            <p className="p-sku">Mã: {product.sku}</p>
+                            <p className="p-sku">Mã: {product.productId}</p>
                         </div>
                         <div className="p-info">
                             <p className="p-name">{product.name}</p>
-                            <span className="p-discount"> (Tiết kiệm: 19% )</span>
-                            <span className="p-price">{product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                            <span className="p-discount"> (Tiết kiệm: {product?.productDiscount?.discountAmount != null ? product?.productDiscount?.discountAmount : 0}% )</span>
+                            <span className="p-price">{product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                         </div>
                         <div className="p-action">
-                            <span className="p-qty">Sẵn hàng</span>
+                            <span className="p-qty">{(product.status === "Available" || product.status === "") ? "Sắn hàng" : "Đặt trước"}</span>
                             <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                         </div>
                     </div>

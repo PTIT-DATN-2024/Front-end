@@ -11,22 +11,34 @@ const ModalCreateUser = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
     // const FormData = require("form-data");
     const { show, setShow } = props;
+    // "email": "test132@example.com",
+    // "password": "111111",
+    // "userName": "111111",
+    // "fullName": "User Twelve111",
+    // "address": "ha noi",
+    // "role": "ADMIN",
+    // "avatar": "",
+    // "phone": "1234568801"
     const handleClose = () => {
         setShow(false);
         setEmail("");
+        setUserName("");
+        setFullName("");
         setPassword("");
         setAddress("");
         setPhoneNumber("");
-        setRole("USER");
+        setRole("CUSTOMER");
         setAvatar("");
         setPreviewImage("");
         setErrors({});
     };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState("");
+    const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [role, setRole] = useState("USER");
+    const [role, setRole] = useState("CUSTOMER");
     const [avatar, setAvatar] = useState("");
     const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState({});
@@ -59,6 +71,8 @@ const ModalCreateUser = (props) => {
             address: address,
             phoneNumber: phoneNumber,
             role: role,
+            useName: userName,
+            fullname : fullName,
         };
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
@@ -74,10 +88,12 @@ const ModalCreateUser = (props) => {
             const formData = new FormData();
             formData.append("email", email);
             formData.append("password", password);
+            formData.append("userName", userName);
+            formData.append("fullName", fullName);
             formData.append("address", address);
-            formData.append("phoneNumber", phoneNumber);
+            formData.append("phone", phoneNumber);
             formData.append("role", role);
-            formData.append("avatar", avatar);
+            formData.append("avatar", "");
             let res_data = await postCreateUser(formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
@@ -93,7 +109,7 @@ const ModalCreateUser = (props) => {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddUser">
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new user</Modal.Title>
+                    <Modal.Title>Thêm mới tài khoản</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -111,7 +127,7 @@ const ModalCreateUser = (props) => {
                             {errors.email && <div className="text-danger">{errors.email}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">Mật khẩu</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -123,8 +139,34 @@ const ModalCreateUser = (props) => {
                             />
                             {errors.password && <div className="text-danger">{errors.password}</div>}
                         </div>
+                        <div className="col-md-6">
+                            <label className="form-label">UserName</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="anh"
+                                value={userName}
+                                onChange={(event) => setUserName(event.target.value)}
+                                onBlur={() => handleBlur("userName", userName)}
+                                onFocus={() => handleFocus("userName")}
+                            />
+                            {errors.userName && <div className="text-danger">{errors.userName}</div>}
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Tên đầy đủ</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Nguyen Van Anh"
+                                value={fullName}
+                                onChange={(event) => setFullName(event.target.value)}
+                                onBlur={() => handleBlur("fullName", fullName)}
+                                onFocus={() => handleFocus("fullName")}
+                            />
+                            {errors.fullName && <div className="text-danger">{errors.fullName}</div>}
+                        </div>
                         <div className="col-12">
-                            <label className="form-label">Address</label>
+                            <label className="form-label">Địa chỉ</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -138,7 +180,7 @@ const ModalCreateUser = (props) => {
                         </div>
 
                         <div className="col-md-6">
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label">Số điện thoại</label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -151,18 +193,18 @@ const ModalCreateUser = (props) => {
                             {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">Vai trò</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)} onBlur={() => handleBlur("role", role)} onFocus={() => handleFocus("role")}>
-                                <option value="USER">USER</option>
-                                <option value="STAFF">STAFF</option>
-                                <option value="ADMIN">ADMIN</option>
+                                <option value="CUSTOMER">Khách hàng</option>
+                                <option value="STAFF">Nhân viên</option>
+                                <option value="ADMIN">Quản lí</option>
                             </select>
                             {errors.role && <div className="text-danger">{errors.role}</div>}
                         </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileUser">
                                 <FcPlus />
-                                Upload file image
+                                Tải ảnh lên
                             </label>
                             <input type="file" className="form-control" hidden id="inputFileUser" onChange={(event) => handleUploadImage(event)} />
                         </div>
@@ -171,10 +213,10 @@ const ModalCreateUser = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-                        Save
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

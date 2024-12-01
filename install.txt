@@ -18,13 +18,19 @@ aring
 git remote set-url origin https://github.com/PTIT-DATN-2024/Front-end.git
 git rm -r --cached backend
 
+http://localhost:8080/uploads/users/banphim1.jpg
+
+http://localhost:8080/uploads/products/laptop1.jpg
+
+http://localhost:8080/uploads/categories/chuot1.jpg
+
 GIT
 gti
 git config --list
 git branch main 
 git init
 git add .
-git commit -m "update listAPI ( them api cart)  26/11"
+git commit -m "update cart, order, gd tieng viet"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin main --force
 git push origin main:master --force

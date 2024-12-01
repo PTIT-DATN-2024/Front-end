@@ -49,7 +49,7 @@ const Footer = (props) => {
                         <div className="links-group-container">
                             <p>
                                 <a href="#" target="_blank">
-                                    <img src="/v1/uploads/bgImages/1729231869739.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
+                                    <img src="http://localhost:8080/uploads/categories/logo.png" alt="logo" style={{ height: "80px", width: "160px", objectFit: "contain" }} />
                                 </a>
                             </p>
                             <span className="links-group-title">Tổng đài</span>

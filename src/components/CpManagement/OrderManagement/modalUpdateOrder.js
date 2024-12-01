@@ -17,12 +17,12 @@ const ModalUpdateOrder = (props) => {
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
-            setUserEmail(dataUpdate.user.emailUser || "");
-            setUserAvatar(dataUpdate.user.avatarUser || "");
-            setPreviewAvatar(dataUpdate.user.avatarUser || "");
-            setListItem(dataUpdate.listItem || []);
+            setUserEmail(dataUpdate.customer.email || "");
+            setUserAvatar(dataUpdate.customer.avatar || "");
+            setPreviewAvatar(dataUpdate.customer.avatar || "");
+            setListItem(dataUpdate.detailOrderedProducts || []);
             setTotal(dataUpdate.total || 0);
-            setStatusOrder(dataUpdate.statusOrder || "");
+            setStatusOrder(dataUpdate.status || "");
         }
     }, [dataUpdate]);
 
@@ -44,7 +44,10 @@ const ModalUpdateOrder = (props) => {
 
 
     const handleSave = async () => {
-        const response = await putEditStatusOrder(dataUpdate._id, statusOrder);
+        let data ={
+            status:statusOrder,
+        }
+        const response = await putEditStatusOrder(dataUpdate.orderId, data);
         if (response && response.EC === 0) {
             toast.success(response.MS);
             handleClose();
@@ -72,12 +75,12 @@ const ModalUpdateOrder = (props) => {
                 </Form.Group>
                 <h5>Danh sách sản phẩm</h5>
                 {listItem.map((item, index) => (
-                    <div key={item.idProduct} style={{ marginBottom: "10px" }}>
+                    <div key={item.detailOrderProductId} style={{ marginBottom: "10px" }}>
                         <Form.Group controlId={`productName${index}`}>
                             <Form.Label>Tên sản phẩm</Form.Label>
                             <Form.Control
                                 type="text"
-                                value={item.nameProduct}
+                                value={item.product.name}
                                 disabled
                             />
                         </Form.Group>
@@ -89,7 +92,7 @@ const ModalUpdateOrder = (props) => {
                                 disabled
                             />
                         </Form.Group>
-                        <Form.Text>Thành tiền: {item.sum.toLocaleString()} VND</Form.Text>
+                        <Form.Text>Thành tiền: {item.totalPrice.toLocaleString()} VND</Form.Text>
                     </div>
                 ))}
 

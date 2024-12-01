@@ -33,7 +33,7 @@ function ModalViewUser(props) {
             setEmail(dataView.email);
             // setPassword("");
             setAddress(dataView.address);
-            setPhoneNumber(dataView.phoneNumber);
+            setPhoneNumber(dataView.phone);
             setRole(dataView.role);
             setPreviewImage(`${dataView.avatar}`);
         }
@@ -65,7 +65,7 @@ function ModalViewUser(props) {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddUser">
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>Thốn tin tài khoản</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -74,15 +74,15 @@ function ModalViewUser(props) {
                             <input type="email" className="form-control" placeholder="example@gmail.com" value={email} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label">Số điện thoại</label>
                             <input type="number" className="form-control" placeholder="0123 456 789" value={phoneNumber} disabled />
                         </div>
                         <div className="col-12">
-                            <label className="form-label">Address</label>
+                            <label className="form-label">Địa chỉ</label>
                             <input type="text" className="form-control" placeholder="18 Hoàng Quốc VIệt, Cầu Giấy, Hà Nội" value={address} disabled />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">Vai trò</label>
                             <select className="form-select" disabled>
                                 <option value="" selected>
                                     {dataView.role}
@@ -95,7 +95,7 @@ function ModalViewUser(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Đóng
                     </Button>
                 </Modal.Footer>
             </Modal>

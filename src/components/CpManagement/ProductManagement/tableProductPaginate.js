@@ -13,25 +13,33 @@ const TableProductsPaginate = (props) => {
                     currentItems.length > 0 &&
                     currentItems.map((product, index) => {
                         return (
-                            <tr key={`table_product_${index}`} className="tableProduct_row" onClick={() => props.handleClickBtnView(product)}>
+                            <tr key={`table_product_${index}`} className="tableProduct_row" >
                                 <td className="tableProduct_rowItem">{itemOffset + index + 1}</td>
-                                <td className="tableProduct_rowItem">{<img src={product.presentImage} alt="" className="productPresent" />}</td>
+                                <td className="tableProduct_rowItem">
+                                    <img
+                                        src={Array.isArray(product.productImages) && product.productImages.length > 0
+                                            ? product.productImages[0].image
+                                            : 'http://localhost:8080/uploads/products/1721376738190.png'}
+                                        alt=""
+                                        className="productPresent"
+                                    />
+                                </td>
                                 <td className="tableProduct_rowItem">{product.name}</td>
-                                <td className="tableProduct_rowItem">{product.category.nameCategory}</td>
-                                <td className="tableProduct_rowItem">{product.importprice}</td>
-                                <td className="tableProduct_rowItem">{product.sellingprice}</td>
+                                <td className="tableProduct_rowItem">{product.category.name}</td>
+                                <td className="tableProduct_rowItem">{product.importPrice}</td>
+                                <td className="tableProduct_rowItem">{product.sellingPrice}</td>
                                 <td className="tableProduct_rowItem">{product.weight}</td>
                                 <td className="tableProduct_rowItem">{product.description}</td>
-                                <td className="tableProduct_rowItem">{product.count}</td>
+                                <td className="tableProduct_rowItem">{product.total}</td>
                                 <td className="tableProduct_rowItem">
                                     <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(product)}>
-                                        View
+                                        Xem
                                     </button>
                                     <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(product)}>
-                                        Edit
+                                        Sửa
                                     </button>
                                     <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(product)}>
-                                        Delete
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>
@@ -39,7 +47,7 @@ const TableProductsPaginate = (props) => {
                     })}
                 {currentItems && currentItems.length === 0 && (
                     <tr>
-                        <td colSpan={6}>Not found product</td>
+                        <td colSpan={6}>Không tìm thấy sản phẩm</td>
                     </tr>
                 )}
             </tbody>
@@ -106,31 +114,31 @@ const TableProductsPaginate = (props) => {
                             STT
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            presentImage
+                            Ảnh
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            name
+                            Tên sản phẩm
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            category
+                            Danh mục
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            importprice
+                            Giá nhập
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            sellingprice
+                            Giá bán
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            weight
+                            Khối lượng
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            description
+                            Mô tả
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            count
+                            Số lượng
                         </th>
                         <th scope="col" className="tableProduct_rowItem">
-                            Setting
+                            Cài đặt
                         </th>
                     </tr>
                 </thead>

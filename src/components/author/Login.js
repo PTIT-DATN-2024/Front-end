@@ -27,7 +27,6 @@ const LogIn = (props) => {
         }
         if (res_data && res_data.EC !== 0) {
             toast.error(res_data.MS);
-            alert("sai");
         }
     };
     const [userEmail, setUserEmail] = useState("");
@@ -36,28 +35,28 @@ const LogIn = (props) => {
     return (
         <div className="main_login">
             <div className="login_header">
-                <div className="des_btn">Don't have account </div>
+                <div className="des_btn">Bạn chưa có tài khoản? </div>
                 <button className="btn_signUp" onClick={() => handleSignUp()}>
-                    Sign up
+                    Đăng kí
                 </button>
             </div>
             <div className="form" id="form-1">
-                <h3 className="heading">Wellcome!!!</h3>
+                <h3 className="heading">Xin chào!!!</h3>
                 <div className="form-group">
                     <lable className="form-lable">Email</lable>
                     <input type="text" name="email" id="email" className="form-control" placeholder="VD: email@domain.com.vm" value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />
                     <span className="form-message"></span>
                 </div>
                 <div className="form-group">
-                    <lable className="form-lable">Password</lable>
+                    <lable className="form-lable">Mật khẩu</lable>
                     <input type="password" name="password" id="password" className="form-control" placeholder="Nhập mật khẩu" value={userPassword} onChange={(event) => setUserPassword(event.target.value)} />
                     <span className="form-message"></span>
                 </div>
                 <button className="form-submit" onClick={() => handleLogin()}>
-                    Login
+                    Đăng nhập
                 </button>
                 <NavLink to="/" className="nav-link go-back-home">
-                    &lt;&lt;Back
+                    &lt;&lt;Quay lại
                 </NavLink>
             </div>
         </div>

@@ -17,7 +17,7 @@ const ModalDeleteCategory = (props) => {
                 authorization: `Bearer ${token}`, 
             },
         };
-        let res_data = await deleteCategory(dataDelete._id,config);
+        let res_data = await deleteCategory(dataDelete.categoryId,config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
@@ -44,18 +44,18 @@ const ModalDeleteCategory = (props) => {
         <>
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm delete category ?</Modal.Title>
+                    <Modal.Title>Xác nhận xóa danh mục </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure delete this category:
+                    Bạn chắc chắn muốn xóa danh mục: 
                     <b> {dataDelete && dataDelete.name ? dataDelete.name : ""}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Cancle
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={handleSubmitDeleteCategory}>
-                        Confirm
+                        Xác nhận
                     </Button>
                 </Modal.Footer>
             </Modal>

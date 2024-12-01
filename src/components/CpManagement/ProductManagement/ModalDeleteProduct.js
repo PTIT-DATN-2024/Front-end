@@ -16,7 +16,7 @@ const ModalDeleteProduct = (props) => {
                 authorization: `Bearer ${token}`, // Đặt token vào header Authorization
             },
         };
-        let res_data = await deleteProduct(dataDelete._id, config);
+        let res_data = await deleteProduct(dataDelete.productId, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
@@ -30,18 +30,18 @@ const ModalDeleteProduct = (props) => {
         <>
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm delete Product ?</Modal.Title>
+                    <Modal.Title>Xác nhận xóa sản phẩm ?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure delete this Product:
+                    Bạn chắc chắn muốn xóa sản phẩm:
                     <b> {dataDelete && dataDelete.name ? dataDelete.name : ""}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Cancle
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={handleSubmitDeleteProduct}>
-                        Confirm
+                        Xác nhận
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -69,7 +69,7 @@ const CategoryBanner = (props) => {
                                 <SwiperSlide key={index} onClick={() => handleCategoryClick(category._id)}>
                                     <div className="SwiperSlideImg">
                                         <div className="content">
-                                            <img src={category.avatar} alt="presentImage" className="SwiperSlideImgItem" />
+                                            <img src="http://localhost:8080/uploads/categories/chuot1.jpg" alt="presentImage" className="SwiperSlideImgItem" />
                                         </div>
                                     </div>
                                     <div className="SwiperSlideName">{category.name} </div>

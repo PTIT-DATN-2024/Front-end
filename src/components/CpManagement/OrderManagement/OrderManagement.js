@@ -20,7 +20,6 @@ const OrderManagement = (props) => {
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
     const [listOrders, setListOrders] = useState([]);
-
     const handleClickBtnUpdate = (category) => {
         setShowModalUpdateOrder(true);
         setDataUpdate(category);
@@ -33,8 +32,6 @@ const OrderManagement = (props) => {
         setShowModalViewOrder(true);
         setDataView(category);
     };
-
-
     const fetchListOrders = async () => {
         let res = await getAllOrders();
         if (res.EC === 0) {
@@ -45,7 +42,6 @@ const OrderManagement = (props) => {
     };
     useEffect(() => {
         window.scrollTo(0, 0);
-
     }, []);
     useEffect(() => {
         fetchListOrders();

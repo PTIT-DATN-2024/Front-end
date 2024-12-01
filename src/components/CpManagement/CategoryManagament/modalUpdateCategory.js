@@ -14,20 +14,23 @@ const ModalUpdateCategory = (props) => {
     const handleClose = () => {
         setShow(false);
         setName("");
-        setAvatar("");
+        setDesc("");
+        setAvatar();
         setPreviewImage("");
         setErrors({});
     };
     const [name, setName] = useState("");
-    const [avatar, setAvatar] = useState("");
+    const [desc, setDesc] = useState("");
+    const [avatar, setAvatar] = useState();
     const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setName(dataUpdate.name);
+            setDesc(dataUpdate.description);
             if (dataUpdate.avatar) {
-                setAvatar(dataUpdate.avatar);
+                // setAvatar(dataUpdate.avatar);
                 setPreviewImage(dataUpdate.avatar);
             }
         }
@@ -55,8 +58,15 @@ const ModalUpdateCategory = (props) => {
         // validate
         const dataValidate = {
             categoryName: name,
-            categoryAvatar: avatar,
+            description: desc,
+            // categoryAvatar: avatar,
         };
+        // "categoryId": "cate011",
+        // "name": "Clothing",
+        // "description": "Description of category 11",
+        // "products": [],
+        // "avatar": "1728958738001.jpg",
+        // "createdAt": "2024-11-08T10:19:49.851705"
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
         const allFieldsEmpty = Object.values(errors).every((value) => value === "");
@@ -70,8 +80,11 @@ const ModalUpdateCategory = (props) => {
             };
             const formData = new FormData();
             formData.append("name", name);
-            formData.append("avatar", avatar);
-            let res_data = await putUpdateCategory(dataUpdate._id, formData, config);
+            formData.append("description", desc);
+            if (avatar) {
+                formData.append("avatar", avatar);
+            }
+            let res_data = await putUpdateCategory(dataUpdate.categoryId, formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
@@ -87,12 +100,12 @@ const ModalUpdateCategory = (props) => {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">
                 <Modal.Header closeButton>
-                    <Modal.Title>Update category: {dataUpdate && dataUpdate.name ? dataUpdate.name : ""}</Modal.Title>
+                    <Modal.Title>Cập nhật thông tin : {dataUpdate && dataUpdate.name ? dataUpdate.name : ""}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Tên danh mục: </label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -104,10 +117,23 @@ const ModalUpdateCategory = (props) => {
                             />
                             {errors.categoryName && <div className="text-danger">{errors.categoryName}</div>}
                         </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Mô tả</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Moo tar"
+                                value={desc}
+                                onChange={(event) => setDesc(event.target.value)}
+                                onBlur={() => handleBlur("description", desc)}
+                                onFocus={() => handleFocus("description")}
+                            />
+                            {errors.description && <div className="text-danger">{errors.description}</div>}
+                        </div>
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileCategory">
                                 <FcPlus />
-                                Upload file image
+                                Tải ảnh lên
                             </label>
                             <input type="file" className="form-control" hidden id="inputFileCategory" onChange={(event) => handleUploadImage(event)} onBlur={() => handleBlur("categoryAvatar", avatar)} onFocus={() => handleFocus("categoryAvatar")} />
                             {errors.categoryAvatar && <div className="text-danger">{errors.categoryAvatar}</div>}
@@ -117,10 +143,10 @@ const ModalUpdateCategory = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitUpdateCategory()}>
-                        Save
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

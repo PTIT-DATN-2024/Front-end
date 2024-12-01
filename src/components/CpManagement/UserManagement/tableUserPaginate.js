@@ -12,23 +12,23 @@ const TableUsersPaginate = (props) => {
                     currentItems.length > 0 &&
                     currentItems.map((user, index) => {
                         return (
-                            <tr key={`table_user_${index}`} onClick={() => props.handleClickBtnView(user)}>
+                            <tr key={`table_user_${index}`} >
                                 <td>{itemOffset + index + 1}</td>
                                 <td>{user.avatar ? <img src={user.avatar} alt="" className="user-avatar"/> : ""}</td>
                                 {/* <td>{user._id}</td> */}
                                 <td>{user.email}</td>
                                 <td>{user.address}</td>
-                                <td>{user.phoneNumber}</td>
+                                <td>{user.phone}</td>
                                 <td>{user.role}</td>
                                 <td>
                                     <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(user)}>
-                                        View
+                                        Xem 
                                     </button>
                                     <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(user)}>
-                                        Edit
+                                        Sửa
                                     </button>
                                     <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(user)}>
-                                        Delete
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>
@@ -50,7 +50,6 @@ const TableUsersPaginate = (props) => {
         // Here we use item offsets; we could also use page offsets
         // following the API or data you're working with.
         const [itemOffset, setItemOffset] = useState(0);
-
         useEffect(() => {
             // Fetch items from another resources.
             const endOffset = itemOffset + itemsPerPage;
@@ -102,10 +101,10 @@ const TableUsersPaginate = (props) => {
                         {/* <th scope="col">ID</th> */}
                         <th scope="col"></th>
                         <th scope="col">Email</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Setting</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Vai trò</th>
+                        <th scope="col">Cài đặt</th>
                     </tr>
                 </thead>
                 <PaginatedItems itemsPerPage={10} />

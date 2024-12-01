@@ -23,7 +23,7 @@ const paymentController = {
 
             // Thêm 10 phút vào thời gian tạo giao dịch để tính thời gian hết hạn (vnp_ExpireDate)
             const expireDate = moment(createDate, "YYYYMMDDHHmmss").add(10, 'minutes').format("YYYYMMDDHHmmss"); // vnp_ExpireDate
-
+            
             let vnpParams = {
                 vnp_Version: "2.1.0",
                 vnp_Command: "pay",
