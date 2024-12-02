@@ -1,6 +1,6 @@
 const InfoShopManagement = (props) => {
     return <div className="InfoShopManagement-container">
-        đây là InfoShopManagement
+        Các chương trình khuyến mãi
     </div>;
 };
 export default InfoShopManagement;

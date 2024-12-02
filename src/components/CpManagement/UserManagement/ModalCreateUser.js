@@ -93,7 +93,7 @@ const ModalCreateUser = (props) => {
             formData.append("address", address);
             formData.append("phone", phoneNumber);
             formData.append("role", role);
-            formData.append("avatar", "");
+            formData.append("avatar", avatar);
             let res_data = await postCreateUser(formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);

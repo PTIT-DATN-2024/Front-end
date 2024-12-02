@@ -43,7 +43,7 @@ const UserManagement = (props) => {
         };
         let res = await getAllUsers(config);
         if (res.EC === 0) {
-            const users = res.users.filter(user => user.isDelete === "false")
+            const users = res.users.filter(user => user.isDelete === "False")
             dispatch({
                 type: "fetch_all_users",
                 payload: users,
