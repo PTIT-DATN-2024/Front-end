@@ -18,8 +18,6 @@ import _ from "lodash";
 const CategoryBanner = (props) => {
     const navigate = useNavigate();
     const listCategories = useSelector((state) => state.category.listCategories);
-
-
     const handleCategoryClick = (categoryId) => {
         navigate('/productFilterPage', { state: { categoryFilter: categoryId } });
     };
@@ -66,10 +64,10 @@ const CategoryBanner = (props) => {
                         listCategories.length > 0 &&
                         listCategories.map((category, index) => {
                             return (
-                                <SwiperSlide key={index} onClick={() => handleCategoryClick(category._id)}>
+                                <SwiperSlide key={index} onClick={() => handleCategoryClick(category.categoryId)}>
                                     <div className="SwiperSlideImg">
                                         <div className="content">
-                                            <img src="http://localhost:8080/uploads/categories/chuot1.jpg" alt="presentImage" className="SwiperSlideImgItem" />
+                                            <img src={category?.avatar ? category.avatar : ""} alt="presentImage" className="SwiperSlideImgItem" />
                                         </div>
                                     </div>
                                     <div className="SwiperSlideName">{category.name} </div>

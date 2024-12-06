@@ -29,7 +29,10 @@ const ProductFilterPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const stateProduct = useSelector((state) => state.product);
-    const listProducts = useSelector((state) => state.product.listProducts);
+    const listProducts = useSelector((state) =>
+        state.product.listProducts.filter((product) => product.isdelete)
+    );
+    
     const listCategories = useSelector((state) => state.category.listCategories);
     const location = useLocation();
     const categoryFilter = location.state?.categoryFilter || null;

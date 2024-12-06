@@ -588,7 +588,7 @@ const apiDocumentation = [
             quantity: -1,
         },
         req: {
-            param:{
+            body : {
                 quantity: -1,
             }
         },
@@ -666,63 +666,8 @@ const apiDocumentation = [
                         "createdAt": "2024-11-08T10:10:24.402015",
                         "updatedAt": "2024-11-08T10:10:24.402015"
                     },
-                    {
-                        "cartDetailId": "cd012",
-                        "cart": {
-                            "cartId": "cart012",
-                            "customer": {
-                                "customerId": "cust012",
-                                "email": "user12@example.com",
-                                "password": "pass12",
-                                "userName": "user12",
-                                "fullName": "User Twelve",
-                                "address": "1",
-                                "role": "customer",
-                                "avatar": "1728958738001.jpg",
-                                "phone": "1234567801",
-                                "isDelete": "false",
-                                "createdAt": "2024-11-08T10:10:24.402015",
-                                "updatedAt": "2024-11-08"
-                            },
-                            "createdAt": "2024-11-08T10:10:24.402015",
-                            "updatedAt": "2024-11-08T10:10:24.402015"
-                        },
-                        "product": {
-                            "productId": "prod012",
-                            "category": {
-                                "categoryId": "cat012",
-                                "name": "ABCDEF",
-                                "description": "Automotive accessories",
-                                "avatar": "1728958738001.jpg",
-                                "createdAt": "2024-11-08T10:10:24.402015"
-                            },
-                            "productDiscount": {
-                                "productDiscountId": "disc012",
-                                "discountAmount": 60.0,
-                                "expiredDate": "2025-12-01T00:00:00",
-                                "createdAt": "2024-11-08T10:10:24.402015",
-                                "updatedAt": "2024-11-08T10:10:24.402015"
-                            },
-                            "name": "Car Oil",
-                            "total": 90,
-                            "rate": 4.3,
-                            "numberVote": 125,
-                            "description": "Synthetic car oil",
-                            "importPrice": 25.0,
-                            "sellingPrice": 30.0,
-                            "status": "Available",
-                            "weight": "300g",
-                            "presentImage": "1728958738001.jpg",
-                            "createdAt": "2024-11-08T10:10:24.402015",
-                            "updatedAt": "2024-11-08T10:10:24.402015"
-                        },
-                        "quantity": 1,
-                        "totalPrice": 110000.0,
-                        "createdAt": "2024-11-08T10:10:24.402015",
-                        "updatedAt": "2024-11-08T10:10:24.402015"
-                    }
                 ],
-                "total": 55000000
+                "total": 10
             }
         },
         res: {

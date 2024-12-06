@@ -64,7 +64,7 @@ const TableProductPre = () => {
                             listProducts.map((product, index) => (
                                 <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                     <div class="p-img">
-                                        <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                        <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                     </div>
                                     <div class="p-rate">
                                         <span class="p-count-rate">{product.rate}</span>
@@ -77,7 +77,7 @@ const TableProductPre = () => {
                                         <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                                     </div>
                                     <div class="p-action">
-                                        <span class="p-qty">{(product.status==="Available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
+                                        <span class="p-qty">{(product.status==="available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
                                         <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@ const TableProductPre = () => {
                             listProducts.map((product, index) => (
                                 <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                     <div class="p-img">
-                                        <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                        <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                     </div>
                                     <div class="p-rate">
                                         <span class="p-count-rate">{product.rate}</span>
@@ -114,7 +114,7 @@ const TableProductPre = () => {
                                         <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                                     </div>
                                     <div class="p-action">
-                                        <span class="p-qty">{(product.status==="Available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
+                                        <span class="p-qty">{(product.status==="available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
                                         <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@ const TableProductPre = () => {
                             listProducts.map((product, index) => (
                                 <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                     <div class="p-img">
-                                        <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                        <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                     </div>
                                     <div class="p-rate">
                                         <span class="p-count-rate">{product.rate}</span>
@@ -151,81 +151,7 @@ const TableProductPre = () => {
                                         <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                                     </div>
                                     <div class="p-action">
-                                        <span class="p-qty">{(product.status==="Available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
-                                        <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
-                                    </div>
-                                </div>
-                            ))}
-                    </Slider>
-                </div>
-            </div>
-            <div className="tableProductPre_item">
-                <div className="header">
-                    <div className="title">
-                        CÁC SẢN PHẨM BÁN CHẠY NHẤT
-                    </div>
-                    <div className="more" onClick={() => navigate("/productFilterPage")}>
-                        Xem tất cả
-                    </div>
-                </div>
-                <div className="tableProductPre_list">
-                    <Slider {...settings}>
-                        {listProducts &&
-                            listProducts.length > 0 &&
-                            listProducts.map((product, index) => (
-                                <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
-                                    <div class="p-img">
-                                        <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
-                                    </div>
-                                    <div class="p-rate">
-                                        <span class="p-count-rate">{product.rate}</span>
-                                        <span class="p-count-rate">({product.numberVote})</span>
-                                        <p class="p-sku">Mã: {product.productId}</p>
-                                    </div>
-                                    <div class="p-info">
-                                        <p class="p-name">{product.name}</p>
-                                        <span class="p-discount"> (Tiết kiệm: {product?.productDiscount?.discountAmount != null ? product?.productDiscount?.discountAmount : 0 }% )</span>
-                                        <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
-                                    </div>
-                                    <div class="p-action">
-                                        <span class="p-qty">{(product.status==="Available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
-                                        <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
-                                    </div>
-                                </div>
-                            ))}
-                    </Slider>
-                </div>
-            </div>
-            <div className="tableProductPre_item">
-                <div className="header">
-                    <div className="title">
-                        CÁC SẢN PHẨM BÁN CHẠY NHẤT
-                    </div>
-                    <div className="more" onClick={() => navigate("/productFilterPage")}>
-                        Xem tất cả
-                    </div>
-                </div>
-                <div className="tableProductPre_list">
-                    <Slider {...settings}>
-                        {listProducts &&
-                            listProducts.length > 0 &&
-                            listProducts.map((product, index) => (
-                                <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
-                                    <div class="p-img">
-                                        <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
-                                    </div>
-                                    <div class="p-rate">
-                                        <span class="p-count-rate">{product.rate}</span>
-                                        <span class="p-count-rate">({product.numberVote})</span>
-                                        <p class="p-sku">Mã: {product.productId}</p>
-                                    </div>
-                                    <div class="p-info">
-                                        <p class="p-name">{product.name}</p>
-                                        <span class="p-discount"> (Tiết kiệm: {product?.productDiscount?.discountAmount != null ? product?.productDiscount?.discountAmount : 0 }% )</span>
-                                        <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
-                                    </div>
-                                    <div class="p-action">
-                                        <span class="p-qty">{(product.status==="Available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
+                                        <span class="p-qty">{(product.status==="available" || product.status==="" )? "Sắn hàng" : "Đặt trước"}</span>
                                         <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
                                     </div>
                                 </div>

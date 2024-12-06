@@ -56,7 +56,7 @@ const BestSeller = (props) => {
                         listProducts.map((product, index) => (
                             <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                 <div class="p-img">
-                                    <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                    <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
                                 <div class="p-rate">
                                     <span class="p-count-rate">{product.rate}</span>
@@ -85,7 +85,7 @@ const BestSeller = (props) => {
                         listProducts.map((product, index) => (
                             <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                 <div class="p-img">
-                                    <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                    <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
                                 <div class="p-rate">
                                     <span class="p-count-rate">{product.rate}</span>
@@ -114,7 +114,7 @@ const BestSeller = (props) => {
                         listProducts.map((product, index) => (
                             <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                 <div class="p-img">
-                                    <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                    <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
                                 <div class="p-rate">
                                     <span class="p-count-rate">{product.rate}</span>
@@ -143,7 +143,7 @@ const BestSeller = (props) => {
                         listProducts.map((product, index) => (
                             <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
                                 <div class="p-img">
-                                    <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                    <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                 </div>
                                 <div class="p-rate">
                                     <span class="p-count-rate">{product.rate}</span>

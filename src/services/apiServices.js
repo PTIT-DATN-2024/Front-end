@@ -83,21 +83,16 @@ const getSearchProduct = (query) => {
 const getCartbyUserid = (customerId) => {
     return axios.get(`/cart/customer/${customerId}`);
 };
-const postProductToCart = (_id, customerId, product, quantity, totalPrice) => {
-    let data = {
-        customerId: customerId,
-        product: product,
-        quantity: quantity,
-        totalPrice: totalPrice,
-    };
-    return axios.post(`/cart`, data);
+const postProductToCart = (data) => {
+    return axios.put(`/cart`, data);
 };
 const removeProductToCart = (cartDetailId) => {
     return axios.delete(`/cart/cartDetail/${cartDetailId}`);
 };
-const changeQuantityOfProductToCart = (cartDetailId,quantity) => {
-    return axios.put(`/cart/cartDetail/${cartDetailId}`,quantity);
+const changeQuantityOfProductToCart = (cartDetailId, quantity) => {
+    return axios.put(`/cart/cartDetail/${cartDetailId}?quantity=${quantity}`);
 };
+
 
 // ORDER 
 const postCreateOrder = (user, listItem, Total, createdAt) => {
@@ -133,6 +128,7 @@ const putEditStatusOrder = (_id, data) => {
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
 };
+
 // CMT 
 const postCreateComment = (idProduct, idUser, content, rating) => {
     let data = {

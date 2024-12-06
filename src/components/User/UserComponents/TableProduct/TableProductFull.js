@@ -79,7 +79,7 @@ const TableProductFull = (props) => {
                 currentItems.map((product, index) => (
                     <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} className="productSlide">
                         <div className="p-img">
-                            <img src="http://localhost:8080/uploads/products/laptop1.jpg" alt={product.name} />
+                            <img src={product.productImages[0].image} alt={product.name} />
                         </div>
                         <div className="p-rate">
                             <span className="p-count-rate">{product.rate}</span>
@@ -106,18 +106,18 @@ const TableProductFull = (props) => {
         let filtered = listProducts;
         if (countFilter) {
             if (countFilter === "0") {
-                filtered = filtered.filter((product) => product.count === 0);
-            } else if (countFilter === "<50000") {
-                filtered = filtered.filter((product) => product.sellingprice < 50000);
+                filtered = filtered.filter((product) => product.sellingPrice === 0);
+            } else if (countFilter === "<5") {
+                filtered = filtered.filter((product) => product.sellingPrice < 5);
             }
         }
         if (categoryFilter) {
-            filtered = filtered.filter((product) => product.category.idCategory === categoryFilter);
+            filtered = filtered.filter((product) => product.category.categoryId === categoryFilter);
         }
         if (sortType === "asc") {
-            filtered.sort((a, b) => a.sellingprice - b.sellingprice);
+            filtered.sort((a, b) => a.sellingPrice - b.sellingPrice);
         } else if (sortType === "desc") {
-            filtered.sort((a, b) => b.sellingprice - a.sellingprice);
+            filtered.sort((a, b) => b.sellingPrice - a.sellingPrice);
         }
         setFilteredProducts(filtered);
     };
@@ -133,7 +133,7 @@ const TableProductFull = (props) => {
                     <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} displayEmpty style={{ marginRight: "20px" }} className="itemFilter categoryFillter">
                         <option value="">Category:</option>
                         {listCategories.map((category) => (
-                            <option key={category._id} value={category._id}>
+                            <option key={category.categoryId} value={category.categoryId}>
                                 {category.name}
                             </option>
                         ))}

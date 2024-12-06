@@ -31,29 +31,31 @@ import Choosing from "../UserComponents/Choosing/Choosing";
 import ThankSlice from "../UserComponents/ThankSlice/ThankSlice";
 import CommentProduct from "../UserComponents/CommentProduct/CommentProduct";
 import { FaStar } from "react-icons/fa";
+import { postProductToCart } from "../../../services/apiServices";
+import { getCartbyUserid } from "../../../services/apiServices";
 const ProductsPage = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const userState = useSelector((state) => state.user.account);
     const listProducts = useSelector((state) => state.product.listProducts);
-    const product = listProducts.find((item) => item._id === id);
+    const product = listProducts.find((item) => item.productId === id);
     const [quantity, setQuantity] = useState(1);
     const stateOrder = useSelector((state) => state.listOrder);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         fetchListProducts();
-        updateStateOrder();
+
     }, []);
-    useEffect(() => {
-        updateStateOrder();
-    }, [listProducts]);
-    const updateStateOrder = () => {
-        dispatch({
-            type: "Update_order_user",
-            payload: listProducts,
-        });
+    const fetchCart = async () => {
+        let res = await getCartbyUserid(userState.id);
+        if (res.EC === 0) {
+            dispatch({
+                type: "FETCH_CART_SUCCESS",
+                payload: res,
+            });
+        }
     };
     const fetchListProducts = async () => {
         let res = await getAllProducts();
@@ -67,36 +69,33 @@ const ProductsPage = (props) => {
 
         }
     };
-    const addProductOrder = async (productId, quantity) => {
-        dispatch({
-            type: "add_product_to_order",
-            payload: { productId, quantity },
-        });
-        setQuantity(1);
-        toast.success("Added to order successfully");
-        console.log(stateOrder);
-    };
-    const removeProductOrder = async (productId) => {
-        dispatch({
-            type: "remove_product_from_order",
-            payload: productId,
-        });
-        toast.success("remove done");
+    const addProductToCart = async (product, quantity) => {
+        let data = {
+            customerId: userState.id,
+            product: product,
+            quantity: quantity,
+            totalPrice: product.sellingPrice*quantity
+        };
+        let res_data = await postProductToCart(data);
+        if (res_data && res_data.EC === 0) {
+            toast.success(res_data.MS);
+            setQuantity(1);
+            fetchCart();
+        }
+        if (res_data && res_data.EC !== 0) {
+            toast.error(res_data.MS);
+        }
     };
     const handleIncrease = () => setQuantity(quantity + 1);
     const handleDecrease = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
-    const handleAddToCart = () => addProductOrder(product._id, quantity);
+    const handleAddToCart = () => addProductToCart(product, quantity);
     const buyNow = (productId) => {
-        addProductOrder(product._id, quantity);
-
+        addProductToCart(product, quantity);
         if (userState.role === 'STAFF') {
-
             navigate('/staffs');
         } else {
             navigate("/PayPage");
         }
-
-
     };
     const settings = {
         dots: false, // Tắt dots
@@ -111,7 +110,7 @@ const ProductsPage = (props) => {
         // nextArrow: <SampleNextArrow />,
         // prevArrow: <SamplePrevArrow />,
     };
-    const images = Array.isArray(product.presentImage) ? product.presentImage : product.presentImage ? [product.presentImage] : []; // Chuyển đổi thành mảng nếu là chuỗi
+    const images = product?.productImages ? product?.productImages : [];
     if (!product) {
         return <div>Product not found</div>;
     }
@@ -123,13 +122,13 @@ const ProductsPage = (props) => {
                         {images.length > 0 &&
                             images.map((imgItem, index) => (
                                 <div className="p-img" key={index}>
-                                    <img src={imgItem} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
+                                    <img src={imgItem.image} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
                                 </div>
                             ))}
                         {images.length > 0 &&
                             images.map((imgItem, index) => (
                                 <div className="p-img" key={index}>
-                                    <img src={imgItem} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
+                                    <img src={imgItem.image} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
                                 </div>
                             ))}
                     </div>
@@ -140,7 +139,7 @@ const ProductsPage = (props) => {
                             {images.length > 0 &&
                                 images.map((imgItem, index) => (
                                     <div className="p-img" key={index}>
-                                        <img src={imgItem} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
+                                        <img src={imgItem.image} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
                                     </div>
                                 ))}
                             {/* </Slider> */}
@@ -149,7 +148,7 @@ const ProductsPage = (props) => {
                         <div className="pd-image-btn">
                             <div className="box">
                                 <a href="" className="item item-image js-box-open-gallery">
-                                    <span className="item-icon lazy" style={{ backgroundImage: `url(${product.presentImage})` }}></span>
+                                    <span className="item-icon lazy" style={{ backgroundImage: `url(${product.productImages[0].image})` }}></span>
 
                                     <span className="item-text">
                                         Hình ảnh chụp
@@ -223,7 +222,7 @@ const ProductsPage = (props) => {
                         <div className="pd-special-price">
                             <div className="left">
                                 <p className="pd-price" data-price="11999000">
-                                    {product.sellingprice.toLocaleString("vi-VN")}
+                                    {product.sellingPrice.toLocaleString("vi-VN")}
                                     <u>đ</u>
                                 </p>
                                 <p>
@@ -231,7 +230,7 @@ const ProductsPage = (props) => {
                                 </p>
                             </div>
                             <del className="pd-market-price">
-                                {"Giá gốc " + product.sellingprice.toLocaleString("vi-VN")}
+                                {"Giá gốc " + product.sellingPrice.toLocaleString("vi-VN")}
                                 <u>đ</u>
                             </del>
                         </div>
@@ -263,7 +262,7 @@ const ProductsPage = (props) => {
                     </div>
                 </div>
             </div>
-            <CommentProduct productId={product._id} />
+            {/* <CommentProduct productId={product.productId} /> */}
         </div>
     );
 };

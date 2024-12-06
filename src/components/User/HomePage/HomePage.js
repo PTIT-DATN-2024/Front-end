@@ -27,11 +27,14 @@ import Choosing from "../UserComponents/Choosing/Choosing";
 import ThankSlice from "../UserComponents/ThankSlice/ThankSlice";
 import BestSeller from "../UserComponents/BestSeller/BestSeller";
 import ThankCustomer from "../UserComponents/ThankCustomer/ThankCustomer";
+import { getCartbyUserid } from "../../../services/apiServices";
 const MainPage = (props) => {
 
     const dispatch = useDispatch();
+    const userState = useSelector((state) => state.user.account);
     const listProducts = useSelector((state) => state.product.listProducts);
     const listCategories = useSelector((state) => state.category.listCategories);
+    const userCart = useSelector((state) => state.cart.cartItems);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -43,7 +46,6 @@ const MainPage = (props) => {
                 payload: res.products,
             });
             console.log(listProducts);
-
         }
     };
     const fetchListCategories = async () => {
@@ -58,24 +60,26 @@ const MainPage = (props) => {
             // console.log(res.categories);
         }
     };
-    const updateStateOrder = () => {
-        dispatch({
-            type: "Update_order_user",
-            payload: listProducts,
-        });
+    const fetchCart = async () => {
+        let res = await getCartbyUserid(userState.id);
+        if (res.EC === 0) {
+            dispatch({
+                type: "FETCH_CART_SUCCESS",
+                payload: res,
+            });
+        }
     };
+
     useEffect(() => {
         if (_.isEmpty(listProducts)) {
             fetchListProducts();
-            // updateStateOrder()
         }
         if (_.isEmpty(listCategories)) {
             fetchListCategories();
         }
+        fetchCart();
     }, []);
-    useEffect(() => {
-        updateStateOrder();
-    }, [listProducts]);
+
     return (
         <>
             <MainSlider/>

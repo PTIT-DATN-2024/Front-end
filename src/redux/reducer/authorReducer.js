@@ -5,7 +5,7 @@ const USER_STATE = {
         userName: "",
         role: "",
         avatar: "",
-        _id: "",
+        id: "",
     },
     isAuthenticated: false,
 };
@@ -20,7 +20,7 @@ const userReducer = (state = USER_STATE, action) => {
                     email: action?.payload?.user?.email,
                     role: action?.payload?.user?.role,
                     avatar: action?.payload?.user?.avatar,
-                    _id: action?.payload?.user?.id,
+                    id: action?.payload?.user?.id,
                 },
                 isAuthenticated: true,
             };
@@ -33,7 +33,7 @@ const userReducer = (state = USER_STATE, action) => {
                     userName: "",
                     role: "",
                     avatar: "",
-                    _id: "",
+                    id: "",
                 },
                 isAuthenticated: false,
             };

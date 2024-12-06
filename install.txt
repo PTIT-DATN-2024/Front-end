@@ -30,7 +30,7 @@ git config --list
 git branch main 
 git init
 git add .
-git commit -m "unique sản phẩm, danh mục, thay đổi logic giỏ hàng"
+git commit -m "thay đổi giỏ hàng lưu phía BE, lỗi product isDelete"
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin main --force
 git push origin main:master --force
