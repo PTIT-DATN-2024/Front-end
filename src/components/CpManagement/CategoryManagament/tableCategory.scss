@@ -1,17 +1,128 @@
-.tableCategory_row {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    .tableCategory_rowItem {
-        // width: 120px;
+.table {
+    width: fit-content !important;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: 0 10px;
+
+    caption {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: left;
+        padding: 10px;
     }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 50px; // Cột STT nhỏ lại một chút
+        text-align: center; // Căn trái
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 100px; // Cột STT nhỏ lại một chút
+        text-align: center; // Căn trái
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 250px; // Cột STT nhỏ lại một chút
+        text-align: center; // Căn trái
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: fit-content; // Cột Vai trò nhỏ lại một chút
+        text-align: center; // Căn trái
+    }
+
+    .tableCategory_row {
+        &:hover {
+            background-color: #f1f1f1;
+        }
+    }
+
+    .tableCategory_rowItem {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
     .categoryPresent {
-        display: block;
-        // width: 100%; /* Đặt chiều rộng hình ảnh */
-        width: 100px; /* Chiều rộng tối đa */
-        height: auto; /* Chiều cao tự động theo tỷ lệ */
-        border-radius: 10px; /* Bo tròn các góc */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-        transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi khi hover */
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+
+        &:hover {
+            background-color: #5a6268;
+        }
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: white;
+
+        &:hover {
+            background-color: #e0a800;
+        }
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+
+        &:hover {
+            background-color: #c82333;
+        }
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: flex-start;
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .page-item {
+        margin: 0 5px;
+    }
+
+    .page-link {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .page-item:hover .page-link {
+        background-color: #f8f9fa;
     }
 }

@@ -41,7 +41,7 @@ const ProductsPage = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
     const product = listProducts.find((item) => item.productId === id);
     const [quantity, setQuantity] = useState(1);
-    const stateOrder = useSelector((state) => state.listOrder);
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -64,9 +64,6 @@ const ProductsPage = (props) => {
                 type: "fetch_all_product",
                 payload: res.products,
             });
-            console.log(listProducts);
-            console.log(stateOrder);
-
         }
     };
     const addProductToCart = async (product, quantity) => {

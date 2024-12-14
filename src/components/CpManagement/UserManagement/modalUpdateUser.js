@@ -14,6 +14,15 @@ const ModalUpdateUser = (props) => {
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
+        setEmail("");
+        setUserName("");
+        setFullName("");
+        setPassword("");
+        setAddress("");
+        setPhoneNumber("");
+        setRole("");
+        setAvatar("");
+        setPreviewImage("");
         setErrors({});
         // setEmail("");
         // setPassword("");
@@ -25,6 +34,8 @@ const ModalUpdateUser = (props) => {
     };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState("");
+    const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [role, setRole] = useState("");
@@ -36,8 +47,10 @@ const ModalUpdateUser = (props) => {
         if (!_.isEmpty(dataUpdate)) {
             setEmail(dataUpdate.email);
             // setPassword("");
+            setUserName(dataUpdate.userName);
+            setFullName(dataUpdate.fullName);
             setAddress(dataUpdate.address);
-            setPhoneNumber(dataUpdate.phoneNumber);
+            setPhoneNumber(dataUpdate.phone);
             setRole(dataUpdate.role);
             setPreviewImage(`${dataUpdate.avatar}`);
         }
@@ -61,8 +74,12 @@ const ModalUpdateUser = (props) => {
         setErrors(newErrors);
     };
     const handleSubmitUpdateUser = async (event) => {
-        // validate?
+        // validate
         const dataValidate = {
+            email: email,
+            // password: password,
+            useName: userName,
+            fullName: fullName,
             address: address,
             phoneNumber: phoneNumber,
             role: role,
@@ -70,24 +87,24 @@ const ModalUpdateUser = (props) => {
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
         const allFieldsEmpty = Object.values(errors).every((value) => value === "");
-        // callapi
         if (allFieldsEmpty) {
+            // callapi
             const config = {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${token}`, // Đặt token vào header Authorization
                 },
             };
-
             const formData = new FormData();
             formData.append("email", email);
             formData.append("password", password);
+            formData.append("userName", userName);
+            formData.append("fullName", fullName);
             formData.append("address", address);
-            formData.append("phoneNumber", phoneNumber);
+            formData.append("phone", phoneNumber);
             formData.append("role", role);
             formData.append("avatar", avatar);
-
-            let res_data = await putUpdateUser(dataUpdate._id, formData, config);
+            let res_data = await putUpdateUser(formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
@@ -97,13 +114,15 @@ const ModalUpdateUser = (props) => {
                 toast.error(res_data.MS);
             }
         }
+        else{
+            toast.error("Thông tin nhập vào không chính xác");
+        }
     };
-    // console.log(props.dataUpdate);
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddUser">
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>Cập nhật thông tin</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -112,11 +131,37 @@ const ModalUpdateUser = (props) => {
                             <input type="email" className="form-control" placeholder="example@gmail.com" value={email} onChange={(event) => setEmail(event.target.value)} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">Mật khẩu</label>
                             <input type="password" className="form-control" placeholder="********" value={password} onChange={(event) => setPassword(event.target.value)} disabled />
                         </div>
+                        <div className="col-md-6">
+                            <label className="form-label">UserName</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="NguyenA"
+                                value={userName}
+                                onChange={(event) => setUserName(event.target.value)}
+                                onBlur={() => handleBlur("username", userName)}
+                                onFocus={() => handleFocus("username")}
+                            />
+                            {errors.userName && <div className="text-danger">{errors.userName}</div>}
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Tên đầy đủ</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Nguyen Van Anh"
+                                value={fullName}
+                                onChange={(event) => setFullName(event.target.value)}
+                                onBlur={() => handleBlur("fullName", fullName)}
+                                onFocus={() => handleFocus("fullName")}
+                            />
+                            {errors.fullName && <div className="text-danger">{errors.fullName}</div>}
+                        </div>
                         <div className="col-12">
-                            <label className="form-label">Address</label>
+                            <label className="form-label">Địa chỉ</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -130,7 +175,7 @@ const ModalUpdateUser = (props) => {
                         </div>
 
                         <div className="col-md-6">
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label">Số điện thoại</label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -143,9 +188,9 @@ const ModalUpdateUser = (props) => {
                             {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">Vai trò</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)} onBlur={() => handleBlur("role", role)} onFocus={() => handleFocus("role")}>
-                                <option value="USER" selected={"USER" === dataUpdate.role}>
+                                <option value="CUSTOMER" selected={"CUSTOMER" === dataUpdate.role}>
                                     USER
                                 </option>
                                 <option value="STAFF" selected={"STAFF" === dataUpdate.role}>
@@ -169,10 +214,10 @@ const ModalUpdateUser = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitUpdateUser()}>
-                        Save
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

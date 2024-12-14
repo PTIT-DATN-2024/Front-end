@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Autoplay, Pagination, Navigation } from "swiper/modules";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { BsCartPlus  } from "react-icons/bs";
+import { BsCartPlus } from "react-icons/bs";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
@@ -82,14 +82,16 @@ const TableProductFull = (props) => {
                             <img src={product.productImages[0].image} alt={product.name} />
                         </div>
                         <div className="p-rate">
-                            <span className="p-count-rate">{product.rate}</span>
-                            <span className="p-count-rate">({product.numberVote})</span>
-                            <p className="p-sku">Mã: {product.productId}</p>
+                            <span className="p-count-rate">{product.rate} ({product.numberVote})</span>
+                            <p className="p-sku">Mã: {product.productId.substring(0, 6)}</p>
                         </div>
                         <div className="p-info">
                             <p className="p-name">{product.name}</p>
-                            <span className="p-discount"> (Tiết kiệm: {product?.productDiscount?.discountAmount != null ? product?.productDiscount?.discountAmount : 0}% )</span>
-                            <span className="p-price">{product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
+                            {
+                                product?.productDiscount?.discountAmount != null
+                                    ? <span class="p-discount">Tiết kiệm: {product?.productDiscount?.discountAmount}</span>
+                                    : <span class="p-discount">Mới ! </span>
+                            }
                         </div>
                         <div className="p-action">
                             <span className="p-qty">{(product.status === "Available" || product.status === "") ? "Sắn hàng" : "Đặt trước"}</span>

@@ -5,23 +5,26 @@ import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAllProducts } from "../../../services/apiServices";
 import "./ResultPaymentPage.scss";
-import { putEditStatusOrder } from "../../../services/apiServices";
+import { postResultPayment, getCartbyUserid, removeProductToCart } from "../../../services/apiServices";
 
 const ResultPaymentPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
+    const userCart = useSelector((state) => state.cart.cartItems);
     const [paymentStatus, setPaymentStatus] = useState(null);
+    const userState = useSelector((state) => state.user.account);
     const [message, setMessage] = useState('');
     const listProducts = useSelector((state) => state.product.listProducts);
     const stateOrder = useSelector((state) => state.listOrder);
     const [queryParams, setQueryParams] = useState();
     const [vnpTxnRef, setVnpTxnRef] = useState();
     const [vnpResponseCode, setVnpResponseCode] = useState();
-    const handleStateOrder = async (orderId) => {
-        const response = await putEditStatusOrder(orderId, "CLH");
+    const handleStateOrder = async (data) => {
+        const response = await postResultPayment(data);
         if (response && response.EC === 0) {
             toast.success(response.MS);
+            remove();
         } else if (response) {
             toast.error(response.MS);
         }
@@ -30,37 +33,48 @@ const ResultPaymentPage = () => {
         window.scrollTo(0, 0);
     }, []);
     // Lấy danh sách sản phẩm khi trang được load
-    useEffect(() => {
-        const fetchListProducts = async () => {
-            const res = await getAllProducts();
-            if (res.EC === 0) {
-                dispatch({ type: "fetch_all_product", payload: res.products });
-            }
-        };
-
-        fetchListProducts();
-    }, [dispatch]);
-
-    // Cập nhật trạng thái đơn hàng khi danh sách sản phẩm thay đổi
-    useEffect(() => {
-        if (listProducts.length > 0) {
-            dispatch({ type: "Update_order_user", payload: listProducts });
-        }
-    }, [listProducts, dispatch]);
-    const remove = async () => {
-        try {
-            await dispatch({
-                type: "Clear_order_user",
+    const fetchCart = async () => {
+        let res = await getCartbyUserid(userState.id);
+        if (res.EC === 0) {
+            dispatch({
+                type: "FETCH_CART_SUCCESS",
+                payload: res,
             });
-            toast.success("clear done!");
-        } catch (error) {
-            toast.error("Failed to clear order.");
         }
-        console.log(stateOrder);
+    };
+    const remove = async () => {
+        // Duyệt qua từng cartDetailId và xóa sản phẩm khỏi giỏ hàng
+        for (let cartDetail of userCart) {
+            let res = await removeProductToCart(cartDetail.cartDetailId);
+            if (res.EC === 0) {
+                // Nếu xóa thành công, gọi lại fetchCart để cập nhật giỏ hàng
+                fetchCart();
+            } else {
+                // Xử lý trường hợp xóa thất bại
+                toast.error(`Xóa thất bại`);
+            }
+        }
+
+        // Có thể hiển thị thông báo thành công sau khi xóa tất cả sản phẩm
+        toast.success("Đã xóa tất cả sản phẩm khỏi giỏ hàng");
     };
     // Xử lý trạng thái thanh toán dựa trên các tham số từ URL
     useEffect(() => {
         const params = new URLSearchParams(location.search);
+        const data = {
+            vnp_Amount: params.get('vnp_Amount'),
+            vnp_BankCode: params.get('vnp_BankCode'),
+            vnp_BankTranNo: params.get('vnp_BankTranNo'),
+            vnp_CardType: params.get('vnp_CardType'),
+            vnp_OrderInfo: params.get('vnp_OrderInfo'),
+            vnp_PayDate: params.get('vnp_PayDate'),
+            vnp_ResponseCode: params.get('vnp_ResponseCode'),
+            vnp_TmnCode: params.get('vnp_TmnCode'),
+            vnp_TransactionNo: params.get('vnp_TransactionNo'),
+            vnp_TransactionStatus: params.get('vnp_TransactionStatus'),
+            vnp_TxnRef: params.get('vnp_TxnRef'),
+            vnp_SecureHash: params.get('vnp_SecureHash'),
+        };
         setQueryParams(params);
         setVnpTxnRef(params.get('vnp_TxnRef'));
         setVnpResponseCode(params.get('vnp_ResponseCode'));
@@ -68,8 +82,7 @@ const ResultPaymentPage = () => {
             case '00':
                 setPaymentStatus('success');
                 setMessage(`Thanh toán thành công! Mã giao dịch: ${params.get('vnp_TxnRef')}`);
-                handleStateOrder(params.get('vnp_TxnRef'));
-                remove();
+                handleStateOrder(data);
                 break;
             case '07':
                 setPaymentStatus('failed');

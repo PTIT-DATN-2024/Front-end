@@ -53,29 +53,39 @@ const PayPage = (props) => {
     };
     // Hàm để tăng quantity
     const handleIncrease = (itemId) => {
-        setQuantities((prev) => ({
-            ...prev,
-            [itemId]: (prev[itemId] || 0) + 1, // Nếu chưa có giá trị thì mặc định là 0
-        }));
+       setQuantities((prev) => {
+            const updatedQuantity = (prev[itemId] || 0) + 1; // Nếu chưa có giá trị thì mặc định là 0
+            handleSave(itemId, updatedQuantity); // Gọi hàm lưu với số lượng đã tăng
+            return {
+                ...prev,
+                [itemId]: updatedQuantity,
+            };
+        });
     };
+
 
     // Hàm để giảm quantity
     const handleDecrease = (itemId) => {
-        setQuantities((prev) => ({
-            ...prev,
-            [itemId]: Math.max((prev[itemId] || 1) - 1, 1), // Giảm nhưng không nhỏ hơn 1
-        }));
+        setQuantities((prev) => {
+            const updatedQuantity = Math.max((prev[itemId] || 1) - 1, 1); // Giảm nhưng không nhỏ hơn 1
+            handleSave(itemId, updatedQuantity); // Gọi hàm lưu với số lượng đã giảm
+            return {
+                ...prev,
+                [itemId]: updatedQuantity,
+            };
+        });
     };
+    
     const handleSave = async (cartDetailId, quantity) => {
         const newQuantity = quantities[cartDetailId]; // Lấy quantity mới từ state
         const cartDetail = userCart.find((item) => item.cartDetailId === cartDetailId); // Tìm sản phẩm trong danh sách
         if (!cartDetail || !newQuantity) {
-            console.log(cartDetailId,quantity);
+            console.log(cartDetailId, quantity);
             toast.error("Dữ liệu không hợp lệ!");
             return;
         }
         try {
-            let res = await changeQuantityOfProductToCart(cartDetailId,quantity); // Gọi API cập nhật
+            let res = await changeQuantityOfProductToCart(cartDetailId, quantity); // Gọi API cập nhật
             if (res && res.EC === 0) {
                 toast.success("Cập nhật số lượng thành công!");
                 fetchCart(); // Cập nhật lại giỏ hàng từ backend
@@ -116,11 +126,11 @@ const PayPage = (props) => {
                 toast.error(`Xóa thất bại`);
             }
         }
-    
+
         // Có thể hiển thị thông báo thành công sau khi xóa tất cả sản phẩm
         toast.success("Đã xóa tất cả sản phẩm khỏi giỏ hàng");
     };
-    
+
     const handleSubmitOrder1 = async (event) => {
         // Lọc các sản phẩm có CountOrder > 0
         let simplifiedList = stateOrder.listItemsOrder
@@ -177,6 +187,7 @@ const PayPage = (props) => {
         };
         const dataOrder = {
             customerId: account.id,
+            staffId : "c86229c6-0181-4d07-8ae2-3086b2ff69f6",
             cartDetails: userCart,
             total: calculateTotal(),
         };
@@ -226,13 +237,13 @@ const PayPage = (props) => {
                                                     {item.product.sellingPrice}
                                                 </div>
                                                 <div className="cart-col-quantity">
-                                                    <CiCircleMinus onClick={() => handleDecrease (item.cartDetailId)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
+                                                    <CiCircleMinus onClick={() => handleDecrease(item.cartDetailId)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
                                                     <div className={`${item._id} countItem`}> {quantity}</div>
                                                     <CiCirclePlus onClick={() => handleIncrease(item.cartDetailId)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
                                                 </div>
-                                                    <FaRegSave  onClick={() => handleSave(item.cartDetailId,quantity)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
+                                                <FaRegSave onClick={() => handleSave(item.cartDetailId, quantity)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
                                                 <div className="cart-col-total-price">
-                                                    {item.product.sellingPrice* quantity}
+                                                    {item.product.sellingPrice * quantity}
                                                 </div>
                                                 <div className="cart-col-delete" onClick={() => removeProductOrder(item.cartDetailId)} >X
                                                 </div>

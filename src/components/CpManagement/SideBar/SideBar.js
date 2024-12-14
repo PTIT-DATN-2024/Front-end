@@ -35,11 +35,6 @@ const Sidebar = (props) => {
                             Quản lí tài khoản
                         </NavLink>
                     </MenuItem>
-                    <MenuItem>
-                        <NavLink to="OrderManagement" className="nav-link">
-                            Quản lí đơn hàng
-                        </NavLink>
-                    </MenuItem>
                     {account.role === "ADMIN" && (
                         <MenuItem>
                             <NavLink to="ProductManagement" className="nav-link">
@@ -54,6 +49,11 @@ const Sidebar = (props) => {
                             </NavLink>
                         </MenuItem>
                     )}
+                    <MenuItem>
+                        <NavLink to="OrderManagement" className="nav-link">
+                            Quản lí đơn hàng
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem>
                         <NavLink to="InfoShopManagement" className="nav-link">
                             Các chương trình KM

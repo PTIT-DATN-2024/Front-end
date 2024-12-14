@@ -68,11 +68,11 @@ const ModalCreateUser = (props) => {
         const dataValidate = {
             email: email,
             password: password,
+            useName: userName,
+            fullName : fullName,
             address: address,
             phoneNumber: phoneNumber,
             role: role,
-            useName: userName,
-            fullname : fullName,
         };
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
@@ -144,7 +144,7 @@ const ModalCreateUser = (props) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="anh"
+                                placeholder="NguyenA"
                                 value={userName}
                                 onChange={(event) => setUserName(event.target.value)}
                                 onBlur={() => handleBlur("userName", userName)}

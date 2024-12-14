@@ -17,8 +17,8 @@ const ModalUpdateProduct = (props) => {
         setErrors({});
         // setName("");
         // setCategory("");
-        // setImportprice("");
-        // setSellingprice("");
+        // setImportPrice("");
+        // setSellingPrice("");
         // setWeight("");
         // setPresentImage("");
         // setDescriptiom("");
@@ -27,26 +27,34 @@ const ModalUpdateProduct = (props) => {
     };
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
-    const [importprice, setImportprice] = useState("");
-    const [sellingprice, setSellingprice] = useState("");
+    const [importPrice, setImportPrice] = useState("");
+    const [sellingPrice, setSellingPrice] = useState("");
+    const [rate, setRate] = useState("");
+    const [numberVote, setNumberVote] = useState("");
+    const [productDiscount, setProductDiscount] = useState("0");
+    const [status, setStatus] = useState("");
     const [weight, setWeight] = useState("");
     const [presentImage, setPresentImage] = useState("");
-    const [description, setDescriptiom] = useState("");
-    const [count, setCount] = useState("");
+    const [description, setDescription] = useState("");
+    const [total, setTotal] = useState("");
     const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setName(dataUpdate.name);
-            setCategory(dataUpdate.category.idCategory);
-            setImportprice(dataUpdate.importprice);
-            setSellingprice(dataUpdate.sellingprice);
+            setCategory(dataUpdate.category.categoryId);
+            setImportPrice(dataUpdate.importPrice);
+            setSellingPrice(dataUpdate.sellingPrice);
             setWeight(dataUpdate.weight);
-            setPresentImage(dataUpdate.presentImage);
-            setDescriptiom(dataUpdate.description);
-            setCount(dataUpdate.count);
-            setPreviewImage(`${dataUpdate.presentImage}`);
+            setPresentImage(`${dataUpdate.productImages[0].image}`);
+            setDescription(dataUpdate.description);
+            setTotal(dataUpdate.total);
+            setPreviewImage(`${dataUpdate.productImages[0].image}`);
+            setRate(dataUpdate.rate);
+            setNumberVote(dataUpdate.numberVote);
+            setStatus(dataUpdate.status);
+            setProductDiscount(dataUpdate.productDiscount);
         }
     }, [dataUpdate]);
 
@@ -73,12 +81,12 @@ const ModalUpdateProduct = (props) => {
         const dataValidate = {
             productName: name,
             productCategory: category,
-            importprice: importprice,
-            sellingprice: { sellingprice: sellingprice, importprice: importprice },
+            importprice: importPrice,
+            sellingprice: { sellingprice: sellingPrice, importprice: importPrice },
             weight: weight,
             productPresent: presentImage,
             productDescription: description,
-            productCount: count,
+            productCount: total,
         };
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
@@ -94,10 +102,10 @@ const ModalUpdateProduct = (props) => {
             const formData = new FormData();
             formData.append("name", name);
             formData.append("weight", weight);
-            formData.append("importprice", importprice);
-            formData.append("sellingprice", sellingprice);
+            formData.append("importPrice", importPrice);
+            formData.append("sellingPrice", sellingPrice);
             formData.append("description", description);
-            formData.append("count", count);
+            formData.append("total", total);
             formData.append("category", category);
             formData.append("presentImage", presentImage);
             let res_data = await putUpdateProduct(dataUpdate._id, formData, config);
@@ -116,16 +124,16 @@ const ModalUpdateProduct = (props) => {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">
                 <Modal.Header closeButton>
-                    <Modal.Title>Update Product: {dataUpdate && dataUpdate.name ? dataUpdate.name : ""}</Modal.Title>
+                    <Modal.Title>Chỉnh sửa thông tin: {dataUpdate && dataUpdate.name ? dataUpdate.name : ""}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Tên</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Gà lắc phô mai"
+                                placeholder="Màn hình ABC"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                                 onBlur={() => handleBlur("productName", name)}
@@ -134,7 +142,7 @@ const ModalUpdateProduct = (props) => {
                             {errors.productName && <div className="text-danger">{errors.productName}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Category</label>
+                            <label className="form-label">Danh mục</label>
                             {
                                 <select
                                     className="form-control form-select"
@@ -146,7 +154,7 @@ const ModalUpdateProduct = (props) => {
                                     <option key={0} value=""></option>
                                     {listCategories.map((category) => {
                                         return (
-                                            <option key={category._id} value={category._id} selected={!_.isEmpty(dataUpdate) ? category.name === dataUpdate.category.nameCategory : false}>
+                                            <option key={category.categoryId} value={category.categoryId} selected={!_.isEmpty(dataUpdate) ? category.name === dataUpdate.category.name : false}>
                                                 {category.name}
                                             </option>
                                         );
@@ -156,16 +164,16 @@ const ModalUpdateProduct = (props) => {
                             {errors.productCategory && <div className="text-danger">{errors.productCategory}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Import Price</label>
+                            <label className="form-label">Giá nhập (VND)</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Gà lắc phô mai"
-                                value={importprice}
-                                onChange={(event) => setImportprice(event.target.value)}
+                                placeholder="Example"
+                                value={importPrice}
+                                onChange={(event) => setImportPrice(event.target.value)}
                                 onBlur={() => {
-                                    handleBlur("sellingprice", { sellingprice: sellingprice, importprice: importprice });
-                                    handleBlur("importprice", importprice);
+                                    handleBlur("sellingprice", { sellingprice: sellingPrice, importprice: importPrice });
+                                    handleBlur("importprice", importPrice);
                                 }}
                                 onFocus={() => {
                                     handleFocus("sellingprice");
@@ -175,24 +183,24 @@ const ModalUpdateProduct = (props) => {
                             {errors.importprice && <div className="text-danger">{errors.importprice}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Selling Price</label>
+                            <label className="form-label">Giá bán (VND)</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Gà lắc phô mai"
-                                value={sellingprice}
-                                onChange={(event) => setSellingprice(event.target.value)}
-                                onBlur={() => handleBlur("sellingprice", { sellingprice: sellingprice, importprice: importprice })}
+                                placeholder="Example"
+                                value={sellingPrice}
+                                onChange={(event) => setSellingPrice(event.target.value)}
+                                onBlur={() => handleBlur("sellingprice", { sellingprice: sellingPrice, importprice: importPrice })}
                                 onFocus={() => handleFocus("sellingprice")}
                             />
                             {errors.sellingprice && <div className="text-danger">{errors.sellingprice}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Weight</label>
+                            <label className="form-label">Trọng lượng</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Gà lắc phô mai"
+                                placeholder="Example"
                                 value={weight}
                                 onChange={(event) => setWeight(event.target.value)}
                                 onBlur={() => handleBlur("weight", weight)}
@@ -201,26 +209,26 @@ const ModalUpdateProduct = (props) => {
                             {errors.weight && <div className="text-danger">{errors.weight}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Count</label>
+                            <label className="form-label">Số lượng</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Gà lắc phô mai"
-                                value={count}
-                                onChange={(event) => setCount(event.target.value)}
-                                onBlur={() => handleBlur("productCount", count)}
+                                placeholder="Example"
+                                value={total}
+                                onChange={(event) => setTotal(event.target.value)}
+                                onBlur={() => handleBlur("productCount", total)}
                                 onFocus={() => handleFocus("productCount")}
                             />
                             {errors.productCount && <div className="text-danger">{errors.productCount}</div>}
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Description</label>
+                            <label className="form-label">Mô tả</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Example description"
                                 value={description}
-                                onChange={(event) => setDescriptiom(event.target.value)}
+                                onChange={(event) => setDescription(event.target.value)}
                                 onBlur={() => handleBlur("productDescription", description)}
                                 onFocus={() => handleFocus("productDescription")}
                             />
@@ -229,7 +237,7 @@ const ModalUpdateProduct = (props) => {
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileProduct">
                                 <FcPlus />
-                                Upload file image
+                                Tải ảnh lên
                             </label>
                             <input
                                 type="file"
@@ -249,10 +257,10 @@ const ModalUpdateProduct = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Hủy
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitUpdateProduct()}>
-                        Save
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

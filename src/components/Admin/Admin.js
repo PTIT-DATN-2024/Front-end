@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "./Admin.scss"
 const Admin = (props) => {
-    
+
     return (
         <div className="admin-container">
             <div className="admin-sidebar">
@@ -13,9 +13,9 @@ const Admin = (props) => {
             </div>
             <div className="admin-content">
                 <PerfectScrollbar>
-                <div className="admin_main">
-                    <Outlet />
-                </div>
+                    <div className="admin_main">
+                        <Outlet />
+                    </div>
                 </PerfectScrollbar>
             </div>
 

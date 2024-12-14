@@ -123,7 +123,7 @@ const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
     return axios.put(`/order/${_id}`, data);
 };
 const putEditStatusOrder = (_id, data) => {
-    return axios.put(`/order/${_id}`,data);
+    return axios.put(`/order/${_id}`, data);
 };
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
@@ -160,8 +160,16 @@ const getDataEcommerce = () => {
 };
 // pay
 const postCreatePayment = (formData, config) => {
-    return axios.post("/payment/create_payment", formData);
+    return axios.post("/order/create-payment-url", formData);
 };
+const postResultPayment = (data) => {
+    // Chuyển đối tượng `data` thành chuỗi query string
+    const queryParams = new URLSearchParams(data).toString();
+    // Gửi yêu cầu GET với tham số query
+    return axios.get(`order/handle-return?${queryParams}`);
+};
+
+
 
 export {
     postLogin,
@@ -211,4 +219,5 @@ export {
     getDataEcommerce,
 
     postCreatePayment,
+    postResultPayment,
 };

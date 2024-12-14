@@ -37,14 +37,18 @@ const App = () => {
         <>
             <div className="App">
                 <Routes>
-                    <Route path="/" element={<UserPage />}>
+                    <Route path="/" element={
+                        <PrivateRouter allowedRoles={["ADMIN", "STAFF", "CUSTOMER"]}>
+                            <UserPage />
+                        </PrivateRouter>
+                    }>
                         <Route index element={<MainPage />} />
                         <Route path="aboutPage" element={<AboutPage />} />
                         <Route path="blogsPage" element={<BlogsPage />} />
                         <Route path="contactPage" element={<ContactPage />} />
                         <Route path="productsPage" element={<ProductsPage />} />
                         <Route path="productFilterPage" element={<ProductFilterPage />} />
-                        <Route path="productsPage/:id" element={<ProductsPage />}/>
+                        <Route path="productsPage/:id" element={<ProductsPage />} />
                         <Route path="PayPage" element={<PayPage />}></Route>
                         <Route path="searchPage" element={<SearchPage />} />
                         <Route path="profilePage" element={<ProfilePage />} />
@@ -53,7 +57,7 @@ const App = () => {
                     <Route
                         path="admins"
                         element={
-                            <PrivateRouter>
+                            <PrivateRouter allowedRoles={["ADMIN"]}>
                                 <Admin />
                             </PrivateRouter>
                         }
@@ -67,23 +71,29 @@ const App = () => {
                         <Route path="InfoShopManagement" element={<InfoShopManagement />} />
                         <Route path="BgImageManagement" element={<BgImageManagement />} />
                     </Route>
-                    {/* <Route
+                    <Route
                         path="staffs"
                         element={
-                            <Staff />
+                            <PrivateRouter allowedRoles={["STAFF", "ADMIN"]}>
+                                <Staff />
+                            </PrivateRouter>
                         }
                     >
-                        <Route index element={<HomeStaff />} />    
-                        <Route path="OrderManagement"  element={<OrderManagement />} />
+                        <Route index element={<HomeStaff />} />
                         <Route path="UserManagement" element={<UserManagement />} />
-                    </Route> */}
+                        <Route path="CategogyManagement" element={<CategogyManagement />} />
+                        <Route path="ProductManagement" element={<ProductManagement />} />
+                        <Route path="OrderManagement" element={<OrderManagement />} />
+                        <Route path="InfoShopManagement" element={<InfoShopManagement />} />
+                        <Route path="BgImageManagement" element={<BgImageManagement />} />
+                    </Route>
                     <Route path="/logIn" element={<LogIn />}></Route>
                     <Route path="/signUp" element={<SignUp />}></Route>
                 </Routes>
             </div>
             <ToastContainer
                 position="top-right"
-                autoClose={3000}
+                autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

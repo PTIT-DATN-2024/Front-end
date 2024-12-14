@@ -1,7 +1,7 @@
-const ContactPage = (props)=>{
+const ContactPage = (props) => {
     return (
         <div>
-            page Contact
+            contact
         </div>
     )
 }

@@ -25,8 +25,8 @@ const validatePassword = (password) => {
 const validateAddress = (address) => {
     if (!address) {
         return "Địa chỉ không được để trống";
-    } else if (address.length < 10) {
-        return "Địa chỉ phải có ít nhất 10 ký tự";
+    } else if (address.length < 3) {
+        return "Địa chỉ phải có ít nhất 3 ký tự";
     }
     return "";
 };
@@ -230,13 +230,13 @@ const validateDesc = (desc) => {
     }
     return "";
 };
-const validateUseName = (useName) => {
+const validateUserName = (useName) => {
     if (!useName) {
         return "Tên không được để trống";
     }
     return "";
 };
-const validateFullNAme = (fullName) => {
+const validateFullName = (fullName) => {
     if (!fullName) {
         return "Tên đầy đủ không được để trống";
     }
@@ -277,11 +277,11 @@ const validateFields = (fields) => {
         } else if (field === "categoryAvatar") {
             errors.categoryAvatar = validateCategoryAvatar(value);
         } else if (field === "description") {
-            errors.categoryAvatar = validateDesc(value);
-        } else if (field === "useName") {
-            errors.categoryAvatar = validateUseName(value);
+            errors.description = validateDesc(value);
+        } else if (field === "userName") {
+            errors.userName = validateUserName(value);
         } else if (field === "fullName") {
-            errors.categoryAvatar = validateFullNAme(value);
+            errors.fullName = validateFullName(value);
         }
     }
     return errors;

@@ -9,9 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 function ModalViewProduct(props) {
     // const FormData = require("form-data");
     const { show, setShow, dataView } = props;
-
-    // console.log("123", dataView);
-
+    // console.log("123", dataView)
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
@@ -21,7 +19,7 @@ function ModalViewProduct(props) {
         // setSellingprice("");
         // setWeight("");
         // setPresentImage("");
-        // setDescriptiom("");
+        // setDescription("");
         // setCount("");
         // setPreviewImage("");
     };
@@ -29,9 +27,13 @@ function ModalViewProduct(props) {
     const [category, setCategory] = useState("");
     const [importPrice, setImportprice] = useState("");
     const [sellingPrice, setSellingprice] = useState("");
+    const [rate, setRate] = useState("");
+    const [numberVote, setNumberVote] = useState("");
+    const [productDiscount, setProductDiscount] = useState("0");
+    const [status, setStatus] = useState("");
     const [weight, setWeight] = useState("");
     const [presentImage, setPresentImage] = useState("");
-    const [description, setDescriptiom] = useState("");
+    const [description, setDescription] = useState("");
     const [count, setCount] = useState("");
     const [previewImage, setPreviewImage] = useState("");
     useEffect(() => {
@@ -41,15 +43,19 @@ function ModalViewProduct(props) {
             setImportprice(dataView.importPrice);
             setSellingprice(dataView.sellingPrice);
             setWeight(dataView.weight);
-            setPresentImage(dataView.presentImage);
-            setDescriptiom(dataView.description);
+            setPresentImage(`${dataView.productImages[0].image}`);
+            setDescription(dataView.description);
             setCount(dataView.total);
-            setPreviewImage(`${dataView.presentImage}`);
+            setPreviewImage(`${dataView.productImages[0].image}`);
+            setRate(dataView.rate);
+            setNumberVote(dataView.numberVote);
+            setStatus(dataView.status);
+            setProductDiscount(dataView.productDiscount);
         }
     }, [dataView]);
     return (
         <>
-            <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">
+            <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalViewProduct" >
                 <Modal.Header closeButton>
                     <Modal.Title>Thông tin sản phẩm: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
                 </Modal.Header>
@@ -61,25 +67,41 @@ function ModalViewProduct(props) {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Danh mục</label>
-                            <select className="form-control form-select"  disabled >
-                                <option selected>{ dataView?.category?.name}</option>
+                            <select className="form-control form-select" disabled >
+                                <option selected>{dataView?.category?.name}</option>
                             </select>
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Giá nhập</label>
+                            <label className="form-label">Giá nhập (VND)</label>
                             <input type="text" className="form-control" placeholder="not found" value={importPrice} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Giá bán</label>
+                            <label className="form-label">Giá bán (VND)</label>
                             <input type="text" className="form-control" placeholder="not found" value={sellingPrice} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">khối lượng</label>
+                            <label className="form-label">Trọng lượng (g)</label>
                             <input type="text" className="form-control" placeholder="not found" value={weight} disabled />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Số lượng</label>
                             <input type="text" className="form-control" placeholder="not found" value={count} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Điểm đánh giá</label>
+                            <input type="text" className="form-control" placeholder="not found" value={rate} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Số lượng đánh giá</label>
+                            <input type="text" className="form-control" placeholder="not found" value={numberVote} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Giảm giá (%)</label>
+                            <input type="text" className="form-control" placeholder="0" value={productDiscount} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Trạng thái</label>
+                            <input type="text" className="form-control" placeholder="not found" value={status} disabled />
                         </div>
                         <div className="col-md-12">
                             <label className="form-label">Mô tả</label>

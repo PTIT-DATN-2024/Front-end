@@ -15,14 +15,13 @@ import { getSearchProduct } from "../../../../services/apiServices";
 const Header = (props) => {
     const dispatch = useDispatch();
     const token = useSelector((state) => state.user.account.access_token);
-    const stateOrder = useSelector((state) => state.listOrder);
+    const account = useSelector((state) => state.user.account);
+    const userCart = useSelector((state) => state.cart.cartItems);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const [suggestions, setSuggestions] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [errorMessage, setErrorMessage] = useState(""); // Thêm trạng thái cho thông báo lỗi
-    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-    const account = useSelector((state) => state.user.account);
     const searchRef = useRef(null);
-    // console.log(isAuthenticated, account);
     let navigate = useNavigate();
     const handleLogIn = () => {
         navigate("/login");
@@ -185,26 +184,25 @@ const Header = (props) => {
                     <Nav>
                         {isAuthenticated === false ? (
                             <>
-                                <button className="btn-logIn" onClick={() => handleLogIn()}>
+                                <div className="btn-logIn" onClick={() => handleLogIn()}>
                                     Đăng nhập
-                                </button>
-                                <button className="btn-signUp" onClick={() => handleSignUp()}>
+                                </div>
+                                <div className="btn-signUp" onClick={() => handleSignUp()}>
                                     Đăng kí
-                                </button>
+                                </div>
                             </>
                         ) : (
                             <>
-                                {(account.role !== "") && (
+                                {(account.role === "CUSTOMER") && (
                                     <div className="nav-link cart-container" onClick={() => {
                                         navigate("/PayPage");
                                     }}>
                                         <BsCartCheck size={30} className="navbar-nav-cart btn_icon  " />
                                         <div className="cart-count">
-                                            {stateOrder.listItemsOrder.reduce((total, item) => total + item.CountOrder, 0)}
+                                            {userCart.reduce((total, item) => total + item.quantity, 0)}
                                         </div>
                                     </div>
                                 )}
-
                                 <NavDropdown title="Cài đặt" id="basic-nav-dropdown">
                                     <NavDropdown.Item >
                                         <NavLink to="/profilePage" className="nav-link profileInfo" id="profileInfo">
@@ -212,7 +210,7 @@ const Header = (props) => {
                                         </NavLink>
                                     </NavDropdown.Item>
                                     <NavDropdown.Item onClick={() => handleLogOut()}>
-                                        <NavLink to="/profilePage" className="nav-link logOut" id="logOut">
+                                        <NavLink to="" className="nav-link logOut" id="logOut">
                                             Đăng xuất
                                         </NavLink>
                                     </NavDropdown.Item>

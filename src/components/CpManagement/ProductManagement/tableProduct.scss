@@ -1,20 +1,125 @@
+// Variables
+$avatar-size: 40px;
+$table-border-color: #ddd;
+$table-header-bg: #f5f5f5;
+$table-hover-bg: #f9f9f9;
+$pagination-active-color: #007bff;
 
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 
-.tableProduct_row{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    .tableProduct_rowItem{
-        // width: 120px;
+    caption {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: left;
+        padding: 10px;
     }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    tr {
+        height: 65px !important;
+    }
+
+    .tableProduct_row {
+        &:hover {
+            background-color: #f1f1f1;
+        }
+    }
+
+    .tableProduct_rowItem {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
     .productPresent {
-        display: block;
-        // width: 100%; /* Đặt chiều rộng hình ảnh */
-        width: 100px; /* Chiều rộng tối đa */
-        height: auto; /* Chiều cao tự động theo tỷ lệ */
-        border-radius: 10px; /* Bo tròn các góc */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-        transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi khi hover */
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
     }
 
+    // Cải thiện kiểu cho nút
+    .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+
+        &:hover {
+            background-color: #5a6268;
+        }
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: white;
+
+        &:hover {
+            background-color: #e0a800;
+        }
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+
+        &:hover {
+            background-color: #c82333;
+        }
+    }
+
+    // Phân trang
+    .pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        width: calc(100vw - 300px);
+        position: absolute;
+        bottom: 0px;
+    }
+
+    .page-item {
+        margin: 0 5px;
+    }
+
+    .page-link {
+        padding: 5px 10px;
+        border: 1px solid $table-border-color;
+        border-radius: 4px;
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        ;
+    }
+
+    .active .page-link {
+        color: #000000;
+        background-color: $pagination-active-color;
+        border-color: $pagination-active-color;
+    }
+
+    .disabled .page-link {
+        background-color: #e0e0e0;
+        cursor: not-allowed;
+    }
+
+    .page-item:hover .page-link {
+        background-color: #f8f9fa;
+    }
 }

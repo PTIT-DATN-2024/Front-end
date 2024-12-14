@@ -12,16 +12,20 @@ function ModalViewUser(props) {
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
-        // setEmail("");
-        // setPassword("");
-        // setAddress("");
-        // setPhoneNumber("");
-        // setRole("USER");
-        // setAvatar("");
-        // setPreviewImage("");
+        setEmail("");
+        setUserName("");
+        setFullName("");
+        setPassword("");
+        setAddress("");
+        setPhoneNumber("");
+        setRole("CUSTOMER");
+        setAvatar("");
+        setPreviewImage("");
     };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState("");
+    const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [role, setRole] = useState("");
@@ -31,36 +35,14 @@ function ModalViewUser(props) {
     useEffect(() => {
         if (!_.isEmpty(dataView)) {
             setEmail(dataView.email);
-            // setPassword("");
+            setUserName(dataView.username);
+            setFullName(dataView.fullName);// setPassword("");
             setAddress(dataView.address);
             setPhoneNumber(dataView.phone);
             setRole(dataView.role);
             setPreviewImage(`${dataView.avatar}`);
         }
     }, [dataView]);
-
-    const handleUploadImage = (event) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setAvatar(event.target.files[0]);
-        } else {
-            // setPreviewImage("");
-        }
-    };
-    const handleSubmitUpdateUser = async (event) => {
-        // validate?
-        // callapi
-        let res_data = await putUpdateUser(dataView._id, address, phoneNumber, role, avatar);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            handleClose();
-            await props.fetchListUsers();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
-        }
-    };
-    // console.log(props.dataUpdate);
     return (
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddUser">
@@ -74,12 +56,44 @@ function ModalViewUser(props) {
                             <input type="email" className="form-control" placeholder="example@gmail.com" value={email} disabled />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Số điện thoại</label>
-                            <input type="number" className="form-control" placeholder="0123 456 789" value={phoneNumber} disabled />
+                            <label className="form-label">Mật khẩu</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="********"
+                                value={password}
+                                disabled
+                            />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">UserName</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="NguyenA"
+                                value={userName}
+                                disabled
+                            />
+
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Tên đầy đủ</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Nguyen Van Anh"
+                                value={fullName}
+                                disabled
+                            />
+
                         </div>
                         <div className="col-12">
                             <label className="form-label">Địa chỉ</label>
                             <input type="text" className="form-control" placeholder="18 Hoàng Quốc VIệt, Cầu Giấy, Hà Nội" value={address} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Số điện thoại</label>
+                            <input type="number" className="form-control" placeholder="0123 456 789" value={phoneNumber} disabled />
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Vai trò</label>
@@ -89,7 +103,7 @@ function ModalViewUser(props) {
                                 </option>
                             </select>
                         </div>
-                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
+                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="No avatar" /> : <span>Preview Image</span>}</div>
 
                     </form>
                 </Modal.Body>

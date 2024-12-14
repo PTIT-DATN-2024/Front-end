@@ -1,73 +1,96 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import './tableUserPaginate.scss'
+
 const TableUsersPaginate = (props) => {
     const listUsers = useSelector((state) => state.listUser.users);
     const items = listUsers;
-    function Items({ currentItems, itemOffset }) {
+
+    function Items({ currentItems, itemOffset, itemsPerPage }) {
+        // Tính số hàng trống cần thêm để giữ nguyên chiều cao
+
         return (
-            <tbody>
-                {currentItems &&
-                    currentItems.length > 0 &&
-                    currentItems.map((user, index) => {
-                        return (
-                            <tr key={`table_user_${index}`} >
-                                <td>{itemOffset + index + 1}</td>
-                                <td>{user.avatar ? <img src={user.avatar} alt="" className="user-avatar"/> : ""}</td>
-                                {/* <td>{user._id}</td> */}
-                                <td>{user.email}</td>
-                                <td>{user.address}</td>
-                                <td>{user.phone}</td>
-                                <td>{user.role}</td>
-                                <td>
-                                    <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(user)}>
-                                        Xem 
-                                    </button>
-                                    <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(user)}>
-                                        Sửa
-                                    </button>
-                                    <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(user)}>
-                                        Xóa
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                {currentItems && currentItems.length === 0 && (
-                    <tr>
-                        <td colSpan={6}>Not found user</td>
-                    </tr>
-                )}
+            <tbody className="table-users__body">
+                {currentItems && currentItems.length > 0 &&
+                    currentItems.map((user, index) => (
+                        <tr key={`table_user_${index}`} className="table-users__row">
+                            <td className="table-users__cell table-users__cell--index">
+                                {itemOffset + index + 1}
+                            </td>
+                            <td className="table-users__cell table-users__cell--avatar">
+                                {user.avatar ? (
+                                    <img
+                                        src={user.avatar}
+                                        alt="User Avatar"
+                                        className="table-users__avatar"
+                                    />
+                                ) : (
+                                    <img
+                                        src=""
+                                        alt=""
+                                        className="table-users__avatar"
+                                    />
+                                )}
+                            </td>
+                            <td className="table-users__cell table-users__cell--email">
+                                {user.email}
+                            </td>
+                            <td className="table-users__cell table-users__cell--address">
+                                {user.address}
+                            </td>
+                            <td className="table-users__cell table-users__cell--phone">
+                                {user.phone}
+                            </td>
+                            <td className="table-users__cell table-users__cell--role">
+                                {user.role}
+                            </td>
+                            <td className="table-users__cell table-users__cell--actions">
+                                <button
+                                    className="btn btn-secondary table-users__btn"
+                                    onClick={() => props.handleClickBtnView(user)}
+                                >
+                                    Xem
+                                </button>
+                                <button
+                                    className="btn btn-warning mx-3 table-users__btn"
+                                    onClick={() => props.handleClickBtnUpdate(user)}
+                                >
+                                    Sửa
+                                </button>
+                                <button
+                                    className="btn btn-danger table-users__btn"
+                                    onClick={() => props.handleClickBtnDelete(user)}
+                                >
+                                    Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+
             </tbody>
         );
     }
 
     const PaginatedItems = ({ itemsPerPage }) => {
-        // We start with an empty list of items.
         const [currentItems, setCurrentItems] = useState(null);
         const [pageCount, setPageCount] = useState(0);
-        // Here we use item offsets; we could also use page offsets
-        // following the API or data you're working with.
         const [itemOffset, setItemOffset] = useState(0);
+
         useEffect(() => {
-            // Fetch items from another resources.
             const endOffset = itemOffset + itemsPerPage;
-            // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
             setCurrentItems(items.slice(itemOffset, endOffset));
             setPageCount(Math.ceil(items.length / itemsPerPage));
         }, [itemOffset, itemsPerPage]);
 
-        // Invoke when user click to request another page.
         const handlePageClick = (event) => {
             const newOffset = (event.selected * itemsPerPage) % items.length;
-            // console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
             setItemOffset(newOffset);
         };
 
         return (
             <>
-                <Items currentItems={currentItems} itemOffset={itemOffset} />
+                <Items currentItems={currentItems} itemOffset={itemOffset} itemsPerPage={itemsPerPage} />
                 <ReactPaginate
                     nextLabel=">"
                     onPageChange={handlePageClick}
@@ -75,41 +98,40 @@ const TableUsersPaginate = (props) => {
                     marginPagesDisplayed={2}
                     pageCount={pageCount}
                     previousLabel="<"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
+                    pageClassName="pagination__item"
+                    pageLinkClassName="pagination__link"
+                    previousClassName="pagination__item pagination__item--previous"
+                    previousLinkClassName="pagination__link"
+                    nextClassName="pagination__item pagination__item--next"
+                    nextLinkClassName="pagination__link"
                     breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
+                    breakClassName="pagination__item pagination__item--break"
+                    breakLinkClassName="pagination__link"
                     containerClassName="pagination"
-                    activeClassName="active"
+                    activeClassName="pagination__item--active"
                     renderOnZeroPageCount={null}
                 />
             </>
         );
     };
+
     return (
-        <>
-            <table className="table caption-top">
-                <caption>Danh sách User</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        {/* <th scope="col">ID</th> */}
-                        <th scope="col"></th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Địa chỉ</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">Vai trò</th>
-                        <th scope="col">Cài đặt</th>
+        <div className="table-users">
+            <table className="table-users__table">
+                <thead className="table-users__header">
+                    <tr className="table-users__row">
+                        <th className="table-users__cell table-users__cell--header">STT</th>
+                        <th className="table-users__cell table-users__cell--header">Avatar</th>
+                        <th className="table-users__cell table-users__cell--header">Email</th>
+                        <th className="table-users__cell table-users__cell--header">Địa chỉ</th>
+                        <th className="table-users__cell table-users__cell--header">Số điện thoại</th>
+                        <th className="table-users__cell table-users__cell--header">Vai trò</th>
+                        <th className="table-users__cell table-users__cell--header">Cài đặt</th>
                     </tr>
                 </thead>
-                <PaginatedItems itemsPerPage={10} />
+                <PaginatedItems itemsPerPage={7} />
             </table>
-        </>
+        </div>
     );
 };
 
