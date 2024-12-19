@@ -26,7 +26,7 @@ const Account = () => {
 
 
     const [password, setPassword] = useState("");
-    const [userName, setUserName] = useState("");
+    const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
@@ -37,10 +37,10 @@ const Account = () => {
 
     useEffect(() => {
         if (!_.isEmpty(account)) {
-            setUserName(account.id);
-            setFullName(account.id);
-            setAddress(account.id);
-            setPhone(account.id);
+            setUsername(account.username);
+            setFullName(account.fullName);
+            setAddress(account.address);
+            setPhone(account.phone);
             setPreviewImage(`${account.avatar}`);
         }
     }, []);
@@ -64,7 +64,7 @@ const Account = () => {
     const handleSubmitUpdateUser = async (event) => {
         // validate
         const dataValidate = {
-            useName: userName,
+            usename: username,
             fullName: fullName,
             address: address,
             phoneNumber: phone,
@@ -81,7 +81,7 @@ const Account = () => {
                 },
             };
             const formData = new FormData();
-            formData.append("userName", userName);
+            formData.append("username", username);
             formData.append("fullName", fullName);
             formData.append("address", address);
             formData.append("phone", phone);
@@ -102,7 +102,7 @@ const Account = () => {
         <>
             <div className="title-tk-2021">Thông tin tài khoản</div>
             <div className="box-cus-info-2021-ct" id="manhinhtaikhoan1">
-                <div className="col-12  img-preview-info-profile"> <img src={account.avatar} alt="No avatar" /></div>
+                <div className="col-12  img-preview-info-profile"> <img src={account.avatar} alt="No avatar" style={{display : "block"}}/></div>
                 <div className="col-3">
                     <label className="form-label label_input-file" htmlFor="inputFileUser">
                         <FcPlus />
@@ -125,9 +125,9 @@ const Account = () => {
                             type="text"
                             className="form-control"
                             placeholder="NguyenA"
-                            value={userName}
-                            onChange={(event) => setUserName(event.target.value)}
-                            onBlur={() => handleBlur("userName", userName)}
+                            value={username}
+                            onChange={(event) => setUsername(event.target.value)}
+                            onBlur={() => handleBlur("username", username)}
                             onFocus={() => handleFocus("userName")}
                         />
                     </div>

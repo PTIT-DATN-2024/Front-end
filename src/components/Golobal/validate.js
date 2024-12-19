@@ -230,8 +230,8 @@ const validateDesc = (desc) => {
     }
     return "";
 };
-const validateUserName = (useName) => {
-    if (!useName) {
+const validateUsername = (username) => {
+    if (!username) {
         return "Tên không được để trống";
     }
     return "";
@@ -270,6 +270,10 @@ const validateFields = (fields) => {
             errors.productCount = validateProductCount(value);
         } else if (field === "productPresent") {
             errors.productPresent = validateProductPresent(value);
+        } else if (field === "productPresent1") {
+            errors.productPresent1 = validateProductPresent(value);
+        } else if (field === "productPresent2") {
+            errors.productPresent2 = validateProductPresent(value);
         } else if (field === "productCategory") {
             errors.productCategory = validateProductCategory(value);
         } else if (field === "categoryName") {
@@ -278,8 +282,8 @@ const validateFields = (fields) => {
             errors.categoryAvatar = validateCategoryAvatar(value);
         } else if (field === "description") {
             errors.description = validateDesc(value);
-        } else if (field === "userName") {
-            errors.userName = validateUserName(value);
+        } else if (field === "username") {
+            errors.username = validateUsername(value);
         } else if (field === "fullName") {
             errors.fullName = validateFullName(value);
         }

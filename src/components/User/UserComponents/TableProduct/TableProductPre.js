@@ -23,20 +23,24 @@ const TableProductPre = () => {
             });
         }
     };
+
     const addProductToCart = async (product) => {
-        let data = {
-            customerId: userState.id,
-            product: product,
-            quantity: 1,
-            totalPrice: product.sellingPrice
-        };
-        let res_data = await postProductToCart(data);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            fetchCart();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
+        if (userState.role === "CUSTOMER") {
+
+            let data = {
+                customerId: userState.id,
+                product: product,
+                quantity: 1,
+                totalPrice: product.sellingPrice
+            };
+            let res_data = await postProductToCart(data);
+            if (res_data && res_data.EC === 0) {
+                toast.success(res_data.MS);
+                fetchCart();
+            }
+            if (res_data && res_data.EC !== 0) {
+                toast.error(res_data.MS);
+            }
         }
     };
     // Custom next arrow
@@ -81,7 +85,10 @@ const TableProductPre = () => {
                         {listProducts &&
                             listProducts.length > 0 &&
                             listProducts.map((product, index) => (
-                                <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} class="productSlide">
+                                <div key={index} onClick={() => {
+                                    // fetchCart(); // Ensure this runs before navigation
+                                    navigate(`/productsPage/${product.productId}`);
+                                }} class="productSlide">
                                     <div class="p-img">
                                         <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                     </div>
@@ -96,6 +103,7 @@ const TableProductPre = () => {
                                                 ? <span class="p-discount">Tiết kiệm: {product?.productDiscount?.discountAmount}</span>
                                                 : <span class="p-discount">Mới ! </span>
                                         }
+                                        <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                                     </div>
                                     <div class="p-action">
                                         <span class="p-qty">{(product.status === "available" || product.status === "") ? "Sắn hàng" : "Đặt trước"}</span>

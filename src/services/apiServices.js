@@ -9,7 +9,7 @@ const getAllUsers = (config) => {
 };
 const putUpdateUser = (_id, formData, config) => {
 
-    return axios.put(`/user/${_id}`, formData, config);
+    return axios.put(`/customer/${_id}`, formData, config);
 };
 const deleteUser = (_id, config) => {
     return axios.delete(`/customer/customer/${_id}`, config);
@@ -130,26 +130,26 @@ const deleteOrder = (_id) => {
 };
 
 // CMT 
-const postCreateComment = (idProduct, idUser, content, rating) => {
+const postCreateComment = (productId, customerId, comment, rating) => {
     let data = {
-        idProduct: idProduct,
-        idUser: idUser,
-        content: content,
+        productId: productId,
+        customerId: customerId,
+        comment: comment,
         rating: rating,
     };
     return axios.post("/comment", data);
 };
-const getCommentsProduct = (_idProduct) => {
-    return axios.get(`/comment/product/${_idProduct}`);
+const getCommentsProduct = (productId) => {
+    return axios.get(`/comment/product/${productId}`);
 };
-const putUpdateComment = (_id, user, listItem, Total, createdAt) => {
+const putUpdateComment = (editingCommentId,productId, customerId , updatedComment, userRating) => {
     let data = {
-        user: user,
-        listItem: listItem,
-        Total: Total,
-        createdAt: createdAt,
+        productId: productId,
+        customerId: customerId,
+        comment: updatedComment,
+        rating: userRating,
     };
-    return axios.put(`/comment/${_id}`, data);
+    return axios.put(`/comment/${editingCommentId}`, data);
 };
 const deleteComment = (_id) => {
     return axios.delete(`/comment/${_id}`);

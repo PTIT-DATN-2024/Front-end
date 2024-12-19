@@ -42,6 +42,24 @@ const UserPage = (props) => {
             <Header />
             <div className="mainContainer">
                 <Outlet />
+                <div class="support-section">
+                    <a href="https://www.facebook.com/profile.php?id=61570843770876" class="support-item" target="_blank">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiXN9xSEe8unzPBEQOeAKXd9Q55efGHGB9BA&s" alt="Chat Facebook" />
+                        <span>Chat Facebook</span>
+
+                    </a>
+                    <a href="https://zalo.me/g/dvntbj993" class="support-item" target="_blank">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMDg68zSJU2TpKyMFJwkWpuGsXF_FTMJguqA&s" alt="Chat Zalo" />
+                        <span>Chat Zalo</span>
+
+                    </a>
+                    <div href="" class="support-item">
+                        <img src="https://hidosport.vn/wp-content/uploads/2023/09/call-icon.png" alt="Call Support" />
+                        <span>035.339.4062</span>
+
+                    </div>
+                </div>
+
                 <ThankCustomer />
             </div>
             <Footer />

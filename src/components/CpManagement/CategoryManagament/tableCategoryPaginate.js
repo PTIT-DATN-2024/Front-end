@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const TableCategoriesPaginate = (props) => {
     const listCategories = useSelector((state) => state.category.listCategories);
     const items = listCategories || [];
-
+    const account = useSelector((state) => state.user.account);
     function Items({ currentItems, itemOffset }) {
         return (
             <tbody>
@@ -29,18 +29,24 @@ const TableCategoriesPaginate = (props) => {
                                 >
                                     Xem
                                 </button>
-                                <button
-                                    className="btn btn-warning mx-3"
-                                    onClick={() => props.handleClickBtnUpdate(category)}
-                                >
-                                    Sửa
-                                </button>
-                                <button
+                                {account.role === "ADMIN" && (
+                                    <button
+                                        className="btn btn-warning mx-3"
+                                        onClick={() => props.handleClickBtnUpdate(category)}
+                                    >
+                                        Sửa
+                                    </button>
+                                )}
+                                {account.role === "ADMIN" && (
+                                    <button
                                     className="btn btn-danger"
                                     onClick={() => props.handleClickBtnDelete(category)}
                                 >
                                     Xóa
                                 </button>
+                                )}
+
+                                
                             </td>
                         </tr>
                     ))

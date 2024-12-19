@@ -8,12 +8,13 @@
     flex-direction: column;
     position: relative;
     padding: 0 10px;
+
     .headerContainer {
         width: 100%;
         height: 80px;
         position: fixed;
         z-index: 10;
-        background-color:#ffffff;
+        background-color: #ffffff;
         top: 0px;
         left: 0px;
         font-weight: 500;
@@ -33,15 +34,18 @@
         align-items: center;
         cursor: pointer;
         font-size: 24px;
+
         .btn_icon {
             height: 100%;
             width: 100%;
             flex: 1;
         }
+
         &:hover {
             background-color: #a3df55;
         }
     }
+
     .cart_fixIcon.active {
         background-color: #a3df55;
     }
@@ -53,19 +57,24 @@
         align-items: center;
         height: 100vh;
         width: 100vw;
-        background: rgba(0, 0, 0, 0.5); /* Adjust opacity and color as needed */
-        backdrop-filter: blur(5px); /* Adjust blur amount as needed */
+        background: rgba(0, 0, 0, 0.5);
+        /* Adjust opacity and color as needed */
+        backdrop-filter: blur(5px);
+        /* Adjust blur amount as needed */
         z-index: 10;
         position: fixed;
-        bottom: -100%; /* Vị trí ban đầu bên dưới màn hình */
+        bottom: -100%;
+        /* Vị trí ban đầu bên dưới màn hình */
         left: 50%;
         transform: translate(-50%, 50%);
         transition: bottom 0.5s ease-in-out;
     }
 
     .listOrderContainer.visible {
-        bottom: 50vh; /* Vị trí giữa màn hình */
+        bottom: 50vh;
+        /* Vị trí giữa màn hình */
     }
+
     .mainContainer {
         margin-top: 80px;
         width: 100%;
@@ -75,11 +84,51 @@
         flex-direction: column;
         align-items: center;
 
+        .support-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: fixed;
+            right: 0;
+            bottom: 20px;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .support-item img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .support-item span {
+            font-weight: bold;
+            font-size: 12px;
+            color: #333;
+        }
+        .support-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+
     }
+
     @media only screen and (max-width: 479px) {
         width: 100vw;
     }
 }
+
 .no-scroll {
     overflow: hidden;
 }

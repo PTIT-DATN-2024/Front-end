@@ -22,7 +22,7 @@ const ProductManagement = (props) => {
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
-
+    const account = useSelector((state) => state.user.account);
     const handleClickBtnUpdate = (product) => {
         setShowModalUpdateProduct(true);
         setDataUpdate(product);
@@ -39,7 +39,7 @@ const ProductManagement = (props) => {
     const fetchListProducts = async () => {
         let res = await getAllProducts();
         if (res.EC === 0) {
-            const products = res.products.filter(product => product.isDelete === "False")
+            const products = res.products.filter(product => product.isDelete === "False");
             dispatch({
                 type: "fetch_all_product",
                 payload: products,
@@ -56,19 +56,23 @@ const ProductManagement = (props) => {
     }, []);
     return (
         <div className="ProductManagement_container">
-            <div className="ProductManagement_content">
-                <div>
-                    <Button
-                        variant="primary"
-                        onClick={() => {
-                            setShowModalCreateProduct(true);
-                        }}
-                    >
-                        <FcPlus />
-                        Thêm mới product
-                    </Button>
+            {account.role === "ADMIN" && (
+
+                <div className="ProductManagement_content">
+                    <div>
+                        <Button
+                            variant="primary"
+                            onClick={() => {
+                                setShowModalCreateProduct(true);
+                            }}
+                        >
+                            <FcPlus />
+                            Thêm mới product
+                        </Button>
+                    </div>
                 </div>
-            </div>
+            )}
+
             <div className="table_Category_management_content">
                 <TableProductsPaginate handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>

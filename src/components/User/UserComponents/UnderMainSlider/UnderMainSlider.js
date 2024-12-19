@@ -17,7 +17,7 @@ const UnderMainSlider = (props) => {
 
     return (
         <div className="banner-duoi-slider" style={{ display: "flex", justifyContent: "space-between", width: "100%", height: "132px", gap: "10px" }}>
-                <a href="/ad.php?id=1714" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover"}}
@@ -25,7 +25,7 @@ const UnderMainSlider = (props) => {
                         alt="Trùm màn hình Gaming"
                     />
                 </a>
-                <a href="/ad.php?id=1812" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover"}}
@@ -33,7 +33,7 @@ const UnderMainSlider = (props) => {
                         alt="Trùm Laptop Gaming"
                     />
                 </a>
-                <a href="/ad.php?id=1897" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover"}}
@@ -41,7 +41,7 @@ const UnderMainSlider = (props) => {
                         alt="Giải nhiệt máy tính"
                     />
                 </a>
-                <a href="/ad.php?id=1897" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "124px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover"}}

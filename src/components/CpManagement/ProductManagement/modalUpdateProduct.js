@@ -12,6 +12,45 @@ const ModalUpdateProduct = (props) => {
     const listCategories = useSelector((state) => state.category.listCategories);
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState("");
+    const [importPrice, setImportPrice] = useState("");
+    const [sellingPrice, setSellingPrice] = useState("");
+    const [rate, setRate] = useState("");
+    const [numberVote, setNumberVote] = useState("");
+    const [productDiscount, setProductDiscount] = useState("0");
+    const [status, setStatus] = useState("");
+    const [weight, setWeight] = useState("");
+    const [description, setDescription] = useState("");
+    const [total, setTotal] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
+    const [previewImage1, setPreviewImage1] = useState("");
+    const [previewImage2, setPreviewImage2] = useState("");
+    const [errors, setErrors] = useState({});
+    const [presentImage, setPresentImage] = useState(null);
+    const [presentImage1, setPresentImage1] = useState(null);
+    const [presentImage2, setPresentImage2] = useState(null);
+    useEffect(() => {
+        if (!_.isEmpty(dataUpdate)) {
+            setName(dataUpdate.name);
+            setCategory(dataUpdate.category.categoryId);
+            setImportPrice(dataUpdate.importPrice);
+            setSellingPrice(dataUpdate.sellingPrice);
+            setWeight(dataUpdate.weight);
+            setDescription(dataUpdate.description);
+            setTotal(dataUpdate.total);
+            setRate(dataUpdate.rate);
+            setNumberVote(dataUpdate.numberVote);
+            setStatus(dataUpdate.status);
+            setProductDiscount(dataUpdate.productDiscount);
+            setPreviewImage(`${dataUpdate.productImages[0].image}`);
+            setPreviewImage1(`${dataUpdate.productImages[1].image}`);
+            setPreviewImage2(`${dataUpdate.productImages[2].image}`);
+            setPresentImage(null);
+            setPresentImage1(null);
+            setPresentImage2(null);
+        }
+    }, [dataUpdate]);
     const handleClose = () => {
         setShow(false);
         setErrors({});
@@ -25,43 +64,28 @@ const ModalUpdateProduct = (props) => {
         // setCount("");
         // setPreviewImage("");
     };
-    const [name, setName] = useState("");
-    const [category, setCategory] = useState("");
-    const [importPrice, setImportPrice] = useState("");
-    const [sellingPrice, setSellingPrice] = useState("");
-    const [rate, setRate] = useState("");
-    const [numberVote, setNumberVote] = useState("");
-    const [productDiscount, setProductDiscount] = useState("0");
-    const [status, setStatus] = useState("");
-    const [weight, setWeight] = useState("");
-    const [presentImage, setPresentImage] = useState("");
-    const [description, setDescription] = useState("");
-    const [total, setTotal] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
-    const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        if (!_.isEmpty(dataUpdate)) {
-            setName(dataUpdate.name);
-            setCategory(dataUpdate.category.categoryId);
-            setImportPrice(dataUpdate.importPrice);
-            setSellingPrice(dataUpdate.sellingPrice);
-            setWeight(dataUpdate.weight);
-            setPresentImage(`${dataUpdate.productImages[0].image}`);
-            setDescription(dataUpdate.description);
-            setTotal(dataUpdate.total);
-            setPreviewImage(`${dataUpdate.productImages[0].image}`);
-            setRate(dataUpdate.rate);
-            setNumberVote(dataUpdate.numberVote);
-            setStatus(dataUpdate.status);
-            setProductDiscount(dataUpdate.productDiscount);
-        }
-    }, [dataUpdate]);
 
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
             setPresentImage(event.target.files[0]);
+        } else {
+            // setPreviewImage("");
+        }
+    };
+    const handleUploadImage1 = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setPreviewImage1(URL.createObjectURL(event.target.files[0]));
+            setPresentImage1(event.target.files[0]);
+        } else {
+            // setPreviewImage("");
+        }
+    };
+    const handleUploadImage2 = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setPreviewImage2(URL.createObjectURL(event.target.files[0]));
+            setPresentImage2(event.target.files[0]);
         } else {
             // setPreviewImage("");
         }
@@ -82,9 +106,11 @@ const ModalUpdateProduct = (props) => {
             productName: name,
             productCategory: category,
             importprice: importPrice,
+            productPresent: presentImage,
+            productPresent1: presentImage1,
+            productPresent2: presentImage2,
             sellingprice: { sellingprice: sellingPrice, importprice: importPrice },
             weight: weight,
-            productPresent: presentImage,
             productDescription: description,
             productCount: total,
         };
@@ -106,9 +132,16 @@ const ModalUpdateProduct = (props) => {
             formData.append("sellingPrice", sellingPrice);
             formData.append("description", description);
             formData.append("total", total);
-            formData.append("category", category);
-            formData.append("presentImage", presentImage);
-            let res_data = await putUpdateProduct(dataUpdate._id, formData, config);
+            formData.append("categoryId", category);
+            formData.append("productImageId", dataUpdate.productImages[0].productImageId);
+            formData.append("productImageId1", dataUpdate.productImages[1].productImageId);
+            formData.append("productImageId2", dataUpdate.productImages[2].productImageId);
+
+            formData.append("avatar", presentImage);
+            formData.append("avatar1", presentImage1);
+            formData.append("avatar2", presentImage2);
+
+            let res_data = await putUpdateProduct(dataUpdate.productId, formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
@@ -252,6 +285,44 @@ const ModalUpdateProduct = (props) => {
                         </div>
                         <div className="col-12  img-preview">
                             <img src={previewImage} alt="preview image" />
+                        </div>
+                        <div className="col-3">
+                            <label className="form-label label_input-file" htmlFor="inputFileProduct1">
+                                <FcPlus />
+                                Tải ảnh 2 lên
+                            </label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                hidden
+                                id="inputFileProduct1"
+                                onChange={(event) => handleUploadImage1(event)}
+                                onBlur={() => handleBlur("productPresent1", presentImage1)}
+                                onFocus={() => handleFocus("productPresent1")}
+                            />
+                            {errors.productPresent1 && <div className="text-danger">{errors.productPresent1}</div>}
+                        </div>
+                        <div className="col-12  img-preview">
+                            <img src={previewImage1} alt="preview image" />
+                        </div>
+                        <div className="col-3">
+                            <label className="form-label label_input-file" htmlFor="inputFileProduct2">
+                                <FcPlus />
+                                Tải ảnh 3 lên
+                            </label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                hidden
+                                id="inputFileProduct2"
+                                onChange={(event) => handleUploadImage2(event)}
+                                onBlur={() => handleBlur("productPresent2", presentImage2)}
+                                onFocus={() => handleFocus("productPresent2")}
+                            />
+                            {errors.productPresent2 && <div className="text-danger">{errors.productPresent2}</div>}
+                        </div>
+                        <div className="col-12  img-preview">
+                            <img src={previewImage2} alt="preview image" />
                         </div>
                     </form>
                 </Modal.Body>

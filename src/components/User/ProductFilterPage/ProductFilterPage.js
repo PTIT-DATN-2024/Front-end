@@ -44,7 +44,7 @@ const ProductFilterPage = () => {
         if (res.EC === 0) {
             dispatch({
                 type: "fetch_all_product",
-                payload: res.products,
+                payload: res.products.filter(product => product.isDelete === "False"),
             });
             toast.success(res.MS);
         }

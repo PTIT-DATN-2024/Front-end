@@ -22,7 +22,7 @@ const ModalCreateUser = (props) => {
     const handleClose = () => {
         setShow(false);
         setEmail("");
-        setUserName("");
+        setUsername("");
         setFullName("");
         setPassword("");
         setAddress("");
@@ -34,7 +34,7 @@ const ModalCreateUser = (props) => {
     };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [userName, setUserName] = useState("");
+    const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -68,7 +68,7 @@ const ModalCreateUser = (props) => {
         const dataValidate = {
             email: email,
             password: password,
-            useName: userName,
+            usename: username,
             fullName : fullName,
             address: address,
             phoneNumber: phoneNumber,
@@ -88,7 +88,7 @@ const ModalCreateUser = (props) => {
             const formData = new FormData();
             formData.append("email", email);
             formData.append("password", password);
-            formData.append("userName", userName);
+            formData.append("username", username);
             formData.append("fullName", fullName);
             formData.append("address", address);
             formData.append("phone", phoneNumber);
@@ -140,17 +140,17 @@ const ModalCreateUser = (props) => {
                             {errors.password && <div className="text-danger">{errors.password}</div>}
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">UserName</label>
+                            <label className="form-label">Username</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="NguyenA"
-                                value={userName}
-                                onChange={(event) => setUserName(event.target.value)}
-                                onBlur={() => handleBlur("userName", userName)}
-                                onFocus={() => handleFocus("userName")}
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
+                                onBlur={() => handleBlur("username", username)}
+                                onFocus={() => handleFocus("username")}
                             />
-                            {errors.userName && <div className="text-danger">{errors.userName}</div>}
+                            {errors.username && <div className="text-danger">{errors.username}</div>}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Tên đầy đủ</label>

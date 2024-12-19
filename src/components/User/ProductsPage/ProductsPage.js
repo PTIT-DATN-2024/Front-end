@@ -62,25 +62,28 @@ const ProductsPage = (props) => {
         if (res.EC === 0) {
             dispatch({
                 type: "fetch_all_product",
-                payload: res.products,
+                payload: res.products.filter(product => product.isDelete === "False"),
             });
         }
     };
     const addProductToCart = async (product, quantity) => {
-        let data = {
-            customerId: userState.id,
-            product: product,
-            quantity: quantity,
-            totalPrice: product.sellingPrice*quantity
-        };
-        let res_data = await postProductToCart(data);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            setQuantity(1);
-            fetchCart();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
+        if (userState.role ==="CUSTOMER"){
+
+            let data = {
+                customerId: userState.id,
+                product: product,
+                quantity: quantity,
+                totalPrice: product.sellingPrice*quantity
+            };
+            let res_data = await postProductToCart(data);
+            if (res_data && res_data.EC === 0) {
+                toast.success(res_data.MS);
+                setQuantity(1);
+                fetchCart();
+            }
+            if (res_data && res_data.EC !== 0) {
+                toast.error(res_data.MS);
+            }
         }
     };
     const handleIncrease = () => setQuantity(quantity + 1);
@@ -222,9 +225,9 @@ const ProductsPage = (props) => {
                                     {product.sellingPrice.toLocaleString("vi-VN")}
                                     <u>đ</u>
                                 </p>
-                                <p>
+                                {/* <p>
                                     Tiết kiệm: 2.500.000<u>đ</u>
-                                </p>
+                                </p> */}
                             </div>
                             <del className="pd-market-price">
                                 {"Giá gốc " + product.sellingPrice.toLocaleString("vi-VN")}
@@ -259,7 +262,7 @@ const ProductsPage = (props) => {
                     </div>
                 </div>
             </div>
-            {/* <CommentProduct productId={product.productId} /> */}
+            <CommentProduct productId={product.productId} />
         </div>
     );
 };

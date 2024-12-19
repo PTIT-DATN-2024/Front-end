@@ -10,7 +10,7 @@ import ModalUpdateCategory from "./modalUpdateCategory";
 import TableCategoriesPaginate from "./tableCategoryPaginate";
 import ModalDeleteCategory from "./ModalDeleteCategory";
 import ModalViewCategory from "./ModalViewCategory";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const CategoryManagement = (props) => {
     const dispatch = useDispatch();
     const [showModalCreateCategory, setShowModalCreateCategory] = useState(false);
@@ -20,6 +20,7 @@ const CategoryManagement = (props) => {
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
+    const account = useSelector((state) => state.user.account);
     const handleClickBtnUpdate = (category) => {
         setShowModalUpdateCategory(true);
         setDataUpdate(category);
@@ -51,14 +52,17 @@ const CategoryManagement = (props) => {
     }, []);
     return (
         <div className="CategoryManagement_container">
-            <div className="CategoryManagement_content">
-                <div>
-                    <Button variant="primary" onClick={() => setShowModalCreateCategory(true)}>
-                        <FcPlus />
-                        Thêm danh mục mới
-                    </Button>
+            {account.role === "ADMIN" && (
+                <div className="CategoryManagement_content">
+                    <div>
+                        <Button variant="primary" onClick={() => setShowModalCreateCategory(true)}>
+                            <FcPlus />
+                            Thêm danh mục mới
+                        </Button>
+                    </div>
                 </div>
-            </div>
+            )}
+
             <div className="table_Category_management_content">
                 <TableCategoriesPaginate handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>

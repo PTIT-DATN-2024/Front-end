@@ -4,13 +4,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./login.scss";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+
 const LogIn = (props) => {
     let navigate = useNavigate();
-    
     const dispatch = useDispatch();
+
     const handleSignUp = () => {
         navigate("/signUp");
     };
+
     const handleLogin = async () => {
         let dataLogin = {
             email: userEmail,
@@ -29,6 +31,13 @@ const LogIn = (props) => {
             toast.error(res_data.MS);
         }
     };
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleLogin();
+        }
+    };
+
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
@@ -43,13 +52,31 @@ const LogIn = (props) => {
             <div className="form" id="form-1">
                 <h3 className="heading">Xin chào!!!</h3>
                 <div className="form-group">
-                    <lable className="form-lable">Email</lable>
-                    <input type="text" name="email" id="email" className="form-control" placeholder="VD: email@domain.com.vm" value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />
+                    <label className="form-lable">Email</label>
+                    <input 
+                        type="text" 
+                        name="email" 
+                        id="email" 
+                        className="form-control" 
+                        placeholder="VD: email@domain.com.vm" 
+                        value={userEmail} 
+                        onChange={(event) => setUserEmail(event.target.value)} 
+                        onKeyDown={handleKeyDown} 
+                    />
                     <span className="form-message"></span>
                 </div>
                 <div className="form-group">
-                    <lable className="form-lable">Mật khẩu</lable>
-                    <input type="password" name="password" id="password" className="form-control" placeholder="Nhập mật khẩu" value={userPassword} onChange={(event) => setUserPassword(event.target.value)} />
+                    <label className="form-lable">Mật khẩu</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        className="form-control" 
+                        placeholder="Nhập mật khẩu" 
+                        value={userPassword} 
+                        onChange={(event) => setUserPassword(event.target.value)} 
+                        onKeyDown={handleKeyDown} 
+                    />
                     <span className="form-message"></span>
                 </div>
                 <button className="form-submit" onClick={() => handleLogin()}>
@@ -62,4 +89,5 @@ const LogIn = (props) => {
         </div>
     );
 };
+
 export default LogIn;

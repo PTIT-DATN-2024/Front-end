@@ -35,7 +35,7 @@ function ModalViewProduct(props) {
     const [presentImage, setPresentImage] = useState("");
     const [description, setDescription] = useState("");
     const [count, setCount] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
+    const [previewImage, setPreviewImage] = useState([]);
     useEffect(() => {
         if (!_.isEmpty(dataView)) {
             setName(dataView.name);
@@ -43,10 +43,10 @@ function ModalViewProduct(props) {
             setImportprice(dataView.importPrice);
             setSellingprice(dataView.sellingPrice);
             setWeight(dataView.weight);
-            setPresentImage(`${dataView.productImages[0].image}`);
+            setPresentImage(`${dataView.productImages}`);
             setDescription(dataView.description);
             setCount(dataView.total);
-            setPreviewImage(`${dataView.productImages[0].image}`);
+            setPreviewImage(dataView.productImages);
             setRate(dataView.rate);
             setNumberVote(dataView.numberVote);
             setStatus(dataView.status);
@@ -107,9 +107,12 @@ function ModalViewProduct(props) {
                             <label className="form-label">Mô tả</label>
                             <input type="text" className="form-control" placeholder="not found" value={description} disabled />
                         </div>
-                        <div className="col-12  img-preview">
-                            <img src={presentImage} alt="preview image" />
-                        </div>
+                        {previewImage.map((img, index) => (
+                            <div className="col-12  img-preview">
+                                <img src={img.image} alt="preview image" />
+                            </div>
+                        ))}
+
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

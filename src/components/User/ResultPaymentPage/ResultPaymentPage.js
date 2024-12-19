@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getAllProducts } from "../../../services/apiServices";
 import "./ResultPaymentPage.scss";
 import { postResultPayment, getCartbyUserid, removeProductToCart } from "../../../services/apiServices";
-
+import { CiCircleCheck, CiCircleAlert, CiCircleRemove } from "react-icons/ci";
 const ResultPaymentPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -24,7 +24,6 @@ const ResultPaymentPage = () => {
         const response = await postResultPayment(data);
         if (response && response.EC === 0) {
             toast.success(response.MS);
-            remove();
         } else if (response) {
             toast.error(response.MS);
         }
@@ -42,21 +41,15 @@ const ResultPaymentPage = () => {
             });
         }
     };
-    const remove = async () => {
-        // Duyệt qua từng cartDetailId và xóa sản phẩm khỏi giỏ hàng
-        for (let cartDetail of userCart) {
-            let res = await removeProductToCart(cartDetail.cartDetailId);
-            if (res.EC === 0) {
-                // Nếu xóa thành công, gọi lại fetchCart để cập nhật giỏ hàng
-                fetchCart();
-            } else {
-                // Xử lý trường hợp xóa thất bại
-                toast.error(`Xóa thất bại`);
-            }
-        }
-
-        // Có thể hiển thị thông báo thành công sau khi xóa tất cả sản phẩm
-        toast.success("Đã xóa tất cả sản phẩm khỏi giỏ hàng");
+    const paymentIcons = {
+        success: <CiCircleCheck style={{ color: 'green', fontSize: '60px' }} />,
+        failed: <CiCircleRemove style={{ color: 'red', fontSize: '60px' }} />,
+        error: <CiCircleAlert style={{ color: 'orange', fontSize: '60px' }} />,
+    };
+    const paymentMessages = {
+        success: "Cảm ơn bạn đã mua sắm! Chúng tôi sẽ xử lý đơn hàng của bạn sớm.",
+        failed: "Vui lòng thử lại hoặc liên hệ với chúng tôi nếu bạn gặp vấn đề.",
+        error: "Vui lòng liên hệ với bộ phận hỗ trợ khách hàng để giải quyết vấn đề này.",
     };
     // Xử lý trạng thái thanh toán dựa trên các tham số từ URL
     useEffect(() => {
@@ -81,7 +74,7 @@ const ResultPaymentPage = () => {
         switch (params.get('vnp_ResponseCode')) {
             case '00':
                 setPaymentStatus('success');
-                setMessage(`Thanh toán thành công! Mã giao dịch: ${params.get('vnp_TxnRef')}`);
+                setMessage(`Thanh toán thành công! Mã giao dịch: ${params.get('vnp_TxnRef').slice(0, 4)}...${params.get('vnp_TxnRef').slice(12, 16)}`);
                 handleStateOrder(data);
                 break;
             case '07':
@@ -138,26 +131,17 @@ const ResultPaymentPage = () => {
                 break;
         }
     }, [location]);
-
     return (
         <div className="result-payment">
-            <h1>Kết quả thanh toán</h1>
+            <div>
+                {paymentStatus && paymentIcons[paymentStatus]}
+            </div>
             <div className={`status-message ${paymentStatus}`}>
                 {message}
             </div>
-            {paymentStatus === 'success' && (
+            {paymentStatus && (
                 <div>
-                    <p>Cảm ơn bạn đã mua sắm! Chúng tôi sẽ xử lý đơn hàng của bạn sớm.</p>
-                </div>
-            )}
-            {paymentStatus === 'failed' && (
-                <div>
-                    <p>Vui lòng thử lại hoặc liên hệ với chúng tôi nếu bạn gặp vấn đề.</p>
-                </div>
-            )}
-            {paymentStatus === 'error' && (
-                <div>
-                    <p>Vui lòng liên hệ với bộ phận hỗ trợ khách hàng để giải quyết vấn đề này.</p>
+                    <p>{paymentMessages[paymentStatus]}</p>
                 </div>
             )}
         </div>

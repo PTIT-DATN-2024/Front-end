@@ -36,6 +36,13 @@ const cartReducer = (state = cartState, action) => {
                     (item) => item.cartDetailId !== action.payload.cartDetailId
                 ),
             };
+        case "RESET_CART":
+            return {
+                ...state,
+                cartItems: [], // Danh sách sản phẩm trong giỏ hàng
+                message: "",   // Thông báo từ API
+                errorCode: null, // Mã lỗi nếu có
+            }
         default:
             return state;
     }

@@ -28,27 +28,22 @@ const Sidebar = (props) => {
                         </MenuItem>
                     </SubMenu>
                 )}
-
                 <SubMenu title="Quản lí" icon={<FaHeart />}>
                     <MenuItem>
                         <NavLink to="UserManagement" className="nav-link">
                             Quản lí tài khoản
                         </NavLink>
                     </MenuItem>
-                    {account.role === "ADMIN" && (
-                        <MenuItem>
-                            <NavLink to="ProductManagement" className="nav-link">
-                                Quản lí sản phẩm
-                            </NavLink>
-                        </MenuItem>
-                    )}
-                    {account.role === "ADMIN" && (
-                        <MenuItem>
-                            <NavLink to="CategogyManagement" className="nav-link">
-                                Quản lí danh mục
-                            </NavLink>
-                        </MenuItem>
-                    )}
+                    <MenuItem>
+                        <NavLink to="ProductManagement" className="nav-link">
+                            Quản lí sản phẩm
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                        <NavLink to="CategogyManagement" className="nav-link">
+                            Quản lí danh mục
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem>
                         <NavLink to="OrderManagement" className="nav-link">
                             Quản lí đơn hàng

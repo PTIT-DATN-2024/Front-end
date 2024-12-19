@@ -340,6 +340,60 @@ const apiDocumentation = [
         }
     },
     {
+        api: "update",
+        url: "/product/productId",
+        method: "put",
+        description: "Search products by query",
+        req: {
+            name: "string"  ,
+            weight: "string",  
+            importPrice: "string" , 
+            sellingprice: "string",  
+            description: "string" , 
+            total: "string"  ,
+            categoriId: "string"  ,
+            // presentImage: null ,
+            presentImage: ["avatar", "vate", ],
+            productIds: ["ac3", null]
+
+        },
+        res: {
+            EC: 0,
+            MS: "Search products success!",
+            products: [
+                {
+                    "productId": "prod001",
+                    "category": {
+                        "categoryId": "cat001",
+                        "name": "Mouse",
+                        "description": "Electronic devices",
+                        "avatar": "1728958738001.jpg",
+                        "createdAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "productDiscount": {
+                        "productDiscountId": "disc001",
+                        "discountAmount": 5.0,
+                        "expiredDate": "2025-01-01T00:00:00",
+                        "createdAt": "2024-11-08T10:10:24.402015",
+                        "updatedAt": "2024-11-08T10:10:24.402015"
+                    },
+                    "name": "Laptop",
+                    "total": 100,
+                    "rate": 4.5,
+                    "numberVote": 150,
+                    "description": "High-performance laptop",
+                    "importPrice": 500.0,
+                    "sellingPrice": 550.0,
+                    "status": "Available",
+                    "weight": "300g",
+                    "presentImage": "1728958738001.jpg",
+                    "createdAt": "2024-11-08T10:10:24.402015",
+                    "updatedAt": "2024-11-08T10:10:24.402015"
+                }
+            ]
+        }
+    },
+    {
         api: "getSearchProduct",
         url: "/product/search?query=a",
         method: "GET",

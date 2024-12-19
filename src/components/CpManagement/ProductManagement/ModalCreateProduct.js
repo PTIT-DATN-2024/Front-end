@@ -21,9 +21,13 @@ const ModalCreateProduct = (props) => {
         setSellingPrice("");
         setWeight("");
         setPresentImage("");
+        setPresentImage1("");
+        setPresentImage2("");
         setDescriptiom("");
         setCount("");
         setPreviewImage("");
+        setPreviewImage1("");
+        setPreviewImage2("");
         setErrors({});
     };
     //  name,
@@ -40,9 +44,13 @@ const ModalCreateProduct = (props) => {
     const [sellingPrice, setSellingPrice] = useState("");
     const [weight, setWeight] = useState("");
     const [presentImage, setPresentImage] = useState();
+    const [presentImage1, setPresentImage1] = useState();
+    const [presentImage2, setPresentImage2] = useState();
     const [description, setDescriptiom] = useState("");
     const [count, setCount] = useState("");
     const [previewImage, setPreviewImage] = useState("");
+    const [previewImage1, setPreviewImage1] = useState("");
+    const [previewImage2, setPreviewImage2] = useState("");
     const [errors, setErrors] = useState({});
 
     const handleUploadImage = (event) => {
@@ -54,8 +62,28 @@ const ModalCreateProduct = (props) => {
             // setPreviewImage("");
         }
     };
+    const handleUploadImage1 = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setPreviewImage1(URL.createObjectURL(event.target.files[0]));
+            const file = event.target.files[0];
+            setPresentImage1(file);
+        } else {
+            // setPreviewImage("");
+        }
+    };
+    const handleUploadImage2 = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setPreviewImage2(URL.createObjectURL(event.target.files[0]));
+            const file = event.target.files[0];
+            setPresentImage2(file);
+        } else {
+            // setPreviewImage("");
+        }
+    };
     useEffect(() => {
         handleBlur("productPresent", presentImage);
+        handleBlur("productPresent1", presentImage1);
+        handleBlur("productPresent2", presentImage2);
     }, []);
     const handleBlur = (field, value) => {
         const newErrors = { ...errors, ...validateFields({ [field]: value }) };
@@ -76,11 +104,12 @@ const ModalCreateProduct = (props) => {
             sellingprice: { sellingprice: sellingPrice, importprice: importPrice },
             weight: weight,
             productPresent: presentImage,
+            productPresent1: presentImage1,
+            productPresent2: presentImage2,
             productDescription: description,
             productCount: count,
         };
         const newErrors = { ...errors, ...validateFields(dataValidate) };
-        console.log("123123", newErrors);
         setErrors(newErrors);
         const allFieldsEmpty = Object.values(errors).every((value) => value === "");
         console.log(allFieldsEmpty);
@@ -100,6 +129,8 @@ const ModalCreateProduct = (props) => {
             formData.append("sellingPrice", sellingPrice);
             formData.append("weight", weight);
             formData.append("avatar", presentImage);
+            formData.append("avatar1", presentImage1);
+            formData.append("avatar2", presentImage2);
             formData.append("description", description);
             formData.append("total", count);
             let res_data = await postCreateProduct(formData, config);
@@ -207,7 +238,7 @@ const ModalCreateProduct = (props) => {
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileProduct">
                                 <FcPlus />
-                                Tải ảnh lên
+                                Tải ảnh 1 lên
                             </label>
                             <input
                                 type="file"
@@ -221,6 +252,40 @@ const ModalCreateProduct = (props) => {
                             {errors.productPresent && <div className="text-danger">{errors.productPresent}</div>}
                         </div>
                         <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
+                        <div className="col-3">
+                            <label className="form-label label_input-file" htmlFor="inputFileProduct1">
+                                <FcPlus />
+                                Tải ảnh 2 lên
+                            </label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                hidden
+                                id="inputFileProduct1"
+                                onChange={(event) => handleUploadImage1(event)}
+                                onBlur={() => handleBlur("productPresent1", presentImage1)}
+                                onFocus={() => handleFocus("productPresent1")}
+                            />
+                            {errors.productPresent1 && <div className="text-danger">{errors.productPresent1}</div>}
+                        </div>
+                        <div className="col-12  img-preview">{previewImage1 ? <img src={previewImage1} alt="" /> : <span>Preview Image 2</span>}</div>
+                        <div className="col-3">
+                            <label className="form-label label_input-file" htmlFor="inputFileProduct2">
+                                <FcPlus />
+                                Tải ảnh 3 lên
+                            </label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                hidden
+                                id="inputFileProduct2"
+                                onChange={(event) => handleUploadImage2(event)}
+                                onBlur={() => handleBlur("productPresent2", presentImage2)}
+                                onFocus={() => handleFocus("productPresent2")}
+                            />
+                            {errors.productPresent2 && <div className="text-danger">{errors.productPresent2}</div>}
+                        </div>
+                        <div className="col-12  img-preview">{previewImage2 ? <img src={previewImage2} alt="" /> : <span>Preview Image 3</span>}</div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

@@ -15,6 +15,7 @@ import "./TableProductFull.scss";
 import _ from "lodash";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import { postProductToCart , getCartbyUserid} from "../../../../services/apiServices";
 
 const TableProductFull = (props) => {
     const navigate = useNavigate();
@@ -24,13 +25,37 @@ const TableProductFull = (props) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [countFilter, setCountFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState(props.categoryFilter);
+    const userState = useSelector((state) => state.user.account);
     const [sortType, setSortType] = useState("");
     useEffect(() => {
         filterProducts();
     }, [countFilter, categoryFilter, sortType]);
-    const addProductOrder = (productId) => {
-        dispatch({ type: "add_product", payload: productId });
-        toast.success("Product added to order.");
+    const fetchCart = async () => {
+        let res = await getCartbyUserid(userState.id);
+        if (res.EC === 0) {
+            dispatch({
+                type: "FETCH_CART_SUCCESS",
+                payload: res,
+            });
+        }
+    };
+    const addProductOrder = async (product) => {
+        if (userState.role === "CUSTOMER") {
+            let data = {
+                customerId: userState.id,
+                product: product,
+                quantity: 1,
+                totalPrice: product.sellingPrice
+            };
+            let res_data = await postProductToCart(data);
+            if (res_data && res_data.EC === 0) {
+                toast.success(res_data.MS);
+                fetchCart();
+            }
+            if (res_data && res_data.EC !== 0) {
+                toast.error(res_data.MS);
+            }
+        }
     };
     const PaginatedItems = ({ itemsPerPage }) => {
         const [currentItems, setCurrentItems] = useState(null);
@@ -51,25 +76,28 @@ const TableProductFull = (props) => {
         return (
             <>
                 <Items currentItems={currentItems} itemOffset={itemOffset} />
-                <ReactPaginate
-                    nextLabel=" >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
-                    marginPagesDisplayed={2}
-                    pageCount={pageCount}
-                    previousLabel="< "
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item-previous"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item-next"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                />
+                {filteredProducts.length > 0 && (
+                    <ReactPaginate
+                        nextLabel=">"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={3}
+                        marginPagesDisplayed={2}
+                        pageCount={pageCount}
+                        previousLabel="<"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        containerClassName="pagination"
+                        activeClassName="active"
+                        renderOnZeroPageCount={null}
+                    />
+                )}
             </>
         );
     };
@@ -92,10 +120,11 @@ const TableProductFull = (props) => {
                                     ? <span class="p-discount">Tiết kiệm: {product?.productDiscount?.discountAmount}</span>
                                     : <span class="p-discount">Mới ! </span>
                             }
+                            <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span> 
                         </div>
                         <div className="p-action">
-                            <span className="p-qty">{(product.status === "Available" || product.status === "") ? "Sắn hàng" : "Đặt trước"}</span>
-                            <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
+                            <span className="p-qty">{(product.status === "available" || product.status === "") ? "Sắn hàng" : "Đặt trước"}</span>
+                            <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product)} />
                         </div>
                     </div>
                 ))
@@ -147,7 +176,7 @@ const TableProductFull = (props) => {
                     </select>
                 </div>
 
-                <PaginatedItems itemsPerPage={7} />
+                <PaginatedItems itemsPerPage={8} />
             </div>
         </div>
     );

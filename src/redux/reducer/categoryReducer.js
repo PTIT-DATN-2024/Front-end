@@ -9,6 +9,11 @@ const categoryReducer = (state = categoryState, action) => {
                 ...state,
                 listCategories: action?.payload,  
             };
+        case "reset_category":
+            return {
+                ...state,
+                listCategories: [],  
+            };
 
         default:
             return state;

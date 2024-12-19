@@ -6,7 +6,7 @@ import './tableUserPaginate.scss'
 const TableUsersPaginate = (props) => {
     const listUsers = useSelector((state) => state.listUser.users);
     const items = listUsers;
-
+    const account = useSelector((state) => state.user.account);
     function Items({ currentItems, itemOffset, itemsPerPage }) {
         // Tính số hàng trống cần thêm để giữ nguyên chiều cao
 
@@ -52,18 +52,26 @@ const TableUsersPaginate = (props) => {
                                 >
                                     Xem
                                 </button>
-                                <button
-                                    className="btn btn-warning mx-3 table-users__btn"
-                                    onClick={() => props.handleClickBtnUpdate(user)}
-                                >
-                                    Sửa
-                                </button>
-                                <button
-                                    className="btn btn-danger table-users__btn"
-                                    onClick={() => props.handleClickBtnDelete(user)}
-                                >
-                                    Xóa
-                                </button>
+                                {account.role === "ADMIN" && (
+
+                                    <button
+                                        className="btn btn-warning mx-3 table-users__btn"
+                                        onClick={() => props.handleClickBtnUpdate(user)}
+                                    >
+                                        Sửa
+                                    </button>
+                                )}
+                                {account.role === "ADMIN" && (
+
+                                    <button
+                                        className="btn btn-danger table-users__btn"
+                                        onClick={() => props.handleClickBtnDelete(user)}
+                                    >
+                                        Xóa
+                                    </button>
+                                )}
+
+
                             </td>
                         </tr>
                     ))}

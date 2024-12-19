@@ -31,12 +31,21 @@ const Header = (props) => {
     };
     const handleLogOut = async () => {
         dispatch({
+            type: "reset_list_user",
+        });
+        dispatch({
+            type: "reset_product",
+        });
+        dispatch({
+            type: "RESET_CART",
+        });
+        dispatch({
+            type: "reset_category",
+        });
+        dispatch({
             type: "user_logout",
         });
         toast.success("LogOut Successful");
-        navigate("/");
-    };
-    const gotoProfilePage = () => {
         navigate("/");
     };
     const handleSearch = (e) => {
@@ -51,7 +60,7 @@ const Header = (props) => {
             // Kiểm tra mã phản hồi (EC) và xử lý tương ứng
             if (response.EC === 0) {
                 // Tìm kiếm thành công
-                setSuggestions(response.suggestions);
+                setSuggestions(response.products);
             } else {
                 // Nếu có lỗi trong quá trình tìm kiếm
                 // toast.error(response.data.MS); // Hiển thị thông báo lỗi
@@ -66,14 +75,16 @@ const Header = (props) => {
         }
     };
     const handleSearchChange = (e) => {
-        const query = e.target.value;
+        const query = e.target.value || '';  // Đảm bảo query luôn là một chuỗi
         setSearchQuery(query);
-        if (query.length > 0) {
-            fetchSuggestions(query);
+    
+        if (query && query.length > 0) {
+            fetchSuggestions(query);  // Gọi API nếu có dữ liệu tìm kiếm
         } else {
-            setSuggestions([]);
+            setSuggestions([]);  // Nếu không có dữ liệu, ẩn gợi ý
         }
     };
+    
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         setSuggestions([]); // Ẩn gợi ý sau khi tìm kiếm
@@ -155,18 +166,18 @@ const Header = (props) => {
                                         <div
                                             key={product._id}
                                             onClick={() => {
-                                                navigate(`/productsPage/${product._id}`);
+                                                navigate(`/productsPage/${product.productId}`);
                                                 setSuggestions([]); // Ẩn gợi ý sau khi chọn
                                                 setSearchQuery(""); // Reset thanh tìm kiếm
                                             }}
                                             className="list-group-item"
                                         >
                                             <div class="p-img">
-                                                <img src={product.presentImage} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
+                                                <img src={product.productImages[0].image} alt="Laptop Asus VivoBook X1404ZA-NK386W&nbsp;(i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)" />
                                             </div>
                                             <div className="info">
                                                 <p class="p-name">{product.name}</p>
-                                                <span class="p-price"> {product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                                                <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                                             </div>
                                         </div>
                                     ))}

@@ -50,7 +50,7 @@ const MainSlider = (props) => {
                     </Swiper>
                 </div>
                 <div className="home_slider_right" style={{ display: "flex", justifyContent: "space-between", gap: "10px", width: "1180px", height: "480px" }}>
-                    <a href="/ad.php?id=2474" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
+                    <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
                         <img
                             className="item"
                             style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", borderRadius: "6px" }}
@@ -58,7 +58,7 @@ const MainSlider = (props) => {
                             alt="PC Build"
                         />
                     </a>
-                    <a href="/ad.php?id=2474" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
+                    <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
                         <img
                             className="item"
                             style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", borderRadius: "6px" }}
@@ -69,7 +69,7 @@ const MainSlider = (props) => {
                 </div>
             </div>
             <div className="home_slider_bottom" style={{ display: "flex", justifyContent: "space-between", gap: "10px", width: "1180px", height: "240px" }}>
-                <a href="/ad.php?id=1714" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", borderRadius: "6px" }}
@@ -77,7 +77,7 @@ const MainSlider = (props) => {
                         alt="Trùm màn hình Gaming"
                     />
                 </a>
-                <a href="/ad.php?id=1812" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", borderRadius: "6px" }}
@@ -85,7 +85,7 @@ const MainSlider = (props) => {
                         alt="Trùm Laptop Gaming"
                     />
                 </a>
-                <a href="/ad.php?id=1897" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
+                <a href="/productFilterPage" target="_blank" rel="noopener noreferrer" style={{ minHeight: "148px", flex: 1 }}>
                     <img
                         className="item"
                         style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", borderRadius: "6px" }}

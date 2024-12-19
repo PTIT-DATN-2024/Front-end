@@ -9,13 +9,19 @@ import validateFields from "../../Golobal/validate";
 import { useSelector } from "react-redux";
 const ModalUpdateUser = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
+
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
+    const id = (dataUpdate.role === 'ADMIN') ? dataUpdate.adminId :
+        (dataUpdate.role === 'STAFF') ? dataUpdate.staffId :
+            (dataUpdate.role === 'CUSTOMER') ? dataUpdate.customerId :
+                null;  // or you can handle the default case here if needed
+
     // console.log("dâtupdate",dataUpdate);
     const handleClose = () => {
         setShow(false);
         setEmail("");
-        setUserName("");
+        setUsername("");
         setFullName("");
         setPassword("");
         setAddress("");
@@ -34,7 +40,7 @@ const ModalUpdateUser = (props) => {
     };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [userName, setUserName] = useState("");
+    const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -46,13 +52,14 @@ const ModalUpdateUser = (props) => {
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setEmail(dataUpdate.email);
-            // setPassword("");
-            setUserName(dataUpdate.userName);
+            setPassword(dataUpdate.password);
+            setUsername(dataUpdate.username);
             setFullName(dataUpdate.fullName);
             setAddress(dataUpdate.address);
             setPhoneNumber(dataUpdate.phone);
             setRole(dataUpdate.role);
             setPreviewImage(`${dataUpdate.avatar}`);
+            setAvatar("no_change")
         }
     }, [dataUpdate]);
 
@@ -77,8 +84,7 @@ const ModalUpdateUser = (props) => {
         // validate
         const dataValidate = {
             email: email,
-            // password: password,
-            useName: userName,
+            username: username,
             fullName: fullName,
             address: address,
             phoneNumber: phoneNumber,
@@ -97,14 +103,16 @@ const ModalUpdateUser = (props) => {
             };
             const formData = new FormData();
             formData.append("email", email);
-            formData.append("password", password);
-            formData.append("userName", userName);
+            formData.append("username", username);
             formData.append("fullName", fullName);
             formData.append("address", address);
             formData.append("phone", phoneNumber);
+            formData.append("password", password);
             formData.append("role", role);
-            formData.append("avatar", avatar);
-            let res_data = await putUpdateUser(formData, config);
+            if (avatar !== "no_change") {
+                formData.append("avatar", avatar);
+            }
+            let res_data = await putUpdateUser(id, formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
@@ -114,7 +122,7 @@ const ModalUpdateUser = (props) => {
                 toast.error(res_data.MS);
             }
         }
-        else{
+        else {
             toast.error("Thông tin nhập vào không chính xác");
         }
     };
@@ -132,7 +140,7 @@ const ModalUpdateUser = (props) => {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Mật khẩu</label>
-                            <input type="password" className="form-control" placeholder="********" value={password} onChange={(event) => setPassword(event.target.value)} disabled />
+                            <input type="password" className="form-control" placeholder="********" value="********" onChange={(event) => setPassword(event.target.value)} disabled />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">UserName</label>
@@ -140,12 +148,12 @@ const ModalUpdateUser = (props) => {
                                 type="text"
                                 className="form-control"
                                 placeholder="NguyenA"
-                                value={userName}
-                                onChange={(event) => setUserName(event.target.value)}
-                                onBlur={() => handleBlur("username", userName)}
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
+                                onBlur={() => handleBlur("username", username)}
                                 onFocus={() => handleFocus("username")}
                             />
-                            {errors.userName && <div className="text-danger">{errors.userName}</div>}
+                            {errors.username && <div className="text-danger">{errors.username}</div>}
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Tên đầy đủ</label>
@@ -191,7 +199,7 @@ const ModalUpdateUser = (props) => {
                             <label className="form-label">Vai trò</label>
                             <select className="form-select" onChange={(event) => setRole(event.target.value)} onBlur={() => handleBlur("role", role)} onFocus={() => handleFocus("role")}>
                                 <option value="CUSTOMER" selected={"CUSTOMER" === dataUpdate.role}>
-                                    USER
+                                    CUSTOMER
                                 </option>
                                 <option value="STAFF" selected={"STAFF" === dataUpdate.role}>
                                     STAFF

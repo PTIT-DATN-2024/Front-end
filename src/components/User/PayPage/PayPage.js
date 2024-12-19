@@ -38,7 +38,7 @@ const PayPage = (props) => {
         if (res.EC === 0) {
             dispatch({
                 type: "fetch_all_product",
-                payload: res.products,
+                payload: res.products.filter(product => product.isDelete === "False"),
             });
         }
     };
@@ -53,29 +53,35 @@ const PayPage = (props) => {
     };
     // Hàm để tăng quantity
     const handleIncrease = (itemId) => {
-       setQuantities((prev) => {
-            const updatedQuantity = (prev[itemId] || 0) + 1; // Nếu chưa có giá trị thì mặc định là 0
-            handleSave(itemId, updatedQuantity); // Gọi hàm lưu với số lượng đã tăng
-            return {
-                ...prev,
-                [itemId]: updatedQuantity,
-            };
-        });
+        if (userState.role === "CUSTOMER") {
+
+            setQuantities((prev) => {
+                const updatedQuantity = (prev[itemId] || 0) + 1; // Nếu chưa có giá trị thì mặc định là 0
+                handleSave(itemId, updatedQuantity); // Gọi hàm lưu với số lượng đã tăng
+                return {
+                    ...prev,
+                    [itemId]: updatedQuantity,
+                };
+            });
+        }
     };
 
 
     // Hàm để giảm quantity
     const handleDecrease = (itemId) => {
-        setQuantities((prev) => {
-            const updatedQuantity = Math.max((prev[itemId] || 1) - 1, 1); // Giảm nhưng không nhỏ hơn 1
-            handleSave(itemId, updatedQuantity); // Gọi hàm lưu với số lượng đã giảm
-            return {
-                ...prev,
-                [itemId]: updatedQuantity,
-            };
-        });
+        if (userState.role === "CUSTOMER") {
+
+            setQuantities((prev) => {
+                const updatedQuantity = Math.max((prev[itemId] || 1) - 1, 1); // Giảm nhưng không nhỏ hơn 1
+                handleSave(itemId, updatedQuantity); // Gọi hàm lưu với số lượng đã giảm
+                return {
+                    ...prev,
+                    [itemId]: updatedQuantity,
+                };
+            });
+        }
     };
-    
+
     const handleSave = async (cartDetailId, quantity) => {
         const newQuantity = quantities[cartDetailId]; // Lấy quantity mới từ state
         const cartDetail = userCart.find((item) => item.cartDetailId === cartDetailId); // Tìm sản phẩm trong danh sách
@@ -97,10 +103,13 @@ const PayPage = (props) => {
         }
     };
     const removeProductOrder = async (cartDetailId) => {
-        let res = await removeProductToCart(cartDetailId);
-        if (res.EC === 0) {
-            fetchCart();
-            toast.success("remove done");
+        if (userState.role === "CUSTOMER") {
+
+            let res = await removeProductToCart(cartDetailId);
+            if (res.EC === 0) {
+                fetchCart();
+                toast.success("remove done");
+            }
         }
     };
 
@@ -115,91 +124,52 @@ const PayPage = (props) => {
         }, 0);
     };
     const remove = async () => {
-        // Duyệt qua từng cartDetailId và xóa sản phẩm khỏi giỏ hàng
-        for (let cartDetail of userCart) {
-            let res = await removeProductToCart(cartDetail.cartDetailId);
-            if (res.EC === 0) {
-                // Nếu xóa thành công, gọi lại fetchCart để cập nhật giỏ hàng
-                fetchCart();
-            } else {
-                // Xử lý trường hợp xóa thất bại
-                toast.error(`Xóa thất bại`);
+        if (userState.role === "CUSTOMER") {
+            // Duyệt qua từng cartDetailId và xóa sản phẩm khỏi giỏ hàng
+            for (let cartDetail of userCart) {
+                let res = await removeProductToCart(cartDetail.cartDetailId);
+                if (res.EC === 0) {
+                    // Nếu xóa thành công, gọi lại fetchCart để cập nhật giỏ hàng
+                    fetchCart();
+                } else {
+                    // Xử lý trường hợp xóa thất bại
+                    toast.error(`Xóa thất bại`);
+                }
             }
-        }
-
-        // Có thể hiển thị thông báo thành công sau khi xóa tất cả sản phẩm
-        toast.success("Đã xóa tất cả sản phẩm khỏi giỏ hàng");
-    };
-
-    const handleSubmitOrder1 = async (event) => {
-        // Lọc các sản phẩm có CountOrder > 0
-        let simplifiedList = stateOrder.listItemsOrder
-            .filter(item => item.CountOrder > 0)  // Chỉ giữ lại các sản phẩm có CountOrder > 0
-            .map((item) => {
-                return {
-                    idProduct: item._id,
-                    quantity: item.CountOrder,
-                    sum: item.sellingprice * item.CountOrder,
-                };
-            });
-
-        // Nếu không có sản phẩm hợp lệ (CountOrder > 0), không thực hiện submit
-        if (simplifiedList.length === 0) {
-            toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
-            return;
-        }
-
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${account.access_token}`,
-            },
-        };
-
-        const formData = {
-            user: account._id,
-            listItem: simplifiedList,
-            total: stateOrder.total,
-        };
-
-        // Gọi API để tạo đơn hàng
-        let res_data = await postCreateUserOrder(formData, config);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            remove();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
+            // Có thể hiển thị thông báo thành công sau khi xóa tất cả sản phẩm
+            toast.success("Đã xóa tất cả sản phẩm khỏi giỏ hàng");
         }
     };
+
+
     const handleSubmitOrder = async (event) => {
-        // Lọc các sản phẩm có CountOrder > 0
-        // Nếu không có sản phẩm hợp lệ (CountOrder > 0), không thực hiện submit
-        if (userCart.length === 0) {
-            toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
-            return;
-        }
-        let config = {
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${account.access_token}`,
-            },
-        };
-        const dataOrder = {
-            customerId: account.id,
-            staffId : "c86229c6-0181-4d07-8ae2-3086b2ff69f6",
-            cartDetails: userCart,
-            total: calculateTotal(),
-        };
-        console.log(dataOrder);
-        // Gọi API để tạo đơn hàng
-        let res_data = await postCreatePayment(dataOrder, config);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            setPaymentUrl(res_data.paymentUrl);
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
+        if (userState.role === "CUSTOMER") {
+            if (userCart.length === 0) {
+                toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
+                return;
+            }
+            let config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${account.access_token}`,
+                },
+            };
+            const dataOrder = {
+                customerId: account.id,
+                staffId: "c86229c6-0181-4d07-8ae2-3086b2ff69f6",
+                cartDetails: userCart,
+                total: calculateTotal(),
+            };
+            console.log(dataOrder);
+            // Gọi API để tạo đơn hàng
+            let res_data = await postCreatePayment(dataOrder, config);
+            if (res_data && res_data.EC === 0) {
+                toast.success(res_data.MS);
+                setPaymentUrl(res_data.paymentUrl);
+            }
+            if (res_data && res_data.EC !== 0) {
+                toast.error(res_data.MS);
+            }
         }
     };
 

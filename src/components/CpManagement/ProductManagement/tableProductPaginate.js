@@ -6,7 +6,7 @@ import "./tableProduct.scss";  // Import file SCSS cho TableProduct
 const TableProductsPaginate = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
     const items = listProducts || [];
-
+    const account = useSelector((state) => state.user.account);
     function Items({ currentItems, itemOffset }) {
         return (
             <tbody>
@@ -31,15 +31,23 @@ const TableProductsPaginate = (props) => {
                             <td className="tableProduct_rowItem">{product.description}</td>
                             <td className="tableProduct_rowItem">{product.total}</td>
                             <td className="tableProduct_rowItem">
+
                                 <button className="btn btn-secondary" onClick={() => props.handleClickBtnView(product)}>
                                     Xem
                                 </button>
-                                <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(product)}>
-                                    Sửa
-                                </button>
-                                <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(product)}>
-                                    Xóa
-                                </button>
+                                {account.role === "ADMIN" && (
+
+                                    <button className="btn btn-warning mx-3" onClick={() => props.handleClickBtnUpdate(product)}>
+                                        Sửa
+                                    </button>
+                                )}
+                                {account.role === "ADMIN" && (
+
+                                    <button className="btn btn-danger" onClick={() => props.handleClickBtnDelete(product)}>
+                                        Xóa
+                                    </button>
+                                )}
+
                             </td>
                         </tr>
                     ))

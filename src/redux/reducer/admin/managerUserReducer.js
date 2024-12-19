@@ -8,6 +8,12 @@ const managerUserReducer = (state = USER_STATE, action) => {
                 ...state,
                 users: action?.payload, 
             };
+        case "reset_list_user":
+            return {
+                ...state,
+                users: [], 
+            };
+
         default:
             return state;
     }

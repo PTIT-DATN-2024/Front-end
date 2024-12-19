@@ -13,7 +13,7 @@ function ModalViewUser(props) {
     const handleClose = () => {
         setShow(false);
         setEmail("");
-        setUserName("");
+        setUsername("");
         setFullName("");
         setPassword("");
         setAddress("");
@@ -24,7 +24,7 @@ function ModalViewUser(props) {
     };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [userName, setUserName] = useState("");
+    const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -35,7 +35,7 @@ function ModalViewUser(props) {
     useEffect(() => {
         if (!_.isEmpty(dataView)) {
             setEmail(dataView.email);
-            setUserName(dataView.username);
+            setUsername(dataView.username);
             setFullName(dataView.fullName);// setPassword("");
             setAddress(dataView.address);
             setPhoneNumber(dataView.phone);
@@ -71,7 +71,7 @@ function ModalViewUser(props) {
                                 type="text"
                                 className="form-control"
                                 placeholder="NguyenA"
-                                value={userName}
+                                value={username}
                                 disabled
                             />
 

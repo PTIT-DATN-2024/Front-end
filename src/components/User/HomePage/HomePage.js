@@ -43,7 +43,7 @@ const MainPage = (props) => {
         if (res.EC === 0) {
             dispatch({
                 type: "fetch_all_product",
-                payload: res.products,
+                payload: res.products.filter(product => product.isDelete === "False"),
             });
             console.log(listProducts);
         }
@@ -84,8 +84,8 @@ const MainPage = (props) => {
         <>
             <MainSlider/>
             <UnderMainSlider/>
-            <BestSeller/>
             <CategoryBanner />
+            <BestSeller/>
             <TableProductPre/>
             {/* <GridBanner />
             <SpecialBanner />

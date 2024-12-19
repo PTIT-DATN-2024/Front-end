@@ -9,6 +9,12 @@ const productReducer = (state = productState, action) => {
                 ...state,
                 listProducts: action.payload,
             };
+        case "reset_product":
+            return {
+                ...state,
+                listProducts: [],
+            };
+
         default:
             return state;
     }
