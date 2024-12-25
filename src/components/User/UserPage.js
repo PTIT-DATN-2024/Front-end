@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { FaArrowUp } from "react-icons/fa";
 import { postLogin } from "../../services/apiServices";
 import ThankCustomer from "./UserComponents/ThankCustomer/ThankCustomer";
+import Snowfall from "./UserComponents/Snowfall/Snowfall ";
 const UserPage = (props) => {
     const dispatch = useDispatch();
 
@@ -39,12 +40,15 @@ const UserPage = (props) => {
     }, []);
     return (
         <div className="HomePageContainer">
+            <Snowfall/> 
             <Header />
             <div className="mainContainer">
+                <img src="https://hanoicomputercdn.com/media/banner/18_Decce8a062e27b1a8c935666b15a333383e.png" alt="Banner chạy dọc bên trái" width="215" height="690" class="loading-left" />
+                <img src="https://hanoicomputercdn.com/media/banner/06_Dec5d8674a13c8a7e7dbe00570bfaf56d5c.jpg" alt="Banner chạy dọc bên phải" width="215" height="690" class="loading-right"/>
                 <Outlet />
                 <div class="support-section">
                     <a href="https://www.facebook.com/profile.php?id=61570843770876" class="support-item" target="_blank">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiXN9xSEe8unzPBEQOeAKXd9Q55efGHGB9BA&s" alt="Chat Facebook" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/1024px-Facebook_Messenger_logo_2020.svg.png" alt="Chat Facebook" />
                         <span>Chat Facebook</span>
 
                     </a>

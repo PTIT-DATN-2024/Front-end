@@ -62,8 +62,8 @@ const App = () => {
                             </PrivateRouter>
                         }
                     >
-                        {/* <Route index element={<DashBoard />} /> */}
-                        <Route index element={<UserManagement />} />
+                        <Route index element={<DashBoard />} />
+                        {/* <Route index element={<UserManagement />} /> */}
                         <Route path="UserManagement" element={<UserManagement />} />
                         <Route path="CategogyManagement" element={<CategogyManagement />} />
                         <Route path="ProductManagement" element={<ProductManagement />} />

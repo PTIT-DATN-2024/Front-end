@@ -175,80 +175,78 @@ const PayPage = (props) => {
 
 
     return (
-        <>
-            <div className="PaylistOrderContent">
-                <div className="header">Giỏ hàng</div>
-                {/* // */}
-                <div className="cart-content-2021">
-                    <div className="cart-content-2021-left">
-                        <div className="header-cart-ct-left">
-                            <div className="cart-col-product">
-                                {/* <div className="fake-checkbox" ></div> */}
-                                <span>Tất cả sản phẩm </span>
-                            </div>
-                            <div className="cart-col-price">Đơn giá</div>
-                            <div className="cart-col-quantity">Số lượng</div>
-                            <div className="cart-col-total-price">Thành tiền</div>
-                            <div className="cart-col-delete">
-                                <div onClick={remove}>X</div>
-                            </div>
-                        </div>
-                        <div className="cart-list-item">
-                            {
-                                !_.isEmpty(userCart) ? (
-                                    userCart.map((item, index) => {
-                                        const quantity = quantities[item.cartDetailId] ?? item.quantity;
-                                        return (
-                                            <div className="new-cart-items" key={item.cartDetailId}>
-                                                <div className="cart-col-product">
-                                                    {item.product.name}
-                                                </div>
-                                                <div className="cart-col-price">
-                                                    {item.product.sellingPrice}
-                                                </div>
-                                                <div className="cart-col-quantity">
-                                                    <CiCircleMinus onClick={() => handleDecrease(item.cartDetailId)} size={30} color="#000" style={{ margin: "20px", fontWeight: 500 }} className="btn_icon" />
-                                                    <div className={`${item._id} countItem`}> {quantity}</div>
-                                                    <CiCirclePlus onClick={() => handleIncrease(item.cartDetailId)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
-                                                </div>
-                                                <FaRegSave onClick={() => handleSave(item.cartDetailId, quantity)} size={30} color="#000" style={{ margin: "20px", fontWeight: 200 }} className="btn_icon" />
-                                                <div className="cart-col-total-price">
-                                                    {item.product.sellingPrice * quantity}
-                                                </div>
-                                                <div className="cart-col-delete" onClick={() => removeProductOrder(item.cartDetailId)} >X
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                ) : (
-                                    <div>no order</div>
-                                )
-                            }
-                        </div>
+        <div className="PayPage">
+            <div className="header-title">Giỏ hàng</div>
+            <div className="cart-container">
+                <div className="cart-left">
+                    <div className="cart-header">
+                        <div className="cart-header-product">Tất cả sản phẩm</div>
+                        <div className="cart-header-price">Đơn giá (VND)</div>
+                        <div className="cart-header-quantity">Số lượng</div>
+                        <div className="cart-header-total">Thành tiền (VND)</div>
+                        <div className="cart-header-delete">X</div>
                     </div>
-                    <div className="cart-content-2021-right">
-                        <div class="box-cart-total-price">
-                            <p>
-                                <span>Tạm tính</span>
-                                <span class="total-cart-price">{calculateTotal()}₫</span>
-                            </p>
-                            <p>
-                                <span>Giảm giá</span>
-                                <span id="price-discount">0₫</span>
-                            </p>
-                            <p>
-                                <span>Thành tiền</span>
-                                <span class="red-b total-cart-payment">{calculateTotal()}₫</span>
-                            </p>
-                            <span class="cart-vat">(Đã bao gồm VAT nếu có)</span>
-                        </div>
-                        <button class="button-buy-submit-cart" onClick={() => handleSubmitOrder()}>Tiến hành thanh toán</button>
-                        {paymentUrl && (
-                            <a href={paymentUrl} target="_blank" rel="noopener noreferrer">
-                                <button class="button-buy-submit-cart goVNPay">Thanh toán qua VNPay</button>
-                            </a>
+                    <div className="cart-items">
+                        {!_.isEmpty(userCart) ? (
+                            userCart.map((item) => {
+                                const quantity = quantities[item.cartDetailId] ?? item.quantity;
+                                return (
+                                    <div className="cart-item" key={item.cartDetailId}>
+                                        <div className="cart-item-product">{item.product.name}</div>
+                                        <div className="cart-item-price">{item.product.sellingPrice.toLocaleString("vi-VN")}</div>
+                                        <div className="cart-item-quantity">
+                                            <CiCircleMinus
+                                                className="quantity-button"
+                                                onClick={() => handleDecrease(item.cartDetailId)}
+                                            />
+                                            <span>{quantity}</span>
+                                            <CiCirclePlus
+                                                className="quantity-button"
+                                                onClick={() => handleIncrease(item.cartDetailId)}
+                                            />
+                                        </div>
+                                        <div className="cart-item-total">
+                                            {(item.product.sellingPrice * quantity).toLocaleString("vi-VN")}
+                                        </div>
+                                        <div
+                                            className="cart-item-delete"
+                                            onClick={() => removeProductOrder(item.cartDetailId)}
+                                        >
+                                            X
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div>Không có sản phẩm</div>
                         )}
-                        <h4>
+                    </div>
+                </div>
+                <div className="cart-right">
+                    <div className="cart-summary">
+                        <p>
+                            <span>Tạm tính (VND)</span>
+                            <span className="cart-summary-price">{calculateTotal().toLocaleString("vi-VN")}</span>
+                        </p>
+                        <p>
+                            <span>Giảm giá (VND)</span>
+                            <span className="cart-summary-price">0</span>
+                        </p>
+                        <p>
+                            <span>Thành tiền (VND)</span>
+                            <span className="cart-summary-total">{calculateTotal().toLocaleString("vi-VN")}</span>
+                        </p>
+                        <span className="cart-summary-vat">(Đã bao gồm VAT nếu có)</span>
+                    </div>
+                    <button className="checkout-button" onClick={handleSubmitOrder}>
+                        Tiến hành thanh toán
+                    </button>
+                    {paymentUrl && (
+                        <a href={paymentUrl} target="_blank" rel="noopener noreferrer">
+                            <button className="checkout-button vnpay">Thanh toán qua VNPay</button>
+                        </a>
+                    )}
+                    <h4>
                             Số thẻ	9704198526191432198
                         </h4>
                         <h4>
@@ -257,39 +255,21 @@ const PayPage = (props) => {
                         <h4>
                             Ngày phát hành	07/15
                         </h4>
-                    </div>
                 </div>
-                <div className="listOrderBottom">
-                    <Button
-                        variant="success"
-                        onClick={() => {
-                            navigate("/productFilterPage");
-                        }}
-                    >
-                        Xem thêm sản phẩm
-                    </Button>
-                    <Button
-                        variant="success"
-                        onClick={() => {
-                            navigate("/");
-                        }}
-                    >
-                        Trang chủ
-                    </Button>
-                    <Button
-                        variant="success"
-                        onClick={() => {
-                            navigate("/resultPaymentPage");
-                        }}
-                    >
-                        Kết quả thanh toán
-                    </Button>
-
-                </div>
-
-
             </div>
-        </>
+            <div className="action-buttons">
+                <Button className="action-button" onClick={() => navigate("/productFilterPage")}>
+                    Xem thêm sản phẩm
+                </Button>
+                <Button className="action-button" onClick={() => navigate("/")}>
+                    Trang chủ
+                </Button>
+                <Button className="action-button" onClick={() => navigate("/resultPaymentPage")}>
+                    Kết quả thanh toán
+                </Button>
+            </div>
+        </div>
     );
+    
 };
 export default PayPage;

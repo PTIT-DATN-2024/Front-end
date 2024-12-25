@@ -142,7 +142,7 @@ const postCreateComment = (productId, customerId, comment, rating) => {
 const getCommentsProduct = (productId) => {
     return axios.get(`/comment/product/${productId}`);
 };
-const putUpdateComment = (editingCommentId,productId, customerId , updatedComment, userRating) => {
+const putUpdateComment = (editingCommentId, productId, customerId, updatedComment, userRating) => {
     let data = {
         productId: productId,
         customerId: customerId,
@@ -155,9 +155,13 @@ const deleteComment = (_id) => {
     return axios.delete(`/comment/${_id}`);
 };
 // dashboard 
-const getDataEcommerce = () => {
-    return axios.get("/dashboard/ecommerce");
+const getDataEcommerce = (data) => {
+    // Nếu month là null, thay thế bằng chuỗi rỗng trong URL
+    const month = data.month !== null ? data.month : "";
+    return axios.post(`/stats?month=${month}&year=${data.year}`);
 };
+
+
 // pay
 const postCreatePayment = (formData, config) => {
     return axios.post("/order/create-payment-url", formData);

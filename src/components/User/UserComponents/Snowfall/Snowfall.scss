@@ -1,0 +1,22 @@
+/* Style for snowflakes */
+.snowflake {
+    position: fixed;
+    top: -50px;
+    color: white;
+    font-size: 10px;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: fall linear infinite;
+    z-index: 100;
+}
+
+/* Keyframes for falling animation */
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}

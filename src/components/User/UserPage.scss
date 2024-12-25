@@ -83,7 +83,24 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        .loading-left{
+            width: 180px;
+            height: 600px;
+            position: fixed;
+            z-index: 10;
+            left: 150px;
+            top: 120px;
+            border-radius: 8px;
+        }
+        .loading-right{
+            width: 180px;
+            height: 600px;
+            position: fixed;
+            z-index: 10;
+            right: 130px;
+            top: 120px;
+            border-radius: 8px;
+        }
         .support-section {
             display: flex;
             flex-direction: column;

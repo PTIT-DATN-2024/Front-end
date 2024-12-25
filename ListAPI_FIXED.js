@@ -169,7 +169,7 @@ const apiDocumentation = [
         req: {
             body: {
                 "name": "theloai5",
-                "description" : "876238712531",
+                "description": "876238712531",
                 "avatar": "xxx"
 
             }
@@ -345,15 +345,15 @@ const apiDocumentation = [
         method: "put",
         description: "Search products by query",
         req: {
-            name: "string"  ,
-            weight: "string",  
-            importPrice: "string" , 
-            sellingprice: "string",  
-            description: "string" , 
-            total: "string"  ,
-            categoriId: "string"  ,
+            name: "string",
+            weight: "string",
+            importPrice: "string",
+            sellingprice: "string",
+            description: "string",
+            total: "string",
+            categoriId: "string",
             // presentImage: null ,
-            presentImage: ["avatar", "vate", ],
+            presentImage: ["avatar", "vate",],
             productIds: ["ac3", null]
 
         },
@@ -638,11 +638,11 @@ const apiDocumentation = [
         url: "/cart/cartDetail/:cartDetailId",
         method: "PUT",
         description: "Change quantity product to cart of user",
-        param:{
+        param: {
             quantity: -1,
         },
         req: {
-            body : {
+            body: {
                 quantity: -1,
             }
         },
@@ -991,7 +991,65 @@ const apiDocumentation = [
             EC: 0,
             MS: "Delete comment success!"
         }
-    }
+    },
+
+    // {
+    //     api: "getdbstatic",
+    //     url: "/dashboard/",
+    //     method: "DELETE",
+    //     description: "Delete a comment",
+    //     req: {
+    //         year:2024
+    //     },
+    //     res: {
+    //         "totalOrders": 1000,
+    //         "totalNewOrders": 127,
+    //         "totalCancelOrders": 250,
+    //         "totalCustomers": 1024,
+    //         "totalProducts": 364,
+    //         "totalCategories": 79,
+    //         "totalRevenue": 1280000,
+    //         "labels": ["2024-01-00 00:00:00", "2024-02-00 00:00:00", "2024-03-00 00:00:00", ..., "2024-11-00 00:00:00", "2024-12-00 00:00:00"],
+    //         // # 12 tháng/ năm 
+    //         "statsRevenue": [1, 2, ..., 12],
+    //         // #12 giá trị - 12 tháng / năm
+    //         "labels": ["2024-12-01 00:00:00", "2024-12-02 00:00:00", "2024-12-03 00:00:00", ..., "2024-12-30 00:00:00", "2024-12-31 00:00:00"],
+    //         // # 30 ngày / tháng
+    //         "statsRevenue": [1, 2, ..., 31],
+    //         // #31 giá trị - 30 ngày / tháng
+    //         "topBestSellers": [
+    //             {
+    //                 "productId": "prod001",
+    //                 "category": {
+    //                     "categoryId": "cat001",
+    //                     "name": "Mouse",
+    //                     "description": "Electronic devices",
+    //                     "avatar": "1728958738001.jpg",
+    //                     "createdAt": "2024-11-08T10:10:24.402015"
+    //                 },
+    //                 "productDiscount": {
+    //                     "productDiscountId": "disc001",
+    //                     "discountAmount": 5.0,
+    //                     "expiredDate": "2025-01-01T00:00:00",
+    //                     "createdAt": "2024-11-08T10:10:24.402015",
+    //                     "updatedAt": "2024-11-08T10:10:24.402015"
+    //                 },
+    //                 "name": "Laptop",
+    //                 "total": 100,
+    //                 "rate": 4.5,
+    //                 "numberVote": 150,
+    //                 "description": "High-performance laptop",
+    //                 "importPrice": 500.0,
+    //                 "sellingPrice": 550.0,
+    //                 "status": "Available",
+    //                 "weight": "300g",
+    //                 "presentImage": "1728958738001.jpg",
+    //                 "createdAt": "2024-11-08T10:10:24.402015",
+    //                 "updatedAt": "2024-11-08T10:10:24.402015"
+    //             }
+    //         ],
+    //     }
+    // }
 ];
 
 export default apiDocumentation;

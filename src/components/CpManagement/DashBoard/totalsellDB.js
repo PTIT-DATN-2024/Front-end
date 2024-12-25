@@ -1,21 +1,21 @@
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-
+import { Bar } from 'react-chartjs-2';
 // Đăng ký các thành phần của Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const TotalSellChart = (props) => {
     const dataChart = props.data;
-    if (!dataChart || !dataChart.dailyRevenueLast30Days) {
+    if (!dataChart ) {
         return <div>Đang tải dữ liệu...</div>;
     }
 
-    const Labels = dataChart.dailyRevenueLast30Days.map(entry => {
-        const [year, month, day] = entry.date.split("-");
-        return `${month}-${day}`;  // Định dạng "MM-DD"
+    const Labels = dataChart.map(entry => {
+        const month = entry.month;
+        return month;  // Định dạng "MM-DD"
     });
 
-    const Data = dataChart.dailyRevenueLast30Days.map(entry => entry.totalRevenue);
+    const Data = dataChart.map(entry => entry.revenue);
 
     const data = {
         labels: Labels,
@@ -85,7 +85,7 @@ const TotalSellChart = (props) => {
         }
     };
 
-    return <Line data={data} options={options} />;
+    return <Bar data={data} options={options} />;
 };
 
 export default TotalSellChart;

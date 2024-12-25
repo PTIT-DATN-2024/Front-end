@@ -42,8 +42,22 @@ const ProfilePage = () => {
                         data-was-processed="true"
                     />
                     <div className="header-tk-2021-ct">
-                        <span className="txt-tk-1">Tài khoản của {account.role}</span>
-                        <span className="txt-tk-2">{account.email}</span>
+                        <span className="txt-tk-1">
+                            {(() => {
+                                switch (account.role) {
+                                    case 'ADMIN':
+                                        return 'Quản lí';
+                                    case 'STAFF':
+                                        return 'Nhân viên';
+                                    case 'CUSTOMER':
+                                        return 'Khách hàng';
+                                    default:
+                                        return '';
+                                }
+                            })()}
+                        </span>
+
+                        <span className="txt-tk-2">{account.fullName}</span>
                     </div>
                 </div>
                 <div className="list-tk-2021">

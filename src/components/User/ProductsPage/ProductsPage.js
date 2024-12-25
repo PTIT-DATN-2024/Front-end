@@ -125,12 +125,6 @@ const ProductsPage = (props) => {
                                     <img src={imgItem.image} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
                                 </div>
                             ))}
-                        {images.length > 0 &&
-                            images.map((imgItem, index) => (
-                                <div className="p-img" key={index}>
-                                    <img src={imgItem.image} alt={`Laptop Asus VivoBook X1404ZA-NK386W (i3 1215U/8GB RAM/512GB SSD/14 FHD/Win11/Xanh)`} />
-                                </div>
-                            ))}
                     </div>
 
                     <div className="pd-big-image">
