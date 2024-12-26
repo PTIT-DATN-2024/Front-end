@@ -5,7 +5,7 @@ import moment from "moment";
 import ColumnChart from "./ColumnChart";
 import { FaStar, FaCheckCircle, FaBoxOpen, FaListAlt, FaDollarSign, FaUsers } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
-import "./Dashboard.scss";
+import "./DashBoard.scss";
 
 const Dashboard = () => {
     const [data, setData] = useState({});

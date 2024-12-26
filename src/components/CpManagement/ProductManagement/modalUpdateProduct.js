@@ -133,9 +133,16 @@ const ModalUpdateProduct = (props) => {
             formData.append("description", description);
             formData.append("total", total);
             formData.append("categoryId", category);
-            formData.append("productImageId", dataUpdate.productImages[0].productImageId);
-            formData.append("productImageId1", dataUpdate.productImages[1].productImageId);
-            formData.append("productImageId2", dataUpdate.productImages[2].productImageId);
+
+            formData.append("ids", JSON.stringify([
+                dataUpdate.productImages[0].productImageId,
+                dataUpdate.productImages[1].productImageId,
+                dataUpdate.productImages[2].productImageId
+            ]));
+
+            // formData.append("productImageId", dataUpdate.productImages[0].productImageId);
+            // formData.append("productImageId1", dataUpdate.productImages[1].productImageId);
+            // formData.append("productImageId2", dataUpdate.productImages[2].productImageId);
 
             formData.append("avatar", presentImage);
             formData.append("avatar1", presentImage1);

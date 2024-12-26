@@ -158,7 +158,7 @@ const deleteComment = (_id) => {
 const getDataEcommerce = (data) => {
     // Nếu month là null, thay thế bằng chuỗi rỗng trong URL
     const month = data.month !== null ? data.month : "";
-    return axios.post(`/stats?month=${month}&year=${data.year}`);
+    return axios.get(`/stats?month=${month}&year=${data.year}`);
 };
 
 

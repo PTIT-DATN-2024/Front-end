@@ -87,7 +87,7 @@
             width: 180px;
             height: 600px;
             position: fixed;
-            z-index: 10;
+            z-index: 2;
             left: 150px;
             top: 120px;
             border-radius: 8px;
@@ -96,7 +96,7 @@
             width: 180px;
             height: 600px;
             position: fixed;
-            z-index: 10;
+            z-index: 2;
             right: 130px;
             top: 120px;
             border-radius: 8px;
@@ -108,6 +108,7 @@
             position: fixed;
             right: 0;
             bottom: 20px;
+            z-index: 3;
         }
 
         .support-item {
