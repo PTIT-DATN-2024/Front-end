@@ -247,14 +247,14 @@ const PayPage = (props) => {
                         </a>
                     )}
                     <h4>
-                            Số thẻ	9704198526191432198
-                        </h4>
-                        <h4>
-                            Tên chủ thẻ	NGUYEN VAN A
-                        </h4>
-                        <h4>
-                            Ngày phát hành	07/15
-                        </h4>
+                        Số thẻ	9704198526191432198
+                    </h4>
+                    <h4>
+                        Tên chủ thẻ	NGUYEN VAN A
+                    </h4>
+                    <h4>
+                        Ngày phát hành	07/15
+                    </h4>
                 </div>
             </div>
             <div className="action-buttons">
@@ -270,6 +270,6 @@ const PayPage = (props) => {
             </div>
         </div>
     );
-    
+
 };
 export default PayPage;

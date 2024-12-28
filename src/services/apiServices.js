@@ -110,8 +110,8 @@ const postCreateUserOrder = (formData, config) => {
 const getAllOrders = () => {
     return axios.get("/order");
 };
-const getOrdersByUserId = (userId) => {
-    return axios.get(`/order/user/${userId}`);
+const getOrdersByUserId = (accountId) => {
+    return axios.get(`/order/customer/${accountId}`);
 };
 const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
     let data = {
