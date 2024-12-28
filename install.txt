@@ -32,8 +32,8 @@ git init
 git add .
 git commit -m "update 28/12 profile page "
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
-git push origin main --force
-git push origin main:master --force
+git push origin master --force
+git push origin master:main --force
 git push origin main 
 
 git push origin main
