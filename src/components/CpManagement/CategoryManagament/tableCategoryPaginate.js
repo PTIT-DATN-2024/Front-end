@@ -106,7 +106,6 @@ const TableCategoriesPaginate = (props) => {
 
     return (
         <table className="table caption-top">
-            <caption>Danh sách danh mục</caption>
             <thead>
                 <tr className="tableCategory_row">
                     <th scope="col" className="tableCategory_rowItem">STT</th>

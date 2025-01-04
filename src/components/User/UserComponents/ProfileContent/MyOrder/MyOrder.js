@@ -29,13 +29,13 @@ const MyOrder = () => {
             let res_data = await getOrdersByUserId(account.id);
             if (res_data && res_data.EC === 0) {
                 setOrders(res_data.orders || []); // Đảm bảo orders luôn là mảng
-                toast.success(res_data.MS);
+                toast.success("Lấy danh sách đơn hàng thành công");
             } else {
                 setOrders([]); // Nếu API lỗi, đặt orders thành mảng rỗng
-                toast.error(res_data?.MS || "Không thể lấy danh sách đơn hàng.");
+                toast.error("Không thể lấy danh sách đơn hàng.");
             }
         } catch (error) {
-            console.error("Error fetching orders:", error);
+            // console.error("Error fetching orders:", error);
             toast.error("Đã xảy ra lỗi khi lấy danh sách đơn hàng.");
             setOrders([]);
         }

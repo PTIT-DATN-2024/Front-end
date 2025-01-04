@@ -49,7 +49,7 @@ const UserManagement = (props) => {
                 type: "fetch_all_users",
                 payload: users,
             });
-            toast.success(res.MS);
+            // toast.success(res.MS);
         }
     };
     useEffect(() => {
@@ -61,6 +61,7 @@ const UserManagement = (props) => {
     }, []);
     return (
         <div className="UserManagement_container">
+            <h3>Danh sách tài khoản</h3>
             {account.role === "ADMIN" && (
 
                 <div className="UserManagement_content">

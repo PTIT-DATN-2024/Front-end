@@ -24,9 +24,9 @@ const Dashboard = () => {
 
             if (res.EC === 0) {
                 setData(res);
-                toast.success(res.MS || "Tải dữ liệu thành công!");
+                toast.success( "Tải dữ liệu thành công!");
             } else {
-                toast.error(res.MS || "Không thể tải dữ liệu!");
+                toast.error("Không thể tải dữ liệu!");
             }
         } catch (error) {
             toast.error("Có lỗi xảy ra khi tải dữ liệu!");

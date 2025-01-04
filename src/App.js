@@ -80,7 +80,7 @@ const App = () => {
                         }
                     >
                         <Route index element={<UserManagement />} />
-                        {/* <Route path="UserManagement" element={<UserManagement />} /> */}
+                        <Route path="UserManagement" element={<UserManagement />} />
                         <Route path="CategogyManagement" element={<CategogyManagement />} />
                         <Route path="ProductManagement" element={<ProductManagement />} />
                         <Route path="OrderManagement" element={<OrderManagement />} />

@@ -36,8 +36,8 @@ const BgImageManagement = (props) => {
         let res = await getAllBgImages();
         if (res.EC === 0) {
             setListBgImages(res.bgImages);
-            toast.success(res.MS);
-            console.log(res);
+            // toast.success(res.MS);
+            // console.log(res);
         }
     };
     useEffect(() => {
@@ -49,12 +49,11 @@ const BgImageManagement = (props) => {
     }, []);
     return (
         <div className="BgImageManagement_container">
-            <div className="Title">đây là BgImageManagement</div>
             <div className="BgImageManagement_content">
                 <div>
                     <Button variant="primary" onClick={() => setShowModalCreateBgImage(true)}>
                         <FcPlus />
-                        Add new BgImage
+                        Thêm ảnh
                     </Button>
                 </div>
             </div>

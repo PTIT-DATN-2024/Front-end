@@ -45,7 +45,7 @@ const MainPage = (props) => {
                 type: "fetch_all_product",
                 payload: res.products.filter(product => product.isDelete === "False"),
             });
-            console.log(listProducts);
+            // console.log(listProducts);
         }
     };
     const fetchListCategories = async () => {

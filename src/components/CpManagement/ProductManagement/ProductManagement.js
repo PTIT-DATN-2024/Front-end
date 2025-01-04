@@ -44,7 +44,7 @@ const ProductManagement = (props) => {
                 type: "fetch_all_product",
                 payload: products,
             });
-            toast.success(res.MS);
+            // toast.success(res.MS);
         }
     };
     useEffect(() => {
@@ -56,6 +56,7 @@ const ProductManagement = (props) => {
     }, []);
     return (
         <div className="ProductManagement_container">
+            <h3>Danh sách sản phẩm</h3>
             {account.role === "ADMIN" && (
 
                 <div className="ProductManagement_content">

@@ -38,7 +38,7 @@ const HomeStaff = () => {
                 type: "fetch_all_users",
                 payload: res.users,
             });
-            toast.success(res.MS);
+            // toast.success(res.MS);
         }
     };
     useEffect(() => {
@@ -65,107 +65,14 @@ const HomeStaff = () => {
 
         }
     };
-    const addProductOrder = async (productId) => {
-        dispatch({
-            type: "add_product_to_order",
-            payload: { productId, quantity: 1 }
-        });
-        toast.success("add done +1");
-        console.log(stateOrder);
 
-    };
-    const decremeneProductOrder = async (productId) => {
-        dispatch({
-            type: "decrement_product_in_order",
-            payload: productId,
-        });
-        toast.success("decre done");
-    };
-    const removeProductOrder = async (productId) => {
-        dispatch({
-            type: "remove_product_from_order",
-            payload: productId,
-        });
-        toast.success("remove done");
-    };
-    const handleSubmitOrder = async (event) => {
-        // Lọc các sản phẩm có CountOrder > 0
-        let simplifiedList = stateOrder.listItemsOrder
-            .filter(item => item.CountOrder > 0)  // Chỉ giữ lại các sản phẩm có CountOrder > 0
-            .map((item) => {
-                return {
-                    idProduct: item._id,
-                    quantity: item.CountOrder,
-                    sum: item.sellingprice * item.CountOrder,
-                };
-            });
-
-        // Nếu không có sản phẩm hợp lệ (CountOrder > 0), không thực hiện submit
-        if (simplifiedList.length === 0) {
-            toast.error("Không có sản phẩm hợp lệ để đặt hàng.");
-            return;
-        }
-
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${account.access_token}`,
-            },
-        };
-
-        const formData = {
-            user: customerInfo._id,
-            listItem: simplifiedList,
-            total: stateOrder.total,
-        };
-
-        // Gọi API để tạo đơn hàng
-        let res_data = await postCreateUserOrder(formData, config);
-        if (res_data && res_data.EC === 0) {
-            toast.success(res_data.MS);
-            remove();
-        }
-        if (res_data && res_data.EC !== 0) {
-            toast.error(res_data.MS);
-        }
-    };
     useEffect(() => {
         fetchListProducts();
     }, []);
     useEffect(() => {
         updateStateOrder();
     }, [listProducts]);
-    const remove = async () => {
-        try {
-            await dispatch({
-                type: "Clear_order_user",
-            });
-            toast.success("clear done!");
-        } catch (error) {
-            toast.error("Failed to clear order.");
-        }
-        console.log(stateOrder);
-    };
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
-    // Hàm lọc người dùng từ listUsers theo email hoặc số điện thoại
-    const filteredUsers = listUsers.filter((user) => {
-        const query = searchQuery.toLowerCase();
-        return (
-            user.email.toLowerCase().includes(query) ||
-            user.phoneNumber.includes(query)
-        );
-    });
-    // Chọn khách hàng
-    const handleSelectCustomer = (user) => {
-        setCustomerInfo(user);
-        // setSearchQuery("?"); // Xóa ô tìm kiếm sau khi chọn khách hàng
-    };
-    // Mở modal tạo tài khoản mới
-    const handleCreateNewUser = () => {
-        setShowModalCreateUser(true);
-    };
+
     return (
         <div className="HomeStaff-container">
                 Home Staff

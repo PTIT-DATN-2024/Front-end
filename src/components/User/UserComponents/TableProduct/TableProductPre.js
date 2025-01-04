@@ -35,11 +35,11 @@ const TableProductPre = () => {
             };
             let res_data = await postProductToCart(data);
             if (res_data && res_data.EC === 0) {
-                toast.success(res_data.MS);
+                toast.success("Thêm sản phẩm thành công");
                 fetchCart();
             }
             if (res_data && res_data.EC !== 0) {
-                toast.error(res_data.MS);
+                toast.error("Thêm sản phẩm thất bại");
             }
         }
     };

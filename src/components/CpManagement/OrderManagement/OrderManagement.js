@@ -36,8 +36,8 @@ const OrderManagement = (props) => {
         let res = await getAllOrders();
         if (res.EC === 0) {
             setListOrders(res.orders);
-            toast.success(res.MS);
-            console.log("fetch res",res.orders);
+            // toast.success(res.MS);
+            // console.log("fetch res",res.orders);
         }
     };
     useEffect(() => {
@@ -45,10 +45,11 @@ const OrderManagement = (props) => {
     }, []);
     useEffect(() => {
         fetchListOrders();
-        console.log("fetch123",listOrders) ;
+        // console.log("fetch123",listOrders) ;
     },[] );
     return (
         <div className="OrderManagement_container">
+            <h3>Danh sách đơn hàng</h3>
             <div className="table_Order_management_content">
                 <TableOrdersPaginate listOrders={listOrders}  handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>

@@ -49,16 +49,20 @@ const Sidebar = (props) => {
                             Quản lí đơn hàng
                         </NavLink>
                     </MenuItem>
-                    <MenuItem>
-                        <NavLink to="InfoShopManagement" className="nav-link">
-                            Các chương trình KM
-                        </NavLink>
-                    </MenuItem>
-                    <MenuItem>
-                        <NavLink to="BgImageManagement" className="nav-link">
-                            Banner và website
-                        </NavLink>
-                    </MenuItem>
+                    {account.role === "ADMIN" && (
+                        <MenuItem>
+                            <NavLink to="InfoShopManagement" className="nav-link">
+                                Các chương trình KM
+                            </NavLink>
+                        </MenuItem>
+                    )}
+                    {account.role === "ADMIN" && (
+                        <MenuItem>
+                            <NavLink to="BgImageManagement" className="nav-link">
+                                Banner và website
+                            </NavLink>
+                        </MenuItem>
+                    )}
                 </SubMenu>
                 <MenuItem icon={<FaHome />}>
                     <NavLink to="/" className="nav-link">

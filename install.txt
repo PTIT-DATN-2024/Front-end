@@ -30,7 +30,7 @@ git config --list
 git branch main 
 git init
 git add .
-git commit -m "update 28/12 profile page "
+git commit -m "update 4/1/2025 TOAST "
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin master --force
 git push origin master:main --force

@@ -52,6 +52,7 @@ const CategoryManagement = (props) => {
     }, []);
     return (
         <div className="CategoryManagement_container">
+            <h3>Danh sách danh mục</h3>
             {account.role === "ADMIN" && (
                 <div className="CategoryManagement_content">
                     <div>

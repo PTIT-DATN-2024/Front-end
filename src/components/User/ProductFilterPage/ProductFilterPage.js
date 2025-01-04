@@ -46,7 +46,7 @@ const ProductFilterPage = () => {
                 type: "fetch_all_product",
                 payload: res.products.filter(product => product.isDelete === "False"),
             });
-            toast.success(res.MS);
+            // toast.success(res.MS);
         }
     };
     const fetchListCategories = async () => {

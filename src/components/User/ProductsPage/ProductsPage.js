@@ -77,12 +77,12 @@ const ProductsPage = (props) => {
             };
             let res_data = await postProductToCart(data);
             if (res_data && res_data.EC === 0) {
-                toast.success(res_data.MS);
+                toast.success("Thêm sản phẩm thành công");
                 setQuantity(1);
                 fetchCart();
             }
             if (res_data && res_data.EC !== 0) {
-                toast.error(res_data.MS);
+                toast.error("Thêm sản phẩm thất bại");
             }
         }
     };
@@ -112,7 +112,7 @@ const ProductsPage = (props) => {
     };
     const images = product?.productImages ? product?.productImages : [];
     if (!product) {
-        return <div>Product not found</div>;
+        return <div>Không tìm thấy sản phẩm</div>;
     }
     return (
         <div className="productContainer">

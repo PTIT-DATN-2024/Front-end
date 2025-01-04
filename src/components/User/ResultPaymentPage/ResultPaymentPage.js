@@ -23,9 +23,9 @@ const ResultPaymentPage = () => {
     const handleStateOrder = async (data) => {
         const response = await postResultPayment(data);
         if (response && response.EC === 0) {
-            toast.success(response.MS);
+            // toast.success(response.MS);
         } else if (response) {
-            toast.error(response.MS);
+            // toast.error(response.MS);
         }
     };
     useEffect(() => {

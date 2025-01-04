@@ -11,9 +11,10 @@ import { FaArrowUp } from "react-icons/fa";
 import { postLogin } from "../../services/apiServices";
 import ThankCustomer from "./UserComponents/ThankCustomer/ThankCustomer";
 import Snowfall from "./UserComponents/Snowfall/Snowfall ";
+import ChatBox from "./UserComponents/ChatBox/ChatBox";
 const UserPage = (props) => {
     const dispatch = useDispatch();
-
+    const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);
     const autoLoginforCode = async () => {
         let datalogin = {
             email: "a",
@@ -25,7 +26,7 @@ const UserPage = (props) => {
                 type: "fetch_user_login_success",
                 payload: res_data,
             });
-            toast.success(res_data.MS);
+            // toast.success(res_data.MS);
             // navigate("/");
         }
         if (res_data && res_data.EC !== 0) {
@@ -33,20 +34,29 @@ const UserPage = (props) => {
             alert("incorrect");
         }
     };
-
+    const handleToggleChatBox = () => {
+        setIsChatBoxVisible(!isChatBoxVisible);
+    };
 
     useEffect(() => {
         // autoLoginforCode();
     }, []);
     return (
         <div className="HomePageContainer">
-            <Snowfall/> 
+            <Snowfall />
             <Header />
             <div className="mainContainer">
                 <img src="https://hanoicomputercdn.com/media/banner/18_Decce8a062e27b1a8c935666b15a333383e.png" alt="Banner chạy dọc bên trái" width="215" height="690" class="loading-left" />
-                <img src="https://hanoicomputercdn.com/media/banner/06_Dec5d8674a13c8a7e7dbe00570bfaf56d5c.jpg" alt="Banner chạy dọc bên phải" width="215" height="690" class="loading-right"/>
+                <img src="https://hanoicomputercdn.com/media/banner/06_Dec5d8674a13c8a7e7dbe00570bfaf56d5c.jpg" alt="Banner chạy dọc bên phải" width="215" height="690" class="loading-right" />
                 <Outlet />
                 <div class="support-section">
+                    <a href="#" className="support-item" onClick={handleToggleChatBox}>
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQozpLdCeq_ckd8xY52UjNKa5QRAevImQ5i6g&s"
+                            alt="Chat Facebook"
+                        />
+                        <span>Chat Với nhân viên</span>
+                    </a>
                     <a href="https://www.facebook.com/profile.php?id=61570843770876" class="support-item" target="_blank">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/1024px-Facebook_Messenger_logo_2020.svg.png" alt="Chat Facebook" />
                         <span>Chat Facebook</span>
@@ -63,6 +73,15 @@ const UserPage = (props) => {
 
                     </div>
                 </div>
+                {isChatBoxVisible && (
+                    <div className="chatbox-fixed">
+                        <span className="close-chatbox-btn" onClick={handleToggleChatBox}>
+                            Chat cùng với KPA
+                            <span>X</span>
+                        </span>
+                        <ChatBox />
+                    </div>
+                )}
 
                 <ThankCustomer />
             </div>

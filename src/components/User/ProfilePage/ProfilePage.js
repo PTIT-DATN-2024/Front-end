@@ -28,7 +28,7 @@ const ProfilePage = () => {
         dispatch({
             type: "user_logout",
         });
-        toast.success("LogOut Successful");
+        toast.success("Đăng xuất thành công");
         navigate("/");
     };
     return (

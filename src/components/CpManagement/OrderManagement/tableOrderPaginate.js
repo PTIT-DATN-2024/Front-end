@@ -167,7 +167,6 @@ const TableOrdersPaginate = (props) => {
 
     return (
         <div className="table-orders-container">
-            <h2 className="table-caption">Danh sách order</h2>
 
             {/* Filter Section */}
             <div className="filter-section">

@@ -1,0 +1,28 @@
+.chat-container{
+    flex: 10;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 16px;
+    // border-top-radius: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .messages-container{
+        flex: 2;
+        width: 100%;
+    }
+    .input-container{
+        height: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .message-input{
+            border: 1px solid #c0bfbf;
+        }
+        .send-button{
+            cursor: pointer;
+        }
+    }
+}

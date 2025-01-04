@@ -26,7 +26,7 @@ function ModalViewCategory(props) {
                     <Modal.Title>Thông tin danh mục: {dataView && dataView.name ? dataView.name : ""}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {" "}
+                
                     <form className="row g-3">
                         <div className="col-md-6">
                             <label className="form-label">Tên</label>

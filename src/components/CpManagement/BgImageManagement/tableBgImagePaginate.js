@@ -31,7 +31,7 @@ const TableBgImagesPaginate = (props) => {
                     })}
                 {currentItems && currentItems.length === 0 && (
                     <tr>
-                        <td colSpan={6}>Not found bgImage</td>
+                        <td colSpan={6}>Không tìm thấy ảnh</td>
                     </tr>
                 )}
             </tbody>
