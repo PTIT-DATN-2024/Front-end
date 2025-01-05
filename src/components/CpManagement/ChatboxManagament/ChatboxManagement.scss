@@ -1,0 +1,100 @@
+.ChatBox_Container {
+    padding: 20px;
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 30px;
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            color: #555;
+        }
+    }
+    .active-chatbox-inProcess {
+        background-color: rgb(0, 88, 239) !important;
+    }
+    
+    .active-chatboxes {
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 phần tử trong một hàng */
+        gap: 16px;
+        /* Khoảng cách giữa các phần tử */
+        padding-bottom: 50px;
+        
+        .chatbox-inProcess {
+            // position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 100;
+            width: 330px;
+            height: 400px;
+            background-color: rgb(255, 13, 0);
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            padding: 5px;
+            overflow: hidden;
+
+            .close-chatbox-btn {
+                width: 100%;
+                position: relative;
+                height: 40px;
+                line-height: 30px;
+                color: rgb(255, 255, 255);
+                padding-left: 15px;
+
+                span {
+                    position: absolute;
+                    top: 5px;
+                    right: 0;
+                    transform: translate(-50%);
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                    text-align: center;
+                    border-radius: 50%;
+
+                    &:hover {
+                        background-color: #fff;
+                        color: #000000;
+                        cursor: pointer;
+                    }
+                }
+
+            }
+        }
+    }
+}

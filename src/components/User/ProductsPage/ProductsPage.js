@@ -67,13 +67,13 @@ const ProductsPage = (props) => {
         }
     };
     const addProductToCart = async (product, quantity) => {
-        if (userState.role ==="CUSTOMER"){
+        if (userState.role === "CUSTOMER") {
 
             let data = {
                 customerId: userState.id,
                 product: product,
                 quantity: quantity,
-                totalPrice: product.sellingPrice*quantity
+                totalPrice: product.sellingPrice * quantity
             };
             let res_data = await postProductToCart(data);
             if (res_data && res_data.EC === 0) {
@@ -183,23 +183,29 @@ const ProductsPage = (props) => {
                     {/* danh gia  */}
                     <div className="pd-status-group">
                         <p>
-                            Mã SP: <b className="blue">LTAU811</b>
+                            Mã SP: <b className="blue">{product.productId.slice(0, 6).toUpperCase()}</b>
                         </p>
+                        <br />
                         <p style={{ cursor: "pointer" }}>
                             Đánh giá:{" "}
                             <b className="blue">
-                                {product.rate} {product.numberVote}
+                                {product.rate} ({product.numberVote})
                             </b>
                         </p>
-                        <p style={{ cursor: "pointer" }}>
-                            Bình luận: <b className="blue">0</b>
-                        </p>
-                        <p>
-                            Lượt xem: <b className="blue">28.084</b>
-                        </p>
+
                     </div>
                     {/* thong so  */}
                     <div className="pd-summary-group" id="js-pd-summary">
+                        <p className="group-title">Thông số sản phẩm</p>
+                        <div>
+                            {product.description.split("/").map((item, index) => (
+                                <div key={index} className="item">
+                                    {item.trim()}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    {/* <div className="pd-summary-group" id="js-pd-summary">
                         <p className="group-title">Thông số sản phẩm</p>
                         <div>
                             <div className="item">CPU: AMD Ryzen™ R5 7520U</div>
@@ -210,7 +216,7 @@ const ProductsPage = (props) => {
                             <div className="item">HĐH: Win 11 Home</div>
                             <div className="item">Màu: Bạc</div>
                         </div>
-                    </div>
+                    </div> */}
                     {/* giá  */}
                     <div className="pd-price-group">
                         <div className="pd-special-price">
@@ -231,7 +237,7 @@ const ProductsPage = (props) => {
 
                         <div className="pd-warranty-group">
                             <p>Giá đã bao gồm VAT</p>
-                            <p>Bảo hành: 24 Tháng (Pin 12 Tháng)</p>
+                            <p>Bảo hành: 24 Tháng</p>
                         </div>
                     </div>
                     {/* soluon + add to cart  */}

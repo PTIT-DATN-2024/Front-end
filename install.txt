@@ -30,7 +30,7 @@ git config --list
 git branch main 
 git init
 git add .
-git commit -m "update 4/1/2025 TOAST "
+git commit -m "update 5/1/2025 chatbox "
 git remote add origin https://github.com/PTIT-DATN-2024/Front-end.git
 git push origin master --force
 git push origin master:main --force
@@ -44,7 +44,8 @@ Microsoft Windows [Version 10.0.26100.2314]
 
 netstat -ano | findstr :3000
   TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       17220
-taskkill /PID 17220 /F
+taskkill /PID
+ 17220 /F
 
 
 
@@ -84,6 +85,7 @@ npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-ic
 npm install @mui/material recharts
 npm install @mui/material @mui/x-charts
 npm install @emotion/react @emotion/styled
+npm install @stomp/stompjs
 
 
 

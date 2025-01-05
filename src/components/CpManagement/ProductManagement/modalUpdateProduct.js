@@ -106,9 +106,9 @@ const ModalUpdateProduct = (props) => {
             productName: name,
             productCategory: category,
             importprice: importPrice,
-            productPresent: presentImage,
-            productPresent1: presentImage1,
-            productPresent2: presentImage2,
+            // productPresent: presentImage,
+            // productPresent1: presentImage1,
+            // productPresent2: presentImage2,
             sellingprice: { sellingprice: sellingPrice, importprice: importPrice },
             weight: weight,
             productDescription: description,
@@ -133,20 +133,26 @@ const ModalUpdateProduct = (props) => {
             formData.append("description", description);
             formData.append("total", total);
             formData.append("categoryId", category);
+            // formData.append("productDiscount", null);
 
-            formData.append("ids", JSON.stringify([
-                dataUpdate.productImages[0].productImageId,
-                dataUpdate.productImages[1].productImageId,
-                dataUpdate.productImages[2].productImageId
-            ]));
+            // formData.append("ids", JSON.stringify([
+            //     dataUpdate.productImages[0].productImageId,
+            //     dataUpdate.productImages[1].productImageId,
+            //     dataUpdate.productImages[2].productImageId
+            // ]));
 
-            // formData.append("productImageId", dataUpdate.productImages[0].productImageId);
-            // formData.append("productImageId1", dataUpdate.productImages[1].productImageId);
-            // formData.append("productImageId2", dataUpdate.productImages[2].productImageId);
-
-            formData.append("avatar", presentImage);
-            formData.append("avatar1", presentImage1);
-            formData.append("avatar2", presentImage2);
+            formData.append("productImageId", dataUpdate.productImages[0].productImageId);
+            formData.append("productImageId1", dataUpdate.productImages[1].productImageId);
+            formData.append("productImageId2", dataUpdate.productImages[2].productImageId);
+            if (presentImage !== null) {
+                formData.append("avatar", presentImage);
+            }
+            if (presentImage1 !== null) {
+                formData.append("avatar1", presentImage1);
+            }
+            if (presentImage2 !== null) {
+                formData.append("avatar2", presentImage2);
+            }
 
             let res_data = await putUpdateProduct(dataUpdate.productId, formData, config);
             if (res_data && res_data.EC === 0) {
@@ -288,7 +294,7 @@ const ModalUpdateProduct = (props) => {
                                 onBlur={() => handleBlur("productPresent", presentImage)}
                                 onFocus={() => handleFocus("productPresent")}
                             />
-                            {errors.productPresent && <div className="text-danger">{errors.productPresent}</div>}
+                            {/* {errors.productPresent && <div className="text-danger">{errors.productPresent}</div>} */}
                         </div>
                         <div className="col-12  img-preview">
                             <img src={previewImage} alt="preview image" />
@@ -307,7 +313,7 @@ const ModalUpdateProduct = (props) => {
                                 onBlur={() => handleBlur("productPresent1", presentImage1)}
                                 onFocus={() => handleFocus("productPresent1")}
                             />
-                            {errors.productPresent1 && <div className="text-danger">{errors.productPresent1}</div>}
+                            {/* {errors.productPresent1 && <div className="text-danger">{errors.productPresent1}</div>} */}
                         </div>
                         <div className="col-12  img-preview">
                             <img src={previewImage1} alt="preview image" />
@@ -326,7 +332,7 @@ const ModalUpdateProduct = (props) => {
                                 onBlur={() => handleBlur("productPresent2", presentImage2)}
                                 onFocus={() => handleFocus("productPresent2")}
                             />
-                            {errors.productPresent2 && <div className="text-danger">{errors.productPresent2}</div>}
+                            {/* {errors.productPresent2 && <div className="text-danger">{errors.productPresent2}</div>} */}
                         </div>
                         <div className="col-12  img-preview">
                             <img src={previewImage2} alt="preview image" />

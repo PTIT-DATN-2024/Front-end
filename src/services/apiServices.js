@@ -173,7 +173,18 @@ const postResultPayment = (data) => {
     return axios.get(`order/handle-return?${queryParams}`);
 };
 
+// chatbox
 
+const getAllChatbox = () => {
+    return axios.get("/chat/ice-box/tasks");
+};
+const getChatboxInProcess = (staffid) => {
+    return axios.get(`/chat/task/in-progress/${staffid}`);
+};
+
+const getAllMessage = (chatBoxId) => {
+    return axios.get(`/chat/${chatBoxId}`);
+};
 
 export {
     postLogin,
@@ -224,4 +235,9 @@ export {
 
     postCreatePayment,
     postResultPayment,
+
+
+    getAllChatbox,
+    getAllMessage,
+    getChatboxInProcess,
 };

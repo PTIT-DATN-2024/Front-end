@@ -13,6 +13,7 @@ const USER_STATE = {
         isDelete: "",
         createdAt: "",
         updatedAt: "",
+        chatboxId: "",
     },
     isAuthenticated: false,
 };
@@ -36,6 +37,7 @@ const userReducer = (state = USER_STATE, action) => {
                     role: action?.payload?.user?.role || "",
                     avatar: action?.payload?.user?.avatar || "",
                     id: action?.payload?.user?.id || "",
+                    chatboxId: action?.payload?.user?.chatBoxId || "",
                 },
                 isAuthenticated: true,
             };
@@ -56,6 +58,7 @@ const userReducer = (state = USER_STATE, action) => {
                     createdAt: "",
                     updatedAt: "",
                     id: "",
+                    chatboxId: "",
                 },
                 isAuthenticated: false,
             };

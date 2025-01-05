@@ -3,28 +3,38 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateCategory } from "../../../services/apiServices";
-import { useSelector } from "react-redux";
+import { putUpdateCategory } from "../../../services/apiServices";
+import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
 import validateFields from "../../Golobal/validate";
-const ModalCreateCategory = (props) => {
+const ModalUpdateCategory = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
-    const { show, setShow } = props;
+
+    const { show, setShow, dataUpdate } = props;
     const handleClose = () => {
         setShow(false);
         setName("");
         setDesc("");
-        setAvatar("");
+        setAvatar();
         setPreviewImage("");
         setErrors({});
     };
-    useEffect(() => {
-        handleBlur("categoryAvatar", avatar);
-    }, []);
     const [name, setName] = useState("");
-    const [avatar, setAvatar] = useState();
     const [desc, setDesc] = useState("");
+    const [avatar, setAvatar] = useState();
     const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (!_.isEmpty(dataUpdate)) {
+            setName(dataUpdate.name);
+            setDesc(dataUpdate.description);
+            if (dataUpdate.avatar) {
+                // setAvatar(dataUpdate.avatar);
+                setPreviewImage(dataUpdate.avatar);
+            }
+        }
+    }, [dataUpdate]);
 
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -44,12 +54,19 @@ const ModalCreateCategory = (props) => {
         newErrors[field] = "";
         setErrors(newErrors);
     };
-    const handleSubmitCreateCategory = async (event) => {
+    const handleSubmitUpdateCategory = async (event) => {
         // validate
         const dataValidate = {
             categoryName: name,
-            categoryAvatar: avatar,
+            description: desc,
+            // categoryAvatar: avatar,
         };
+        // "categoryId": "cate011",
+        // "name": "Clothing",
+        // "description": "Description of category 11",
+        // "products": [],
+        // "avatar": "1728958738001.jpg",
+        // "createdAt": "2024-11-08T10:19:49.851705"
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
         const allFieldsEmpty = Object.values(errors).every((value) => value === "");
@@ -57,15 +74,17 @@ const ModalCreateCategory = (props) => {
             // callapi
             const config = {
                 headers: {
-                    // "Content-Type": "multipart/form-data",
+                    "Content-Type": "multipart/form-data",
                     authorization: `Bearer ${token}`,
                 },
             };
             const formData = new FormData();
             formData.append("name", name);
             formData.append("description", desc);
-            formData.append("avatar", avatar);
-            let res_data = await postCreateCategory(formData, config);
+            if (avatar) {
+                formData.append("avatar", avatar);
+            }
+            let res_data = await putUpdateCategory(dataUpdate.categoryId, formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
@@ -76,20 +95,21 @@ const ModalCreateCategory = (props) => {
             }
         }
     };
+    // console.log(props.dataUpdate);
     return (
         <>
-            <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddCategory">
+            <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalUpdateCategory">
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm danh mục mới</Modal.Title>
+                    <Modal.Title>Cập nhật thông tin : {dataUpdate && dataUpdate.name ? dataUpdate.name : ""}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Tên</label>
+                            <label className="form-label">Tên danh mục: </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Máy tính"
+                                placeholder="Category example"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                                 onBlur={() => handleBlur("categoryName", name)}
@@ -110,7 +130,6 @@ const ModalCreateCategory = (props) => {
                             />
                             {errors.description && <div className="text-danger">{errors.description}</div>}
                         </div>
-
                         <div className="col-3">
                             <label className="form-label label_input-file" htmlFor="inputFileCategory">
                                 <FcPlus />
@@ -126,7 +145,7 @@ const ModalCreateCategory = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Hủy
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitCreateCategory()}>
+                    <Button variant="primary" onClick={() => handleSubmitUpdateCategory()}>
                         Lưu
                     </Button>
                 </Modal.Footer>
@@ -134,4 +153,4 @@ const ModalCreateCategory = (props) => {
         </>
     );
 };
-export default ModalCreateCategory;
+export default ModalUpdateCategory;

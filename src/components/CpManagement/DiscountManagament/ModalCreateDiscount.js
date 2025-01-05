@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { postCreateCategory } from "../../../services/apiServices";
 import { useSelector } from "react-redux";
 import validateFields from "../../Golobal/validate";
-const ModalCreateCategory = (props) => {
+const ModalCreateDiscount = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
     const { show, setShow } = props;
     const handleClose = () => {
@@ -80,7 +80,7 @@ const ModalCreateCategory = (props) => {
         <>
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static" className="ModalAddCategory">
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm danh mục mới</Modal.Title>
+                    <Modal.Title>Thêm giảm giá mới</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -89,7 +89,7 @@ const ModalCreateCategory = (props) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Máy tính"
+                                placeholder="Tết nguyên đán"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                                 onBlur={() => handleBlur("categoryName", name)}
@@ -98,7 +98,20 @@ const ModalCreateCategory = (props) => {
                             {errors.categoryName && <div className="text-danger">{errors.categoryName}</div>}
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Mô tả</label>
+                            <label className="form-label">Số lượng giảm giá (%)</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="60%"
+                                value={desc}
+                                onChange={(event) => setDesc(event.target.value)}
+                                onBlur={() => handleBlur("description", desc)}
+                                onFocus={() => handleFocus("description")}
+                            />
+                            {errors.description && <div className="text-danger">{errors.description}</div>}
+                        </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Thời gian ( ngày)</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -111,15 +124,7 @@ const ModalCreateCategory = (props) => {
                             {errors.description && <div className="text-danger">{errors.description}</div>}
                         </div>
 
-                        <div className="col-3">
-                            <label className="form-label label_input-file" htmlFor="inputFileCategory">
-                                <FcPlus />
-                                Tải ảnh lên
-                            </label>
-                            <input type="file" className="form-control" hidden id="inputFileCategory" onChange={(event) => handleUploadImage(event)} onBlur={() => handleBlur("categoryAvatar", avatar)} onFocus={() => handleFocus("categoryAvatar")} />
-                            {errors.categoryAvatar && <div className="text-danger">{errors.categoryAvatar}</div>}
-                        </div>
-                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
+                        
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -134,4 +139,4 @@ const ModalCreateCategory = (props) => {
         </>
     );
 };
-export default ModalCreateCategory;
+export default ModalCreateDiscount;

@@ -49,7 +49,6 @@ const SignUp = (props) => {
             formData.append("phone", phoneNumber);
             formData.append("role", "CUSTOMER");
             if (avatar !== null) {
-
                 formData.append("avatar", avatar);
             }
             let res_data = await postSignUp(formData, config);

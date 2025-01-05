@@ -39,7 +39,7 @@ const ModalCreateUser = (props) => {
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [role, setRole] = useState("CUSTOMER");
-    const [avatar, setAvatar] = useState("");
+    const [avatar, setAvatar] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -93,7 +93,9 @@ const ModalCreateUser = (props) => {
             formData.append("address", address);
             formData.append("phone", phoneNumber);
             formData.append("role", role);
-            formData.append("avatar", avatar);
+            if (avatar !== null) {
+                formData.append("avatar", avatar);
+            }
             let res_data = await postCreateUser(formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);

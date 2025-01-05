@@ -26,6 +26,7 @@ import BgImageManagement from "./components/CpManagement/BgImageManagement/BgIma
 import UserManagement from "./components/CpManagement/UserManagement/UserManagement";
 import ProductManagement from "./components/CpManagement/ProductManagement/ProductManagement";
 import OrderManagement from "./components/CpManagement/OrderManagement/OrderManagement";
+import ChatboxManagement from "./components/CpManagement/ChatboxManagament/ChatboxManagement";
 
 import Staff from "./components/Staff/Staff";
 import HomeStaff from "./components/CpManagement/HomeStaff/HomeStaff";
@@ -70,6 +71,7 @@ const App = () => {
                         <Route path="OrderManagement" element={<OrderManagement />} />
                         <Route path="InfoShopManagement" element={<InfoShopManagement />} />
                         <Route path="BgImageManagement" element={<BgImageManagement />} />
+                        <Route path="ChatboxManagement" element={<ChatboxManagement />} />
                     </Route>
                     <Route
                         path="staffs"
@@ -84,6 +86,7 @@ const App = () => {
                         <Route path="CategogyManagement" element={<CategogyManagement />} />
                         <Route path="ProductManagement" element={<ProductManagement />} />
                         <Route path="OrderManagement" element={<OrderManagement />} />
+                        <Route path="ChatboxManagement" element={<ChatboxManagement />} />
                     </Route>
                     <Route path="/logIn" element={<LogIn />}></Route>
                     <Route path="/signUp" element={<SignUp />}></Route>

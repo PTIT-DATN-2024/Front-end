@@ -49,6 +49,7 @@ const Sidebar = (props) => {
                             Quản lí đơn hàng
                         </NavLink>
                     </MenuItem>
+
                     {account.role === "ADMIN" && (
                         <MenuItem>
                             <NavLink to="InfoShopManagement" className="nav-link">
@@ -64,6 +65,11 @@ const Sidebar = (props) => {
                         </MenuItem>
                     )}
                 </SubMenu>
+                <MenuItem icon={<FaHome />}>
+                    <NavLink to="ChatboxManagement" className="nav-link">
+                        Chatbox
+                    </NavLink>
+                </MenuItem>
                 <MenuItem icon={<FaHome />}>
                     <NavLink to="/" className="nav-link">
                         Trang chủ
