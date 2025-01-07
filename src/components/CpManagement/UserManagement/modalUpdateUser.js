@@ -107,7 +107,7 @@ const ModalUpdateUser = (props) => {
             formData.append("fullName", fullName);
             formData.append("address", address);
             formData.append("phone", phoneNumber);
-            formData.append("password", password);
+            formData.append("password", "");
             formData.append("role", role);
             if (avatar !== "no_change") {
                 formData.append("avatar", avatar);
@@ -140,7 +140,7 @@ const ModalUpdateUser = (props) => {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Mật khẩu</label>
-                            <input type="password" className="form-control" placeholder="********" value="********" onChange={(event) => setPassword(event.target.value)} disabled />
+                            <input type="password" className="form-control" placeholder="********" value="********"  disabled />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">UserName</label>

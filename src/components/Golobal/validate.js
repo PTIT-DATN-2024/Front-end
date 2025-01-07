@@ -242,6 +242,27 @@ const validateFullName = (fullName) => {
     }
     return "";
 };
+const validateDiscountName = (name) => {
+    if (!name) {
+        return "Tên chương trình giảm giá không được để trống";
+    }
+    return "";
+};
+const validateDiscountAmount = (Amount) => {
+    if (!Amount) {
+        return "Số lượng giám giá không hợp lệ";
+    }
+    if (Amount < 0 || Amount > 100) {
+        return "Số lượng giám giá không hợp lệ";
+    }
+    return "";
+};
+const validateExpiredDate = (date) => {
+    if (!date) {
+        return "Date không được để trống";
+    }
+    return "";
+};
 
 const validateFields = (fields) => {
     const errors = {};
@@ -286,6 +307,12 @@ const validateFields = (fields) => {
             errors.username = validateUsername(value);
         } else if (field === "fullName") {
             errors.fullName = validateFullName(value);
+        } else if (field === "DiscountName") {
+            errors.discountName = validateDiscountName(value);
+        } else if (field === "DiscountAmount") {
+            errors.discountAmount = validateDiscountAmount(value);
+        } else if (field === "ExpiredDate") {
+            errors.expiredDate = validateExpiredDate(value);
         }
     }
     return errors;

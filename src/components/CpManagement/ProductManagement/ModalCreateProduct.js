@@ -11,6 +11,7 @@ import _ from "lodash";
 const ModalCreateProduct = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
     const listCategories = useSelector((state) => state.category.listCategories);
+    const listDiscount = useSelector((state) => state.discount.listDiscount);
     // const FormData = require("form-data");
     const { show, setShow } = props;
     const handleClose = () => {

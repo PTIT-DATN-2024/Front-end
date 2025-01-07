@@ -6,6 +6,7 @@ import orderUserReducer from "./orderUserReducer";
 import managerUserReducer from "./admin/managerUserReducer";
 import cartReducer from "./cartReducer";
 import chatBoxReducer from "./chatBoxReducer";
+import discountReducer from "./discountReducer";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     listUser: managerUserReducer,
     cart: cartReducer,
     chatBox: chatBoxReducer,
+    discount: discountReducer,
 });
 
 export default rootReducer;

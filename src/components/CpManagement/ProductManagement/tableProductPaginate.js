@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import "./tableProduct.scss"; // Import file SCSS cho TableProduct
+import "./tableProduct.scss";
 
 const TableProductsPaginate = (props) => {
     const listProducts = useSelector((state) => state.product.listProducts);
@@ -22,7 +22,8 @@ const TableProductsPaginate = (props) => {
         }));
     };
 
-    const filteredProducts = () => {
+    // Lọc sản phẩm dựa trên filters
+    const filteredProducts = useMemo(() => {
         return listProducts.filter((product) => {
             const { name, total, rate, importPrice, sellingPrice, status } = filters;
 
@@ -54,42 +55,42 @@ const TableProductsPaginate = (props) => {
 
             return matchesName && matchesTotal && matchesRate && matchesStatus;
         });
-    };
+    }, [listProducts, filters]);
 
-    const sortedProducts = () => {
-        const filtered = filteredProducts();
+    // Sắp xếp sản phẩm dựa trên filters
+    const sortedProducts = useMemo(() => {
         const { importPrice, sellingPrice } = filters;
+        let sorted = [...filteredProducts];
 
         if (importPrice === 'asc') {
-            filtered.sort((a, b) => a.importPrice - b.importPrice);
+            sorted.sort((a, b) => a.importPrice - b.importPrice);
         } else if (importPrice === 'desc') {
-            filtered.sort((a, b) => b.importPrice - a.importPrice);
+            sorted.sort((a, b) => b.importPrice - a.importPrice);
         }
 
         if (sellingPrice === 'asc') {
-            filtered.sort((a, b) => a.sellingPrice - b.sellingPrice);
+            sorted.sort((a, b) => a.sellingPrice - b.sellingPrice);
         } else if (sellingPrice === 'desc') {
-            filtered.sort((a, b) => b.sellingPrice - a.sellingPrice);
+            sorted.sort((a, b) => b.sellingPrice - a.sellingPrice);
         }
 
-        return filtered;
-    };
+        return sorted;
+    }, [filteredProducts, filters]);
 
     const PaginatedItems = ({ itemsPerPage }) => {
         const [currentItems, setCurrentItems] = useState([]);
         const [pageCount, setPageCount] = useState(0);
         const [itemOffset, setItemOffset] = useState(0);
 
-        const filteredAndSorted = sortedProducts();
-
+        // Phân trang
         useEffect(() => {
             const endOffset = itemOffset + itemsPerPage;
-            setCurrentItems(filteredAndSorted.slice(itemOffset, endOffset));
-            setPageCount(Math.ceil(filteredAndSorted.length / itemsPerPage));
-        }, [itemOffset, itemsPerPage, filteredAndSorted]);
+            setCurrentItems(sortedProducts.slice(itemOffset, endOffset));
+            setPageCount(Math.ceil(sortedProducts.length / itemsPerPage));
+        }, [itemOffset, itemsPerPage, sortedProducts]);
 
         const handlePageClick = (event) => {
-            const newOffset = (event.selected * itemsPerPage) % filteredAndSorted.length;
+            const newOffset = (event.selected * itemsPerPage) % sortedProducts.length;
             setItemOffset(newOffset);
         };
 
@@ -102,9 +103,11 @@ const TableProductsPaginate = (props) => {
                                 <td className="tableProduct_rowItem">{itemOffset + index + 1}</td>
                                 <td className="tableProduct_rowItem">
                                     <img
-                                        src={Array.isArray(product.productImages) && product.productImages.length > 0
-                                            ? product.productImages[0].image
-                                            : 'http://localhost:8080/uploads/products/1721376738190.png'}
+                                        src={
+                                            Array.isArray(product.productImages) && product.productImages.length > 0
+                                                ? product.productImages[0].image
+                                                : 'http://localhost:8080/uploads/products/1721376738190.png'
+                                        }
                                         alt="product"
                                         className="productPresent"
                                     />
@@ -133,7 +136,7 @@ const TableProductsPaginate = (props) => {
                         </tr>
                     )}
                 </tbody>
-                {filteredAndSorted.length > 0 && (
+                {sortedProducts.length > 0 && (
                     <ReactPaginate
                         nextLabel=">"
                         onPageChange={handlePageClick}

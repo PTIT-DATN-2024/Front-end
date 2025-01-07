@@ -1,38 +1,32 @@
 import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
-import "./tableCategory.scss";
+import "./tableDiscount.scss";
 import { useSelector } from "react-redux";
 
-const TableCategoriesPaginate = (props) => {
-    const listCategories = useSelector((state) => state.category.listCategories);
-    const items = listCategories || [];
+const TableDiscountsPaginate = (props) => {
+    const listDiscount = useSelector((state) => state.discount.listDiscount);
+    const items = listDiscount || [];
     const account = useSelector((state) => state.user.account);
     function Items({ currentItems, itemOffset }) {
         return (
             <tbody>
                 {currentItems?.length > 0 ? (
-                    currentItems.map((category, index) => (
+                    currentItems.map((discount, index) => (
                         <tr key={`table_category_${index}`} className="tableCategory_row">
                             <td className="tableCategory_rowItem">{itemOffset + index + 1}</td>
-                            <td className="tableCategory_rowItem">
-                                {category.avatar ? (
-                                    <img src={category.avatar} alt="category" className="categoryPresent" />
-                                ) : (
-                                    "Không có ảnh"
-                                )}
-                            </td>
-                            <td className="tableCategory_rowItem">{category.name}</td>
+                            <td className="tableCategory_rowItem">{discount.name}</td>
+                            <td className="tableCategory_rowItem">{discount.discountAmount}</td>
                             <td className="tableCategory_rowItem">
                                 <button
                                     className="btn btn-secondary"
-                                    onClick={() => props.handleClickBtnView(category)}
+                                    onClick={() => props.handleClickBtnView(discount)}
                                 >
                                     Xem
                                 </button>
                                 {account.role === "ADMIN" && (
                                     <button
                                         className="btn btn-warning mx-3"
-                                        onClick={() => props.handleClickBtnUpdate(category)}
+                                        onClick={() => props.handleClickBtnUpdate(discount)}
                                     >
                                         Sửa
                                     </button>
@@ -40,7 +34,7 @@ const TableCategoriesPaginate = (props) => {
                                 {account.role === "ADMIN" && (
                                     <button
                                     className="btn btn-danger"
-                                    onClick={() => props.handleClickBtnDelete(category)}
+                                    onClick={() => props.handleClickBtnDelete(discount)}
                                 >
                                     Xóa
                                 </button>
@@ -52,7 +46,7 @@ const TableCategoriesPaginate = (props) => {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan={4}>Không tìm thấy danh mục sản phẩm</td>
+                        <td colSpan={4}>Không tìm thấy chương trình khuyễn mại</td>
                     </tr>
                 )}
             </tbody>
@@ -109,8 +103,8 @@ const TableCategoriesPaginate = (props) => {
             <thead>
                 <tr className="tableCategory_row">
                     <th scope="col" className="tableCategory_rowItem">STT</th>
-                    <th scope="col" className="tableCategory_rowItem">Ảnh</th>
-                    <th scope="col" className="tableCategory_rowItem">Tên danh mục</th>
+                    <th scope="col" className="tableCategory_rowItem">Tên chương trình</th>
+                    <th scope="col" className="tableCategory_rowItem">Số lượng giảm giá(%)</th>
                     <th scope="col" className="tableCategory_rowItem">Cài đặt</th>
                 </tr>
             </thead>
@@ -119,4 +113,4 @@ const TableCategoriesPaginate = (props) => {
     );
 };
 
-export default TableCategoriesPaginate;
+export default TableDiscountsPaginate;

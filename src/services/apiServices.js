@@ -23,6 +23,16 @@ const postLogin = (dataLogin) => {
 const postSignUp = (formData, config) => {
     return axios.post("/auth/signup", formData, config);
 };
+const forgetPassword = (data) => {
+    const queryParams = new URLSearchParams(data).toString()
+    return axios.post(`/customer/forgot-password?${queryParams}`);
+};
+
+const changePassword = (id, data, ) => {
+    const queryParams = new URLSearchParams(data).toString()
+    return axios.put(`/customer/change-password/${id}?${queryParams}`);
+};
+
 
 
 // CATEGORY 
@@ -37,6 +47,20 @@ const putUpdateCategory = (categoryId, data, config) => {
 };
 const deleteCategory = (categoryId, config) => {
     return axios.delete(`/category/${categoryId}`);
+};
+
+// DISCOUNT 
+const postCreateDiscount = (data, config) => {
+    return axios.post("/discount", data, config);
+};
+const getAllDiscounts = () => {
+    return axios.get("/discount");
+};
+const putUpdateDiscount = (discountId, data, config) => {
+    return axios.put(`/discount/${discountId}`, data);
+};
+const deleteDiscount = (discountId, config) => {
+    return axios.delete(`/discount/${discountId}`);
 };
 
 
@@ -123,7 +147,8 @@ const putUpdateOrder = (_id, user, listItem, Total, createdAt) => {
     return axios.put(`/order/${_id}`, data);
 };
 const putEditStatusOrder = (_id, data) => {
-    return axios.put(`/order/${_id}`, data);
+    const queryParams = new URLSearchParams(data).toString();
+    return axios.put(`/order/${_id}?${queryParams}`);
 };
 const deleteOrder = (_id) => {
     return axios.delete(`/order/${_id}`);
@@ -194,11 +219,18 @@ export {
     putUpdateUser,
     deleteUser,
     deleteStaff,
+    changePassword,
+    forgetPassword,
 
     postCreateCategory,
     getAllCategories,
     putUpdateCategory,
     deleteCategory,
+
+    postCreateDiscount,
+    getAllDiscounts,
+    putUpdateDiscount,
+    deleteDiscount,
 
     postCreateBgImage,
     getAllBgImages,

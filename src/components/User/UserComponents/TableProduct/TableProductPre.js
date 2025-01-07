@@ -100,10 +100,10 @@ const TableProductPre = () => {
                                         <p class="p-name">{product.name}</p>
                                         {
                                             product?.productDiscount?.discountAmount != null
-                                                ? <span class="p-discount">Tiết kiệm: {product?.productDiscount?.discountAmount}</span>
+                                                ? <span class="p-discount">Giảm giá: {product?.productDiscount?.discountAmount} %</span>
                                                 : <span class="p-discount">Mới ! </span>
                                         }
-                                        <span class="p-price"> {product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
+                                        <span class="p-price">  {(product.sellingPrice * (1 - (product.productDiscount != null ? product.productDiscount.discountAmount : 0) / 100)).toLocaleString("vi-VN")}</span>
                                     </div>
                                     <div class="p-action">
                                         <span class="p-qty">{(product.status === "available" || product.status === "") ? "Sắn hàng" : "Đặt trước"}</span>

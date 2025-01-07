@@ -10,6 +10,7 @@ import validateFields from "../../Golobal/validate";
 const ModalUpdateProduct = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
     const listCategories = useSelector((state) => state.category.listCategories);
+    const listDiscount = useSelector((state) => state.discount.listDiscount);
     // const FormData = require("form-data");
     const { show, setShow, dataUpdate } = props;
     const [name, setName] = useState("");
@@ -18,7 +19,7 @@ const ModalUpdateProduct = (props) => {
     const [sellingPrice, setSellingPrice] = useState("");
     const [rate, setRate] = useState("");
     const [numberVote, setNumberVote] = useState("");
-    const [productDiscount, setProductDiscount] = useState("0");
+    const [productDiscount, setProductDiscount] = useState("");
     const [status, setStatus] = useState("");
     const [weight, setWeight] = useState("");
     const [description, setDescription] = useState("");
@@ -42,7 +43,7 @@ const ModalUpdateProduct = (props) => {
             setRate(dataUpdate.rate);
             setNumberVote(dataUpdate.numberVote);
             setStatus(dataUpdate.status);
-            setProductDiscount(dataUpdate.productDiscount);
+            setProductDiscount(dataUpdate.productDiscount?.productDiscountId);
             setPreviewImage(`${dataUpdate.productImages[0].image}`);
             setPreviewImage1(`${dataUpdate.productImages[1].image}`);
             setPreviewImage2(`${dataUpdate.productImages[2].image}`);
@@ -133,6 +134,13 @@ const ModalUpdateProduct = (props) => {
             formData.append("description", description);
             formData.append("total", total);
             formData.append("categoryId", category);
+            formData.append("productDiscountId", productDiscount);
+            // if (productDiscount !== null) {
+            //     formData.append("productDiscount", productDiscount);
+            //     console.log(productDiscount.name);
+            //     console.log(productDiscount.productDiscountId);
+            //     console.log(productDiscount.discountAmount);
+            // }
             // formData.append("productDiscount", null);
 
             // formData.append("ids", JSON.stringify([
@@ -266,6 +274,28 @@ const ModalUpdateProduct = (props) => {
                                 onFocus={() => handleFocus("productCount")}
                             />
                             {errors.productCount && <div className="text-danger">{errors.productCount}</div>}
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Chương trình khuyến mại</label>
+                            {
+                                <select
+                                    className="form-control form-select"
+                                    onChange={(event) => setProductDiscount(event.target.value)}
+                                    placeholder={!_.isEmpty(dataUpdate.productDiscount) ? dataUpdate.productDiscount.name : ""}
+                                    // onBlur={() => handleBlur("productCategory", category)}
+                                    // onFocus={() => handleFocus("productCategory")}
+                                >
+                                    <option key={0} value="">Chọn chương trình khuyến mại</option>
+                                    {listDiscount.map((discount) => {
+                                        return (
+                                            <option key={discount.productDiscountId} value={discount.productDiscountId} selected={!_.isEmpty(dataUpdate) ? discount.name === dataUpdate.productDiscount?.name : false}>
+                                                {discount.name}: {discount.discountAmount} %
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                            }
+                            {errors.productCategory && <div className="text-danger">{errors.productCategory}</div>}
                         </div>
                         <div className="col-md-12">
                             <label className="form-label">Mô tả</label>

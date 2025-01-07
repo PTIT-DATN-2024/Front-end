@@ -189,11 +189,19 @@ const ProductsPage = (props) => {
                         <p style={{ cursor: "pointer" }}>
                             Đánh giá:{" "}
                             <b className="blue">
-                                {product.rate} ({product.numberVote})
+                                {product.rate} ({product.numberVote} lượt đánh giá)
+                            </b>
+                        </p>
+                        <br />
+                        <p style={{ cursor: "pointer" }}>
+                            Còn lại:{" "}
+                            <b className="blue">
+                                {product.total} sản phẩm
                             </b>
                         </p>
 
                     </div>
+
                     {/* thong so  */}
                     <div className="pd-summary-group" id="js-pd-summary">
                         <p className="group-title">Thông số sản phẩm</p>
@@ -219,21 +227,45 @@ const ProductsPage = (props) => {
                     </div> */}
                     {/* giá  */}
                     <div className="pd-price-group">
-                        <div className="pd-special-price">
-                            <div className="left">
-                                <p className="pd-price" data-price="11999000">
-                                    {product.sellingPrice.toLocaleString("vi-VN")}
-                                    <u>đ</u>
-                                </p>
-                                {/* <p>
+                        {
+                            product.productDiscount != null ? (
+
+                                <div className="pd-special-price">
+                                    <div className="left">
+                                        <p className="pd-price" data-price="11999000">
+                                            {(product.sellingPrice * (1 - (product.productDiscount != null ? product.productDiscount.discountAmount : 0) / 100)).toLocaleString("vi-VN")}
+
+                                            <u>đ</u>
+                                        </p>
+                                        {/* <p>
                                     Tiết kiệm: 2.500.000<u>đ</u>
                                 </p> */}
-                            </div>
-                            <del className="pd-market-price">
-                                {"Giá gốc " + product.sellingPrice.toLocaleString("vi-VN")}
-                                <u>đ</u>
-                            </del>
-                        </div>
+                                    </div>
+
+                                    <del className="pd-market-price">
+                                        {"Giá gốc " + product.sellingPrice.toLocaleString("vi-VN")}
+                                        <u>đ</u>
+                                    </del>
+                                </div>
+                            ):
+                                <div className="pd-special-price">
+                                    <div className="left">
+                                        <p className="pd-price" data-price="11999000">
+                                            {(product.sellingPrice * (1 - (product.productDiscount != null ? product.productDiscount.discountAmount : 0) / 100)).toLocaleString("vi-VN")}
+
+                                            <u>đ</u>
+                                        </p>
+                                        {/* <p>
+                                    Tiết kiệm: 2.500.000<u>đ</u>
+                                </p> */}
+                                    </div>
+
+                                    <div className="pd-market-price">
+                                        Chính hãng
+                                    </div>
+                                </div>
+
+                            }
 
                         <div className="pd-warranty-group">
                             <p>Giá đã bao gồm VAT</p>
@@ -244,22 +276,42 @@ const ProductsPage = (props) => {
 
                     <div className="pd-quantity-group">
                         <span>Số lượng</span>
-                        <div className="pd-quantity-change">
-                            <button onClick={handleDecrease}>-</button>
+                        <div
+                            className={`pd-quantity-change ${product.total === 0 ? "disabled" : ""
+                                }`}
+                        >
+                            <button onClick={product.total > 0 ? handleDecrease : null} disabled={product.total === 0}>
+                                -
+                            </button>
                             <span>{quantity}</span>
-                            <button onClick={handleIncrease}>+</button>
+                            <button onClick={product.total > 0 ? handleIncrease : null} disabled={product.total === 0}>
+                                +
+                            </button>
                         </div>
-                        <button onClick={handleAddToCart} className="addToCart">
-                            Thêm vào giỏ hàng
+                        <button
+                            onClick={product.total > 0 ? handleAddToCart : null}
+                            className={`addToCart ${product.total === 0 ? "disabled" : ""}`}
+                            disabled={product.total === 0}
+                        >
+                            {product.total > 0 ? "Thêm vào giỏ hàng" : "Hết hàng"}
+                            {/* Thêm vào giỏ hàng */}
                         </button>
                     </div>
-                    {/* mua  */}
-                    <div className="pd-btn-group">
-                        <div className="pd-buy-now" onClick={buyNow}>
+                    {/* mua */}
+                    <div
+                        className={`pd-btn-group ${product.total === 0 ? "disabled" : ""}`}
+                        onClick={product.total > 0 ? buyNow : null}
+                        style={{
+                            pointerEvents: product.total === 0 ? "none" : "auto",
+                            opacity: product.total === 0 ? 0.5 : 1,
+                        }}
+                    >
+                        <div className="pd-buy-now">
                             <b>mua ngay</b>
                             <span>Giao nhanh tận nơi, miễn phí toàn quốc</span>
                         </div>
                     </div>
+
                 </div>
             </div>
             <CommentProduct productId={product.productId} />

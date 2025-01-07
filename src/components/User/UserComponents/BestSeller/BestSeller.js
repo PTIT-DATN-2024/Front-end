@@ -95,13 +95,13 @@ const BestSeller = () => {
                                         <p className="p-name">{product.name}</p>
                                         {product?.productDiscount?.discountAmount != null ? (
                                             <span className="p-discount">
-                                                Tiết kiệm: {product?.productDiscount?.discountAmount}
+                                                Giảm giá: {product?.productDiscount?.discountAmount} %
                                             </span>
                                         ) : (
                                             <span className="p-discount">Mới!</span>
                                         )}
                                         <span className="p-price">
-                                            {product.sellingPrice.toLocaleString("vi-VN") + " đ"}
+                                            {(product.sellingPrice * (1 - (product.productDiscount != null ? product.productDiscount.discountAmount : 0) / 100)).toLocaleString("vi-VN")}
                                         </span>
                                     </div>
                                     <div className="p-action">

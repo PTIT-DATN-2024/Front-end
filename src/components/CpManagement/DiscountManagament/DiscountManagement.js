@@ -1,44 +1,44 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import ModalCreateCategory from "./ModalCreateCategory";
-import "./CategoryManagement.scss";
+import "./DiscountManagement.scss";
 import { FcPlus } from "react-icons/fc";
 import { useEffect } from "react";
-import { getAllCategories } from "../../../services/apiServices";
+import { getAllDiscounts } from "../../../services/apiServices";
 import { toast } from "react-toastify";
-import ModalUpdateCategory from "./modalUpdateCategory";
-import TableCategoriesPaginate from "./tableCategoryPaginate";
-import ModalDeleteCategory from "./ModalDeleteCategory";
-import ModalViewCategory from "./ModalViewCategory";
+import ModalCreateDiscount from "./ModalCreateDiscount";
+import ModalUpdateDiscount from "./modalUpdateDiscount";
+import TableDiscountsPaginate from "./tableDiscountPaginate";
+import ModalDeleteDiscount from "./ModalDeleteDiscount";
+import ModalViewDiscount from "./ModalViewDiscount";
 import { useDispatch, useSelector } from "react-redux";
-const CategoryManagement = (props) => {
+const DiscountManagement = (props) => {
     const dispatch = useDispatch();
-    const [showModalCreateCategory, setShowModalCreateCategory] = useState(false);
-    const [showModalUpdateCategory, setShowModalUpdateCategory] = useState(false);
-    const [showModalDeleteCategory, setShowModalDeleteCategory] = useState(false);
-    const [showModalViewCategory, setShowModalViewCategory] = useState(false);
+    const [showModalCreateDiscount, setShowModalCreateDiscount] = useState(false);
+    const [showModalUpdateDiscount, setShowModalUpdateDiscount] = useState(false);
+    const [showModalDeleteDiscount, setShowModalDeleteDiscount] = useState(false);
+    const [showModalViewDiscount, setShowModalViewDiscount] = useState(false);
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [dataUpdate, setDataUpdate] = useState({});
     const account = useSelector((state) => state.user.account);
-    const handleClickBtnUpdate = (category) => {
-        setShowModalUpdateCategory(true);
-        setDataUpdate(category);
+    const handleClickBtnUpdate = (discount) => {
+        setShowModalUpdateDiscount(true);
+        setDataUpdate(discount);
     };
-    const handleClickBtnDelete = (category) => {
-        setShowModalDeleteCategory(true);
-        setDataDelete(category);
+    const handleClickBtnDelete = (discount) => {
+        setShowModalDeleteDiscount(true);
+        setDataDelete(discount);
     };
-    const handleClickBtnView = (category) => {
-        setShowModalViewCategory(true);
-        setDataView(category);
+    const handleClickBtnView = (discount) => {
+        setShowModalViewDiscount(true);
+        setDataView(discount);
     };
-    const fetchListCategories = async () => {
-        let res = await getAllCategories();
+    const fetchListDiscounts = async () => {
+        let res = await getAllDiscounts();
         if (res.EC === 0) {
             dispatch({
-                type: "fetch_all_category",
-                payload: res.categories,
+                type: "fetch_all_discount",
+                payload: res.productDiscounts,
             });
             // toast.success(res.MS);
         }
@@ -48,31 +48,31 @@ const CategoryManagement = (props) => {
 
     }, []);
     useEffect(() => {
-        fetchListCategories();
+        fetchListDiscounts();
     }, []);
     return (
         <div className="CategoryManagement_container">
-            <h3>Danh sách danh mục</h3>
+            <h3>Danh sách chương trình giảm giá</h3>
             {account.role === "ADMIN" && (
                 <div className="CategoryManagement_content">
                     <div>
-                        <Button variant="primary" onClick={() => setShowModalCreateCategory(true)}>
+                        <Button variant="primary" onClick={() => setShowModalCreateDiscount(true)}>
                             <FcPlus />
-                            Thêm danh mục mới
+                            Thêm chương trình giảm giá mới
                         </Button>
                     </div>
                 </div>
             )}
 
             <div className="table_Category_management_content">
-                <TableCategoriesPaginate handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
+                <TableDiscountsPaginate handleClickBtnUpdate={handleClickBtnUpdate} handleClickBtnDelete={handleClickBtnDelete} handleClickBtnView={handleClickBtnView} />
             </div>
-            <ModalCreateCategory show={showModalCreateCategory} setShow={setShowModalCreateCategory} fetchListCategories={fetchListCategories} />
-            <ModalUpdateCategory show={showModalUpdateCategory} setShow={setShowModalUpdateCategory} fetchListCategories={fetchListCategories} dataUpdate={dataUpdate} />
+            <ModalCreateDiscount show={showModalCreateDiscount} setShow={setShowModalCreateDiscount} fetchListDiscounts={fetchListDiscounts} />
+            <ModalUpdateDiscount show={showModalUpdateDiscount} setShow={setShowModalUpdateDiscount} fetchListDiscounts={fetchListDiscounts} dataUpdate={dataUpdate} />
 
-            <ModalDeleteCategory show={showModalDeleteCategory} setShow={setShowModalDeleteCategory} fetchListCategories={fetchListCategories} dataDelete={dataDelete} />
-            <ModalViewCategory show={showModalViewCategory} setShow={setShowModalViewCategory} dataView={dataView} />
+            <ModalDeleteDiscount show={showModalDeleteDiscount} setShow={setShowModalDeleteDiscount} fetchListDiscounts={fetchListDiscounts} dataDelete={dataDelete} />
+            <ModalViewDiscount show={showModalViewDiscount} setShow={setShowModalViewDiscount} dataView={dataView} />
         </div>
     );
 };
-export default CategoryManagement;
+export default DiscountManagement;

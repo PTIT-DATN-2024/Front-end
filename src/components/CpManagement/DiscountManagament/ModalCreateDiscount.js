@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { postCreateCategory } from "../../../services/apiServices";
+import { postCreateDiscount } from "../../../services/apiServices";
 import { useSelector } from "react-redux";
 import validateFields from "../../Golobal/validate";
 const ModalCreateDiscount = (props) => {
@@ -12,28 +12,17 @@ const ModalCreateDiscount = (props) => {
     const handleClose = () => {
         setShow(false);
         setName("");
-        setDesc("");
-        setAvatar("");
-        setPreviewImage("");
+        setDiscountAmount("");
+        setExpiredDate("");
         setErrors({});
     };
-    useEffect(() => {
-        handleBlur("categoryAvatar", avatar);
-    }, []);
+
     const [name, setName] = useState("");
-    const [avatar, setAvatar] = useState();
-    const [desc, setDesc] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
+    const [discountAmount, setDiscountAmount] = useState("");
+    const [expiredDate, setExpiredDate] = useState("");
     const [errors, setErrors] = useState({});
 
-    const handleUploadImage = (event) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setAvatar(event.target.files[0]);
-        } else {
-            // setPreviewImage("");
-        }
-    };
+
     const handleBlur = (field, value) => {
         const newErrors = { ...errors, ...validateFields({ [field]: value }) };
         setErrors(newErrors);
@@ -47,8 +36,9 @@ const ModalCreateDiscount = (props) => {
     const handleSubmitCreateCategory = async (event) => {
         // validate
         const dataValidate = {
-            categoryName: name,
-            categoryAvatar: avatar,
+            DiscountName: name,
+            DiscountAmount: discountAmount,
+            ExpiredDate: expiredDate,
         };
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
@@ -61,15 +51,20 @@ const ModalCreateDiscount = (props) => {
                     authorization: `Bearer ${token}`,
                 },
             };
-            const formData = new FormData();
-            formData.append("name", name);
-            formData.append("description", desc);
-            formData.append("avatar", avatar);
-            let res_data = await postCreateCategory(formData, config);
+            const data = {
+                name: name,
+                discountAmount: discountAmount,
+                expiredDate: expiredDate
+            }
+            // const formData = new FormData();
+            // formData.append("name", name);
+            // formData.append("discountAmount", discountAmount);
+            // formData.append("expiredDate", expiredDate);
+            let res_data = await postCreateDiscount(data, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
-                await props.fetchListCategories();
+                await props.fetchListDiscounts();
             }
             if (res_data && res_data.EC !== 0) {
                 toast.error(res_data.MS);
@@ -92,10 +87,10 @@ const ModalCreateDiscount = (props) => {
                                 placeholder="Tết nguyên đán"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
-                                onBlur={() => handleBlur("categoryName", name)}
-                                onFocus={() => handleFocus("categoryName")}
+                                onBlur={() => handleBlur("DiscountName", name)}
+                                onFocus={() => handleFocus("DiscountName")}
                             />
-                            {errors.categoryName && <div className="text-danger">{errors.categoryName}</div>}
+                            {errors.discountName && <div className="text-danger">{errors.discountName}</div>}
                         </div>
                         <div className="col-md-12">
                             <label className="form-label">Số lượng giảm giá (%)</label>
@@ -103,25 +98,25 @@ const ModalCreateDiscount = (props) => {
                                 type="text"
                                 className="form-control"
                                 placeholder="60%"
-                                value={desc}
-                                onChange={(event) => setDesc(event.target.value)}
-                                onBlur={() => handleBlur("description", desc)}
-                                onFocus={() => handleFocus("description")}
+                                value={discountAmount}
+                                onChange={(event) => setDiscountAmount(event.target.value)}
+                                onBlur={() => handleBlur("DiscountAmount", discountAmount)}
+                                onFocus={() => handleFocus("DiscountAmount")}
                             />
-                            {errors.description && <div className="text-danger">{errors.description}</div>}
+                            {errors.discountAmount && <div className="text-danger">{errors.discountAmount}</div>}
                         </div>
                         <div className="col-md-12">
                             <label className="form-label">Thời gian ( ngày)</label>
                             <input
-                                type="text"
+                                type="datetime-local"
                                 className="form-control"
                                 placeholder="Moo tar"
-                                value={desc}
-                                onChange={(event) => setDesc(event.target.value)}
-                                onBlur={() => handleBlur("description", desc)}
-                                onFocus={() => handleFocus("description")}
+                                value={expiredDate}
+                                onChange={(event) => setExpiredDate(event.target.value)}
+                                onBlur={() => handleBlur("ExpiredDate", expiredDate)}
+                                onFocus={() => handleFocus("ExpiredDate")}
                             />
-                            {errors.description && <div className="text-danger">{errors.description}</div>}
+                            {errors.expiredDate && <div className="text-danger">{errors.expiredDate}</div>}
                         </div>
 
                         

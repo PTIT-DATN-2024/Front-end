@@ -120,7 +120,7 @@ const PayPage = (props) => {
     const calculateTotal = () => {
         return userCart.reduce((total, item) => {
             const quantity = quantities[item.cartDetailId] ?? item.quantity; // Lấy quantity từ state hoặc Redux
-            return total + item.product.sellingPrice * quantity;
+            return total + (item.product.sellingPrice * (1 - (item.product.productDiscount != null ? item.product.productDiscount.discountAmount : 0) / 100)) * quantity;
         }, 0);
     };
     const remove = async () => {
@@ -156,11 +156,10 @@ const PayPage = (props) => {
             };
             const dataOrder = {
                 customerId: account.id,
-                staffId: "c86229c6-0181-4d07-8ae2-3086b2ff69f6",
+                staffId: "640ed351-6600-4c5f-8abb-bf0466802b44",
                 cartDetails: userCart,
                 total: calculateTotal(),
             };
-            console.log(dataOrder);
             // Gọi API để tạo đơn hàng
             let res_data = await postCreatePayment(dataOrder, config);
             if (res_data && res_data.EC === 0) {
@@ -193,7 +192,7 @@ const PayPage = (props) => {
                                 return (
                                     <div className="cart-item" key={item.cartDetailId}>
                                         <div className="cart-item-product">{item.product.name}</div>
-                                        <div className="cart-item-price">{item.product.sellingPrice.toLocaleString("vi-VN")}</div>
+                                        <div className="cart-item-price"> {(item.product.sellingPrice * (1 - (item.product.productDiscount != null ? item.product.productDiscount.discountAmount : 0) / 100)).toLocaleString("vi-VN")}</div>
                                         <div className="cart-item-quantity">
                                             <CiCircleMinus
                                                 className="quantity-button"
@@ -206,7 +205,7 @@ const PayPage = (props) => {
                                             />
                                         </div>
                                         <div className="cart-item-total">
-                                            {(item.product.sellingPrice * quantity).toLocaleString("vi-VN")}
+                                            {((item.product.sellingPrice * (1 - (item.product.productDiscount != null ? item.product.productDiscount.discountAmount : 0) / 100)) * quantity).toLocaleString("vi-VN")}
                                         </div>
                                         <div
                                             className="cart-item-delete"
@@ -246,15 +245,16 @@ const PayPage = (props) => {
                             <button className="checkout-button vnpay">Thanh toán qua VNPay</button>
                         </a>
                     )}
-                    <h4>
-                        Số thẻ	9704198526191432198
-                    </h4>
-                    <h4>
-                        Tên chủ thẻ	NGUYEN VAN A
-                    </h4>
-                    <h4>
-                        Ngày phát hành	07/15
-                    </h4>
+                    <h3></h3>
+                    <h5>
+                        Số thẻ:	    9704198526191432198
+                    </h5>
+                    <h5>
+                        Tên chủ thẻ:	NGUYEN VAN A
+                    </h5>
+                    <h5>
+                        Ngày phát hành: 	07/15
+                    </h5>
                 </div>
             </div>
             <div className="action-buttons">

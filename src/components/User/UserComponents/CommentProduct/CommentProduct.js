@@ -281,9 +281,15 @@ const CommentProduct = (props) => {
                                         <FaRegTrashAlt onClick={() => onRemoveClick(comment.productReviewId)} />
                                     </div>
                                 ) : (
-                                    <div className="comment-actions">
-
-                                    </div>
+                                    userState.role === "ADMIN" ? (
+                                        <div className="comment-actions">
+                                            <FaRegTrashAlt onClick={() => onRemoveClick(comment.productReviewId)} />
+                                        </div>
+                                    ) : (
+                                        <div className="comment-actions">
+    
+                                        </div>
+                                    )
                                 )
                             )}
 

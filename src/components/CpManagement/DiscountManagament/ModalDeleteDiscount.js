@@ -1,42 +1,32 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { deleteCategory } from "../../../services/apiServices";
+import { deleteDiscount } from "../../../services/apiServices";
 import _ from "lodash";
 import { useSelector } from "react-redux";
-const ModalDeleteCategory = (props) => {
+const ModalDeleteDiscount = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
-    const { show, setShow, fetchListCategories, dataDelete } = props;
-    
+    const { show, setShow, fetchListDiscount, dataDelete } = props;
+
     // console.log(dataDelete);
     const handleClose = () => setShow(false);
-    const handleSubmitDeleteCategory = async () => {
+    const handleSubmitDeleteDiscount = async () => {
         const config = {
             headers: {
                 "Content-Type": "application/json",
-                authorization: `Bearer ${token}`, 
+                authorization: `Bearer ${token}`,
             },
         };
-        let res_data = await deleteCategory(dataDelete.categoryId,config);
+        let res_data = await deleteDiscount(dataDelete.productDiscountId, config);
         if (res_data && res_data.EC === 0) {
             toast.success(res_data.MS);
             handleClose();
-            await props.fetchListCategories();
+            await props.fetchListDiscounts();
         }
-        if (res_data && res_data.EC === 1) {
+        else {
             toast.warning(res_data.MS);
             handleClose();
-            await props.fetchListCategories();
-        }
-        if (res_data && res_data.EC === 2) {
-            toast.error(res_data.MS);
-            handleClose();
-            await props.fetchListCategories();
-        }
-        if (res_data && res_data.EC === 3) {
-            toast.error(res_data.MS);
-            handleClose();
-            await props.fetchListCategories();
+            await props.fetchListDiscounts();
         }
 
     };
@@ -44,17 +34,17 @@ const ModalDeleteCategory = (props) => {
         <>
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Xác nhận xóa danh mục </Modal.Title>
+                    <Modal.Title>Xác nhận xóa giảm giá </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn chắc chắn muốn xóa danh mục: 
+                    Bạn chắc chắn muốn xóa giảm giá:
                     <b> {dataDelete && dataDelete.name ? dataDelete.name : ""}</b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Hủy
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitDeleteCategory}>
+                    <Button variant="primary" onClick={handleSubmitDeleteDiscount}>
                         Xác nhận
                     </Button>
                 </Modal.Footer>
@@ -63,4 +53,4 @@ const ModalDeleteCategory = (props) => {
     );
 };
 
-export default ModalDeleteCategory;
+export default ModalDeleteDiscount;

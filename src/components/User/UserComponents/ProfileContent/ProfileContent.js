@@ -2,6 +2,7 @@ import React from "react";
 import Account from "./Account/Account";
 import MyOrder from "./MyOrder/MyOrder"
 import MyReview from "./MyReview/MyReview";
+import ChangePassword from "./ChangePassword/ChangePassword";
 const ProfileContent = ({ selectedTab }) => {
     return (
         <div className="profile-content">
@@ -32,12 +33,8 @@ const ProfileContent = ({ selectedTab }) => {
                     {/* Nội dung sản phẩm đã thích */}
                 </div>
             )}
-            {selectedTab === "changePassword" && (
-                <div>
-                    <h2>Thay đổi mật khẩu</h2>
-                    {/* Nội dung thay đổi mật khẩu */}
-                </div>
-            )}
+            {selectedTab === "changePassword" && <ChangePassword />
+            }
             {selectedTab === "logout" && (
                 <div>
                     <h2>Đăng xuất tài khoản</h2>

@@ -1,6 +1,7 @@
 import "../../../../node_modules/react-pro-sidebar/dist/css/styles.css";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { FaGem, FaHeart, FaHome } from "react-icons/fa";
+import { IoIosChatboxes } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./SideBar.scss"
 import { useDispatch, useSelector } from "react-redux";
@@ -21,11 +22,11 @@ const Sidebar = (props) => {
                                 Thống kê doanh thu
                             </NavLink>
                         </MenuItem>
-                        <MenuItem>
+                        {/* <MenuItem>
                             <NavLink to="CategogyManagement" className="nav-link">
                                 Thống kê CRM
                             </NavLink>
-                        </MenuItem>
+                        </MenuItem> */}
                     </SubMenu>
                 )}
                 <SubMenu title="Quản lí" icon={<FaHeart />}>
@@ -49,6 +50,11 @@ const Sidebar = (props) => {
                             Quản lí đơn hàng
                         </NavLink>
                     </MenuItem>
+                    <MenuItem>
+                        <NavLink to="DiscountManagement" className="nav-link">
+                            Quản lí Giảm giá
+                        </NavLink>
+                    </MenuItem>
 
                     {account.role === "ADMIN" && (
                         <MenuItem>
@@ -65,7 +71,7 @@ const Sidebar = (props) => {
                         </MenuItem>
                     )}
                 </SubMenu>
-                <MenuItem icon={<FaHome />}>
+                <MenuItem icon={<IoIosChatboxes />}>
                     <NavLink to="ChatboxManagement" className="nav-link">
                         Chatbox
                     </NavLink>

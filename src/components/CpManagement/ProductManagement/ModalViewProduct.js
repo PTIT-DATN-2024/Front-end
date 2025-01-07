@@ -40,6 +40,9 @@ function ModalViewProduct(props) {
         if (!_.isEmpty(dataView)) {
             setName(dataView.name);
             setCategory(dataView.category.categoryId);
+            if (dataView.productDiscount!=null){
+                setProductDiscount(dataView.productDiscount.discountAmount)
+            }
             setImportprice(dataView.importPrice);
             setSellingprice(dataView.sellingPrice);
             setWeight(dataView.weight);

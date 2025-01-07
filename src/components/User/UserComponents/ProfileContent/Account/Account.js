@@ -24,11 +24,12 @@ const Account = () => {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     let navigate = useNavigate();
 
-
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
+    const [role, setRole] = useState("");
     const [phone, setPhone] = useState("");
     const [avatar, setAvatar] = useState("");
     const [previewImage, setPreviewImage] = useState("");
@@ -37,13 +38,24 @@ const Account = () => {
 
     useEffect(() => {
         if (!_.isEmpty(account)) {
+            setEmail(account.email);
+            // setPassword(account.password);
             setUsername(account.username);
             setFullName(account.fullName);
             setAddress(account.address);
+            setRole(account.role);
             setPhone(account.phone);
             setPreviewImage(`${account.avatar}`);
+            setAvatar("no_change")
         }
     }, []);
+    const handleLogOut = async () => {
+        dispatch({
+            type: "user_logout",
+        });
+        toast.success("Đăng xuất thành công");
+        navigate("/");
+    };
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
@@ -81,14 +93,21 @@ const Account = () => {
                 },
             };
             const formData = new FormData();
+            formData.append("email", email);
             formData.append("username", username);
+            formData.append("password", "");
             formData.append("fullName", fullName);
-            formData.append("address", address);
             formData.append("phone", phone);
-            formData.append("avatar", avatar);
-            let res_data = await putUpdateUser(formData, config);
+            formData.append("address", address);
+            formData.append("role", role);
+            formData.append("phone", phone);
+            if (avatar !== "no_change") {
+                formData.append("avatar", avatar);
+            }
+            let res_data = await putUpdateUser(account.id, formData, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
+                handleLogOut();
             }
             if (res_data && res_data.EC !== 0) {
                 toast.error(res_data.MS);
@@ -102,18 +121,18 @@ const Account = () => {
         <>
             <div className="title-tk-2021">Thông tin tài khoản</div>
             <div className="box-cus-info-2021-ct" id="manhinhtaikhoan1">
-                <div className="col-12  img-preview-info-profile"> <img src={account.avatar} alt="No avatar" style={{display : "block"}}/></div>
-                <div className="col-3">
+                <div className="col-12  img-preview-info-profile"> <img src={account.avatar} alt="No avatar" style={{ display: "block" }} /></div>
+                <div className="col-12">
                     <label className="form-label label_input-file" htmlFor="inputFileUser">
                         <FcPlus />
-                        Upload file image
+                        Tải ảnh lên
                     </label>
                     <input type="file" className="form-control" hidden id="inputFileUser" onChange={(event) => handleUploadImage(event)} />
                 </div>
                 <div className="item-tk">
                     <label>Email</label>
                     <div className="item-tk-ct">
-                        <input type="text" value={account.email} className="inputText" readOnly />
+                        <input type="text" value={email} className="inputText" readOnly />
                         <div className="item-tk-ct-note"></div>
                     </div>
                 </div>
@@ -183,7 +202,7 @@ const Account = () => {
                 <div className="item-tk">
                     <label></label>
                     <div className="item-tk-ct">
-                        <div  onClick={() => handleSubmitUpdateUser()} className="tk-btn-submit" style={{cursor:'pointer'}}>
+                        <div onClick={() => handleSubmitUpdateUser()} className="tk-btn-submit" style={{ cursor: 'pointer' }}>
                             Chỉnh sửa thông tin
                         </div>
                     </div>

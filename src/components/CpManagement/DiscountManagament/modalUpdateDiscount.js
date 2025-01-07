@@ -3,47 +3,33 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { putUpdateCategory } from "../../../services/apiServices";
+import { putUpdateDiscount } from "../../../services/apiServices";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import validateFields from "../../Golobal/validate";
-const ModalUpdateCategory = (props) => {
+const ModalUpdateDiscount = (props) => {
     const token = useSelector((state) => state.user.account.access_token);
 
     const { show, setShow, dataUpdate } = props;
     const handleClose = () => {
         setShow(false);
         setName("");
-        setDesc("");
-        setAvatar();
-        setPreviewImage("");
+        setDiscountAmount("");
+        setExpiredDate("");
         setErrors({});
     };
     const [name, setName] = useState("");
-    const [desc, setDesc] = useState("");
-    const [avatar, setAvatar] = useState();
-    const [previewImage, setPreviewImage] = useState("");
+    const [discountAmount, setDiscountAmount] = useState("");
+    const [expiredDate, setExpiredDate] = useState("");
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setName(dataUpdate.name);
-            setDesc(dataUpdate.description);
-            if (dataUpdate.avatar) {
-                // setAvatar(dataUpdate.avatar);
-                setPreviewImage(dataUpdate.avatar);
-            }
+            setDiscountAmount(dataUpdate.discountAmount);
+            setExpiredDate(dataUpdate.expiredDate);
         }
     }, [dataUpdate]);
-
-    const handleUploadImage = (event) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setAvatar(event.target.files[0]);
-        } else {
-            // setPreviewImage("");
-        }
-    };
     const handleBlur = (field, value) => {
         const newErrors = { ...errors, ...validateFields({ [field]: value }) };
         setErrors(newErrors);
@@ -57,16 +43,10 @@ const ModalUpdateCategory = (props) => {
     const handleSubmitUpdateCategory = async (event) => {
         // validate
         const dataValidate = {
-            categoryName: name,
-            description: desc,
-            // categoryAvatar: avatar,
+            DiscountName: name,
+            DiscountAmount: discountAmount,
+            ExpiredDate: expiredDate,
         };
-        // "categoryId": "cate011",
-        // "name": "Clothing",
-        // "description": "Description of category 11",
-        // "products": [],
-        // "avatar": "1728958738001.jpg",
-        // "createdAt": "2024-11-08T10:19:49.851705"
         const newErrors = { ...errors, ...validateFields(dataValidate) };
         setErrors(newErrors);
         const allFieldsEmpty = Object.values(errors).every((value) => value === "");
@@ -78,17 +58,21 @@ const ModalUpdateCategory = (props) => {
                     authorization: `Bearer ${token}`,
                 },
             };
-            const formData = new FormData();
-            formData.append("name", name);
-            formData.append("description", desc);
-            if (avatar) {
-                formData.append("avatar", avatar);
+            const data = {
+                name: name,
+                discountAmount: discountAmount,
+                expiredDate: expiredDate
             }
-            let res_data = await putUpdateCategory(dataUpdate.categoryId, formData, config);
+            
+            // const formData = new FormData();
+            // formData.append("name", name);
+
+
+            let res_data = await putUpdateDiscount(dataUpdate.productDiscountId, data, config);
             if (res_data && res_data.EC === 0) {
                 toast.success(res_data.MS);
                 handleClose();
-                await props.fetchListCategories();
+                await props.fetchListDiscounts();
             }
             if (res_data && res_data.EC !== 0) {
                 toast.error(res_data.MS);
@@ -105,40 +89,46 @@ const ModalUpdateCategory = (props) => {
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Tên danh mục: </label>
+                            <label className="form-label">Tên</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Category example"
+                                placeholder="Tết nguyên đán"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
-                                onBlur={() => handleBlur("categoryName", name)}
-                                onFocus={() => handleFocus("categoryName")}
+                                onBlur={() => handleBlur("DiscountName", name)}
+                                onFocus={() => handleFocus("DiscountName")}
                             />
-                            {errors.categoryName && <div className="text-danger">{errors.categoryName}</div>}
+                            {errors.discountName && <div className="text-danger">{errors.discountName}</div>}
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Mô tả</label>
+                            <label className="form-label">Số lượng giảm giá (%)</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="60%"
+                                value={discountAmount}
+                                onChange={(event) => setDiscountAmount(event.target.value)}
+                                onBlur={() => handleBlur("DiscountAmount", discountAmount)}
+                                onFocus={() => handleFocus("DiscountAmount")}
+                            />
+                            {errors.discountAmount && <div className="text-danger">{errors.discountAmount}</div>}
+                        </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Thời gian ( ngày)</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Moo tar"
-                                value={desc}
-                                onChange={(event) => setDesc(event.target.value)}
-                                onBlur={() => handleBlur("description", desc)}
-                                onFocus={() => handleFocus("description")}
+                                value={expiredDate}
+                                onChange={(event) => setExpiredDate(event.target.value)}
+                                onBlur={() => handleBlur("ExpiredDate", expiredDate)}
+                                onFocus={() => handleFocus("ExpiredDate")}
                             />
-                            {errors.description && <div className="text-danger">{errors.description}</div>}
+                            {errors.expiredDate && <div className="text-danger">{errors.expiredDate}</div>}
                         </div>
-                        <div className="col-3">
-                            <label className="form-label label_input-file" htmlFor="inputFileCategory">
-                                <FcPlus />
-                                Tải ảnh lên
-                            </label>
-                            <input type="file" className="form-control" hidden id="inputFileCategory" onChange={(event) => handleUploadImage(event)} onBlur={() => handleBlur("categoryAvatar", avatar)} onFocus={() => handleFocus("categoryAvatar")} />
-                            {errors.categoryAvatar && <div className="text-danger">{errors.categoryAvatar}</div>}
-                        </div>
-                        <div className="col-12  img-preview">{previewImage ? <img src={previewImage} alt="" /> : <span>Preview Image</span>}</div>
+
+
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -153,4 +143,4 @@ const ModalUpdateCategory = (props) => {
         </>
     );
 };
-export default ModalUpdateCategory;
+export default ModalUpdateDiscount;

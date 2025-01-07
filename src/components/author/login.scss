@@ -54,10 +54,17 @@
         align-self: center;
         box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
         font-size: 2rem;
-
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // justify-content: center;
         .heading {
             text-align: center;
             font-size: 3.4rem;
+        }
+        .heading2 {
+            text-align: center;
+            font-size: 2.2rem;
         }
 
         .desc {
@@ -123,6 +130,24 @@
             color: #fff;
             border: none;
             width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #1ac7b6;
+            }
+        }
+        .forgetPassword{
+            margin: 12px auto;
+            outline: none;
+            background-color: #1dbfaf;
+            font-size: 18px;
+            // margin-top: 12px;
+            padding: 12px 10px;
+            font-weight: 500;
+            color: #fff;
+            border: none;
+            width: 40%;
             border-radius: 8px;
             cursor: pointer;
 

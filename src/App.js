@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 
 import LogIn from "./components/author/Login";
 import SignUp from "./components/author/SignUp";
+import ForgetPassword from "./components/author/forgetPassword";
 import UserPage from "./components/User/UserPage";
 import MainPage from "./components/User/HomePage/HomePage";
 import ProductsPage from "./components/User/ProductsPage/ProductsPage";
@@ -27,6 +28,7 @@ import UserManagement from "./components/CpManagement/UserManagement/UserManagem
 import ProductManagement from "./components/CpManagement/ProductManagement/ProductManagement";
 import OrderManagement from "./components/CpManagement/OrderManagement/OrderManagement";
 import ChatboxManagement from "./components/CpManagement/ChatboxManagament/ChatboxManagement";
+import DiscountManagement from "./components/CpManagement/DiscountManagament/DiscountManagement";
 
 import Staff from "./components/Staff/Staff";
 import HomeStaff from "./components/CpManagement/HomeStaff/HomeStaff";
@@ -72,6 +74,7 @@ const App = () => {
                         <Route path="InfoShopManagement" element={<InfoShopManagement />} />
                         <Route path="BgImageManagement" element={<BgImageManagement />} />
                         <Route path="ChatboxManagement" element={<ChatboxManagement />} />
+                        <Route path="DiscountManagement" element={<DiscountManagement />} />
                     </Route>
                     <Route
                         path="staffs"
@@ -90,6 +93,7 @@ const App = () => {
                     </Route>
                     <Route path="/logIn" element={<LogIn />}></Route>
                     <Route path="/signUp" element={<SignUp />}></Route>
+                    <Route path="/forgetPassword" element={<ForgetPassword />}></Route>
                 </Routes>
             </div>
             <ToastContainer

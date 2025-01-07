@@ -157,12 +157,12 @@ const TableProductFull = (props) => {
             <div className="tableProduct">
                 <div style={{ marginBottom: "20px" }} className="fillterContainer">
                     <select value={countFilter} onChange={(e) => setCountFilter(e.target.value)} displayEmpty style={{ marginRight: "20px" }} className="itemFilter priceFillter">
-                        <option value="">Price:</option>
-                        <option value="0"> free </option>
-                        <option value="<50000"> nho hon50000 </option>
+                        <option value="">Giá:</option>
+                        <option value="0"> 10000 </option>
+                        <option value="<50000"> 50000 </option>
                     </select>
                     <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} displayEmpty style={{ marginRight: "20px" }} className="itemFilter categoryFillter">
-                        <option value="">Category:</option>
+                        <option value="">Danh mục:</option>
                         {listCategories.map((category) => (
                             <option key={category.categoryId} value={category.categoryId}>
                                 {category.name}
@@ -170,7 +170,7 @@ const TableProductFull = (props) => {
                         ))}
                     </select>
                     <select value={sortType} onChange={(e) => setSortType(e.target.value)} style={{ marginRight: "20px" }} className="itemFilter sortFillter">
-                        <option value="">Sort:</option>
+                        <option value="">Sắp xếp:</option>
                         <option value="asc">tăng dần</option>
                         <option value="desc">giảm dần</option>
                     </select>

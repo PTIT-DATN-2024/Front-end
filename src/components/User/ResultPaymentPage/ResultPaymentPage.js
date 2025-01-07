@@ -23,8 +23,10 @@ const ResultPaymentPage = () => {
     const handleStateOrder = async (data) => {
         const response = await postResultPayment(data);
         if (response && response.EC === 0) {
+            fetchCart();
             // toast.success(response.MS);
         } else if (response) {
+            fetchCart();
             // toast.error(response.MS);
         }
     };
@@ -80,54 +82,67 @@ const ResultPaymentPage = () => {
             case '07':
                 setPaymentStatus('failed');
                 setMessage('Giao dịch bị nghi ngờ gian lận. Vui lòng liên hệ hỗ trợ.');
+                handleStateOrder(data);
                 break;
             case '09':
                 setPaymentStatus('failed');
                 setMessage('Giao dịch không thành công: Thẻ hoặc tài khoản chưa đăng ký dịch vụ InternetBanking.');
+                handleStateOrder(data);
                 break;
             case '10':
                 setPaymentStatus('failed');
                 setMessage('Xác thực không đúng quá 3 lần. Vui lòng thử lại.');
+                handleStateOrder(data);
                 break;
             case '11':
                 setPaymentStatus('failed');
                 setMessage('Giao dịch đã hết hạn chờ thanh toán. Vui lòng thực hiện lại.');
+                handleStateOrder(data);
                 break;
             case '12':
                 setPaymentStatus('failed');
                 setMessage('Giao dịch không thành công: Tài khoản hoặc thẻ bị khóa.');
+                handleStateOrder(data);
                 break;
             case '13':
                 setPaymentStatus('failed');
                 setMessage('Mật khẩu xác thực (OTP) không đúng. Vui lòng thử lại.');
+                handleStateOrder(data);
                 break;
             case '24':
                 setPaymentStatus('failed');
                 setMessage('Giao dịch đã bị hủy bởi khách hàng.');
+                handleStateOrder(data);
                 break;
             case '51':
                 setPaymentStatus('failed');
                 setMessage('Không đủ số dư trong tài khoản để thực hiện giao dịch.');
+                handleStateOrder(data);
                 break;
             case '65':
                 setPaymentStatus('failed');
                 setMessage('Tài khoản đã vượt quá hạn mức giao dịch trong ngày.');
+                handleStateOrder(data);
                 break;
             case '75':
                 setPaymentStatus('failed');
                 setMessage('Ngân hàng đang bảo trì. Vui lòng thử lại sau.');
+                handleStateOrder(data);
                 break;
             case '79':
                 setPaymentStatus('failed');
                 setMessage('Nhập sai mật khẩu thanh toán quá số lần quy định.');
+                handleStateOrder(data);
                 break;
             case '99':
                 setPaymentStatus('failed');
                 setMessage('Lỗi không xác định. Vui lòng liên hệ hỗ trợ.');
+                handleStateOrder(data);
                 break;
             default:
                 setPaymentStatus('error');
                 setMessage('Đã có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại.');
+                handleStateOrder(data);
                 break;
         }
     }, [location]);

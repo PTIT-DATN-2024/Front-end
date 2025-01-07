@@ -360,3 +360,16 @@
         }
     }
 }
+.pd-quantity-change.disabled,
+.pd-btn-group.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.addToCart.disabled {
+    background-color: #ccc; /* Màu xám */
+    cursor: not-allowed;
+    &:hover{
+        background-color: #ccc !important;
+    }
+}

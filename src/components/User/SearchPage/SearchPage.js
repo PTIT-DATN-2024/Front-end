@@ -8,12 +8,14 @@ import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "./SearchPage.scss";
+import { postProductToCart , getCartbyUserid} from "../../../services/apiServices";
 import { useSelector } from "react-redux";
 
 const SearchPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
+    const userState = useSelector((state) => state.user.account);
     const listProducts = useSelector((state) => state.product.listProducts);
     const listCategories = useSelector((state) => state.category.listCategories);
     const query = new URLSearchParams(location.search).get("query");
@@ -32,10 +34,12 @@ const SearchPage = () => {
             try {
                 const response = await getSearchProduct(query);
                 if (response.EC === 0) {
-                    setResults(response.suggestions);
+                    setResults(response.products);
+                    setFilteredProducts(response.products);
+                    console.log(results);
                     setErrorMessage("");
                 } else {
-                    setResults([]);
+
                     setErrorMessage("0 results found");
                 }
             } catch (error) {
@@ -49,9 +53,32 @@ const SearchPage = () => {
     useEffect(() => {
         filterProducts();
     }, [countFilter, categoryFilter, sortType]);
-    const addProductOrder = (productId) => {
-        dispatch({ type: "add_product", payload: productId });
-        toast.success("Product added to order.");
+    const fetchCart = async () => {
+        let res = await getCartbyUserid(userState.id);
+        if (res.EC === 0) {
+            dispatch({
+                type: "FETCH_CART_SUCCESS",
+                payload: res,
+            });
+        }
+    };
+    const addProductOrder = async (product) => {
+        if (userState.role === "CUSTOMER") {
+            let data = {
+                customerId: userState.id,
+                product: product,
+                quantity: 1,
+                totalPrice: product.sellingPrice
+            };
+            let res_data = await postProductToCart(data);
+            if (res_data && res_data.EC === 0) {
+                toast.success("Thêm sản phẩm thành công");
+                fetchCart();
+            }
+            if (res_data && res_data.EC !== 0) {
+                toast.error("Thêm sản phẩm thất bại");
+            }
+        }
     };
     const PaginatedItems = ({ itemsPerPage }) => {
         const [currentItems, setCurrentItems] = useState(null);
@@ -98,23 +125,23 @@ const SearchPage = () => {
         <div className="listPd">
             {currentItems && currentItems.length > 0 ? (
                 currentItems.map((product, index) => (
-                    <div key={index} onClick={() => navigate(`/productsPage/${product._id}`)} className="productSlide">
+                    <div key={index} onClick={() => navigate(`/productsPage/${product.productId}`)} className="productSlide">
                         <div className="p-img">
-                            <img src={product.presentImage} alt={product.name} />
+                            <img src={product?.productImages?.[0]?.image} alt={product.name} />
                         </div>
                         <div className="p-rate">
                             <span className="p-count-rate">{product.rate}</span>
                             <span className="p-count-rate">({product.numberVote})</span>
-                            <p className="p-sku">Mã: {product.sku}</p>
+                            <p className="p-sku">Mã: {product.productId.slice(0,6)}</p>
                         </div>
                         <div className="p-info">
                             <p className="p-name">{product.name}</p>
-                            <span className="p-discount"> (Tiết kiệm: 19% )</span>
-                            <span className="p-price">{product.sellingprice.toLocaleString("vi-VN") + " đ"}</span>
+                            <span className="p-discount"> (Tiết kiệm: 10% )</span>
+                            <span className="p-price">{product.sellingPrice.toLocaleString("vi-VN") + " đ"}</span>
                         </div>
                         <div className="p-action">
                             <span className="p-qty">Sẵn hàng</span>
-                            <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product._id)} />
+                            <BsCartPlus size={30} style={{ color: "#212121" }} className="addmeBtn" onClick={() => addProductOrder(product.productId)} />
                         </div>
                     </div>
                 ))
@@ -124,21 +151,21 @@ const SearchPage = () => {
         </div>
     );
     const filterProducts = () => {
-        let filtered = listProducts;
+        let filtered = results;
         if (countFilter) {
             if (countFilter === "0") {
                 filtered = filtered.filter((product) => product.count === 0);
             } else if (countFilter === "<50000") {
-                filtered = filtered.filter((product) => product.sellingprice < 50000);
+                filtered = filtered.filter((product) => product.sellingPrice < 50000);
             }
         }
         if (categoryFilter) {
-            filtered = filtered.filter((product) => product.category.idCategory === categoryFilter);
+            filtered = filtered.filter((product) => product.category.categoryId === categoryFilter);
         }
         if (sortType === "asc") {
-            filtered.sort((a, b) => a.sellingprice - b.sellingprice);
+            filtered.sort((a, b) => a.sellingPrice - b.sellingPrice);
         } else if (sortType === "desc") {
-            filtered.sort((a, b) => b.sellingprice - a.sellingprice);
+            filtered.sort((a, b) => b.sellingPrice - a.sellingPrice);
         }
         setFilteredProducts(filtered);
     };
@@ -148,12 +175,12 @@ const SearchPage = () => {
             <div className="tableProduct">
                 <div style={{ marginBottom: "20px" }} className="fillterContainer">
                     <select value={countFilter} onChange={(e) => setCountFilter(e.target.value)} displayEmpty style={{ marginRight: "20px" }} className="itemFilter priceFillter">
-                        <option value="">Price:</option>
-                        <option value="0"> free </option>
-                        <option value="<50000"> nho hon50000 </option>
+                        <option value="">Giá:</option>
+                        <option value="0"> 10000 </option>
+                        <option value="<50000"> 50000 </option>
                     </select>
                     <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} displayEmpty style={{ marginRight: "20px" }} className="itemFilter categoryFillter">
-                        <option value="">Category:</option>
+                        <option value="">Danh mục:</option>
                         {listCategories.map((category) => (
                             <option key={category._id} value={category._id}>
                                 {category.name}
@@ -161,7 +188,7 @@ const SearchPage = () => {
                         ))}
                     </select>
                     <select value={sortType} onChange={(e) => setSortType(e.target.value)} style={{ marginRight: "20px" }} className="itemFilter sortFillter">
-                        <option value="">Sort:</option>
+                        <option value="">Sắp xếp:</option>
                         <option value="asc">tăng dần</option>
                         <option value="desc">giảm dần</option>
                     </select>

@@ -12,6 +12,9 @@ const LogIn = (props) => {
     const handleSignUp = () => {
         navigate("/signUp");
     };
+    const handleForgetPasswordp = () => {
+        navigate("/forgetPassword");
+    };
 
     const handleLogin = async () => {
         let dataLogin = {
@@ -20,9 +23,9 @@ const LogIn = (props) => {
         };
         let res_data = await postLogin(dataLogin);
         if (res_data && res_data.EC === 0) {
-            dispatch({ 
-                type: "fetch_user_login_success", 
-                payload: res_data 
+            dispatch({
+                type: "fetch_user_login_success",
+                payload: res_data
             });
             toast.success(res_data.MS);
             navigate("/");
@@ -53,38 +56,43 @@ const LogIn = (props) => {
                 <h3 className="heading">Xin chào!!!</h3>
                 <div className="form-group">
                     <label className="form-lable">Email</label>
-                    <input 
-                        type="text" 
-                        name="email" 
-                        id="email" 
-                        className="form-control" 
-                        placeholder="VD: email@domain.com.vm" 
-                        value={userEmail} 
-                        onChange={(event) => setUserEmail(event.target.value)} 
-                        onKeyDown={handleKeyDown} 
+                    <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        className="form-control"
+                        placeholder="VD: email@domain.com.vm"
+                        value={userEmail}
+                        onChange={(event) => setUserEmail(event.target.value)}
+                        onKeyDown={handleKeyDown}
                     />
                     <span className="form-message"></span>
                 </div>
                 <div className="form-group">
                     <label className="form-lable">Mật khẩu</label>
-                    <input 
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        className="form-control" 
-                        placeholder="Nhập mật khẩu" 
-                        value={userPassword} 
-                        onChange={(event) => setUserPassword(event.target.value)} 
-                        onKeyDown={handleKeyDown} 
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        className="form-control"
+                        placeholder="Nhập mật khẩu"
+                        value={userPassword}
+                        onChange={(event) => setUserPassword(event.target.value)}
+                        onKeyDown={handleKeyDown}
                     />
                     <span className="form-message"></span>
                 </div>
                 <button className="form-submit" onClick={() => handleLogin()}>
                     Đăng nhập
                 </button>
+                <button className="forgetPassword" onClick={() => handleForgetPasswordp()}>
+                    Quên mật khẩu
+                </button>
                 <NavLink to="/" className="nav-link go-back-home">
                     &lt;&lt;Quay lại
                 </NavLink>
+                
+
             </div>
         </div>
     );

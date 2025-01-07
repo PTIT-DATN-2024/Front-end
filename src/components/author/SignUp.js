@@ -12,6 +12,9 @@ const SignUp = (props) => {
     const handleLogIn = () => {
         navigate("/logIn");
     };
+    const handleForgetPasswordp = () => {
+        navigate("/forgetPassword");
+    };
     const handleBlur = (field, value) => {
         const newErrors = { ...errors, ...validateFields({ [field]: value }) };
         setErrors(newErrors);
@@ -140,9 +143,13 @@ const SignUp = (props) => {
                 <button className="form-submit" onClick={() => handleSignUp()}>
                     Tạo tài khoản
                 </button>
+                <button className="forgetPassword" onClick={() => handleForgetPasswordp()}>
+                    Quên mật khẩu
+                </button>
                 <NavLink to="/" className="nav-link go-back-home">
                     &lt;&lt;Quay lại
                 </NavLink>
+
             </div>
         </div>
     );
